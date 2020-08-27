@@ -1,0 +1,5 @@
+A folder by the people, for the people.
+
+I think anything that runs on node or any other code we have for other backend stuff should probably go in here, if it gets messy then we can do subdirectories but I dont think we will have anything else extra coming in its probably just going to be the nodejs file / files.
+
+Im commiting this txt file to master sue me
