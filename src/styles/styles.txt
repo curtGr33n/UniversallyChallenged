@@ -1,2 +1,5 @@
 We can have oe or many style files here.
 Just trying to keep things organised.
+
+Please put info regarding special considerations or rules when
+adding files to this directory into this .txt file.

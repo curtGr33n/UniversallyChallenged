@@ -1,1 +1,5 @@
-A folder to put the code in for each new screen (page)
+A folder to put the code in for each new screen (page).
+
+Please put info regarding special considerations or rules when
+adding files to this directory into this .txt file.
+
