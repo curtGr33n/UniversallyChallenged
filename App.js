@@ -1,27 +1,31 @@
 import 'react-native-gesture-handler';
 import React, { Component } from 'react';
 
+//Screen class
+import Main from './src/screens/main';
+import Login from "./src/screens/login";
+
+//Screen const
+import Achievements from './src/screens/achievements';
+import TestScreen2 from "./src/screens/testScreen2";
+import TestScreen1 from './src/screens/testScreen1';
+
+import Tab1 from "./src/screens/tabs/tab1"
+import Tab2 from "./src/screens/tabs/tab2"
+import Tab3 from "./src/screens/tabs/tab3"
+
+// Navigation types
 import {NavigationContainer} from '@react-navigation/native'
 import {createDrawerNavigator} from '@react-navigation/drawer'
 import {createStackNavigator} from '@react-navigation/stack'
 import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs'
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs'
 
-import TestScreen1 from './src/screens/testScreen1';
-import Main from './src/screens/main';
-import Achievements from './src/screens/achievements';
-import Login from "./src/screens/login";
-import TestScreen2 from "./src/screens/testScreen2";
-import Tab1 from "./src/screens/tabs/tab1"
-import Tab2 from "./src/screens/tabs/tab2"
-import Tab3 from "./src/screens/tabs/tab3"
-
-
+// Navigation containers
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
 const MaterialBottomTabs = createMaterialBottomTabNavigator();
 const MaterialTopTabs = createMaterialTopTabNavigator();
-
 
 export default class App extends Component {
   render() {
@@ -37,6 +41,7 @@ export default class App extends Component {
     )
   }
 
+  // Any seperate functions keep out side of the render() method
     createHomeStack = () =>
         <Stack.Navigator>
             <Stack.Screen
