@@ -102,12 +102,7 @@ export default class App extends Component {
             <MaterialBottomTabs.Screen name={"Tab 1"}
                                        component = {Tab1}
                                        options={{
-                                           tabBarLabel: 'Waggle',
-                                           tabBarIcon: () => (
-                                               <Icon style={[{ color: 'black' }]}
-                                                     size={25}
-                                                     name={'home'} />
-                                           ),
+                                           tabBarLabel: 'Waggle'
                                        }}/>
             <MaterialBottomTabs.Screen name={"Tab 2"} component = {Tab2}/>
             <MaterialBottomTabs.Screen name={"Tab 3"} component = {Tab3}/>
