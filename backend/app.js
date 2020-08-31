@@ -76,23 +76,103 @@ function addBook(bookTitle, bookCoverLink, school, classID){
 	});
 }
 
-
-function addPage(ID, pageNum){
-	MongoClient.connect(url, function(err, db) {
-		var dbo = db.db('books');
-		var REEE = Number(ID);
-		var qry = {bookId: REEE};
-		var page = {pagenum : pageNum, active: "true", creators:[]};
-		var vals = {$addToSet:{pages:page}};
-                dbo.collection('book').updateOne(qry, vals, function(err, result2){
-                        if (err) throw err;
-                        console.log('past err');
+/*
+async function addPage(ID, pageNum, dbo){
+	var REEE = Number(ID);
+	var newpage;
+	var qry = {bookId: REEE};
+        dbo.collection('book').find({bookId: REEE}).toArray(function(err,result){
+                newpage = result[0].pages[result[0].pages.length-1].pagenum;
+		var number2 = Number(newpage);
+		number2+=1;
+                console.log("new page " + number2);
+		var page = {pagenum : number2, active: "true", creators:[]};
+             	var vals = {$addToSet:{pages:page}};
+                console.log(page);
+		dbo.collection('book').updateOne(qry, vals, function(err, result2){
+       	        	if (err) throw err;
+                        	console.log('past err');
+                        });
                 });
-	});
+}*/
+
+
+async function addPage2(ID,  dbo){
+    var REEE = Number(ID);
+    var qry = {bookId: REEE};
+    
+    var book = await dbo.collection('book').findOne(qry);
+
+    var newpage = Number(book.pages[book.pages.length-1].pagenum);
+    newpage+=1;
+    
+    console.log("new page " + newpage);
+    var page = {pagenum : newpage, active: "true", creators:[]};
+    var vals = {$addToSet:{pages:page}};
+    console.log(page);
+    await dbo.collection('book').updateOne(qry, vals);
 }
 
-app.get('/createPage', function(req, res) {
-	addPage(req.query.id, req.query.pageNum);
+
+/*
+function getnum(bookid){
+	var num;
+	MongoClient.connect(url, function(err, db) {
+		var dbo = db.db('books');
+		var realid = Number(bookid);
+		dbo.collection('book').find({bookId: realid}).toArray(function(err, result){
+		//console.log(result[0]);
+		
+		//console.log("GAP  " + result[0].pages[result[0].pages.length -1].pagenum);
+		num = result[0].pages[result[0].pages.length -1].pagenum;
+		});
+	});
+	console.log(num);
+	return num;
+}
+
+
+async function naMan(bookid){
+	var db, dbo = null;
+	try {
+	    try {
+	        db = await MongoClient.connect(url);
+	        dbo = db.db('books');
+	    } catch (err) {
+	        throw err;
+	    }
+	
+	    var num = -1;
+	    if(dbo !== null) {
+	        var realid = Number(bookid);
+	        dbo.collection('book').find({bookId: realid}).toArray(function(err, result){
+	        //console.log(result[0]);
+	
+	        console.log("GAP  " + result[0].pages[result[0].pages.length -1].pagenum);
+	        num = result[0].pages[result[0].pages.length -1].pagenum;
+		});
+	}
+	db.close();
+	console.log(num);
+	return num;
+}catch(err){
+	throw err;}
+}
+
+app.get('/test2', function(req, res){
+	naMan(req.query.bookid);
+})
+*/
+
+/*app.get('/test', function(req, res){
+	console.log("book id in url : " + req.query.bookid);
+	getnum(req.query.bookid);
+})*/
+
+app.get('/createPage', async function(req, res) {
+	db = await MongoClient.connect(url);
+	var dbo = await db.db('books');
+	addPage2(req.query.id, dbo);
 })
 
 app.get('/addPage', function(req, res){
