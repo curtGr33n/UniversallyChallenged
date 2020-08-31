@@ -1,7 +1,0 @@
-Add the backend things in this folder Johann: Master backender
-
-Please put info regarding special considerations or rules when
-adding files to this directory into this .txt file.
-
-(You might want to create a new .txt with a better name after you have
-read this Johann)
