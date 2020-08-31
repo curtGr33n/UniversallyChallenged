@@ -76,20 +76,29 @@ function addBook(bookTitle, bookCoverLink, school, classID){
 	});
 }
 
-function addPage(bookID, page){
+
+function addPage(ID, pageNum){
 	MongoClient.connect(url, function(err, db) {
 		var dbo = db.db('books');
-		/*dbo.collection('book').find({bookId:bookID}).toArray(function(err, result){
-			
-		});*/
-		dbo.book.update(
-		
-			{bookId:bookID},
-			{$push:{pages:page}}
-		
-		)
+		var REEE = Number(ID);
+		var qry = {bookId: REEE};
+		var page = {pagenum : pageNum, active: "true", creators:[]};
+		var vals = {$addToSet:{pages:page}};
+                dbo.collection('book').updateOne(qry, vals, function(err, result2){
+                        if (err) throw err;
+                        console.log('past err');
+                });
 	});
 }
+
+app.get('/createPage', function(req, res) {
+	addPage(req.query.id, req.query.pageNum);
+})
+
+app.get('/addPage', function(req, res){
+	console.log(req.query.id + "     " +  req.query.pageNum);
+	addPage(req.query.id, req.query.pageNum);
+})
 
 app.get('/book', function(req, res){
 	addBook(req.query.bookTitle,req.query.bookCoverLink,req.query.school,req.query.classID);
@@ -109,7 +118,6 @@ app.post('/register', function (req, res){
 
 app.get('/', function (req, res) {
 	res.send("universally challenged api");
-	//testDB(res);
 })
 
 app.post('/', function(req, res){
