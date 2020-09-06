@@ -6,6 +6,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'center',
+        overflow: 'hidden'
     },
     center: {
         flex: 2,
@@ -16,6 +17,10 @@ const styles = StyleSheet.create({
         fontSize: 36,
         marginBottom: 16,
         color: 'orange'
+    },
+    view: {
+        flex: 1,
+        backgroundColor: "red"
     }
 })
 

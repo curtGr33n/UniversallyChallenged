@@ -9,6 +9,7 @@ import Login from "./src/screens/login";
 import Achievements from './src/screens/achievements';
 import TestScreen2 from "./src/screens/testScreen2";
 import TestScreen1 from './src/screens/testScreen1';
+import Draw from "./src/screens/testScreen1"
 
 import Tab1 from "./src/screens/tabs/tab1"
 import Tab2 from "./src/screens/tabs/tab2"
@@ -63,13 +64,23 @@ export default class App extends Component {
                 }}/>
             <Stack.Screen
                 name={"Test 1"}
-                component={TestScreen1}
+                // component={TestScreen1}
+                component={Draw}
                 options={{
                     title: 'Test 1',
                     headerStyle: { backgroundColor: 'orange'},
                     headerTintColor: 'white'
                 }}
             />
+            {/*<Stack.screen*/}
+            {/*    name={"Draw Function"}*/}
+            {/*    component={Draw}*/}
+            {/*    options={{*/}
+            {/*        title: 'Draw Function',*/}
+            {/*        headerStyle: {backgroundColor: 'Orange'},*/}
+            {/*        headerTintColor: 'white'*/}
+            {/*    }}*/}
+            {/*/>*/}
             <Stack.Screen
                 name={"Bottom Tabs"}
                 children={this.createBottomTabs}
@@ -114,7 +125,4 @@ export default class App extends Component {
         </MaterialBottomTabs.Navigator>
     }
 }
-
-
-
 
