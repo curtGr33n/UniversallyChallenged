@@ -1,20 +1,12 @@
-import React, { Component } from 'react';
+import React, { Component , useState} from 'react';
 import {View, ImageBackground, TextInput, SafeAreaView } from 'react-native';
 import Signature from 'react-native-signature-canvas';
 
 //This is how you import the style sheet
 import { styles } from '../styles/styles.js'
 
-class Draw extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = { signature: null };
-    }
-    handleSignature = signature => {
-        console.log(signature);
-        this.setState({ signature });
-    };
-    render() {
+function Draw () {
+    const [signature, setSignature] = useState(null)
         return (
             <SafeAreaView style={styles.view}>
                 <ImageBackground
@@ -34,7 +26,7 @@ class Draw extends React.Component {
                     />
                     <View style={{width: "100%", height: 700}}>
                         <Signature
-                            onOK={(img) => console.log(img)}
+                            onOK={(img) => setSignature(img)}
                             descriptionText="Sign"
                             clearText="Clear"
                             confirmText="Save"
@@ -43,7 +35,6 @@ class Draw extends React.Component {
                 </ImageBackground>
             </SafeAreaView>
         );
-    }
 }
 
 export default Draw;
