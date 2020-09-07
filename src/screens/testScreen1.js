@@ -7,6 +7,7 @@ import { styles } from '../styles/styles.js'
 
 function Draw () {
     const [signature, setSignature] = useState(null)
+    const [text, setText] = useState("Title")
         return (
             <SafeAreaView style={styles.view}>
                 <ImageBackground
@@ -21,8 +22,8 @@ function Draw () {
                             width: "100%",
                             backgroundColor: "#FFF"
                         }}
-                        onChangeText={(text) => console.log('Text')}
-                        value={'None'}
+                        onChangeText={(text) => setText(text)}
+                        value={text}
                     />
                     <View style={{width: "100%", height: 700}}>
                         <Signature
