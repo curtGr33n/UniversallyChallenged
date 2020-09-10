@@ -76,36 +76,15 @@ function addBook(bookTitle, bookCoverLink, school, classID){
 	});
 }
 
-/*
-async function addPage(ID, pageNum, dbo){
-	var REEE = Number(ID);
-	var newpage;
-	var qry = {bookId: REEE};
-        dbo.collection('book').find({bookId: REEE}).toArray(function(err,result){
-                newpage = result[0].pages[result[0].pages.length-1].pagenum;
-		var number2 = Number(newpage);
-		number2+=1;
-                console.log("new page " + number2);
-		var page = {pagenum : number2, active: "true", creators:[]};
-             	var vals = {$addToSet:{pages:page}};
-                console.log(page);
-		dbo.collection('book').updateOne(qry, vals, function(err, result2){
-       	        	if (err) throw err;
-                        	console.log('past err');
-                        });
-                });
-}*/
-
-
 async function addPage2(ID,  dbo){
     var REEE = Number(ID);
     var qry = {bookId: REEE};
-    
     var book = await dbo.collection('book').findOne(qry);
-
     var newpage = Number(book.pages[book.pages.length-1].pagenum);
     newpage+=1;
-    
+    if(newpage == null){
+    	newpage = 1;
+    }
     console.log("new page " + newpage);
     var page = {pagenum : newpage, active: "true", creators:[]};
     var vals = {$addToSet:{pages:page}};
@@ -113,61 +92,89 @@ async function addPage2(ID,  dbo){
     await dbo.collection('book').updateOne(qry, vals);
 }
 
-
-/*
-function getnum(bookid){
-	var num;
-	MongoClient.connect(url, function(err, db) {
-		var dbo = db.db('books');
-		var realid = Number(bookid);
-		dbo.collection('book').find({bookId: realid}).toArray(function(err, result){
-		//console.log(result[0]);
-		
-		//console.log("GAP  " + result[0].pages[result[0].pages.length -1].pagenum);
-		num = result[0].pages[result[0].pages.length -1].pagenum;
-		});
-	});
-	console.log(num);
-	return num;
-}
-
-
-async function naMan(bookid){
-	var db, dbo = null;
-	try {
-	    try {
-	        db = await MongoClient.connect(url);
-	        dbo = db.db('books');
-	    } catch (err) {
-	        throw err;
-	    }
-	
-	    var num = -1;
-	    if(dbo !== null) {
-	        var realid = Number(bookid);
-	        dbo.collection('book').find({bookId: realid}).toArray(function(err, result){
-	        //console.log(result[0]);
-	
-	        console.log("GAP  " + result[0].pages[result[0].pages.length -1].pagenum);
-	        num = result[0].pages[result[0].pages.length -1].pagenum;
-		});
+async function addCreator(bookID, pageID, dbo, sID, role,){
+	var numID = Number(bookID);
+	var numPage = Number(pageID);
+	var numSID = Number(sID);
+	var creatrs = {studentId:numSID, role:role, canvas:"", final:""};
+	var imMad = await dbo.collection('book').findOne({bookId:numID});
+	for(i = 0; i < imMad.pages.length; i++){
+		if(imMad.pages[i].pagenum  == numPage){
+			imMad.pages[i].creators = creatrs;
+		}
 	}
-	db.close();
-	console.log(num);
-	return num;
-}catch(err){
-	throw err;}
+	dbo.collection('book').replaceOne({bookId:numID}, imMad);
 }
 
-app.get('/test2', function(req, res){
-	naMan(req.query.bookid);
-})
-*/
+async function getBook(dbo, bookId){
+	var intBookId = Number(bookId);
+	dbo.collection('book').find({bookId: intBookId}).toArray(function(err,result){
+		console.log(result[0]);
+		return result[0];
+	})
+}
 
-/*app.get('/test', function(req, res){
-	console.log("book id in url : " + req.query.bookid);
-	getnum(req.query.bookid);
-})*/
+async function getPage(dbo, bookId, pageId){
+	var intBookId = Number(bookId);
+	var intPageId = Number(pageId);
+	var book = await dbo.collection('book').findOne({bookId:intBookId});
+	for(i = 0; i < book.pages.length; i++){
+		if(book.pages[i].pagenum == intPageId){
+			console.log(book.pages[i]);
+			return book.pages[i];
+		}
+	}
+}
+
+async function getCreator(dbo, bookId, pageId){
+        var intBookId = Number(bookId);
+        var intPageId = Number(pageId);
+        var book = await dbo.collection('book').findOne({bookId:intBookId});
+        for(i = 0; i < book.pages.length; i++){
+                if(book.pages[i].pagenum == intPageId){
+                        console.log(book.pages[i].creators);
+                        return book.pages[i].creators;
+                }
+        }
+}
+
+async function getPages(dbo, bookId){
+        var intBookId = Number(bookId);
+        var book = await dbo.collection('book').findOne({bookId:intBookId});
+	console.log(book.pages);
+	return book.pages;	
+}
+
+app.get('/getPages', async function(req, res){
+	db = await MongoClient.connect(url);
+        var dbo = await db.db('books');
+        getPages(dbo, req.query.bookId);
+})
+
+app.get('/getCreator', async function(req, res){
+        db = await MongoClient.connect(url);
+        var dbo = await db.db('books');
+        getCreator(dbo, req.query.bookId, req.query.pageId);
+})
+
+app.get('/getPage', async function(req, res){
+        db = await MongoClient.connect(url);
+        var dbo = await db.db('books');
+        getPage(dbo, req.query.bookId, req.query.pageId);
+})
+
+app.get('/getBook', async function(req, res){
+	db = await MongoClient.connect(url);
+	var dbo = await db.db('books');
+	getBook(dbo, req.query.bookId);
+})
+
+app.get('/addDetails', async function(req, res){
+	db = await MongoClient.connect(url);
+	var dbo = await db.db('books');
+	addCreator(req.query.bookID, req.query.pageID, dbo, req.query.sID, req.query.role);
+	console.log('addDetails');
+})
 
 app.get('/createPage', async function(req, res) {
 	db = await MongoClient.connect(url);
@@ -190,6 +197,7 @@ app.post('/login', function (req, res){
 	login(res, req.query.email, req.query.password);
 
 })
+
 app.post('/register', function (req, res){
 	console.log('got reg req g respect');
 	insertStudent(res, req.query.name, req.query.email, req.query.password, req.query.type, req.query.school, req.query.classnum);
