@@ -7,16 +7,17 @@ import WelcomeScreen from "./src/screens/welcomeScreen";
 import Login from "./src/screens/login";
 import Library from "./src/screens/library";
 import Pages from "./src/screens/pages";
+import HeaderNav from "./src/screens/headerNav";
 
 //Screen const
 import TestScreen2 from "./src/screens/testScreen2";
-import Draw from "./src/screens/testScreen1"
+import Draw from "./src/screens/testScreen1";
 
 
 // Navigation types
-import {NavigationContainer} from '@react-navigation/native'
-import {createDrawerNavigator} from '@react-navigation/drawer'
-import {createStackNavigator} from '@react-navigation/stack'
+import {NavigationContainer} from '@react-navigation/native';
+import {createDrawerNavigator} from '@react-navigation/drawer';
+import {createStackNavigator} from '@react-navigation/stack';
 
 // React native components
 import { Image, View } from 'react-native'
@@ -52,29 +53,10 @@ export default class App extends Component {
          />
      </View>
 
-    // Set logo image for each page
-    setHeaderNav = () =>
-        < View style={{ flexDirection: 'row' }} >
-            <Icon style={{ paddingRight: 50 }}
-                name='home'
-                size={80}
-                type='font-awesome'
-                color='white'
-                onPress={() => console.log('hello')}
-            />
-            <Icon style={{ paddingRight: 100 }}
-                name='cog'
-                size={80}
-                type='font-awesome'
-                color='white'
-                onPress={() => console.log('hello')}
-            />
-        </View>
-
   // Any seperate functions keep out side of the render() method
-    createHomeStack = () =>
+    createHomeStack = ({ navigation }) =>
         <Stack.Navigator
-            screenOptions={{
+            screenOptions = {{
                 headerStyle: {
                     backgroundColor: '#fdda64',
                     height: 150,
@@ -84,7 +66,22 @@ export default class App extends Component {
                     fontWeight: 'bold',
                 },
                 headerTitle: this.setLogo,
-                headerRight: this.setHeaderNav,
+                headerRight: () => (< View style={{ flexDirection: 'row' }} >
+                    <Icon style={{ paddingRight: 50 }}
+                          name='home'
+                          size={80}
+                          type='font-awesome'
+                          color='white'
+                          onPress={() => navigation.navigate('Main')}
+                    />
+                    <Icon style={{ paddingRight: 80 }}
+                          name='cog'
+                          size={80}
+                          type='font-awesome'
+                          color='white'
+                          onPress={() => navigation.navigate('Main')}
+                    />
+                </View>),
                 headerLeft: null
             }}
         >
