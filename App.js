@@ -86,9 +86,6 @@ export default class App extends Component {
                 name={"Login"}
                 component={Login}
                 options={{
-                    title: '',
-                    headerStyle: { backgroundColor: 'orange'},
-                    headerTintColor: 'white',
                     headerTitle: this.setLogo
                 }}
             />
@@ -102,17 +99,13 @@ export default class App extends Component {
                 name={"Library"}
                 component={Library}
                 options={{
-                    title: 'Library',
-                    headerStyle: { backgroundColor: 'orange'},
-                    headerTintColor: 'white'
+                    headerTitle: this.setLogo
                 }}/>
             <Stack.Screen
                 name={"Pages"}
                 component={Pages}
                 options={{
-                    title: 'Pages',
-                    headerStyle: { backgroundColor: 'orange'},
-                    headerTintColor: 'white'
+                    headerTitle: this.setLogo
                 }}/>
             <Stack.Screen
                 name={"Test 1"}
@@ -127,18 +120,14 @@ export default class App extends Component {
                 name={"Bottom Tabs"}
                 children={this.createBottomTabs}
                 options={{
-                    title: 'Bottom Tabs',
-                    headerStyle: { backgroundColor: 'orange'},
-                    headerTintColor: 'white'
+                    headerTitle: this.setLogo
                 }}
             />
             <Stack.Screen
                 name={"Top Tabs"}
                 children={this.createTopTabs}
                 options={{
-                    title: 'Top Tabs',
-                    headerStyle: { backgroundColor: 'orange'},
-                    headerTintColor: 'white'
+                    headerTitle: this.setLogo
                 }}
             />
         </Stack.Navigator>
