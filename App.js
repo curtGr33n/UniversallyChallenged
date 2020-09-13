@@ -10,28 +10,21 @@ import Pages from "./src/screens/pages";
 
 //Screen const
 import TestScreen2 from "./src/screens/testScreen2";
-import TestScreen1 from './src/screens/testScreen1';
 import Draw from "./src/screens/testScreen1"
 
-import Tab1 from "./src/screens/tabs/tab1"
-import Tab2 from "./src/screens/tabs/tab2"
-import Tab3 from "./src/screens/tabs/tab3"
 
 // Navigation types
 import {NavigationContainer} from '@react-navigation/native'
 import {createDrawerNavigator} from '@react-navigation/drawer'
 import {createStackNavigator} from '@react-navigation/stack'
-import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs'
-import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs'
 
 // React native components
 import { Image, View } from 'react-native'
+import { Icon } from 'react-native-elements'
 
 // Navigation containers
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
-const MaterialBottomTabs = createMaterialBottomTabNavigator();
-const MaterialTopTabs = createMaterialTopTabNavigator();
 
 export default class App extends Component {
   render() {
@@ -43,7 +36,6 @@ export default class App extends Component {
             <Drawer.Screen name={"Test Screen 2"} component={TestScreen2}/>
           </Drawer.Navigator>
         </NavigationContainer>
-
     )
   }
 
@@ -60,8 +52,26 @@ export default class App extends Component {
          />
      </View>
 
-  // Any seperate functions keep out side of the render() method
+    // Set logo image for each page
+    setHeaderNav = () =>
+        < View style={{ flexDirection: 'row' }} >
+            <Icon style={{ paddingRight: 50 }}
+                name='home'
+                size={80}
+                type='font-awesome'
+                color='white'
+                onPress={() => console.log('hello')}
+            />
+            <Icon style={{ paddingRight: 100 }}
+                name='cog'
+                size={80}
+                type='font-awesome'
+                color='white'
+                onPress={() => console.log('hello')}
+            />
+        </View>
 
+  // Any seperate functions keep out side of the render() method
     createHomeStack = () =>
         <Stack.Navigator
             screenOptions={{
@@ -73,88 +83,24 @@ export default class App extends Component {
                 headerTitleStyle: {
                     fontWeight: 'bold',
                 },
+                headerTitle: this.setLogo,
+                headerRight: this.setHeaderNav,
+                headerLeft: null
             }}
         >
             <Stack.Screen
-                name={"WelcomeScreen"}
-                component={WelcomeScreen}
-                options={{
-                  headerShown: false
-                }}
-            />
-            <Stack.Screen
                 name={"Login"}
                 component={Login}
-                options={{
-                    headerTitle: this.setLogo
-                }}
             />
             <Stack.Screen
                 name={"Main"}
                 component={Main}
-                options={{
-                    headerTitle: this.setLogo
-                }}/>
-            <Stack.Screen
-                name={"Library"}
-                component={Library}
-                options={{
-                    headerTitle: this.setLogo
-                }}/>
-            <Stack.Screen
-                name={"Pages"}
-                component={Pages}
-                options={{
-                    headerTitle: this.setLogo
-                }}/>
+                />
             <Stack.Screen
                 name={"Test 1"}
-                //component={TestScreen1}
+                // component={TestScreen1}
                 component={Draw}
-                options={{
-                    headerTitle: this.setLogo
-                }}
-            />
-
-            <Stack.Screen
-                name={"Bottom Tabs"}
-                children={this.createBottomTabs}
-                options={{
-                    headerTitle: this.setLogo
-                }}
-            />
-            <Stack.Screen
-                name={"Top Tabs"}
-                children={this.createTopTabs}
-                options={{
-                    headerTitle: this.setLogo
-                }}
             />
         </Stack.Navigator>
-
-    createTopTabs = () => {
-        return <MaterialTopTabs.Navigator>
-            <MaterialTopTabs.Screen
-                name={"Tab 1"}
-                component = {Tab1}
-
-            />
-            <MaterialTopTabs.Screen name={"Tab 2"} component = {Tab2}/>
-            <MaterialTopTabs.Screen name={"Tab 3"} component = {Tab3}/>
-        </MaterialTopTabs.Navigator>
-    }
-
-    createBottomTabs = () => {
-        return <MaterialBottomTabs.Navigator>
-            <MaterialBottomTabs.Screen name={"Tab 1"}
-                                       component = {Tab1}
-                                       options={{
-                                           tabBarLabel: 'Waggle'
-                                       }}/>
-            <MaterialBottomTabs.Screen name={"Tab 2"} component = {Tab2}/>
-            <MaterialBottomTabs.Screen name={"Tab 3"} component = {Tab3}/>
-        </MaterialBottomTabs.Navigator>
-    }
-
 }
 
