@@ -24,6 +24,9 @@ import {createStackNavigator} from '@react-navigation/stack'
 import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs'
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs'
 
+// React native components
+import { Image, View } from 'react-native'
+
 // Navigation containers
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -44,10 +47,34 @@ export default class App extends Component {
     )
   }
 
+  // Set logo image for each page
+  setLogo = () =>
+      < View style={{ flexDirection: 'row' }} >
+         <Image
+            style={{
+                width: 350,
+                height: 100,
+                marginLeft: 15,
+            }}
+            source={require('./src/images/logo.png')}
+         />
+     </View>
+
   // Any seperate functions keep out side of the render() method
 
     createHomeStack = () =>
-        <Stack.Navigator>
+        <Stack.Navigator
+            screenOptions={{
+                headerStyle: {
+                    backgroundColor: '#fdda64',
+                    height: 150,
+                },
+                headerTintColor: 'black',
+                headerTitleStyle: {
+                    fontWeight: 'bold',
+                },
+            }}
+        >
             <Stack.Screen
                 name={"WelcomeScreen"}
                 component={WelcomeScreen}
@@ -61,16 +88,15 @@ export default class App extends Component {
                 options={{
                     title: '',
                     headerStyle: { backgroundColor: 'orange'},
-                    headerTintColor: 'white'
+                    headerTintColor: 'white',
+                    headerTitle: this.setLogo
                 }}
             />
             <Stack.Screen
                 name={"Main"}
                 component={Main}
                 options={{
-                    title: 'Main',
-                    headerStyle: { backgroundColor: 'orange'},
-                    headerTintColor: 'white'
+                    headerTitle: this.setLogo
                 }}/>
             <Stack.Screen
                 name={"Library"}
@@ -93,9 +119,7 @@ export default class App extends Component {
                 //component={TestScreen1}
                 component={Draw}
                 options={{
-                    title: 'Test 1',
-                    headerStyle: { backgroundColor: 'orange'},
-                    headerTintColor: 'white'
+                    headerTitle: this.setLogo
                 }}
             />
 
