@@ -7,7 +7,6 @@ import WelcomeScreen from "./src/screens/welcomeScreen";
 import Login from "./src/screens/login";
 import Library from "./src/screens/library";
 import Pages from "./src/screens/pages";
-import HeaderNav from "./src/screens/headerNav";
 
 //Screen const
 import TestScreen2 from "./src/screens/testScreen2";
