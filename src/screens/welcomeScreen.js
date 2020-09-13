@@ -6,22 +6,22 @@ import { styles, buttons } from '../styles/styles.js'
 import {TouchableOpacity,TouchableHighlight, Image}  from "react-native";
 
 
-class Login extends Component {
+class WelcomeScreen extends Component {
     render() {
         return (
             <View style={styles.container}>
                 <Image style={styles.logo} source={require('../assets/top.png')} />
                 <Image style={styles.logoText} source={require('../assets/bottom.png')} />
                 <TouchableHighlight style={buttons.primary}
-                                    onPress={() => this.props.navigation.navigate('Main')}
+                                    onPress={() => this.props.navigation.navigate('Login')}
                 >
                     <Text style={buttons.buttonText}>Login</Text>
 
                 </TouchableHighlight>
                 <TouchableOpacity style={buttons.secondary}
-                                  onPress={() => this.props.navigation.navigate('Test 1')}
+                                  onPress={() => this.props.navigation.navigate('Main')}
                 >
-                    <Text style={buttons.buttonText}>Instructions</Text>
+                    <Text style={buttons.buttonText}>Skip to Main</Text>
 
                 </TouchableOpacity>
             </View>
@@ -29,4 +29,4 @@ class Login extends Component {
     }
 }
 
-export default Login;
+export default WelcomeScreen;

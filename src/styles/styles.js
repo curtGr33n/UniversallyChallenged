@@ -3,40 +3,47 @@ import {StyleSheet} from "react-native";
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff',
+        backgroundColor: '#ffff',
         alignItems: 'center',
-        justifyContent: 'center',
+        justifyContent: 'flex-end',
         overflow: 'hidden'
-    },
-    center: {
-        flex: 2,
-        alignItems: 'center',
-        justifyContent: 'center'
     },
     title: {
         fontSize: 36,
         marginBottom: 16,
         color: 'orange'
     },
-    view: {
-        flex: 1,
-        backgroundColor: "red"
+    logo:{
+        width: 287,
+        height: 250,
+        position: "absolute",
+        top: 150,
+    },
+    logoText:{
+        width: 400,
+        height: 50,
+        position: "absolute",
+        top: 420,
     }
 })
 
 const buttons = StyleSheet.create({
     primary: {
         height: 70,
-        backgroundColor: 'orange',
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginLeft: 20,
-        marginRight: 20
+        width: '100%',
+        backgroundColor: '#bc904f',
+    },
+    secondary: {
+        height: 70,
+        width: '100%',
+        backgroundColor: '#fdda64',
     },
     buttonText: {
         textAlign: 'center',
         padding: 20,
-        color: 'black'
+        color: 'white',
+        fontWeight: "600",
+        fontSize: 25
     }
 })
 

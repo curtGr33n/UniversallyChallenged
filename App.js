@@ -3,10 +3,12 @@ import React, { Component } from 'react';
 
 //Screen class
 import Main from './src/screens/main';
+import WelcomeScreen from "./src/screens/welcomeScreen";
 import Login from "./src/screens/login";
+import Library from "./src/screens/library";
+import Pages from "./src/screens/pages";
 
 //Screen const
-import Achievements from './src/screens/achievements';
 import TestScreen2 from "./src/screens/testScreen2";
 import TestScreen1 from './src/screens/testScreen1';
 import Draw from "./src/screens/testScreen1"
@@ -36,20 +38,28 @@ export default class App extends Component {
           <Drawer.Navigator>
             <Drawer.Screen name={"Home"} children={this.createHomeStack}/>
             <Drawer.Screen name={"Test Screen 2"} component={TestScreen2}/>
-            <Drawer.Screen name={"Achievements"} component={Achievements}/>
           </Drawer.Navigator>
         </NavigationContainer>
+
     )
   }
 
   // Any seperate functions keep out side of the render() method
+
     createHomeStack = () =>
         <Stack.Navigator>
+            <Stack.Screen
+                name={"WelcomeScreen"}
+                component={WelcomeScreen}
+                options={{
+                  headerShown: false
+                }}
+            />
             <Stack.Screen
                 name={"Login"}
                 component={Login}
                 options={{
-                    title: 'Login Page',
+                    title: '',
                     headerStyle: { backgroundColor: 'orange'},
                     headerTintColor: 'white'
                 }}
@@ -63,8 +73,24 @@ export default class App extends Component {
                     headerTintColor: 'white'
                 }}/>
             <Stack.Screen
+                name={"Library"}
+                component={Library}
+                options={{
+                    title: 'Library',
+                    headerStyle: { backgroundColor: 'orange'},
+                    headerTintColor: 'white'
+                }}/>
+            <Stack.Screen
+                name={"Pages"}
+                component={Pages}
+                options={{
+                    title: 'Pages',
+                    headerStyle: { backgroundColor: 'orange'},
+                    headerTintColor: 'white'
+                }}/>
+            <Stack.Screen
                 name={"Test 1"}
-                // component={TestScreen1}
+                //component={TestScreen1}
                 component={Draw}
                 options={{
                     title: 'Test 1',
@@ -72,15 +98,7 @@ export default class App extends Component {
                     headerTintColor: 'white'
                 }}
             />
-            {/*<Stack.screen*/}
-            {/*    name={"Draw Function"}*/}
-            {/*    component={Draw}*/}
-            {/*    options={{*/}
-            {/*        title: 'Draw Function',*/}
-            {/*        headerStyle: {backgroundColor: 'Orange'},*/}
-            {/*        headerTintColor: 'white'*/}
-            {/*    }}*/}
-            {/*/>*/}
+
             <Stack.Screen
                 name={"Bottom Tabs"}
                 children={this.createBottomTabs}
@@ -124,5 +142,6 @@ export default class App extends Component {
             <MaterialBottomTabs.Screen name={"Tab 3"} component = {Tab3}/>
         </MaterialBottomTabs.Navigator>
     }
+
 }
 

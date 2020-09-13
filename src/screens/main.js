@@ -25,6 +25,27 @@ class Main extends Component {
                         <Text style={buttons.buttonText}>Open Bottom Tabs</Text>
                     </View>
                 </TouchableOpacity>
+                <TouchableOpacity
+                    onPress={() => this.props.navigation.navigate('Pages')}
+                >
+                    <View style={buttons.primary}>
+                        <Text style={buttons.buttonText}>Pages</Text>
+                    </View>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    onPress={() => this.props.navigation.navigate('Library')}
+                >
+                    <View style={buttons.primary}>
+                        <Text style={buttons.buttonText}>Library</Text>
+                    </View>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    onPress={() => this.props.navigation.navigate('Login')}
+                >
+                    <View style={buttons.primary}>
+                        <Text style={buttons.buttonText}>Login</Text>
+                    </View>
+                </TouchableOpacity>
             </View>
         )
     }
