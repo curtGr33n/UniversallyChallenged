@@ -33,7 +33,7 @@ export default class App extends Component {
         <NavigationContainer>
           <Drawer.Navigator>
             <Drawer.Screen name={"Home"} children={this.createHomeStack}/>
-            <Drawer.Screen name={"Test Screen 2"} component={TestScreen2}/>
+            <Drawer.Screen name={"View SnapShot Working"} component={TestScreen2}/>
             <Drawer.Screen name={"Draw Test"} component={Draw}/>
           </Drawer.Navigator>
         </NavigationContainer>
