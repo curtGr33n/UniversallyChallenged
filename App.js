@@ -29,12 +29,10 @@ const Stack = createStackNavigator();
 
 export default class App extends Component {
   render() {
-
     return (
         <NavigationContainer>
           <Drawer.Navigator>
             <Drawer.Screen name={"Home"} children={this.createHomeStack}/>
-
           </Drawer.Navigator>
         </NavigationContainer>
     )
@@ -42,7 +40,7 @@ export default class App extends Component {
 
   // Set logo image for each page
   setLogo = () =>
-      < View style={{ flexDirection: 'row' }} >
+      <View style={{ flexDirection: 'row' }} >
          <Image
             style={{
                 width: 350,
@@ -83,8 +81,7 @@ export default class App extends Component {
                     />
                 </View>),
                 headerLeft: null
-            }}
-        >
+        }}>
             <Stack.Screen
                 name={"Login"}
                 component={Login}
@@ -95,7 +92,6 @@ export default class App extends Component {
                 />
             <Stack.Screen
                 name={"Draw"}
-                // component={TestScreen1}
                 component={Draw}
             />
             <Stack.Screen
@@ -110,8 +106,6 @@ export default class App extends Component {
                 options={{
                     headerTitle: this.setLogo
             }}/>
-
         </Stack.Navigator>
-
 }
 
