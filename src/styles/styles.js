@@ -24,6 +24,13 @@ const styles = StyleSheet.create({
         height: 50,
         position: "absolute",
         top: 420,
+    },
+    storyTitleText: {
+        textAlign: 'center',
+        padding: 20,
+        color: '#333333',
+        fontWeight: "600",
+        fontSize: 30,
     }
 })
 
@@ -41,9 +48,18 @@ const buttons = StyleSheet.create({
     buttonText: {
         textAlign: 'center',
         padding: 20,
-        color: 'white',
+        color: '#fbf3dc',
         fontWeight: "600",
         fontSize: 25
+    },
+    buttonPages: {
+        backgroundColor: "#bb904f",
+        textAlign: 'center',
+        justifyContent: "space-between",
+        alignItems: "flex-start",
+        color: '#fbf3dc',
+        padding: 30,
+        paddingBottom: 30
     }
 })
 

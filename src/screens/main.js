@@ -6,6 +6,8 @@ import {View, Text, TouchableHighlight, TouchableOpacity} from 'react-native';
 // import {styles, another, more, soManyStyles} from ...
 import {buttons, styles} from '../styles/styles'
 
+
+
 class Main extends Component {
     render() {
         return (

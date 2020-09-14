@@ -53,7 +53,7 @@ export default class App extends Component {
          />
      </View>
 
-  // Any seperate functions keep out side of the render() method
+  // Any separate functions keep out side of the render() method
     createHomeStack = ({ navigation }) =>
         <Stack.Navigator
             screenOptions = {{
@@ -98,6 +98,58 @@ export default class App extends Component {
                 // component={TestScreen1}
                 component={Draw}
             />
+            <Stack.Screen
+                name={"Library"}
+                component={Library}
+                options={{
+                    headerTitle: this.setLogo
+            }}/>
+            <Stack.Screen
+                name={"Pages"}
+                component={Pages}
+                options={{
+                    headerTitle: this.setLogo
+            }}/>
+            <Stack.Screen
+                name={"Bottom Tabs"}
+                children={this.createBottomTabs}
+                options={{
+                    headerTitle: this.setLogo
+                }}
+            />
+            <Stack.Screen
+                name={"Top Tabs"}
+                children={this.createTopTabs}
+                options={{
+                    headerTitle: this.setLogo
+                }}
+            />
         </Stack.Navigator>
+
+    createTopTabs = () => {
+        return <MaterialTopTabs.Navigator>
+            <MaterialTopTabs.Screen
+                name={"Tab 1"}
+                component = {Tab1}
+
+            />
+            <MaterialTopTabs.Screen name={"Tab 2"} component = {Tab2}/>
+            <MaterialTopTabs.Screen name={"Tab 3"} component = {Tab3}/>
+        </MaterialTopTabs.Navigator>
+    }
+
+    createBottomTabs = () => {
+        return <MaterialBottomTabs.Navigator>
+            <MaterialBottomTabs.Screen name={"Tab 1"}
+                                       component = {Tab1}
+                                       options={{
+                                           tabBarLabel: 'Waggle'
+                                       }}/>
+            <MaterialBottomTabs.Screen name={"Tab 2"} component = {Tab2}/>
+            <MaterialBottomTabs.Screen name={"Tab 3"} component = {Tab3}/>
+        </MaterialBottomTabs.Navigator>
+    }
+
+
 }
 
