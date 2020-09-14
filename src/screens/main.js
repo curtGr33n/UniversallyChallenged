@@ -13,20 +13,6 @@ class Main extends Component {
         return (
             <View style={styles.center}>
                 <Text style={styles.title}>Main</Text>
-                <TouchableHighlight
-                    onPress={() => this.props.navigation.navigate('Top Tabs')}
-                >
-                    <View style={buttons.primary}>
-                        <Text style={buttons.buttonText}>Open Top Tabs</Text>
-                    </View>
-                </TouchableHighlight>
-                <TouchableOpacity
-                    onPress={() => this.props.navigation.navigate('Bottom Tabs')}
-                >
-                    <View style={buttons.primary}>
-                        <Text style={buttons.buttonText}>Open Bottom Tabs</Text>
-                    </View>
-                </TouchableOpacity>
                 <TouchableOpacity
                     onPress={() => this.props.navigation.navigate('Pages')}
                 >
