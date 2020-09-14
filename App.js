@@ -34,8 +34,7 @@ export default class App extends Component {
         <NavigationContainer>
           <Drawer.Navigator>
             <Drawer.Screen name={"Home"} children={this.createHomeStack}/>
-            <Drawer.Screen name={"Test Screen 2"} component={TestScreen2}/>
-            <Drawer.Screen name={"Draw Test"} component={Draw}/>
+
           </Drawer.Navigator>
         </NavigationContainer>
     )
@@ -95,7 +94,7 @@ export default class App extends Component {
                 component={Main}
                 />
             <Stack.Screen
-                name={"Test 1"}
+                name={"Draw"}
                 // component={TestScreen1}
                 component={Draw}
             />

@@ -32,9 +32,8 @@ function Pages () {
                 <Image source={require('../images/tempImage.png')} />
             </View>
             <View style={{
-            backgroundColor: "#f8ebc4",
-            flex: 1
-
+                backgroundColor: "#f8ebc4",
+                flex: 1
             }}/>
             <View
                 style={{
