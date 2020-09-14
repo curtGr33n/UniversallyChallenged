@@ -18,6 +18,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import {createStackNavigator} from '@react-navigation/stack';
 
+
 // React native components
 import { Image, View } from 'react-native'
 import { Icon } from 'react-native-elements'
@@ -28,7 +29,6 @@ const Stack = createStackNavigator();
 
 export default class App extends Component {
   render() {
-
     return (
         <NavigationContainer>
           <Drawer.Navigator>
@@ -42,7 +42,7 @@ export default class App extends Component {
 
   // Set logo image for each page
   setLogo = () =>
-      < View style={{ flexDirection: 'row' }} >
+      <View style={{ flexDirection: 'row' }} >
          <Image
             style={{
                 width: 350,
@@ -53,7 +53,7 @@ export default class App extends Component {
          />
      </View>
 
-  // Any seperate functions keep out side of the render() method
+  // Any separate functions keep out side of the render() method
     createHomeStack = ({ navigation }) =>
         <Stack.Navigator
             screenOptions = {{
@@ -83,8 +83,7 @@ export default class App extends Component {
                     />
                 </View>),
                 headerLeft: null
-            }}
-        >
+        }}>
             <Stack.Screen
                 name={"Login"}
                 component={Login}
@@ -94,10 +93,25 @@ export default class App extends Component {
                 component={Main}
                 />
             <Stack.Screen
-                name={"Test 1"}
-                // component={TestScreen1}
+                name={"Draw"}
                 component={Draw}
             />
+            <Stack.Screen
+                name={"ViewSnapShot"}
+                component={TestScreen2}
+            />
+            <Stack.Screen
+                name={"Library"}
+                component={Library}
+                options={{
+                    headerTitle: this.setLogo
+            }}/>
+            <Stack.Screen
+                name={"Pages"}
+                component={Pages}
+                options={{
+                    headerTitle: this.setLogo
+            }}/>
         </Stack.Navigator>
 }
 

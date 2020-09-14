@@ -6,25 +6,13 @@ import {View, Text, TouchableHighlight, TouchableOpacity} from 'react-native';
 // import {styles, another, more, soManyStyles} from ...
 import {buttons, styles} from '../styles/styles'
 
+
+
 class Main extends Component {
     render() {
         return (
             <View style={styles.center}>
                 <Text style={styles.title}>Main</Text>
-                <TouchableHighlight
-                    onPress={() => this.props.navigation.navigate('Top Tabs')}
-                >
-                    <View style={buttons.primary}>
-                        <Text style={buttons.buttonText}>Open Top Tabs</Text>
-                    </View>
-                </TouchableHighlight>
-                <TouchableOpacity
-                    onPress={() => this.props.navigation.navigate('Bottom Tabs')}
-                >
-                    <View style={buttons.primary}>
-                        <Text style={buttons.buttonText}>Open Bottom Tabs</Text>
-                    </View>
-                </TouchableOpacity>
                 <TouchableOpacity
                     onPress={() => this.props.navigation.navigate('Pages')}
                 >
@@ -44,6 +32,20 @@ class Main extends Component {
                 >
                     <View style={buttons.primary}>
                         <Text style={buttons.buttonText}>Login</Text>
+                    </View>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    onPress={() => this.props.navigation.navigate('Draw')}
+                >
+                    <View style={buttons.primary}>
+                        <Text style={buttons.buttonText}>Draw</Text>
+                    </View>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    onPress={() => this.props.navigation.navigate('ViewSnapShot')}
+                >
+                    <View style={buttons.primary}>
+                        <Text style={buttons.buttonText}>ViewSnapShot</Text>
                     </View>
                 </TouchableOpacity>
             </View>
