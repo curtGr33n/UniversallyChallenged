@@ -57,7 +57,7 @@ function Draw () {
             backgroundColor = { background }
             // onOk={handleSignature(signature)}
             onOK={() => console.log(signature)}
-            onEnd={handleEnd}
+            // onEnd={handleEnd}
         />
     );
 
@@ -126,7 +126,7 @@ function Draw () {
                 penColor = { colour }
                 // onOK={handleSignature(signature)}
                 onOK={() => console.log(signature)}
-                onEnd={handleEnd}
+                // onEnd={handleEnd}
             />
         );
     }, [colour]);
