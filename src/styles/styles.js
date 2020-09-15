@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
     },
     image: {
         width: 400,
-        height: 400,
+        height: 200,
         justifyContent: 'center'
     },
     storyTitleText: {
@@ -84,7 +84,7 @@ const colours = StyleSheet.create({
     },
     sketch: {
         flex: 1,
-        height: 900,
+        height: 500,
         width: 700
     },
     button: {

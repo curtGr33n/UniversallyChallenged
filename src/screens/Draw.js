@@ -1,11 +1,11 @@
 import React, {useState, useRef, useEffect, useCallback} from 'react';
 import {View, TouchableOpacity, Image} from 'react-native';
-import SignatureView from 'react-native-signature-canvas';
+import SignatureScreen, {readSignature} from 'react-native-signature-canvas';
 import {captureRef, captureScreen} from "react-native-view-shot";
-// import * as FileSystem from 'expo-file-system';
+import * as FileSystem from 'expo-file-system';
 
 //This is how you import the style sheet
-import { styles, colours, buttons } from '../styles/styles.js'
+import { styles, colours } from '../styles/styles.js';
 
 function Draw () {
     // Saved image variables
@@ -13,6 +13,11 @@ function Draw () {
         uri: 'https://i.imgur.com/5EOyTDQ.jpg',
     };
     const canvasRef = useRef(null);
+
+    const handleEnd = () => {
+        canvasRef.current.readSignature();
+    }
+
     const [previewSource, setPreviewSource] = useState(catsSource);
     const [result, setResult] = useState({ error: null, res: null });
     const [config, setConfig] = useState({
@@ -24,30 +29,35 @@ function Draw () {
     // Signature variables
     const [signature, setSignature] = useState(null);
     const [colour, setColour] = useState('#000000');
-    const [background, setBackground] = useState('#fff')
-    //
-    // const handleSignature = signature => {
-    //     console.log(signature);
-    //     setSignature(signature)
-    //     const path = FileSystem.cacheDirectory + 'sign.png';
-    //     FileSystem.writeAsStringAsync(path, signature.replace('data:image/png;base64,', ''), {encoding: FileSystem.EncodingType.Base64}).then(res => {
-    //         console.log(res);
-    //         FileSystem.getInfoAsync(path, {size: true, md5: true}).then(file => {
-    //             console.log(file);
-    //         })
-    //     }).catch(err => {
-    //         console.log("err", err);
-    //     })
-    // };
+    const [background, setBackground] = useState('#fff');
+
+    const handleSignature = signature => {
+        console.log(signature);
+        setSignature(signature)
+        const path = FileSystem.cacheDirectory + 'sign.png';
+        // FileSystem.writeAsStringAsync(path, signature.replace('data:image/png;base64,', ''),
+        //     {encoding: FileSystem.EncodingType.Base64}).then(res => {
+        //     console.log(res);
+        //     FileSystem.getInfoAsync(path, {size: true, md5: true}).then(file => {
+        //         console.log(file);
+        //     })
+        // }).catch(err => {
+        //     console.log("err", err);
+        // })
+    };
 
     const [canvas, setCanvas] = useState(
-        <SignatureView
+        <SignatureScreen
+            ref={canvasRef}
             // onOK={(img) => setSignature(img)}
             descriptionText="Sign"
             clearText="Clear"
             confirmText="Save"
             penColor = { colour }
             backgroundColor = { background }
+            // onOk={handleSignature(signature)}
+            onOK={() => console.log(signature)}
+            onEnd={handleEnd}
         />
     );
 
@@ -106,13 +116,17 @@ function Draw () {
     useEffect(() => {
         prevColourRef.current = colour;
         console.log("previous colour: " + prevColour + " current colour: " + colour);
+        console.log("Signature: " + signature);
         setCanvas(
-            <SignatureView
+            <SignatureScreen
                 // onOK={(img) => setSignature(img)}
                 descriptionText="Sign"
                 clearText="Clear"
                 confirmText="Save"
                 penColor = { colour }
+                // onOK={handleSignature(signature)}
+                onOK={() => console.log(signature)}
+                onEnd={handleEnd}
             />
         );
     }, [colour]);
@@ -147,7 +161,8 @@ function Draw () {
                 ref={canvasRef}>
                 <Image
                     style={styles.image}
-                    source={previewSource}
+                    // source={previewSource}
+                    source={{uri: signature}}
                 />
                 <View
                     style={colours.sketch}>

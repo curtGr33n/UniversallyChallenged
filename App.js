@@ -11,6 +11,7 @@ import Pages from "./src/screens/pages";
 //Screen const
 import TestScreen2 from "./src/screens/testScreen2";
 import Draw from "./src/screens/Draw";
+import Draw2 from "./src/screens/Draw2"
 
 
 // Navigation types
@@ -35,6 +36,7 @@ export default class App extends Component {
             <Drawer.Screen name={"Home"} children={this.createHomeStack}/>
             <Drawer.Screen name={"View SnapShot Working"} component={TestScreen2}/>
             <Drawer.Screen name={"Draw Test"} component={Draw}/>
+            <Drawer.Screen name={"Draw Test 2"} component={Draw2}/>
           </Drawer.Navigator>
         </NavigationContainer>
     )
