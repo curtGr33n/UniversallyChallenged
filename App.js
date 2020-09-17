@@ -9,7 +9,6 @@ import Library from "./src/screens/library";
 import Pages from "./src/screens/pages";
 
 //Screen const
-import TestScreen2 from "./src/screens/testScreen2";
 import Draw from "./src/screens/Draw";
 
 

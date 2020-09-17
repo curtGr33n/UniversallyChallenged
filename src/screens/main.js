@@ -32,6 +32,13 @@ class Main extends Component {
                         <Text style={buttons.buttonText}>Video Tutorial</Text>
                     </View>
                 </TouchableOpacity>
+                <TouchableOpacity
+                    onPress={() => this.props.navigation.navigate('Draw')}
+                >
+                    <View style={buttons.primary}>
+                        <Text style={buttons.buttonText}>Draw</Text>
+                    </View>
+                </TouchableOpacity>
             </View>
         )
     }
