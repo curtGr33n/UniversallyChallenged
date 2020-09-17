@@ -42,7 +42,6 @@ const page = StyleSheet.create({
         textAlign: 'center',
         fontWeight: '400',
         fontSize: 40,
-        fontFamily: 'mortise',
         padding: 20
     }
 })
