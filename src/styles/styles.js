@@ -1,5 +1,4 @@
 import {StyleSheet, Text, View} from "react-native";
-import './style.css';
 
 const styles = StyleSheet.create({
     container: {
