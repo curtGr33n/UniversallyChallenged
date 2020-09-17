@@ -33,17 +33,10 @@ class Main extends Component {
                     </View>
                 </TouchableOpacity>
                 <TouchableOpacity
-                    onPress={() => this.props.navigation.navigate('Pages')}
-                >
-                    <View style={buttons.primary}>
-                        <Text style={buttons.buttonText}>Pages: Has draw formatted</Text>
-                    </View>
-                </TouchableOpacity>
-                <TouchableOpacity
                     onPress={() => this.props.navigation.navigate('Draw')}
                 >
                     <View style={buttons.primary}>
-                        <Text style={buttons.buttonText}>Draw this is Raw draw</Text>
+                        <Text style={buttons.buttonText}>Draw</Text>
                     </View>
                 </TouchableOpacity>
             </View>
