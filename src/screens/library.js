@@ -2,7 +2,7 @@ import React, { Component, useState } from 'react';
 import {View, Text, ScrollView} from 'react-native';
 
 //This is how you import the style sheet
-import { styles, buttons } from '../styles/styles.js';
+import {styles, buttons, page} from '../styles/styles.js';
 import {TouchableOpacity,TouchableHighlight, Image}  from "react-native";
 
 
@@ -21,7 +21,7 @@ class Library extends Component {
                     justifyContent: 'center',
                     alignItems: 'center'
                 }}>
-                    <Text style={styles.storyTitleText}>Library</Text>
+                    <Text style={page.title}>Library</Text>
                 </View>
                 <View style={{
                     backgroundColor: "white",
