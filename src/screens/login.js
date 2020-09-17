@@ -1,25 +1,83 @@
 import React, { Component } from 'react';
-import {View, Text } from 'react-native';
+import { View, Text } from 'react-native';
+
+//im really scared loool
+import { Button, TextInput } from 'react-native';
+import { Formik } from 'formik';      
 
 //This is how you import the style sheet
 import { styles, buttons } from '../styles/styles.js'
 import {TouchableOpacity,TouchableHighlight, Image}  from "react-native";
 
-
 class Login extends Component {
-        render() {
-                return (
-                <View style={styles.container}>
-                        <Image style={styles.logo} source={require('../assets/top.png')} />
-                        <Image style={styles.logoText} source={require('../assets/bottom.png')} />
+
+    getData = async (values) => {
+        try {
+            //whatever the url is you want to get
+            console.log(values.email);
+            console.log(values.password);
+            console.log('deco3801-universally-challenged.uqcloud.net/login?email=' + values.email + '&password=' + values.password);
+            let response = await fetch('https://deco3801-universally-challenged.uqcloud.net/login?email=' + values.email + '&password=' + values.password);
+            if (response.ok) {
+                console.log(response);
+                let juice = await response.text();
+                console.log(juice);
+                //return juice;
+            } else {
+                alert("HTTP-Error: " + response.status);
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    };  
+
+   
+    MyReactNativeForm = props => (
+        <Formik
+            initialValues={{ email: '', password: '' }}
+            onSubmit={
+                values => this.getData(values)
+                //values => console.log(values)
+                //this.getData(values);
+
+            }
+        >
+            {({ handleChange, handleBlur, handleSubmit, values }) => (
+                <View>
+                    <TextInput
+                        style={{ borderColor:'black', borderWidth:2 }}
+                        onChangeText={handleChange('email')}
+                        onBlur={handleBlur('email')}
+                        value={values.email}
+                    />
+
+                    <TextInput
+                        style={{ borderColor: 'black', borderWidth: 2 }}
+                        onChangeText={handleChange('password')}
+                        onBlur={handleBlur('password')}
+                        value={values.password}
+                    />
+                    <Button onPress={handleSubmit} title="Submit" />
+                </View>
+            )}
+        </Formik>
+    );
+
+    render() {
+        return (
+            <View style={styles.container}>
+
+                <this.MyReactNativeForm />
+
                         <TouchableHighlight style={buttons.primary}
                             onPress={() => this.props.navigation.navigate('Main')}
                         >
                                 <Text style={buttons.buttonText}>Login</Text>
 
-                        </TouchableHighlight>
+                </TouchableHighlight>
+
                 </View>
-                )
+                )   
         }
 }
 
