@@ -9,7 +9,7 @@ import Library from "./src/screens/library";
 import Pages from "./src/screens/pages";
 
 //Screen const
-import Draw from "./src/screens/Draw";
+import Draw from "./src/screens/draw";
 
 
 // Navigation types
