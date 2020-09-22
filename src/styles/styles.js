@@ -77,6 +77,16 @@ const buttons = StyleSheet.create({
         height: 30,
         width: 30,
         backgroundColor: '#bc904f'
+    },
+    largeButton: {
+        height: 100,
+        width: 100,
+        backgroundColor: '#0a0505',
+        // position: 'absolute',
+        // left: 100,
+        // top: 300,
+        // margin: 20
+
     }
 })
 
@@ -93,7 +103,7 @@ const canvas= StyleSheet.create({
         marginVertical: 8,
         width: 30,
         height: 30,
-        borderRadius: 15,
+        borderRadius: 5,
     },
     strokeWidthButton: {
         marginHorizontal: 2.5,
@@ -119,6 +129,33 @@ const canvas= StyleSheet.create({
         width: 65,
         height: 65,
         backgroundColor: "white"
+    },
+    colourPalette: {
+        position: "absolute",
+        top: 44.5,
+        left: 0,
+        height: 400,
+        width:  100,
+        borderRadius: 5,
+        backgroundColor: '#fbf3dc',
+        flexDirection: 'column',
+        justifyContent: "space-around",
+        alignItems: "center"
+    },
+    red: {
+        backgroundColor: '#8f0000'
+    },
+    yellow: {
+        backgroundColor: '#ffc30a'
+    },
+    green: {
+        backgroundColor: '#0eb891'
+    },
+    brown: {
+        backgroundColor: '#4a35ff'
+    },
+    black: {
+        backgroundColor: '#051032'
     }
 })
 

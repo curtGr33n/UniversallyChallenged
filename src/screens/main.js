@@ -46,6 +46,13 @@ class Main extends Component {
                         <Text style={buttons.buttonText}>Draw this is Raw draw</Text>
                     </View>
                 </TouchableOpacity>
+                <TouchableOpacity
+                    onPress={() => this.props.navigation.navigate('Test')}
+                >
+                    <View style={buttons.primary}>
+                        <Text style={buttons.buttonText}>Test</Text>
+                    </View>
+                </TouchableOpacity>
             </View>
         )
     }

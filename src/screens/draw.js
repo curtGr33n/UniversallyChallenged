@@ -1,23 +1,51 @@
 import React, {Component} from 'react';
-import {AppRegistry, StyleSheet, Text, View, Alert, TouchableOpacity} from 'react-native';
+import {AppRegistry, StyleSheet, Text, View, Alert, TouchableOpacity, Animated, Easing} from 'react-native';
 
 import RNSketchCanvas from '@terrylinla/react-native-sketch-canvas';
 
 import {buttons, styles, page, canvas} from '../styles/styles'
 
-
 export default class Draw extends Component {
+    state = {
+        show: false
+    };
+
+    toggle () {
+        this.setState({
+            show: !this.state.show
+        });
+    }
+
+
+
+
     render() {
         return (
             <View style={canvas.container}>
                 <View style={{backgroundColor: '#fbf3dc', width: 100, height: 400,
                     flexDirection: 'column', justifyContent: "space-around", alignItems: "center"}}>
-                    <TouchableOpacity style={canvas.button}/>
+                    <TouchableOpacity
+                        style={canvas.button}
+                        onPress={() => this.toggle()}/>
                     <TouchableOpacity style={canvas.button}/>
                     <TouchableOpacity style={canvas.button}/>
                     <TouchableOpacity style={canvas.button}/>
                     <TouchableOpacity style={canvas.button}/>
                 </View>
+                {this.state.show ? (
+                    <View style={canvas.colourPalette}>
+                        <TouchableOpacity style={[canvas.button, canvas.red]}
+                                          onPress={() => this.toggle()}/>
+                        <TouchableOpacity style={[canvas.button, canvas.yellow]}
+                                          onPress={() => this.toggle()}/>
+                        <TouchableOpacity style={[canvas.button, canvas.green]}
+                                          onPress={() => this.toggle()}/>
+                        <TouchableOpacity style={[canvas.button, canvas.brown]}
+                                          onPress={() => this.toggle()}/>
+                        <TouchableOpacity style={[canvas.button, canvas.black]}
+                                          onPress={() => this.toggle()}/>
+                    </View>
+                ) : null}
                 <View style={{flex: 1, flexDirection: 'column'}}>
                     <RNSketchCanvas
                         containerStyle={{backgroundColor: 'transparent', flex: 1}}
@@ -87,6 +115,8 @@ export default class Draw extends Component {
                                 imageType: 'png',
                             };
                         }}
+                        strokeColors={[{color: '#bc2b2b'}, {color: '#ffc30a'}, {color: '#0eb891'},
+                            {color: '#4a35ff'}, {color: '#051032'}]}
                     />
                 </View>
             </View>

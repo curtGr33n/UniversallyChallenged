@@ -10,6 +10,7 @@ import Pages from "./src/screens/pages";
 
 //Screen const
 import Draw from "./src/screens/draw";
+import Test from "./src/screens/test";
 
 
 // Navigation types
@@ -92,6 +93,10 @@ export default class App extends Component {
             <Stack.Screen
                 name={"Draw"}
                 component={Draw}
+            />
+            <Stack.Screen
+                name={"Test"}
+                component={Test}
             />
             <Stack.Screen
                 name={"Library"}
