@@ -81,7 +81,7 @@ const buttons = StyleSheet.create({
     largeButton: {
         height: 100,
         width: 100,
-        backgroundColor: '#0a0505',
+        backgroundColor: 'rgba(143, 0, 0, 0.5)',
         // position: 'absolute',
         // left: 100,
         // top: 300,

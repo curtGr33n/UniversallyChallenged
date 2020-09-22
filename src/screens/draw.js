@@ -115,7 +115,7 @@ export default class Draw extends Component {
                                 imageType: 'png',
                             };
                         }}
-                        strokeColors={[{color: '#bc2b2b'}, {color: '#ffc30a'}, {color: '#0eb891'},
+                        strokeColors={[{color: 'rgba(143, 0, 0, 0.5)'}, {color: '#ffc30a'}, {color: '#0eb891'},
                             {color: '#4a35ff'}, {color: '#051032'}]}
                     />
                 </View>
