@@ -42,11 +42,11 @@ export default class App extends Component {
       <View style={{ flexDirection: 'row' }} >
          <Image
             style={{
-                width: 350,
+                width: 380,
                 height: 100,
                 marginLeft: 15,
             }}
-            source={require('./src/images/logo.png')}
+            source={require('./src/screens/images/logo.png')}
          />
      </View>
 
@@ -63,7 +63,7 @@ export default class App extends Component {
                     fontWeight: 'bold',
                 },
                 headerTitle: this.setLogo,
-                headerRight: () => (< View style={{ flexDirection: 'row' }} >
+                headerRight: () => (< View style={{ flexDirection: 'row', padding: 20 }} >
                     <Icon style={{ paddingRight: 50 }}
                           name='home'
                           size={80}
@@ -71,7 +71,7 @@ export default class App extends Component {
                           color='white'
                           onPress={() => navigation.navigate('Main')}
                     />
-                    <Icon style={{ paddingRight: 80 }}
+                    <Icon
                           name='cog'
                           size={80}
                           type='font-awesome'
