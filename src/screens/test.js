@@ -2,52 +2,48 @@ import React, {Component, useState} from "react";
 import { Animated, Easing, StyleSheet, TouchableOpacity, View, AppRegistry} from "react-native";
 
 import {canvas, buttons} from '../styles/styles';
-
-import { SketchCanvas } from '@terrylinla/react-native-sketch-canvas';
+import Slider from "@react-native-community/slider";
 
 function Test () {
-    const [show, setShow] = useState(false);
-
-    function toggle (color) {
-        setShow(!show);
-    }
+    const [value, setValue] = useState(0);
+    const maxVal = 500
 
     return (
-        <View style={{flex: 1, flexDirection: "row", justifyContent: 'center', alignItems: 'center'}}>
-            <View style={{backgroundColor: '#fbf3dc', width: 100, height: 400,
-                flexDirection: 'column', justifyContent: "space-around", alignItems: "center"}}>
-                <TouchableOpacity
-                    style={canvas.button}
-                    onPress={() => toggle()}/>
-                <TouchableOpacity style={canvas.button}/>
-                <TouchableOpacity style={canvas.button}/>
-                <TouchableOpacity style={canvas.button}/>
-                <TouchableOpacity style={canvas.button}/>
+        <View style={{flex: 1, flexDirection: "column", justifyContent: 'center', alignItems: 'center'}}>
+            <View style={{
+                borderRadius: maxVal/2,
+                width: maxVal,
+                height: maxVal,
+                backgroundColor: "white",
+                position: "absolute",
+                right: 450,
+                top: 100,
+                marginHorizontal: 2.5,
+
+            }}>
+                <View style={{
+                    borderRadius: value/2,
+                    width: value,
+                    height: value,
+                    backgroundColor: "black",
+                    position: "absolute",
+                    top: (maxVal - value) / 2,
+                    right: (maxVal - value) / 2
+                }}/>
             </View>
-            {show ? (
-                <View style={canvas.colourPalette}>
-                    <TouchableOpacity style={[canvas.button, canvas.red]}
-                                      onPress={() => toggle()}/>
-                    <TouchableOpacity style={[canvas.button, canvas.yellow]}
-                                      onPress={() => toggle()}/>
-                    <TouchableOpacity style={[canvas.button, canvas.green]}
-                                      onPress={() => toggle()}/>
-                    <TouchableOpacity style={[canvas.button, canvas.brown]}
-                                      onPress={() => toggle()}/>
-                    <TouchableOpacity style={[canvas.button, canvas.black]}
-                                      onPress={() => toggle()}/>
-                </View>
-            ) : null}
-            <SketchCanvas
-                style={{flex: 1, backgroundColor: 'white'}}
-                strokeColor={'red'}
-                strokeWidth={40}
+            <Slider
+                style={{width: 200, height: 40, position: "absolute",  right: 20,
+                        transform: [{rotate: "-90deg"}] }}
+                minimumValue={0}
+                maximumValue={maxVal}
+                minimumTrackTintColor="#FFFFFF"
+                maximumTrackTintColor="#000000"
+                value={value}
+                onValueChange={(newSize) => setValue(newSize) }
             />
         </View>
     );
 }
-
-AppRegistry.registerComponent('example', () => Test3);
 
 function Test2 () {
     const opacity = new Animated.Value(0);

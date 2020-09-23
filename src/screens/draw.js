@@ -4,16 +4,20 @@ import {View, TouchableOpacity, Image, AppRegistry} from 'react-native';
 import {SketchCanvas} from '@terrylinla/react-native-sketch-canvas';
 
 import {buttons, styles, page, canvas} from '../styles/styles'
+import Slider from "@react-native-community/slider";
 
 export default class Draw extends Component {
     constructor(props) {
         super(props);
         this.myRef = createRef();
+        this.brushMaxVal = 90;
     }
 
     state = {
-        show: false,
+        colorShow: false,
         color: "red",
+        brushSizeShow: false,
+        brushSize: 10
     };
 
     chooseColor (color) {
@@ -23,7 +27,19 @@ export default class Draw extends Component {
             });
         }
         this.setState({
-            show: !this.state.show
+            colorShow: !this.state.colorShow
+        });
+    }
+
+    toggleBrushWindow () {
+        this.setState({
+            brushSizeShow: !this.state.brushSizeShow
+        });
+    }
+
+    changeBrushSize (value) {
+        this.setState({
+            brushSize: value
         });
     }
 
@@ -61,12 +77,14 @@ export default class Draw extends Component {
                         />
                     </TouchableOpacity>
                     <TouchableOpacity
-                        style={canvas.button}/>
+                        style={canvas.button}
+                        onPress={() => this.toggleBrushWindow()}
+                    />
 
                     <TouchableOpacity
                         style={canvas.button}/>
                 </View>
-                {this.state.show ? (
+                {this.state.colorShow ? (
                     <View style={canvas.colourPalette}>
                         <TouchableOpacity style={[canvas.button, canvas.red]}
                                           onPress={() => this.chooseColor("red")}/>
@@ -80,12 +98,47 @@ export default class Draw extends Component {
                                           onPress={() => this.chooseColor("black")}/>
                     </View>
                     ) : null}
+                {this.state.brushSizeShow ? (
+                    <View style={canvas.colourPalette}>
+                        <View style={{
+                            borderRadius: this.brushMaxVal/2,
+                            width: this.brushMaxVal,
+                            height: this.brushMaxVal,
+                            backgroundColor: "white",
+                            position: "absolute",
+                            // left: 5,
+                            top: 10,
+                            marginHorizontal: 5,
+
+                        }}>
+                            <View style={{
+                                borderRadius: this.state.brushSize/2,
+                                width: this.state.brushSize,
+                                height: this.state.brushSize,
+                                backgroundColor: "black",
+                                position: "absolute",
+                                top: (this.brushMaxVal - this.state.brushSize) / 2,
+                                right: (this.brushMaxVal - this.state.brushSize) / 2
+                            }}/>
+                        </View>
+                        <Slider
+                            style={{width: 300, height: 80, transform: [{rotate: "-90deg"}], top: 60 }}
+                            minimumValue={0}
+                            maximumValue={this.brushMaxVal}
+                            minimumTrackTintColor="#FFFFFF"
+                            maximumTrackTintColor="#000000"
+                            value={this.state.brushSize}
+                            onValueChange={(newSize) => this.changeBrushSize(newSize)}
+                            onSlidingComplete={() => this.toggleBrushWindow()}
+                        />
+                    </View>
+                ) : null}
                 <View style={{flex: 1, flexDirection: 'column'}}>
                     <SketchCanvas
                         ref={this.myRef}
                         style={{flex: 1, backgroundColor: 'white'}}
                         strokeColor={this.state.color}
-                        strokeWidth={40}
+                        strokeWidth={this.state.brushSize}
                     />
                 </View>
             </View>
