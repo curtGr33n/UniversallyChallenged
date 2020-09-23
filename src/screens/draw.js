@@ -78,8 +78,13 @@ export default class Draw extends Component {
                     </TouchableOpacity>
                     <TouchableOpacity
                         style={canvas.button}
-                        onPress={() => this.toggleBrushWindow()}
-                    />
+                        onPress={() => this.toggleBrushWindow()}>
+                        <Image
+                            source={require("../assets/top.png")}
+                            resizeMode="center"
+                            style={canvas.icon}
+                        />
+                    </TouchableOpacity>
 
                     <TouchableOpacity
                         style={canvas.button}/>
