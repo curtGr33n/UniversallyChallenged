@@ -13,6 +13,7 @@ class Login extends Component {
 
     getData = async (values) => {
         try {
+            global.user = "";
             //whatever the url is you want to get
             console.log(values.email);
             console.log(values.password);
@@ -22,6 +23,20 @@ class Login extends Component {
                 console.log(response);
                 let juice = await response.text();
                 console.log(juice);
+                console.log(typeof(juice));
+                if(juice.includes("teacher")){
+                    global.user = "teacher";
+                    this.props.navigation.navigate('Main');
+                }
+                else if(juice.includes("students")){
+                    global.user = "student";
+                    this.props.navigation.navigate('Main');
+                }
+                else{
+                    global.user = "undefined";
+                }
+                console.log(global.user);
+
                 //return juice;
             } else {
                 alert("HTTP-Error: " + response.status);
