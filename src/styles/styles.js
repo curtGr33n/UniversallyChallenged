@@ -156,6 +156,14 @@ const canvas= StyleSheet.create({
     },
     black: {
         backgroundColor: '#051032'
+    },
+    icon: {
+        height: 50,
+        width: 50,
+        alignItems: 'center',
+        justifyContent: 'center',
+        left: 7,
+        top: 7
     }
 })
 

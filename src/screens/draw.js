@@ -1,23 +1,31 @@
-import React, {Component} from 'react';
-import {AppRegistry, StyleSheet, Text, View, Alert, TouchableOpacity, Animated, Easing} from 'react-native';
+import React, {Component, createRef, useRef} from 'react';
+import {View, TouchableOpacity, Image, AppRegistry} from 'react-native';
 
-import RNSketchCanvas from '@terrylinla/react-native-sketch-canvas';
+import {SketchCanvas} from '@terrylinla/react-native-sketch-canvas';
 
 import {buttons, styles, page, canvas} from '../styles/styles'
 
 export default class Draw extends Component {
+    constructor(props) {
+        super(props);
+        this.myRef = createRef();
+    }
+
     state = {
-        show: false
+        show: false,
+        color: "red",
     };
 
-    toggle () {
+    chooseColor (color) {
+        if (color != null) {
+            this.setState({
+                color: color
+            });
+        }
         this.setState({
             show: !this.state.show
         });
     }
-
-
-
 
     render() {
         return (
@@ -26,97 +34,58 @@ export default class Draw extends Component {
                     flexDirection: 'column', justifyContent: "space-around", alignItems: "center"}}>
                     <TouchableOpacity
                         style={canvas.button}
-                        onPress={() => this.toggle()}/>
-                    <TouchableOpacity style={canvas.button}/>
-                    <TouchableOpacity style={canvas.button}/>
-                    <TouchableOpacity style={canvas.button}/>
-                    <TouchableOpacity style={canvas.button}/>
+                        onPress={() => this.chooseColor()}>
+                        <Image
+                            source={require("../assets/pencil.png")}
+                            resizeMode="center"
+                            style={canvas.icon}
+                        />
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        style={canvas.button}
+                        onPress={() => this.setState({color: "white"})}>
+                        <Image
+                            source={require("../assets/rubber.png")}
+                            resizeMode="center"
+                            style={canvas.icon}
+                        />
+                    </TouchableOpacity>
+
+                    <TouchableOpacity
+                        style={canvas.button}
+                        onPress={() => this.myRef.current.undo()}>
+                        <Image
+                            source={require("../assets/undo.png")}
+                            resizeMode="center"
+                            style={canvas.icon}
+                        />
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        style={canvas.button}/>
+
+                    <TouchableOpacity
+                        style={canvas.button}/>
                 </View>
                 {this.state.show ? (
                     <View style={canvas.colourPalette}>
                         <TouchableOpacity style={[canvas.button, canvas.red]}
-                                          onPress={() => this.toggle()}/>
+                                          onPress={() => this.chooseColor("red")}/>
                         <TouchableOpacity style={[canvas.button, canvas.yellow]}
-                                          onPress={() => this.toggle()}/>
+                                          onPress={() => this.chooseColor("yellow")}/>
                         <TouchableOpacity style={[canvas.button, canvas.green]}
-                                          onPress={() => this.toggle()}/>
+                                          onPress={() => this.chooseColor("green")}/>
                         <TouchableOpacity style={[canvas.button, canvas.brown]}
-                                          onPress={() => this.toggle()}/>
+                                          onPress={() => this.chooseColor("brown")}/>
                         <TouchableOpacity style={[canvas.button, canvas.black]}
-                                          onPress={() => this.toggle()}/>
+                                          onPress={() => this.chooseColor("black")}/>
                     </View>
-                ) : null}
+                    ) : null}
                 <View style={{flex: 1, flexDirection: 'column'}}>
-                    <RNSketchCanvas
-                        containerStyle={{backgroundColor: 'transparent', flex: 1}}
-                        canvasStyle={{backgroundColor: 'transparent', flex: 1}}
-                        defaultStrokeIndex={0}
-                        defaultStrokeWidth={5}
-                        closeComponent={
-                            <View style={canvas.functionButton}>
-                                <Text style={{color: 'white'}}>Close</Text>
-                            </View>
-                        }
-                        undoComponent={
-                            <View style={canvas.functionButton}>
-                                <Text style={{color: 'white'}}>Undo</Text>
-                            </View>
-                        }
-                        clearComponent={
-                            <View style={canvas.functionButton}>
-                                <Text style={{color: 'white'}}>Clear</Text>
-                            </View>
-                        }
-                        eraseComponent={
-                            <View style={canvas.functionButton}>
-                                <Text style={{color: 'white'}}>Eraser</Text>
-                            </View>
-                        }
-                        strokeComponent={(color) => (
-                            <View
-                                style={[{backgroundColor: color}, canvas.strokeColorButton]}
-                            />
-                        )}
-                        strokeSelectedComponent={(color, index, changed) => {
-                            return (
-                                <View
-                                    style={[
-                                        {backgroundColor: color, borderWidth: 2},
-                                        canvas.strokeColorButton,
-                                    ]}
-                                />
-                            );
-                        }}
-                        strokeWidthComponent={(w) => {
-                            return (
-                                <View style={canvas.strokeWidthButton}>
-                                    <View
-                                        style={{
-                                            backgroundColor: 'white',
-                                            marginHorizontal: 2.5,
-                                            width: Math.sqrt(w / 3) * 10,
-                                            height: Math.sqrt(w / 3) * 10,
-                                            borderRadius: (Math.sqrt(w / 3) * 10) / 2,
-                                        }}
-                                    />
-                                </View>
-                            );
-                        }}
-                        saveComponent={
-                            <View style={canvas.functionButton}>
-                                <Text style={{color: 'white'}}>Save</Text>
-                            </View>
-                        }
-                        savePreference={() => {
-                            return {
-                                folder: 'RNSketchCanvas',
-                                filename: String(Math.ceil(Math.random() * 100000000)),
-                                transparent: false,
-                                imageType: 'png',
-                            };
-                        }}
-                        strokeColors={[{color: 'rgba(143, 0, 0, 0.5)'}, {color: '#ffc30a'}, {color: '#0eb891'},
-                            {color: '#4a35ff'}, {color: '#051032'}]}
+                    <SketchCanvas
+                        ref={this.myRef}
+                        style={{flex: 1, backgroundColor: 'white'}}
+                        strokeColor={this.state.color}
+                        strokeWidth={40}
                     />
                 </View>
             </View>
