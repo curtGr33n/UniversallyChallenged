@@ -13,21 +13,31 @@ class Login extends Component {
 
     getData = async (values) => {
         try {
+            global.user = "";
             //whatever the url is you want to get
-            console.log(values.email);
-            console.log(values.password);
-            console.log('deco3801-universally-challenged.uqcloud.net/login?email=' + values.email + '&password=' + values.password);
+            //console.log('deco3801-universally-challenged.uqcloud.net/login?email=' + values.email + '&password=' + values.password);
             let response = await fetch('https://deco3801-universally-challenged.uqcloud.net/login?email=' + values.email + '&password=' + values.password);
             if (response.ok) {
-                console.log(response);
                 let juice = await response.text();
-                console.log(juice);
+                if(juice.includes("teacher")){
+                    global.user = "teacher";
+                    this.props.navigation.navigate('Main');
+                }
+                else if(juice.includes("students")){
+                    global.user = "student";
+                    this.props.navigation.navigate('Main');
+                }
+                else{
+                    global.user = "undefined";
+                }
+
                 //return juice;
             } else {
-                alert("HTTP-Error: " + response.status);
+                //alert("HTTP-Error: " + response.status);
+                //server isnt up if it makes it here
             }
         } catch (error) {
-            console.error(error);
+            //console.error(error);
         }
     };  
 
@@ -37,9 +47,6 @@ class Login extends Component {
             initialValues={{ email: '', password: '' }}
             onSubmit={
                 values => this.getData(values)
-                //values => console.log(values)
-                //this.getData(values);
-
             }
         >
             {({ handleChange, handleBlur, handleSubmit, values }) => (

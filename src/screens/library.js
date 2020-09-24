@@ -1,5 +1,7 @@
 import React, { Component, useState } from 'react';
-import {View, Text, ScrollView} from 'react-native';
+import { View, Text, ScrollView } from 'react-native';
+import { Button, TextInput } from 'react-native';
+import { Formik } from 'formik';
 
 //This is how you import the style sheet
 import {styles, buttons, page} from '../styles/styles.js';
@@ -8,6 +10,51 @@ import {TouchableOpacity,TouchableHighlight, Image}  from "react-native";
 
 
 class Library extends Component {
+
+    getData = async (values) => {
+        try {
+            console.log(values.classId);
+            //console.log('deco3801-universally-challenged.uqcloud.net/getClassBooks?classId=' + values.classId);
+            //let response = await fetch('deco3801-universally-challenged.uqcloud.net/getClassBooks?classId=' + values.classId);
+            let response = await fetch('https://deco3801-universally-challenged.uqcloud.net/getClassBooks?classId=' + values.classId);
+            if (response.ok) {
+                console.log(response);
+                let juice = await response.text();
+                console.log(juice);
+            } else {
+                alert("HTTP-Error: " + response.status);
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    MyReactNativeForm = props => (
+        <Formik
+            initialValues={{ classId : -1 }}
+            onSubmit={
+                values => this.getData(values)
+                //values => console.log(values)
+                //this.getData(values);
+
+            }
+        >
+            {({ handleChange, handleBlur, handleSubmit, values }) => (
+                <View>
+                    <TextInput
+                        style={{ borderColor: 'black', borderWidth: 2 }}
+                        onChangeText={handleChange('classId')}
+                        onBlur={handleBlur('classId')}
+                        value={values.email}
+                    />
+                    <Button onPress={handleSubmit} title="Submit" />
+                </View>
+            )}
+        </Formik>
+    );
+
+
+
     render() {
 
         return (
@@ -41,6 +88,7 @@ class Library extends Component {
 
                     </ScrollView>
                 </View>
+                <this.MyReactNativeForm />
             </View>
         )
     }

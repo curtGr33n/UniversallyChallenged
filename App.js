@@ -7,6 +7,7 @@ import WelcomeScreen from "./src/screens/welcomeScreen";
 import Login from "./src/screens/login";
 import Library from "./src/screens/library";
 import Pages from "./src/screens/pages";
+import Settings from "./src/screens/settings"
 
 //Screen const
 import Draw from "./src/screens/draw";
@@ -43,11 +44,11 @@ export default class App extends Component {
       <View style={{ flexDirection: 'row' }} >
          <Image
             style={{
-                width: 350,
+                width: 380,
                 height: 100,
                 marginLeft: 15,
             }}
-            source={require('./src/images/logo.png')}
+            source={require('./src/screens/images/logo.png')}
          />
      </View>
 
@@ -64,7 +65,7 @@ export default class App extends Component {
                     fontWeight: 'bold',
                 },
                 headerTitle: this.setLogo,
-                headerRight: () => (< View style={{ flexDirection: 'row' }} >
+                headerRight: () => (< View style={{ flexDirection: 'row', padding: 20 }} >
                     <Icon style={{ paddingRight: 50 }}
                           name='home'
                           size={80}
@@ -72,12 +73,12 @@ export default class App extends Component {
                           color='white'
                           onPress={() => navigation.navigate('Main')}
                     />
-                    <Icon style={{ paddingRight: 80 }}
+                    <Icon
                           name='cog'
                           size={80}
                           type='font-awesome'
                           color='white'
-                          onPress={() => navigation.navigate('Main')}
+                          onPress={() => navigation.navigate('Settings')}
                     />
                 </View>),
                 headerLeft: null
@@ -110,6 +111,18 @@ export default class App extends Component {
                 options={{
                     headerTitle: this.setLogo
             }}/>
+            <Stack.Screen
+                name={"Settings"}
+                component={Settings}
+                options={{
+                    headerTitle: this.setLogo
+                }}/>
+            <Stack.Screen
+                name={"WelcomeScreen"}
+                component={WelcomeScreen}
+                options={{
+                    headerTitle: this.setLogo
+                }}/>
         </Stack.Navigator>
 }
 

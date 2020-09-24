@@ -30,6 +30,7 @@ function Pages () {
                 alignItems: 'center'
             }}>
                 <Draw/>
+
             </View>
             <View style={{
                 backgroundColor: "#f8ebc4",

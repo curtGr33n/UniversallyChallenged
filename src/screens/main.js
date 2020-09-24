@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {View, Text, TouchableHighlight, TouchableOpacity} from 'react-native';
+import {View, Text, TouchableOpacity, Image} from 'react-native';
 
 //This is how you import the style sheet styles
 // If another stylesheet is wanted add it with a , separator
@@ -9,54 +9,45 @@ import {buttons, styles, page} from '../styles/styles'
 class Main extends Component {
     render() {
         return (
-            <View style={styles.center}>
+            <View style={styles.container}>
+
                 <Text style={page.title}>Home Page</Text>
-                <TouchableOpacity
-                    onPress={() => this.props.navigation.navigate('Library')}
-                >
-                    <View style={buttons.primary}>
+
+                <View style={page.homeButtons}>
+                    <TouchableOpacity
+                        onPress={() => this.props.navigation.navigate('Library')}
+                        style={page.primary}
+                    >
+                        <Image source={require('./images/library.png')} style={page.imageLib}/>
                         <Text style={buttons.buttonText}>Library</Text>
-                    </View>
-                </TouchableOpacity>
-                <TouchableOpacity
-                    onPress={() => this.props.navigation.navigate('Library')}
-                >
-                    <View style={buttons.primary}>
+
+                    </TouchableOpacity>
+
+                    <TouchableOpacity
+                        onPress={() => this.props.navigation.navigate('Library')}
+                        style={page.primary}
+                    >
+                        <Image source={require('./images/achievements.png')} style={page.imageMedal}/>
                         <Text style={buttons.buttonText}>Stripes Earned</Text>
-                    </View>
-                </TouchableOpacity>
-                <TouchableOpacity
-                    onPress={() => this.props.navigation.navigate('Login')}
-                >
-                    <View style={buttons.primary}>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity
+                        onPress={() => this.props.navigation.navigate('Library')}
+                        style={page.primary}
+                    >
+                        <Image source={require('./images/video.png')} style={page.imageVideo}/>
                         <Text style={buttons.buttonText}>Video Tutorial</Text>
-                    </View>
-                </TouchableOpacity>
-                <TouchableOpacity
-                    onPress={() => this.props.navigation.navigate('Pages')}
-                >
-                    <View style={buttons.primary}>
-                        <Text style={buttons.buttonText}>Pages: Has draw formatted</Text>
-                    </View>
-                </TouchableOpacity>
-                <TouchableOpacity
-                    onPress={() => this.props.navigation.navigate('Draw')}
-                >
-                    <View style={buttons.primary}>
-                        <Text style={buttons.buttonText}>Draw this is Raw draw</Text>
-                    </View>
-                </TouchableOpacity>
-                <TouchableOpacity
-                    onPress={() => this.props.navigation.navigate('Test')}
-                >
-                    <View style={buttons.primary}>
-                        <Text style={buttons.buttonText}>Test</Text>
-                    </View>
-                </TouchableOpacity>
+                    </TouchableOpacity>
+                </View>
+
+                <Image source={require('./images/buzz_words.png')} style={page.buzz}/>
+
             </View>
         )
     }
 }
+
+
 
 
 export default Main;
