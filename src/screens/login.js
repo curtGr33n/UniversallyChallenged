@@ -33,10 +33,11 @@ class Login extends Component {
 
                 //return juice;
             } else {
-                alert("HTTP-Error: " + response.status);
+                //alert("HTTP-Error: " + response.status);
+                //server isnt up if it makes it here
             }
         } catch (error) {
-            console.error(error);
+            //console.error(error);
         }
     };  
 
