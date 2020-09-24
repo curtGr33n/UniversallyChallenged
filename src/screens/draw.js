@@ -1,9 +1,9 @@
-import React, {Component, createRef, useRef} from 'react';
+import React, {Component, createRef} from 'react';
 import {View, TouchableOpacity, Image, AppRegistry} from 'react-native';
 
 import {SketchCanvas} from '@terrylinla/react-native-sketch-canvas';
 
-import {buttons, styles, page, canvas} from '../styles/styles'
+import {canvas} from '../styles/styles'
 import Slider from "@react-native-community/slider";
 
 export default class Draw extends Component {
@@ -14,33 +14,172 @@ export default class Draw extends Component {
     }
 
     state = {
-        colorShow: false,
+        pColorShow: false,
+        sColorShow: false,
         color: "red",
         brushSizeShow: false,
         brushSize: 10
     };
 
+    /*
+    Changes colors of the brush and shows the primary/secondary palette based on what screen is show
+     */
     chooseColor (color) {
-        if (color != null) {
+        if (!this.state.pColorShow && !this.state.sColorShow) {
+            // if no color palettes are showing, show primary palette
+            console.log("Showing primary")
             this.setState({
-                color: color
+                pColorShow: true
             });
+        } else if (this.state.pColorShow && !this.state.sColorShow) {
+            // if primary palette is already showing, hide primary and show secondary palette
+            console.log("Showing secondary")
+
+            this.setState({
+                pColorShow: false,
+                sColorShow: true,
+                color: color
+            })
+        } else if (!this.state.pColorShow && this.state.sColorShow) {
+            // if color chosen is from secondary palette change color of brush
+            console.log("Selecting color")
+            this.setState({
+                color: color,
+                sColorShow: false
+            })
         }
-        this.setState({
-            colorShow: !this.state.colorShow
-        });
     }
 
+    /*
+    Toggles the brush window (eg, show or don't show)
+     */
     toggleBrushWindow () {
         this.setState({
             brushSizeShow: !this.state.brushSizeShow
         });
     }
 
+    /*
+    Changes brush size based off the given value
+     */
     changeBrushSize (value) {
         this.setState({
             brushSize: value
         });
+    }
+
+    /*
+    The primary color palette
+     */
+    primaryColors () {
+        const colors = ["red", "blue", "green", "brown", "black"];
+        const colorComponents = colors.map(color =>
+                <TouchableOpacity style={[canvas.button, {backgroundColor: color}]}
+                                  onPress={() => this.chooseColor(color)}/>)
+        return(
+            <View style={canvas.sideBar}>
+                <>{colorComponents}</>
+            </View>
+        )
+    }
+
+    /*
+    The secondary color palette is shown based on the given primary color
+     */
+    secondaryColors (color) {
+        const red = ["red", "sandybrown", "crimson", "gold"];
+        const blue = ["steelblue", "blue", "paleturquoise"];
+        const green = ["olivedrab", "lightgreen", "green"];
+        const brown = ["tan", "saddlebrown", "bisque", "brown"];
+        const black = ["black"];
+
+        if (color === "red") {
+            const colorComponents = red.map(color =>
+                <TouchableOpacity style={[canvas.button, {backgroundColor: color}]}
+                                  onPress={() => this.chooseColor(color)}/>)
+            return (
+                <View style={canvas.sideBar}>
+                    <>{colorComponents}</>
+                </View>
+            )
+        } else if (color === "blue") {
+            const colorComponents = blue.map(color =>
+                <TouchableOpacity style={[canvas.button, {backgroundColor: color}]}
+                                  onPress={() => this.chooseColor(color)}/>)
+            return (
+                <View style={canvas.sideBar}>
+                    <>{colorComponents}</>
+                </View>
+            )
+        } else if (color === "green") {
+            const colorComponents = green.map(color =>
+                <TouchableOpacity style={[canvas.button, {backgroundColor: color}]}
+                                  onPress={() => this.chooseColor(color)}/>)
+            return (
+                <View style={canvas.sideBar}>
+                    <>{colorComponents}</>
+                </View>
+            )
+        } else if (color === "brown") {
+            const colorComponents = brown.map(color =>
+                <TouchableOpacity style={[canvas.button, {backgroundColor: color}]}
+                                  onPress={() => this.chooseColor(color)}/>)
+            return (
+                <View style={canvas.sideBar}>
+                    <>{colorComponents}</>
+                </View>
+            )
+        } else if (color === "black") {
+            const colorComponents = black.map(color =>
+                <TouchableOpacity style={[canvas.button, {backgroundColor: color}]}
+                                  onPress={() => this.chooseColor(color)}/>)
+            return (
+                <View style={canvas.sideBar}>
+                    <>{colorComponents}</>
+                </View>
+            )
+        }
+    }
+
+    /*
+    View that shows the brush adjuster
+     */
+    brushAdjuster () {
+        return (
+            <View style={canvas.sideBar}>
+                <View style={{
+                    borderRadius: this.brushMaxVal/2,
+                    width: this.brushMaxVal,
+                    height: this.brushMaxVal,
+                    backgroundColor: "white",
+                    position: "absolute",
+                    // left: 5,
+                    top: 10,
+                    marginHorizontal: 5,
+
+                }}>
+                    <View style={{
+                        borderRadius: this.state.brushSize/2,
+                        width: this.state.brushSize,
+                        height: this.state.brushSize,
+                        backgroundColor: "black",
+                        position: "absolute",
+                        top: (this.brushMaxVal - this.state.brushSize) / 2,
+                        right: (this.brushMaxVal - this.state.brushSize) / 2
+                    }}/>
+                </View>
+                <Slider
+                    style={{width: 300, height: 80, transform: [{rotate: "-90deg"}], top: 60 }}
+                    minimumValue={0}
+                    maximumValue={this.brushMaxVal}
+                    minimumTrackTintColor="#FFFFFF"
+                    maximumTrackTintColor="#000000"
+                    value={this.state.brushSize}
+                    onValueChange={(newSize) => this.changeBrushSize(newSize)}
+                    onSlidingComplete={() => this.toggleBrushWindow()}
+                />
+            </View>
+        );
     }
 
     render() {
@@ -89,55 +228,9 @@ export default class Draw extends Component {
                     <TouchableOpacity
                         style={canvas.button}/>
                 </View>
-                {this.state.colorShow ? (
-                    <View style={canvas.colourPalette}>
-                        <TouchableOpacity style={[canvas.button, canvas.red]}
-                                          onPress={() => this.chooseColor("red")}/>
-                        <TouchableOpacity style={[canvas.button, canvas.yellow]}
-                                          onPress={() => this.chooseColor("yellow")}/>
-                        <TouchableOpacity style={[canvas.button, canvas.green]}
-                                          onPress={() => this.chooseColor("green")}/>
-                        <TouchableOpacity style={[canvas.button, canvas.brown]}
-                                          onPress={() => this.chooseColor("brown")}/>
-                        <TouchableOpacity style={[canvas.button, canvas.black]}
-                                          onPress={() => this.chooseColor("black")}/>
-                    </View>
-                    ) : null}
-                {this.state.brushSizeShow ? (
-                    <View style={canvas.colourPalette}>
-                        <View style={{
-                            borderRadius: this.brushMaxVal/2,
-                            width: this.brushMaxVal,
-                            height: this.brushMaxVal,
-                            backgroundColor: "white",
-                            position: "absolute",
-                            // left: 5,
-                            top: 10,
-                            marginHorizontal: 5,
-
-                        }}>
-                            <View style={{
-                                borderRadius: this.state.brushSize/2,
-                                width: this.state.brushSize,
-                                height: this.state.brushSize,
-                                backgroundColor: "black",
-                                position: "absolute",
-                                top: (this.brushMaxVal - this.state.brushSize) / 2,
-                                right: (this.brushMaxVal - this.state.brushSize) / 2
-                            }}/>
-                        </View>
-                        <Slider
-                            style={{width: 300, height: 80, transform: [{rotate: "-90deg"}], top: 60 }}
-                            minimumValue={0}
-                            maximumValue={this.brushMaxVal}
-                            minimumTrackTintColor="#FFFFFF"
-                            maximumTrackTintColor="#000000"
-                            value={this.state.brushSize}
-                            onValueChange={(newSize) => this.changeBrushSize(newSize)}
-                            onSlidingComplete={() => this.toggleBrushWindow()}
-                        />
-                    </View>
-                ) : null}
+                {this.state.pColorShow ? (this.primaryColors()) : null}
+                {this.state.sColorShow ? (this.secondaryColors(this.state.color)) : null}
+                {this.state.brushSizeShow ? (this.brushAdjuster()) : null}
                 <View style={{flex: 1, flexDirection: 'column'}}>
                     <SketchCanvas
                         ref={this.myRef}

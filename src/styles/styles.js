@@ -130,7 +130,7 @@ const canvas= StyleSheet.create({
         height: 65,
         backgroundColor: "white"
     },
-    colourPalette: {
+    sideBar: {
         position: "absolute",
         top: 44.5,
         left: 0,
