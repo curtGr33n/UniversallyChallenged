@@ -4,7 +4,7 @@ import {View, Text } from 'react-native';
 //This is how you import the style sheet
 import { styles, buttons } from '../styles/styles.js';
 import {TouchableOpacity,TouchableHighlight, Image, Button}  from "react-native";
-
+import Draw from './draw.js'
 
 function Pages () {
     const [pageNumber, setPageNumber] = useState(1);
@@ -29,7 +29,8 @@ function Pages () {
                 justifyContent:'center',
                 alignItems: 'center'
             }}>
-                <Image source={require('../images/tempImage.png')} />
+                <Draw/>
+
             </View>
             <View style={{
                 backgroundColor: "#f8ebc4",
