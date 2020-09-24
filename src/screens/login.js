@@ -15,15 +15,10 @@ class Login extends Component {
         try {
             global.user = "";
             //whatever the url is you want to get
-            console.log(values.email);
-            console.log(values.password);
-            console.log('deco3801-universally-challenged.uqcloud.net/login?email=' + values.email + '&password=' + values.password);
+            //console.log('deco3801-universally-challenged.uqcloud.net/login?email=' + values.email + '&password=' + values.password);
             let response = await fetch('https://deco3801-universally-challenged.uqcloud.net/login?email=' + values.email + '&password=' + values.password);
             if (response.ok) {
-                console.log(response);
                 let juice = await response.text();
-                console.log(juice);
-                console.log(typeof(juice));
                 if(juice.includes("teacher")){
                     global.user = "teacher";
                     this.props.navigation.navigate('Main');
@@ -35,7 +30,6 @@ class Login extends Component {
                 else{
                     global.user = "undefined";
                 }
-                console.log(global.user);
 
                 //return juice;
             } else {
@@ -52,9 +46,6 @@ class Login extends Component {
             initialValues={{ email: '', password: '' }}
             onSubmit={
                 values => this.getData(values)
-                //values => console.log(values)
-                //this.getData(values);
-
             }
         >
             {({ handleChange, handleBlur, handleSubmit, values }) => (
