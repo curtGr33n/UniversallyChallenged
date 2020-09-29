@@ -10,7 +10,7 @@ import Pages from "./src/screens/pages";
 import Settings from "./src/screens/settings"
 
 //Screen const
-import Draw from "./src/screens/draw";
+import Draw from "./src/components/draw";
 
 
 // Navigation types

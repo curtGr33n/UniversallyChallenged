@@ -17,7 +17,6 @@ class Settings extends Component {
                         style={page.primary}
                     >
                         <Text style={buttons.buttonText}>Library</Text>
-
                     </TouchableOpacity>
 
                     <TouchableOpacity
@@ -28,10 +27,9 @@ class Settings extends Component {
                     </TouchableOpacity>
                     <TouchableOpacity
                         onPress={() => this.props.navigation.navigate('Pages')}
+                        style={page.primary}
                     >
-                        <View style={buttons.primary}>
-                            <Text style={buttons.buttonText}>Pages</Text>
-                        </View>
+                        <Text style={buttons.buttonText}>Pages</Text>
                     </TouchableOpacity>
 
                 </View>

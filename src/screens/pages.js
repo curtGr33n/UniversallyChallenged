@@ -4,13 +4,15 @@ import {View, Text } from 'react-native';
 //This is how you import the style sheet
 import { styles, buttons } from '../styles/styles.js';
 import {TouchableOpacity,TouchableHighlight, Image, Button}  from "react-native";
-import Draw from './draw.js'
+import Draw from '../components/draw.js'
 
 function Pages () {
+    //These might not be needed
     const [pageNumber, setPageNumber] = useState(1);
     const [pages, setPages] = useState(1);
     const [storyTitle, setStoryTitle] = useState('Title');
     const [authors, setAuthors] = useState('Peeps')
+
     return (
         <View
         style={{
