@@ -1,21 +1,12 @@
 import React, { Component, useState } from 'react';
-import { View, Text, ScrollView, Dimensions } from 'react-native';
+import { View, Text, ScrollView} from 'react-native';
 import { Button, TextInput } from 'react-native';
 import { Formik } from 'formik';
 import { Tile } from 'react-native-elements';
+import {TouchableOpacity,TouchableHighlight, Image}  from "react-native";
 
 //This is how you import the style sheet
 import {styles, buttons, page} from '../styles/styles.js';
-import {TouchableOpacity,TouchableHighlight, Image}  from "react-native";
-
-const { width } = Dimensions.get("window");
-
-// tpr = tiles per row
-const calcTileDimensions = (deviceWidth, tpr) => {
-    const margin = deviceWidth / (tpr * 10);
-    const size = (deviceWidth - margin * (tpr * 2)) / tpr;
-    return { size, margin };
-};
 
 const Book = ({size, margin, text}) => (
     <View style={[styles.bookTest, {width: size, height: size, marginHorizontal: margin}]}>
