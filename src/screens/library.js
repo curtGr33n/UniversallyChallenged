@@ -1,15 +1,77 @@
 import React, { Component, useState } from 'react';
-import { View, Text, ScrollView } from 'react-native';
+import { View, Text, ScrollView, Dimensions } from 'react-native';
 import { Button, TextInput } from 'react-native';
 import { Formik } from 'formik';
+import { Tile } from 'react-native-elements';
 
 //This is how you import the style sheet
 import {styles, buttons, page} from '../styles/styles.js';
 import {TouchableOpacity,TouchableHighlight, Image}  from "react-native";
 
+const { width } = Dimensions.get("window");
 
+// tpr = tiles per row
+const calcTileDimensions = (deviceWidth, tpr) => {
+    const margin = deviceWidth / (tpr * 10);
+    const size = (deviceWidth - margin * (tpr * 2)) / tpr;
+    return { size, margin };
+};
+
+const Book = ({size, margin, text}) => (
+    <View style={[styles.bookTest, {width: size, height: size, marginHorizontal: margin}]}>
+        <Text style={styles.logoText}>{text}</Text>
+    </View>
+)
 
 class Library extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            books:[ {id: 1, book: <Tile imageSrc={require('../assets/place-holder-open-book.png')}
+                                        title={'Test_1'}
+                                        titleStyle={styles.bookText}
+                                        style={styles.bookText}
+                                        featured
+                    />},
+                {id: 2, book: <Tile imageSrc={require('../assets/place-holder-open-book.png')}
+                                    title={'Test_2'}
+                                    titleStyle={styles.bookText}
+                                    style={styles.bookText}
+                                    featured
+                    />},
+                {id: 3, book: <Tile imageSrc={require('../assets/place-holder-open-book.png')}
+                                    title={'Test_3'}
+                                    titleStyle={styles.bookText}
+                                    style={styles.bookText}
+                                    featured
+                    />},
+                {id: 4, book: <Tile imageSrc={require('../assets/place-holder-open-book.png')}
+                                    title={'Test_4'}
+                                    titleStyle={styles.bookText}
+                                    style={styles.bookText}
+                                    featured
+                    />},
+                {id: 5, book: <Tile imageSrc={require('../assets/place-holder-open-book.png')}
+                                    title={'Test_5'}
+                                    titleStyle={styles.bookText}
+                                    style={styles.bookText}
+                                    featured
+                    />},
+                {id: 6, book: <Tile imageSrc={require('../assets/place-holder-open-book.png')}
+                                    title={'Test_6'}
+                                    titleStyle={styles.bookText}
+                                    style={styles.bookText}
+                                    featured
+                    />},
+                {id: 7, book: <Tile imageSrc={require('../assets/place-holder-open-book.png')}
+                                    title={'Test_7'}
+                                    titleStyle={styles.bookText}
+                                    style={styles.bookText}
+                                    featured
+                    />}
+            ]
+        };
+    }
 
     getData = async (values) => {
         try {
@@ -36,7 +98,6 @@ class Library extends Component {
                 values => this.getData(values)
                 //values => console.log(values)
                 //this.getData(values);
-
             }
         >
             {({ handleChange, handleBlur, handleSubmit, values }) => (
@@ -52,8 +113,6 @@ class Library extends Component {
             )}
         </Formik>
     );
-
-
 
     render() {
 
@@ -84,13 +143,21 @@ class Library extends Component {
                         backgroundColor: "white",
                         flex: 10
                     }}>
-                        {/*This is for the list of books in the library */}
-
+                        {this.booksList()}
                     </ScrollView>
                 </View>
                 <this.MyReactNativeForm />
             </View>
         )
+    }
+    booksList() {
+        return this.state.books.map((book) => {
+            return (
+                <View>
+                    {book.book}
+                </View>
+            )
+        })
     }
 }
 

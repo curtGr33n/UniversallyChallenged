@@ -1,6 +1,16 @@
 import {StyleSheet} from "react-native";
 
 const styles = StyleSheet.create({
+    bookTest: {
+        flex: 1,
+        backgroundColor: 'yellow',
+        alignItems: 'center',
+        justifyContent: 'center',
+        overflow: 'hidden'
+    },
+    bookText: {
+        color: 'orange'
+    },
     container: {
         flex: 1,
         backgroundColor: '#ffff',

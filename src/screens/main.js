@@ -15,7 +15,7 @@ class Main extends Component {
 
                 <View style={page.homeButtons}>
                     <TouchableOpacity
-                        onPress={() => this.props.navigation.navigate('Library')}
+                        onPress={() => this.props.navigation.navigate('Library', {/* We can put params here use 'varNam: variable' */})}
                         style={page.primary}
                     >
                         <Image source={require('./images/library.png')} style={page.imageLib}/>
