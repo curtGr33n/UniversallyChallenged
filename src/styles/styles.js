@@ -1,6 +1,16 @@
 import {StyleSheet} from "react-native";
 
 const styles = StyleSheet.create({
+    bookTest: {
+        flex: 1,
+        backgroundColor: 'yellow',
+        alignItems: 'center',
+        justifyContent: 'center',
+        overflow: 'hidden'
+    },
+    bookText: {
+        color: 'orange'
+    },
     container: {
         flex: 1,
         backgroundColor: '#ffff',
@@ -8,10 +18,21 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-end',
         overflow: 'hidden'
     },
-    title: {
-        fontSize: 36,
-        marginBottom: 16,
-        //color: 'orange'
+    gridView: {
+        marginTop: 10,
+        flex: 1,
+    },
+    image: {
+        flex: 1,
+        width: 200,
+        height: 200,
+        resizeMode: 'contain'
+    },
+    itemContainer: {
+        justifyContent: 'flex-end',
+        borderRadius: 5,
+        padding: 10,
+        height: 150,
     },
     logo:{
         width: 287,
@@ -31,6 +52,11 @@ const styles = StyleSheet.create({
         color: '#333333',
         fontWeight: "600",
         fontSize: 30,
+    },
+    title: {
+        fontSize: 36,
+        marginBottom: 16,
+        //color: 'orange'
     }
 })
 
@@ -112,8 +138,100 @@ const buttons = StyleSheet.create({
         color: '#fbf3dc',
         padding: 30,
         paddingBottom: 30
+    },
+    smallButton: {
+        height: 30,
+        width: 30,
+        backgroundColor: '#bc904f'
+    },
+    largeButton: {
+        height: 100,
+        width: 100,
+        backgroundColor: 'rgba(143, 0, 0, 0.5)',
+        // position: 'absolute',
+        // left: 100,
+        // top: 300,
+        // margin: 20
+
+    }
+})
+
+const canvas= StyleSheet.create({
+    container: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#F5FCFF',
+    },
+    strokeColorButton: {
+        marginHorizontal: 2.5,
+        marginVertical: 8,
+        width: 30,
+        height: 30,
+        borderRadius: 5,
+    },
+    strokeWidthButton: {
+        marginHorizontal: 2.5,
+        marginVertical: 8,
+        width: 30,
+        height: 30,
+        borderRadius: 15,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#39579A',
+    },
+    functionButton: {
+        marginHorizontal: 2.5,
+        marginVertical: 8,
+        height: 30,
+        width: 60,
+        backgroundColor: '#39579A',
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 5,
+    },
+    button: {
+        width: 65,
+        height: 65,
+        backgroundColor: "white"
+    },
+    sideBar: {
+        position: "absolute",
+        top: 44.5,
+        left: 0,
+        height: 400,
+        width:  100,
+        borderRadius: 5,
+        backgroundColor: '#fbf3dc',
+        flexDirection: 'column',
+        justifyContent: "space-around",
+        alignItems: "center"
+    },
+    red: {
+        backgroundColor: '#8f0000'
+    },
+    yellow: {
+        backgroundColor: '#ffc30a'
+    },
+    green: {
+        backgroundColor: '#0eb891'
+    },
+    brown: {
+        backgroundColor: '#4a35ff'
+    },
+    black: {
+        backgroundColor: '#051032'
+    },
+    icon: {
+        height: 50,
+        width: 50,
+        alignItems: 'center',
+        justifyContent: 'center',
+        left: 7,
+        top: 7
     }
 })
 
 // if a new stylesheet is created please export it here.
-export {styles, buttons, page}
+export {styles, buttons, page, canvas}

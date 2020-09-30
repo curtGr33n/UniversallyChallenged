@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {View, Text, TouchableHighlight, TouchableOpacity, Image} from 'react-native';
+import {View, Text, TouchableOpacity, Image} from 'react-native';
 
 //This is how you import the style sheet styles
 // If another stylesheet is wanted add it with a , separator
@@ -15,7 +15,7 @@ class Main extends Component {
 
                 <View style={page.homeButtons}>
                     <TouchableOpacity
-                        onPress={() => this.props.navigation.navigate('Library')}
+                        onPress={() => this.props.navigation.navigate('Library', {/* We can put params here use 'varNam: variable' */})}
                         style={page.primary}
                     >
                         <Image source={require('./images/library.png')} style={page.imageLib}/>
@@ -37,7 +37,6 @@ class Main extends Component {
                     >
                         <Image source={require('./images/video.png')} style={page.imageVideo}/>
                         <Text style={buttons.buttonText}>Video Tutorial</Text>
-
                     </TouchableOpacity>
                 </View>
 
@@ -47,6 +46,8 @@ class Main extends Component {
         )
     }
 }
+
+
 
 
 export default Main;
