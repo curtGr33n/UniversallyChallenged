@@ -38,35 +38,35 @@ function insertStudent(res, name, email, password, type, school, classnum){
 		}
 		db.close();
 	});
-	
+
 });
 }
 
 function login(res, email, password){
-        MongoClient.connect(url, function(err, db) {
-        	var dbo = db.db('login');
-        	dbo.collection('details').find({email: email} ).toArray(function(err,result){	
-			console.log(result);
-			if(result.length == 0){
-				res.send('wrong email');
-				return
+	MongoClient.connect(url, function(err, db) {
+		var dbo = db.db('login');
+		dbo.collection('details').find({email: email} ).toArray(function(err,result){
+		console.log(result);
+		if(result.length == 0){
+			res.send('wrong email');
+			return
+		}
+		if(result[0].password === password){
+			if(result[0].type.includes("student")){
+			res.send("logged in as student");
 			}
-			if(result[0].password === password){
-				if(result[0].type.includes("student")){
-				res.send("logged in as student");
-				}
-				else if(result[0].type.includes("teacher")){
-				res.send("logged in as teacher");
-				}
-				else{
-				res.send('correct password but no user type');
-				}
-			}else{
-				res.send('incorrect password');
+			else if(result[0].type.includes("teacher")){
+			res.send("logged in as teacher");
 			}
-		});
-		db.close();
-        });
+			else{
+			res.send('correct password but no user type');
+			}
+		}else{
+			res.send('incorrect password');
+		}
+	});
+	db.close();
+	});
 }
 
 function addBook(bookTitle, bookCoverLink, school, classID){
@@ -79,13 +79,13 @@ function addBook(bookTitle, bookCoverLink, school, classID){
 			console.log(nextID);
 			console.log(result);
 			dbo.collection('book').insertOne({
-                        bookId:nextID,
-                        bookTitle:bookTitle,
-                        bookCoverLink:bookCoverLink,
-                        school:school,
-                        classID:intClassId,
-                        pages:[]
-                });	
+				bookId:nextID,
+				bookTitle:bookTitle,
+				bookCoverLink:bookCoverLink,
+				school:school,
+				classID:intClassId,
+				pages:[]
+			});
 		});
 	});
 }
@@ -141,22 +141,22 @@ async function getPage(dbo, bookId, pageId){
 }
 
 async function getCreator(dbo, bookId, pageId){
-        var intBookId = Number(bookId);
-        var intPageId = Number(pageId);
-        var book = await dbo.collection('book').findOne({bookId:intBookId});
-        for(i = 0; i < book.pages.length; i++){
-                if(book.pages[i].pagenum == intPageId){
-                        console.log(book.pages[i].creators);
-                        return book.pages[i].creators;
-                }
-        }
+	var intBookId = Number(bookId);
+	var intPageId = Number(pageId);
+	var book = await dbo.collection('book').findOne({bookId:intBookId});
+	for(i = 0; i < book.pages.length; i++){
+		if(book.pages[i].pagenum == intPageId){
+			console.log(book.pages[i].creators);
+			return book.pages[i].creators;
+		}
+	}
 }
 
 async function getPages(dbo, bookId){
-        var intBookId = Number(bookId);
-        var book = await dbo.collection('book').findOne({bookId:intBookId});
+	var intBookId = Number(bookId);
+	var book = await dbo.collection('book').findOne({bookId:intBookId});
 	console.log(book.pages);
-	return book.pages;	
+	return book.pages;
 }
 
 async function getClassBooks(dbo, classId, res){
@@ -191,20 +191,20 @@ app.get('/getClassBooks', async function(req, res){
 
 app.get('/getPages', async function(req, res){
 	db = await MongoClient.connect(url);
-        var dbo = await db.db('books');
-        getPages(dbo, req.query.bookId);
+	var dbo = await db.db('books');
+	getPages(dbo, req.query.bookId);
 })
 
 app.get('/getCreator', async function(req, res){
-        db = await MongoClient.connect(url);
-        var dbo = await db.db('books');
-        getCreator(dbo, req.query.bookId, req.query.pageId);
+	db = await MongoClient.connect(url);
+	var dbo = await db.db('books');
+	getCreator(dbo, req.query.bookId, req.query.pageId);
 })
 
 app.get('/getPage', async function(req, res){
-        db = await MongoClient.connect(url);
-        var dbo = await db.db('books');
-        getPage(dbo, req.query.bookId, req.query.pageId);
+	db = await MongoClient.connect(url);
+	var dbo = await db.db('books');
+	getPage(dbo, req.query.bookId, req.query.pageId);
 })
 
 app.get('/getBook', async function(req, res){
@@ -239,7 +239,6 @@ app.get('/book', function(req, res){
 
 app.get('/login', function (req, res){
 	login(res, req.query.email, req.query.password);
-
 })
 
 app.get('/register', function (req, res){
