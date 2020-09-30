@@ -18,10 +18,21 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-end',
         overflow: 'hidden'
     },
-    title: {
-        fontSize: 36,
-        marginBottom: 16,
-        //color: 'orange'
+    gridView: {
+        marginTop: 10,
+        flex: 1,
+    },
+    image: {
+        flex: 1,
+        width: 200,
+        height: 200,
+        resizeMode: 'contain'
+    },
+    itemContainer: {
+        justifyContent: 'flex-end',
+        borderRadius: 5,
+        padding: 10,
+        height: 150,
     },
     logo:{
         width: 287,
@@ -41,6 +52,11 @@ const styles = StyleSheet.create({
         color: '#333333',
         fontWeight: "600",
         fontSize: 30,
+    },
+    title: {
+        fontSize: 36,
+        marginBottom: 16,
+        //color: 'orange'
     }
 })
 

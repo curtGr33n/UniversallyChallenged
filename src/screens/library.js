@@ -2,7 +2,9 @@ import React, { Component, useState } from 'react';
 import { View, Text, ScrollView} from 'react-native';
 import { Button, TextInput } from 'react-native';
 import { Formik } from 'formik';
+import BooksList from '../components/booksList.js'
 import { Tile } from 'react-native-elements';
+import { SectionGrid } from 'react-native-super-grid';
 import {TouchableOpacity,TouchableHighlight, Image}  from "react-native";
 
 //This is how you import the style sheet
@@ -15,56 +17,6 @@ const Book = ({size, margin, text}) => (
 )
 
 class Library extends Component {
-    constructor(props) {
-        super(props);
-        /* Set state of books, adding to this adds books to the list that appear in the library */
-        this.state = {
-            /* id: <book id>, book: <Tile object that can be displayed in a list> */
-            books:[ {id: 1, book: <Tile imageSrc={require('../assets/place-holder-open-book.png')}
-                                        title={'Test_1'}
-                                        titleStyle={styles.bookText}
-                                        style={styles.bookText}
-                                        featured
-                    />},
-                {id: 2, book: <Tile imageSrc={require('../assets/place-holder-open-book.png')}
-                                    title={'Test_2'}
-                                    titleStyle={styles.bookText}
-                                    style={styles.bookText}
-                                    featured
-                    />},
-                {id: 3, book: <Tile imageSrc={require('../assets/place-holder-open-book.png')}
-                                    title={'Test_3'}
-                                    titleStyle={styles.bookText}
-                                    style={styles.bookText}
-                                    featured
-                    />},
-                {id: 4, book: <Tile imageSrc={require('../assets/place-holder-open-book.png')}
-                                    title={'Test_4'}
-                                    titleStyle={styles.bookText}
-                                    style={styles.bookText}
-                                    featured
-                    />},
-                {id: 5, book: <Tile imageSrc={require('../assets/place-holder-open-book.png')}
-                                    title={'Test_5'}
-                                    titleStyle={styles.bookText}
-                                    style={styles.bookText}
-                                    featured
-                    />},
-                {id: 6, book: <Tile imageSrc={require('../assets/place-holder-open-book.png')}
-                                    title={'Test_6'}
-                                    titleStyle={styles.bookText}
-                                    style={styles.bookText}
-                                    featured
-                    />},
-                {id: 7, book: <Tile imageSrc={require('../assets/place-holder-open-book.png')}
-                                    title={'Test_7'}
-                                    titleStyle={styles.bookText}
-                                    style={styles.bookText}
-                                    featured
-                    />}
-            ]
-        };
-    }
 
     getData = async (values) => {
         try {
@@ -132,12 +84,13 @@ class Library extends Component {
                         {/*This is where the drop down menus are going*/}
 
                     </View>
-                    <ScrollView style={{
+                        <BooksList/>
+                    {/*<ScrollView style={{
                         backgroundColor: "white",
                         flex: 10
                     }}>
                         {this.booksList()}
-                    </ScrollView>
+                    </ScrollView>*/}
                 </View>
                 <this.MyReactNativeForm />
             </View>
