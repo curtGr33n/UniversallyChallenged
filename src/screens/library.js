@@ -17,7 +17,9 @@ const Book = ({size, margin, text}) => (
 class Library extends Component {
     constructor(props) {
         super(props);
+        /* Set state of books, adding to this adds books to the list that appear in the library */
         this.state = {
+            /* id: <book id>, book: <Tile object that can be displayed in a list> */
             books:[ {id: 1, book: <Tile imageSrc={require('../assets/place-holder-open-book.png')}
                                         title={'Test_1'}
                                         titleStyle={styles.bookText}
@@ -141,6 +143,7 @@ class Library extends Component {
             </View>
         )
     }
+    /* Returns the list of book objects to be displayed in the library */
     booksList() {
         return this.state.books.map((book) => {
             return (
