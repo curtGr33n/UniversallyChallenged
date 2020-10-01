@@ -69,14 +69,14 @@ export default class App extends Component {
                 },
                 headerTitle: this.setLogo,
                 headerRight: () => (< View style={{ flexDirection: 'row', padding: 20 }} >
-                    <Icon style={{ paddingRight: 50 }}
+                    <Icon
                           name='home'
                           size={80}
                           type='font-awesome'
                           color='white'
                           onPress={() => navigation.navigate('Main')}
                     />
-                    <Icon
+                    <Icon style={{ marginLeft: 20 }}
                           name='cog'
                           size={80}
                           type='font-awesome'

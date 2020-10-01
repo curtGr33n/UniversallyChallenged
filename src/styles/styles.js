@@ -6,10 +6,12 @@ const styles = StyleSheet.create({
         backgroundColor: 'yellow',
         alignItems: 'center',
         justifyContent: 'center',
-        overflow: 'hidden'
+        overflow: 'hidden',
+        fontFamily: 'typewriter'
     },
     bookText: {
-        color: 'orange'
+        color: 'orange',
+        fontFamily: 'typewriter'
     },
     container: {
         flex: 1,
@@ -45,6 +47,7 @@ const styles = StyleSheet.create({
         height: 50,
         position: "absolute",
         top: 420,
+        fontFamily: 'typewriter'
     },
     storyTitleText: {
         textAlign: 'center',
@@ -52,11 +55,13 @@ const styles = StyleSheet.create({
         color: '#333333',
         fontWeight: "600",
         fontSize: 30,
+        fontFamily: 'typewriter'
     },
     title: {
         fontSize: 36,
         marginBottom: 16,
         //color: 'orange'
+        fontFamily: 'typewriter'
     }
 })
 
@@ -66,11 +71,12 @@ const page = StyleSheet.create({
         alignItems: 'center',
         textTransform: 'uppercase',
         textAlign: 'center',
-        fontWeight: '600',
         fontSize: 40,
         padding: 20,
         width: '100%',
-        color:'black'
+        color:'black',
+        fontFamily: 'Typewriter2-Bold',
+        lineHeight: 30
     },
     homeButtons: {
         display: "flex",
@@ -78,7 +84,9 @@ const page = StyleSheet.create({
         backgroundColor: '#ffff',
         alignItems: 'center',
         justifyContent: 'center',
-        flex: 1
+        flex: 1,
+        paddingLeft: 50,
+        paddingRight: 50
     },
     primary: {
         flexDirection: 'column',
@@ -88,23 +96,21 @@ const page = StyleSheet.create({
         margin: 50,
         width: 300
     },
-    imageLib: {
-        width: '80%',
-        height: '80%',
-    },
-    imageMedal: {
-        width: '40%',
-        height: '80%',
-    },
-    imageVideo: {
-        width: '80%',
-        height: '80%',
+    image: {
+        width: '100%',
+        height: undefined,
+        aspectRatio: 1,
+        resizeMode: 'contain',
     },
     buzz: {
-        justifyContent: 'flex-end',
         alignSelf: 'flex-end',
-        width: 200,
-        height: 200, marginRight: 30, marginBottom: 30,
+        width: '15%',
+        height: undefined,
+        aspectRatio: 1,
+        resizeMode: 'contain',
+        marginRight: 5,
+        marginBottom: 5,
+        marginTop: 50,
     }
 })
 
@@ -127,8 +133,9 @@ const buttons = StyleSheet.create({
         textAlign: 'center',
         padding: 20,
         color: 'black',
-        fontWeight: "800",
         fontSize: 25,
+        fontFamily: 'typewriter-Bold',
+        lineHeight: 30
     },
     buttonPages: {
         backgroundColor: "#bb904f",
