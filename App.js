@@ -24,7 +24,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 
 
 // React native components
-import { Image, View } from 'react-native'
+import { Image, View, TouchableOpacity } from 'react-native'
 import { Icon } from 'react-native-elements'
 
 // Navigation containers
@@ -69,20 +69,21 @@ export default class App extends Component {
                 },
                 headerTitle: this.setLogo,
                 headerRight: () => (< View style={{ flexDirection: 'row', padding: 20 }} >
-                    <Icon
-                          name='home'
-                          size={80}
-                          type='font-awesome'
-                          color='white'
-                          onPress={() => navigation.navigate('Main')}
-                    />
-                    <Icon style={{ marginLeft: 20 }}
-                          name='cog'
-                          size={80}
-                          type='font-awesome'
-                          color='white'
-                          onPress={() => navigation.navigate('Settings')}
-                    />
+                    <TouchableOpacity onPress={() => navigation.navigate('Main')}>
+                        <Image source={require('./src/screens/images/home.png')}
+                               style={{
+                                   width: 90,
+                                   height: 80,
+                               }}/>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => navigation.navigate('Settings')}>
+                        <Image source={require('./src/screens/images/settings.png')}
+                               style={{
+                                   width: 90,
+                                   height: 90,
+                                   marginLeft: 25,
+                               }}/>
+                    </TouchableOpacity>
                 </View>),
                 headerLeft: null
         }}>
