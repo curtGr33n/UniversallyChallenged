@@ -1,16 +1,16 @@
 import React, { Component, useState } from 'react';
-import { View, Text, ScrollView } from 'react-native';
+import { View, Text, ScrollView} from 'react-native';
 import { Button, TextInput } from 'react-native';
 import { Formik } from 'formik';
+import BooksList from '../components/booksList.js'
+import { Tile } from 'react-native-elements';
+import { SectionGrid } from 'react-native-super-grid';
+import {TouchableOpacity,TouchableHighlight, Image}  from "react-native";
 
 //This is how you import the style sheet
 import {styles, buttons, page} from '../styles/styles.js';
-import {TouchableOpacity,TouchableHighlight, Image}  from "react-native";
-
-
 
 class Library extends Component {
-
     getData = async (values) => {
         try {
             console.log(values.classId);
@@ -36,7 +36,6 @@ class Library extends Component {
                 values => this.getData(values)
                 //values => console.log(values)
                 //this.getData(values);
-
             }
         >
             {({ handleChange, handleBlur, handleSubmit, values }) => (
@@ -52,8 +51,6 @@ class Library extends Component {
             )}
         </Formik>
     );
-
-
 
     render() {
 
@@ -80,18 +77,13 @@ class Library extends Component {
                         {/*This is where the drop down menus are going*/}
 
                     </View>
-                    <ScrollView style={{
-                        backgroundColor: "white",
-                        flex: 10
-                    }}>
-                        {/*This is for the list of books in the library */}
-
-                    </ScrollView>
+                    <BooksList/>
                 </View>
                 <this.MyReactNativeForm />
             </View>
         )
     }
+    /* Returns the list of book objects to be displayed in the library */
 }
 
 export default Library;

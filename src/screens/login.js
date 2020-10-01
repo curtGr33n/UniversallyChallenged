@@ -3,7 +3,7 @@ import { View, Text } from 'react-native';
 
 //im really scared loool
 import { Button, TextInput } from 'react-native';
-import { Formik } from 'formik';      
+import { Formik } from 'formik';
 
 //This is how you import the style sheet
 import { styles, buttons } from '../styles/styles.js'
@@ -52,9 +52,8 @@ class Login extends Component {
         } catch (error) {
             //console.error(error);
         }
-    };  
+    };
 
-   
     MyReactNativeForm = props => (
         <Formik
             initialValues={{ email: '', password: '' }}
@@ -62,7 +61,10 @@ class Login extends Component {
                 values => this.getData(values)
             }
         >
-            {({ handleChange, handleBlur, handleSubmit, values }) => (
+            {({ handleChange,
+                  handleBlur,
+                  handleSubmit,
+                  values }) => (
                 <View>
                     <TextInput
                         style={{ borderColor:'black', borderWidth:2 }}
@@ -70,7 +72,6 @@ class Login extends Component {
                         onBlur={handleBlur('email')}
                         value={values.email}
                     />
-
                     <TextInput
                         style={{ borderColor: 'black', borderWidth: 2 }}
                         onChangeText={handleChange('password')}
@@ -86,19 +87,16 @@ class Login extends Component {
     render() {
         return (
             <View style={styles.container}>
-
                 <this.MyReactNativeForm />
-
-                        <TouchableHighlight style={buttons.primary}
-                            onPress={() => this.props.navigation.navigate('Main')}
-                        >
-                                <Text style={buttons.buttonText}>Login</Text>
-
+                <TouchableHighlight
+                    style={buttons.primary}
+                    onPress={() => this.props.navigation.navigate('Main')}
+                >
+                    <Text style={buttons.buttonText}>Login</Text>
                 </TouchableHighlight>
-
-                </View>
-                )   
-        }
+            </View>
+        )
+    }
 }
 
 export default Login;
