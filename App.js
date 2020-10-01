@@ -9,8 +9,6 @@ import Library from "./src/screens/library";
 import Pages from "./src/screens/pages";
 import Teacher from "./src/screens/teacher";
 import Settings from "./src/screens/settings";
-import addCreatorForm from "./src/components/AddCreatorForm";
-import CreateBookForm from "./src/components/CreateBookForm";
 
 //Screen const
 import Test from "./src/screens/test";
@@ -119,18 +117,6 @@ export default class App extends Component {
                 options={{
                     headerTitle: this.setLogo
             }}/>
-            <Stack.Screen
-                name={"CreateBookForm"}
-                component={CreateBookForm}
-                options={{
-                    headerTitle: this.setLogo
-                }}/>
-            <Stack.Screen
-                name={"addCreatorForm"}
-                component={addCreatorForm}
-                options={{
-                    headerTitle: this.setLogo
-                }}/>
             <Stack.Screen
                 name={"Settings"}
                 component={Settings}
