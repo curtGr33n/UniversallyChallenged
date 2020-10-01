@@ -18,8 +18,8 @@ class Login extends Component {
             //console.log('deco3801-universally-challenged.uqcloud.net/login?email=' + values.email + '&password=' + values.password);
             let response = await fetch('https://deco3801-universally-challenged.uqcloud.net/login?email=' + values.email + '&password=' + values.password);
             if (response.ok) {
-                let juice = await response.text();
-                if(juice.includes("teacher")){
+                let juice = await response.text(); //id, name, classid, school
+                /*if(juice.includes("teacher")){
                     global.user = "teacher";
                     this.props.navigation.navigate('Main');
                 }
@@ -29,6 +29,19 @@ class Login extends Component {
                 }
                 else{
                     global.user = "undefined";
+                }*/
+                //juice = juice.replace('"', " "); 
+                juice = JSON.parse(juice);
+                console.log(juice);
+                console.log(typeof(juice));
+                if(juice.length != 0){
+                    //console.log(juice.id);
+                    global.id = juice.id;
+                    global.name = juice.name;
+                    global.classid = juice.classid;
+                    global.school = juice.school;
+                    global.type = juice.type;
+
                 }
 
                 //return juice;
