@@ -38,7 +38,7 @@ class Login extends Component {
                     //console.log(juice.id);
                     global.id = juice.id;
                     global.name = juice.name;
-                    global.classid = juice.classid;
+                    global.classid = juice.class;
                     global.school = juice.school;
                     global.type = juice.type;
 
