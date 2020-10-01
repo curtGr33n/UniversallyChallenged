@@ -42,6 +42,7 @@ class Login extends Component {
                     global.school = juice.school;
                     global.type = juice.type;
 
+                    this.props.navigation.navigate('Main');
                 }
 
                 //return juice;
