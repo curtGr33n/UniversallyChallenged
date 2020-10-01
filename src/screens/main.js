@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import {View, Text, TouchableOpacity, Image} from 'react-native';
 
-//This is how you import the style sheet styles
-// If another stylesheet is wanted add it with a , separator
-// import {styles, another, more, soManyStyles} from ...
 import {buttons, styles, page} from '../styles/styles'
 
 class Main extends Component {

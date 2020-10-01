@@ -1,11 +1,15 @@
 import React from 'react';
-import { View, Text} from 'react-native';
+import {View, Text, TouchableOpacity} from 'react-native';
 import { FlatGrid} from "react-native-super-grid";
 import { Tile } from 'react-native-elements';
 /* Set state of books, adding to this adds books to the list that appear in the library */
 import {styles} from "../styles/styles";
+import {useNavigation} from "@react-navigation/core";
+
 
 export default function BookList() {
+    const navigation = useNavigation()
+    const page = () => navigation.navigate('Pages')
     const [books, setBooks] = React.useState([
         /* id: <book id>, book: <Tile object that can be displayed in a list> */
         {   id: 1,
@@ -71,6 +75,7 @@ export default function BookList() {
                           title={item._title}
                           titleStyle={styles.bookText}
                           style={styles.bookText}
+                          onPress={page}
                     />
                 </View>
             )}
