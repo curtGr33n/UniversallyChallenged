@@ -6,16 +6,23 @@ import { Formik } from 'formik';
 
 
 class Teacher extends Component {
-    state = {showBookForm : false, showPageForm : false}
+    state = {showBookForm : false, showPageForm : false, bookIds: ""}
+    classIds = global.classid.map(i => (
+        <Picker.Item label={i.toString()} value={i.toString()} />
+    ));
+   // bookIdItems = this.state.bookIds.map(i => (
+     //   <Picker.Item label={i.bookTitle.toString()} value={i.bookId.toString()} />
+    //));
 
-    addBook = async (values) => {
+    getClassBooks = async (values) => {
         try {
-            let response = await fetch('https://deco3801-universally-challenged.uqcloud.net/book?bookTitle=' + values.bookTitle + '&bookCoverLink=none&school='+ global.school + '&classID=' + global.classid);
+            let response = await fetch('https://deco3801-universally-challenged.uqcloud.net/getClassBooks?classId=2');
             if (response.ok) {
                 console.log(response);
                 let juice = await response.text();
                 console.log(juice);
-                this.setState({showBookForm: false})
+                let data = JSON.parse(juice);
+                this.setState({bookIds:data});
             } else {
                 alert("HTTP-Error: " + response.status);
             }
@@ -24,13 +31,16 @@ class Teacher extends Component {
         }
     };
 
-    addCreator = async (values) => {
+    addBook = async (values) => {
         try {
-            let response = await fetch('https://deco3801-universally-challenged.uqcloud.net/');
+            let response = await fetch('https://deco3801-universally-challenged.uqcloud.net/book?bookTitle=' + values.bookTitle + '&bookCoverLink=none&school='+ global.school + '&classID=' + values.classId);
+            console.log( values.classId);
             if (response.ok) {
                 console.log(response);
                 let juice = await response.text();
                 console.log(juice);
+                this.setState({showBookForm: false})
+                this.setState({showPageForm : true})
             } else {
                 alert("HTTP-Error: " + response.status);
             }
@@ -54,12 +64,28 @@ class Teacher extends Component {
         }
     };
 
+    addCreator = async (values) => {
+        try {
+            let response = await fetch('https://deco3801-universally-challenged.uqcloud.net/');
+            if (response.ok) {
+                console.log(response);
+                let juice = await response.text();
+                console.log(juice);
+            } else {
+                alert("HTTP-Error: " + response.status);
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
     showBookForm = () => {
         return (
             <Formik
-                initialValues={{ bookTitle:'', classId: -1}} //put class session variable here
+                initialValues={{ bookTitle:'', classId: global.classid[0]}} //put class session variable here
                 onSubmit={
-                    values => this.addBook(values)
+                    //values => this.addBook(values)
+                    values => console.log(values)
                 }
             >
                 {(props) => (
@@ -73,13 +99,37 @@ class Teacher extends Component {
                         <Picker
                             selectedValue={props.values.classId}
                             onValueChange={props.handleChange('classId')}>
-                            <Picker.Item label="This will have classes when Johann fix it" value="0" />
-                            <Picker.Item label="Requested" value="1" />
-                            <Picker.Item label="Responded" value="2" />
-                            <Picker.Item label="Closed" value="3" />
+                            {this.classIds}
                         </Picker>
                         <Button title='submit' color='red' onPress={props.handleSubmit} />
                         <Button  title={'Close'} onPress={() => this.setState({showBookForm: false})}/>
+                    </View>
+                )}
+            </Formik>
+        );
+    }
+    showPageForm = () => {
+        return (
+            <Formik
+                initialValues={{ id:'', classId: global.classid[0]}} //put class session variable here
+                onSubmit={
+                    values => this.addBook(values)
+                }
+            >
+                {(props) => (
+                    <View>
+                        <Picker
+                            selectedValue={props.values.classId}
+                            onValueChange={props.handleChange('classId')}>
+                            {this.classIds}
+                        </Picker>
+                        <Picker
+                            selectedValue={props.values.classId}
+                            onValueChange={props.handleChange('classId')}>
+                            {this.bookIdItems}
+                        </Picker>
+                        <Button title='submit' color='red' onPress={props.handleSubmit} />
+                        <Button  title={'Close'} onPress={() => this.setState({showPageForm: false})}/>
                     </View>
                 )}
             </Formik>
@@ -105,10 +155,7 @@ class Teacher extends Component {
                         <Picker
                             selectedValue={props.values.classId}
                             onValueChange={props.handleChange('classId')}>
-                            <Picker.Item label="This will have classes when Johann fix it" value="0" />
-                            <Picker.Item label="Requested" value="1" />
-                            <Picker.Item label="Responded" value="2" />
-                            <Picker.Item label="Closed" value="3" />
+                            {this.classIds}
                         </Picker>
                         <Button title='submit' color='red' onPress={props.handleSubmit} />
                         <Button  title={'Close'} onPress={() => this.setState({showPageForm: false})}/>
@@ -119,12 +166,14 @@ class Teacher extends Component {
     }
 
     render() {
+        //this.getClassBooks({test: "dfd"});
         return (
             <View className='manage-app'>
                 <Button  title={'Add a Book'} onPress={() => this.setState({showBookForm: true})}/>
                 {this.state.showBookForm ? this.showBookForm() : null}
-                <Button  title={'Add a Book'} onPress={() => this.setState({showPageForm: true})}/>
-                {this.state.showPageForm ? this.showCreatorForm() : null}
+                <Button  title={'Add Page'} onPress={() => this.setState({showPageForm: true})}/>
+                {this.state.showPageForm ? this.showPageForm() : null}
+                <Button  title={'test'} onPress={() => this.getClassBooks()}/>
             </View>
         )
     }
