@@ -48,18 +48,6 @@ class Library extends Component {
         }
     };
 
-    getLibraryBooks = () => {
-        /* this function needs to be ale to call all the books from
-        the server for the school, class, student and set books to the array
-        of objects*/
-        let booksList =  this.getData()
-
-        /* For future reference to add to a state list use this
-        this.setState(prevState => ({ books: [...prevState.books, 'Test']
-        }))
-        */
-    };
-
     MyReactNativeForm = props => (
         <Formik
             initialValues={{ classId : -1 }}
