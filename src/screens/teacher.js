@@ -4,18 +4,20 @@ import {Formik} from 'formik';
 
 
 class Teacher extends Component {
-    state = {showBookForm : false, showPageForm : false, showPageFormStage2 : false}
+    state = {showBookForm : false, showPageForm : false, showPageFormStage2 : false, test: []}
     classIds = global.classid.map(i => (
         <Picker.Item label={i.toString()} value={i.toString()} />
     ));
-    bookIdItems;
 
     getClassBooks = async (values) => {
         try {
-            let response = await fetch('https://deco3801-universally-challenged.uqcloud.net/getClassBooks?classId=4');
+            let response = await fetch('https://deco3801-universally-challenged.uqcloud.net/getClassBooks?classId=' + values.classId);
+            console.log( values.classId);
             if (response.ok) {
                 let juice = await response.text();
-                return JSON.parse(juice);
+                let data = JSON.parse(juice);
+                console.log(data);
+                return data;
             } else {
                 alert("HTTP-Error: " + response.status);
             }
@@ -42,12 +44,13 @@ class Teacher extends Component {
         }
     };
 
-    displayPage = (values) => {
-        console.log("TEST****%%^$%$%#%$^%$^$^$%^%^$^%$^$%&&^%*%^&" + this.getClassBooks('4'));
-        this.bookIdItems = this.getClassBooks(values.classId).value.map(i => (
-        <Picker.Item label={i.bookTitle.toString()} value={i.bookId.toString()} />
+    displayPage = async (values) => {
+        let test2 = await this.getClassBooks(values);
+        let test = test2.map(i => (
+            <Picker.Item label={i.bookTitle.toString()} value={i.bookId.toString()} />
         ));
         this.setState({showPageFormStage2: true});
+        this.setState({test: test});
     };
 
     addPage = async (values) => {
@@ -97,7 +100,7 @@ class Teacher extends Component {
     showPageFormStageOne = () => {
         return (
             <Formik
-                initialValues={{ id:'', classId: global.classid[0]}} //put class session variable here
+                initialValues={{classId: global.classid[0]}} //put class session variable here
                 onSubmit={
                     values => this.displayPage(values)
                 }
@@ -110,7 +113,7 @@ class Teacher extends Component {
                             {this.classIds}
                         </Picker>
                         <Button title='submit' color='red' onPress={props.handleSubmit} />
-                        <Button  title={'Close'} onPress={() => this.setState({showBookForm: false})}/>
+                        <Button  title={'Close'} onPress={() => this.setState({showPageForm: false})}/>
                     </View>
                 )}
             </Formik>
@@ -130,7 +133,7 @@ class Teacher extends Component {
                         <Picker
                             selectedValue={props.values.bookId}
                             onValueChange={props.handleChange('bookId')}>
-                            {this.bookIdItems}
+                            {this.state.test}
                         </Picker>
                     </View>
                 )}
