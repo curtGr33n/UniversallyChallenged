@@ -1,28 +1,21 @@
-import React, { Component, useState } from 'react';
-import {View, Text, ScrollView, Picker} from 'react-native';
-import { Button, TextInput } from 'react-native';
-import { Formik } from 'formik';
-
+import React, {Component} from 'react';
+import {Button, Picker, TextInput, View} from 'react-native';
+import {Formik} from 'formik';
 
 
 class Teacher extends Component {
-    state = {showBookForm : false, showPageForm : false, bookIds: ""}
+    state = {showBookForm : false, showPageForm : false, showPageFormStage2 : false}
     classIds = global.classid.map(i => (
         <Picker.Item label={i.toString()} value={i.toString()} />
     ));
-   // bookIdItems = this.state.bookIds.map(i => (
-     //   <Picker.Item label={i.bookTitle.toString()} value={i.bookId.toString()} />
-    //));
+    bookIdItems;
 
     getClassBooks = async (values) => {
         try {
-            let response = await fetch('https://deco3801-universally-challenged.uqcloud.net/getClassBooks?classId=2');
+            let response = await fetch('https://deco3801-universally-challenged.uqcloud.net/getClassBooks?classId=4');
             if (response.ok) {
-                console.log(response);
                 let juice = await response.text();
-                console.log(juice);
-                let data = JSON.parse(juice);
-                this.setState({bookIds:data});
+                return JSON.parse(juice);
             } else {
                 alert("HTTP-Error: " + response.status);
             }
@@ -49,22 +42,15 @@ class Teacher extends Component {
         }
     };
 
-    addPage = async (values) => {
-        try {
-            let response = await fetch('https://deco3801-universally-challenged.uqcloud.net/');
-            if (response.ok) {
-                console.log(response);
-                let juice = await response.text();
-                console.log(juice);
-            } else {
-                alert("HTTP-Error: " + response.status);
-            }
-        } catch (error) {
-            console.error(error);
-        }
+    displayPage = (values) => {
+        console.log("TEST****%%^$%$%#%$^%$^$^$%^%^$^%$^$%&&^%*%^&" + this.getClassBooks('4'));
+        this.bookIdItems = this.getClassBooks(values.classId).value.map(i => (
+        <Picker.Item label={i.bookTitle.toString()} value={i.bookId.toString()} />
+        ));
+        this.setState({showPageFormStage2: true});
     };
 
-    addCreator = async (values) => {
+    addPage = async (values) => {
         try {
             let response = await fetch('https://deco3801-universally-challenged.uqcloud.net/');
             if (response.ok) {
@@ -84,8 +70,8 @@ class Teacher extends Component {
             <Formik
                 initialValues={{ bookTitle:'', classId: global.classid[0]}} //put class session variable here
                 onSubmit={
-                    //values => this.addBook(values)
-                    values => console.log(values)
+                    values => this.addBook(values)
+                    //values => console.log(values)
                 }
             >
                 {(props) => (
@@ -108,12 +94,12 @@ class Teacher extends Component {
             </Formik>
         );
     }
-    showPageForm = () => {
+    showPageFormStageOne = () => {
         return (
             <Formik
                 initialValues={{ id:'', classId: global.classid[0]}} //put class session variable here
                 onSubmit={
-                    values => this.addBook(values)
+                    values => this.displayPage(values)
                 }
             >
                 {(props) => (
@@ -123,42 +109,29 @@ class Teacher extends Component {
                             onValueChange={props.handleChange('classId')}>
                             {this.classIds}
                         </Picker>
-                        <Picker
-                            selectedValue={props.values.classId}
-                            onValueChange={props.handleChange('classId')}>
-                            {this.bookIdItems}
-                        </Picker>
                         <Button title='submit' color='red' onPress={props.handleSubmit} />
-                        <Button  title={'Close'} onPress={() => this.setState({showPageForm: false})}/>
+                        <Button  title={'Close'} onPress={() => this.setState({showBookForm: false})}/>
                     </View>
                 )}
             </Formik>
         );
     }
 
-    showCreatorForm = () => {
+    showPageFormStageTwo = () => {
         return (
             <Formik
-                initialValues={{ bookTitle:'', classId: -1}} //put class session variable here
+                initialValues={{ id:'', bookId: -1}} //put class session variable here
                 onSubmit={
                     values => this.addBook(values)
                 }
             >
                 {(props) => (
                     <View>
-                        <TextInput
-                            style={{ borderColor: 'black', borderWidth: 2 }}
-                            placeholder= 'bookTitle'
-                            onChangeText={props.handleChange('bookTitle')}
-                            value={props.values.bookTitle}
-                        />
                         <Picker
-                            selectedValue={props.values.classId}
-                            onValueChange={props.handleChange('classId')}>
-                            {this.classIds}
+                            selectedValue={props.values.bookId}
+                            onValueChange={props.handleChange('bookId')}>
+                            {this.bookIdItems}
                         </Picker>
-                        <Button title='submit' color='red' onPress={props.handleSubmit} />
-                        <Button  title={'Close'} onPress={() => this.setState({showPageForm: false})}/>
                     </View>
                 )}
             </Formik>
@@ -171,9 +144,9 @@ class Teacher extends Component {
             <View className='manage-app'>
                 <Button  title={'Add a Book'} onPress={() => this.setState({showBookForm: true})}/>
                 {this.state.showBookForm ? this.showBookForm() : null}
-                <Button  title={'Add Page'} onPress={() => this.setState({showPageForm: true})}/>
-                {this.state.showPageForm ? this.showPageForm() : null}
-                <Button  title={'test'} onPress={() => this.getClassBooks()}/>
+                <Button  title={'Edit a Book'} onPress={() => this.setState({showPageForm: true})}/>
+                {this.state.showPageForm ? this.showPageFormStageOne() : null}
+                {this.state.showPageFormStage2 ? this.showPageFormStageTwo() : null}
             </View>
         )
     }
