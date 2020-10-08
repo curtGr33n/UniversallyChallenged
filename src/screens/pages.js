@@ -1,17 +1,17 @@
 import React, {Component, useState} from 'react';
 import {View, Text } from 'react-native';
 
-//This is how you import the style sheet
 import { styles, buttons } from '../styles/styles.js';
 import {TouchableOpacity,TouchableHighlight, Image, Button}  from "react-native";
 import Draw from '../components/draw.js'
 
-function Pages () {
-    //These might not be needed
-    const [pageNumber, setPageNumber] = useState(1);
+const Pages = (book) => {
+    //console.log("Hopefully the book passed into props")
+    //console.log(book.route.params.bookTitle)
+    const [pageNumber, setPageNumber] = useState(book.route.params.pages.pagenum);
     const [pages, setPages] = useState(1);
-    const [storyTitle, setStoryTitle] = useState('Title');
-    const [authors, setAuthors] = useState('Peeps')
+    const [storyTitle, setStoryTitle] = useState(book.route.params.bookTitle);
+    const [authors, setAuthors] = useState(book.route.params.pages.creators);
 
     return (
         <View

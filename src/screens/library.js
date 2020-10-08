@@ -1,13 +1,14 @@
 import React, { Component} from 'react';
-import { View, Text, TouchableOpacity, Button, TextInput } from 'react-native';
+import { View, Text, TouchableOpacity, ImageBackground, Button, TextInput } from 'react-native';
 import { Formik } from 'formik';
-//import BooksList from '../components/booksListDeprecated.js'
 
-//This is how you import the style sheet
+
 import {styles, buttons, page} from '../styles/styles.js';
-import {useNavigation} from "@react-navigation/core";
 import {FlatGrid} from "react-native-super-grid";
 import {Tile} from "react-native-elements";
+import Pages from "./pages";
+
+const background = {uri: '../assets/place-holder-open-book.png'};
 
 class Library extends Component {
 
@@ -30,7 +31,6 @@ class Library extends Component {
         this.setState({schoolId: id})
     };
 
-
     getData = async () => {
         try {
             console.log(this.state.classId);
@@ -38,6 +38,7 @@ class Library extends Component {
             if (response.ok) {
                 let juice = await response.text();
                 let data = JSON.parse(juice)
+                console.log(data)
                 this.setState({books:data
                 })
             } else {
@@ -48,28 +49,14 @@ class Library extends Component {
         }
     };
 
-    MyReactNativeForm = props => (
-        <Formik
-            initialValues={{ classId : -1 }}
-            onSubmit={
-                values => this.getData(values)
-                //values => console.log(values)
-                //this.getData(values);
-            }
-        >
-            {({ handleChange, handleBlur, handleSubmit, values }) => (
-                <View>
-                    <TextInput
-                        style={{ borderColor: 'black', borderWidth: 2 }}
-                        onChangeText={handleChange('classId')}
-                        onBlur={handleBlur('classId')}
-                        value={values.email}
-                    />
-                    <Button onPress={handleSubmit} title="Submit" />
-                </View>
-            )}
-        </Formik>
-    );
+    getImage = (bookCoverLink) => {
+        if (bookCoverLink == null || bookCoverLink == 'none') {
+            return ('../assets/place-holder-open-book.png');
+        } else {
+            let path = bookCoverLink;
+            return path;
+        }
+    }
 
     render() {
         return (
@@ -110,25 +97,24 @@ class Library extends Component {
                         itemDimension={300}
                         data={this.state.books}
                         style={styles.gridView}
-                        spacing={10}
+                        spacing={20}
                         renderItem={({item}) => (
                             <View style={styles.itemContainer}>
-                                <Tile imageSrc={require('../assets/place-holder-open-book.png')}
-                                      containerStyle={styles.image}
-                                      title={item.bookTitle}
-                                      titleStyle={styles.bookText}
-                                      style={styles.bookText}
-                                      onPress={page}
-                                />
+                                <ImageBackground source={background}
+                                       style={{width: '100%', height: '100%', alignItems:"center", justifyContent:"center"}}
+                                       >
+                                    <TouchableOpacity style={styles.bookText}
+                                          onPress={() => this.props.navigation.navigate('Pages', item)}>
+                                        <Text>{item.bookTitle}</Text>
+                                    </TouchableOpacity>
+                                </ImageBackground>
                             </View>
                         )}
                     />
                 </View>
-                <this.MyReactNativeForm />
             </View>
         )
     }
-    /* Returns the list of book objects to be displayed in the library */
 }
 
 export default Library;

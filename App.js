@@ -49,7 +49,7 @@ export default class App extends Component {
                 height: 100,
                 marginLeft: 15,
             }}
-            source={require('./src/screens/images/logo.png')}
+            source={require('./src/assets/images/logo.png')}
          />
      </View>
 
@@ -68,14 +68,14 @@ export default class App extends Component {
                 headerTitle: this.setLogo,
                 headerRight: () => (< View style={{ flexDirection: 'row', padding: 20 }} >
                     <TouchableOpacity onPress={() => navigation.navigate('Main')}>
-                        <Image source={require('./src/screens/images/home.png')}
+                        <Image source={require('./src/assets/images/home.png')}
                                style={{
                                    width: 90,
                                    height: 80,
                                }}/>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => navigation.navigate('Settings')}>
-                        <Image source={require('./src/screens/images/settings.png')}
+                        <Image source={require('./src/assets/images/settings.png')}
                                style={{
                                    width: 90,
                                    height: 90,

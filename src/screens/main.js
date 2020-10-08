@@ -15,7 +15,7 @@ class Main extends Component {
                         onPress={() => this.props.navigation.navigate('Library', {/* We can put params here use 'varNam: variable' */})}
                         style={page.primary}
                     >
-                        <Image source={require('./images/library.png')} style={page.image}/>
+                        <Image source={require('../assets/images/library.png')} style={page.image}/>
                         <Text style={buttons.buttonText}>Library</Text>
 
                     </TouchableOpacity>
@@ -24,7 +24,7 @@ class Main extends Component {
                         onPress={() => this.props.navigation.navigate('Library')}
                         style={page.primary}
                     >
-                        <Image source={require('./images/achievements.png')} style={page.image}/>
+                        <Image source={require('../assets/images/achievements.png')} style={page.image}/>
                         <Text style={buttons.buttonText}>Stripes Earned</Text>
                     </TouchableOpacity>
 
@@ -32,12 +32,12 @@ class Main extends Component {
                         onPress={() => this.props.navigation.navigate('Library')}
                         style={page.primary}
                     >
-                        <Image source={require('./images/video.png')} style={page.image}/>
+                        <Image source={require('../assets/images/video.png')} style={page.image}/>
                         <Text style={buttons.buttonText}>Video Tutorial</Text>
                     </TouchableOpacity>
                 </View>
 
-                <Image source={require('./images/buzz_words.png')} style={page.buzz}/>
+                <Image source={require('../assets/images/buzz_words.png')} style={page.buzz}/>
 
             </View>
         )
