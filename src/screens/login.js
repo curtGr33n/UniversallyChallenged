@@ -58,7 +58,8 @@ class Login extends Component {
 
     MyReactNativeForm = props => (
         <Formik
-            initialValues={{ email: '', password: '' }}
+            // initialValues={{ email: '', password: '' }}
+            initialValues={{email: 'eee@live.com.au', password: '1111'}}
             onSubmit={
                 values => this.getData(values)
             }
@@ -83,7 +84,8 @@ class Login extends Component {
                                     onChangeText={handleChange('email')}
                                     onBlur={handleBlur('email')}
                                     value={values.email}
-                                    placeholder="bumble@uq.net.au"
+                                    // placeholder="bumble@uq.net.au"
+                                    placeholder="eee@live.com.au"
                                 />
                             </View>
                             <View style={{
@@ -101,7 +103,8 @@ class Login extends Component {
                                     onChangeText={handleChange('password')}
                                     onBlur={handleBlur('password')}
                                     value={values.password}
-                                    placeholder="*************"
+                                    // placeholder="*************"
+                                    placeholder="1111"
                                 />
                             </View>
 
