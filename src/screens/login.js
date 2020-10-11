@@ -31,7 +31,7 @@ class Login extends Component {
                 else{
                     global.user = "undefined";
                 }*/
-                //juice = juice.replace('"', " "); 
+                //juice = juice.replace('"', " ");
                 juice = JSON.parse(juice);
                 console.log(juice);
                 console.log(typeof(juice));
@@ -108,7 +108,7 @@ class Login extends Component {
                         <View style={{flexDirection: 'row', width: '60%', justifyContent: 'center'}}>
                             <TouchableHighlight
                                 style={login.buttonPrimary}
-                                onPress={() => this.props.navigation.navigate('Main')}
+                                onPress={handleSubmit}
                             >
                                 <Text style={login.buttonText}>Login</Text>
                             </TouchableHighlight>
