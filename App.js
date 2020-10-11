@@ -9,6 +9,7 @@ import Library from "./src/screens/library";
 import Pages from "./src/screens/pages";
 import Teacher from "./src/screens/teacher";
 import Settings from "./src/screens/settings";
+import SplashScreen from "./src/screens/splashScreen";
 
 //Screen const
 import Test from "./src/screens/test";
@@ -45,9 +46,10 @@ export default class App extends Component {
       <View style={{ flexDirection: 'row' }} >
          <Image
             style={{
-                width: 380,
-                height: 100,
-                marginLeft: 15,
+                width: 500,
+                height: 300,
+                aspectRatio: 1,
+                resizeMode: 'contain'
             }}
             source={require('./src/assets/images/logo.png')}
          />
@@ -86,8 +88,14 @@ export default class App extends Component {
                 headerLeft: null
         }}>
             <Stack.Screen
+                name={"SplashScreen"}
+                component={SplashScreen}
+                options={{headerShown: false}}
+            />
+            <Stack.Screen
                 name={"Login"}
                 component={Login}
+                options={{headerShown: false}}
             />
             <Stack.Screen
                 name={"Main"}
