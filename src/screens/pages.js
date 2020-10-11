@@ -19,6 +19,7 @@ const Pages = (book) => {
         return auths;
     }*/
     //console.log(authors)
+
     return (
         <View
         style={{

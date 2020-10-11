@@ -14,6 +14,10 @@ const Library = (props) => {
     const [studentId, setStudentId] = useState(0)
     const [userClasses, setUserClasses] = useState(global.classid)
 
+    /** Gets the list of books based on the classId chosen
+     *  sets books to this list
+     *  return: null
+     */
     const getData = async () => {
         try {
             console.log(classId);
@@ -32,13 +36,20 @@ const Library = (props) => {
         }
     };
 
+    /* Helper function to create a list of <Picker> objects to display in
+     * picker list
+    */
     function getPickerItems()
     {
-        return userClasses.map(user => (
-            <Picker.Item label={user.toString()} value={user}/>
+        return userClasses.map((user, index) => (
+            <Picker.Item label={user.toString()} value={user} key={index}/>
         ))
     }
 
+    /** Returns the path to the image file of a bookCover or the path of the
+     * generic bookCover image if bookCoverLink = null
+     * Returns: image path
+    */
     const getImage = (bookCoverLink) => {
         if (bookCoverLink == null || bookCoverLink == "none") {
             return (background);
