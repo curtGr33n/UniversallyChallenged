@@ -45,9 +45,10 @@ export default class App extends Component {
       <View style={{ flexDirection: 'row' }} >
          <Image
             style={{
-                width: 380,
-                height: 100,
-                marginLeft: 15,
+                width: 500,
+                height: 300,
+                aspectRatio: 1,
+                resizeMode: 'contain'
             }}
             source={require('./src/assets/images/logo.png')}
          />
@@ -88,6 +89,7 @@ export default class App extends Component {
             <Stack.Screen
                 name={"Login"}
                 component={Login}
+                options={{headerShown: false}}
             />
             <Stack.Screen
                 name={"Main"}

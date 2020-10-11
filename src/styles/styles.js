@@ -46,8 +46,7 @@ const styles = StyleSheet.create({
         width: 400,
         height: 50,
         position: "absolute",
-        top: 420,
-        fontFamily: 'typewriter'
+        top: 420
     },
     storyTitleText: {
         textAlign: 'center',
@@ -114,6 +113,75 @@ const page = StyleSheet.create({
     }
 })
 
+const login = StyleSheet.create({
+    container: {
+        flex: 1,
+        position: 'relative',
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: '100%',
+    },
+    input: {
+        height: 70,
+        width: 400,
+        margin: 10,
+        flex: 3,
+        backgroundColor: 'white',
+        borderRadius: 30,
+        color: 'black',
+        zIndex: 3
+    },
+    buttonText: {
+        textAlign: 'center',
+        color: 'black',
+        fontSize: 30,
+        fontFamily: 'typewriter-Bold',
+        lineHeight: 30,
+    },
+    emailText: {
+        textAlign: 'center',
+        color: 'black',
+        fontSize: 30,
+        alignItems: 'center',
+        fontFamily: 'typewriter-Bold',
+        lineHeight: 30,
+        marginRight: 55,
+    },
+    buttonPrimary: {
+        height: 60,
+        width: 300,
+        margin: 10,
+        flex: 1,
+        backgroundColor: '#fdda64',
+        borderRadius: 30,
+        padding: 15,
+        color: 'black',
+        fontFamily: 'typewriter-Bold',
+    },
+    buttonBottom: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        borderWidth: .5,
+        borderColor: '#f8ebc4',
+        height: 40,
+        margin: 20,
+        textAlign: 'center',
+        color: 'black',
+        fontSize: 25,
+        fontFamily: 'typewriter-Bold',
+        lineHeight: 30,
+        alignSelf: 'center',
+    },
+    layout: {
+        flex: 1,
+        width: '100%',
+        backgroundColor: '#f8ebc4',
+        alignItems: 'center',
+        overflow: 'hidden',
+        marginBottom: -100
+    }
+})
+
 const buttons = StyleSheet.create({
     primary: {
         flexDirection: 'row',
@@ -122,7 +190,6 @@ const buttons = StyleSheet.create({
         borderColor: '#fff',
         height: 40,
         borderRadius: 5 ,
-        margin: 5,
     },
     secondary: {
         height: 70,
@@ -131,7 +198,6 @@ const buttons = StyleSheet.create({
     },
     buttonText: {
         textAlign: 'center',
-        padding: 20,
         color: 'black',
         fontSize: 25,
         fontFamily: 'typewriter-Bold',
@@ -241,4 +307,4 @@ const canvas= StyleSheet.create({
 })
 
 // if a new stylesheet is created please export it here.
-export {styles, buttons, page, canvas}
+export {styles, buttons, page, canvas, login}
