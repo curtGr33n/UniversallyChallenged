@@ -13,6 +13,12 @@ const Pages = (book) => {
     const [storyTitle, setStoryTitle] = useState(book.route.params.bookTitle);
     const [authors, setAuthors] = useState(book.route.params.pages.creators);
 
+    /*function displayAuthors() {
+        let auths = "";
+        authors.map(auth => auths + auth);
+        return auths;
+    }*/
+    //console.log(authors)
     return (
         <View
         style={{
@@ -23,7 +29,7 @@ const Pages = (book) => {
                 backgroundColor: "#f8ebc4",
                 flex: 0.8
             }}>
-                <Text style={styles.storyTitleText}>{storyTitle} by {authors}</Text>
+                <Text style={styles.storyTitleText}>{storyTitle}</Text>
             </View>
             <View style={{
                 backgroundColor: "white",

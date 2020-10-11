@@ -140,11 +140,11 @@ const buttons = StyleSheet.create({
     buttonPages: {
         backgroundColor: "#bb904f",
         textAlign: 'center',
-        justifyContent: "space-between",
+        justifyContent: "center",
         alignItems: "flex-start",
         color: '#fbf3dc',
-        padding: 30,
-        paddingBottom: 30
+        padding: 15,
+        paddingBottom: 15
     },
     smallButton: {
         height: 30,
