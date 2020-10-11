@@ -81,7 +81,6 @@ const Library = (props) => {
                             <Picker.Item label={"Select a class library"} value={''}/>
                             {getPickerItems()}
                         </Picker>
-
                     </View>
                     <TouchableOpacity onPress={() => getData()}
                                       style={buttons.buttonPages}
@@ -89,7 +88,6 @@ const Library = (props) => {
                         <Text>Load Books</Text>
                     </TouchableOpacity>
                 </View>
-
                 <FlatGrid
                     itemDimension={300}
                     data={books}

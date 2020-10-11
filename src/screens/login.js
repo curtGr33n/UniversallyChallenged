@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
-import { View, Text, ScrollView, KeyboardAvoidingView  } from 'react-native';
+import { View, Text } from 'react-native';
 
 //im really scared loool
 import { Button, TextInput } from 'react-native';
 import { Formik } from 'formik';
 
 //This is how you import the style sheet
-import {buttons, login, page} from '../styles/styles.js'
-import {TouchableHighlight, Image}  from "react-native";
-import { Header } from '@react-navigation/stack';
+import { styles, buttons } from '../styles/styles.js'
+import {TouchableOpacity,TouchableHighlight, Image}  from "react-native";
 
 class Login extends Component {
 
@@ -67,92 +66,36 @@ class Login extends Component {
                   handleBlur,
                   handleSubmit,
                   values }) => (
-                        <View style={login.container}>
-                            <View style={{
-                                flexDirection: 'row',
-                                width: '70%',
-                                justifyContent: 'center',
-                                alignSelf: 'center',
-                                alignItems: 'center',
-                                alignContent: 'center',
-                                flex: 0.5,
-                            }}>
-                                <Text style={login.emailText}>Email:</Text>
-                                <TextInput
-                                    style={login.input}
-                                    onChangeText={handleChange('email')}
-                                    onBlur={handleBlur('email')}
-                                    value={values.email}
-                                    placeholder="bumble@uq.net.au"
-                                />
-                            </View>
-                            <View style={{
-                                flexDirection: 'row',
-                                width: '70%',
-                                justifyContent: 'center',
-                                alignSelf: 'center',
-                                alignItems: 'center',
-                                alignContent: 'center',
-                                flex: 0.5,
-                            }}>
-                                <Text style={login.buttonText}>Password:</Text>
-                                <TextInput
-                                    style={login.input}
-                                    onChangeText={handleChange('password')}
-                                    onBlur={handleBlur('password')}
-                                    value={values.password}
-                                    placeholder="*************"
-                                />
-                            </View>
-
-                        <View style={{flexDirection: 'row', width: '60%', justifyContent: 'center'}}>
-                            <TouchableHighlight
-                                style={login.buttonPrimary}
-                                onPress={() => this.props.navigation.navigate('Main')}
-                            >
-                                <Text style={login.buttonText}>Login</Text>
-                            </TouchableHighlight>
-                            <TouchableHighlight
-                                style={login.buttonPrimary}
-                                onPress={() => this.props.navigation.navigate('Main')}
-                            >
-                                <Text style={login.buttonText}>Sign Up</Text>
-                            </TouchableHighlight>
-                        </View>
-                            <TouchableHighlight
-                                style={login.buttonBottom}
-                                onPress={() => this.props.navigation.navigate('Main')}
-                            >
-                                <Text style={login.buttonBottom}>forgot your login?</Text>
-                            </TouchableHighlight>
-
-                    </View>
+                <View>
+                    <TextInput
+                        style={{ borderColor:'black', borderWidth:2 }}
+                        onChangeText={handleChange('email')}
+                        onBlur={handleBlur('email')}
+                        value={values.email}
+                    />
+                    <TextInput
+                        style={{ borderColor: 'black', borderWidth: 2 }}
+                        onChangeText={handleChange('password')}
+                        onBlur={handleBlur('password')}
+                        value={values.password}
+                    />
+                    <Button onPress={handleSubmit} title="Submit" />
+                </View>
             )}
         </Formik>
     );
 
     render() {
         return (
-            <KeyboardAvoidingView
-                style={login.layout}
-                behavior="position"
-                keyboardVerticalOffset={-1000}
-            >
-                <Image
-                    style={{
-                        width: 800,
-                        height: undefined,
-                        resizeMode: 'contain',
-                        flex: 1,
-                        marginTop: '5%'
-                    }}
-                        source={require('../assets/images/logo.png')}
-                    />
-                <ScrollView>
-                    <this.MyReactNativeForm/>
-                </ScrollView>
-            </KeyboardAvoidingView>
-
+            <View style={styles.container}>
+                <this.MyReactNativeForm />
+                <TouchableHighlight
+                    style={buttons.primary}
+                    onPress={() => this.props.navigation.navigate('Main')}
+                >
+                    <Text style={buttons.buttonText}>Login</Text>
+                </TouchableHighlight>
+            </View>
         )
     }
 }
