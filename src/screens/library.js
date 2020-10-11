@@ -60,22 +60,8 @@ class Library extends Component {
 
     render() {
         return (
-            <View style={{
-                backgroundColor: "gold",
-                flex: 1
-                }}>
-                <View style={{
-                    backgroundColor: "#f8ebc4",
-                    flex: 0.6,
-                    justifyContent: 'center',
-                    alignItems: 'center'
-                }}>
+                <View style={styles.container}>
                     <Text style={page.title}>Library</Text>
-                </View>
-                <View style={{
-                    backgroundColor: "white",
-                    flex: 7
-                }}>
                     <View style={{
                         flex: 0.1,
                         flexDirection: 'row',
@@ -112,7 +98,6 @@ class Library extends Component {
                         )}
                     />
                 </View>
-            </View>
         )
     }
 }
