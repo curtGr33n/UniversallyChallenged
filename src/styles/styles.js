@@ -242,7 +242,7 @@ const canvas= StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#F5FCFF',
+        backgroundColor: '#fbf3dc',
     },
     strokeColorButton: {
         marginHorizontal: 2.5,

@@ -224,9 +224,15 @@ export default class Draw extends Component {
                             style={canvas.icon}
                         />
                     </TouchableOpacity>
-
                     <TouchableOpacity
-                        style={canvas.button}/>
+                        style={canvas.button}
+                        onPress={() => this.myRef.current.save('png', false, "CanvasSaves", "temp", false, false, false)}>
+                        <Image
+                            source={require("../assets/save.jpeg")}
+                            resizeMode="center"
+                            style={canvas.icon}
+                        />
+                    </TouchableOpacity>
                 </View>
                 {this.state.pColorShow ? (this.primaryColors()) : null}
                 {this.state.sColorShow ? (this.secondaryColors(this.state.color)) : null}
