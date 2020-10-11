@@ -9,6 +9,7 @@ import Library from "./src/screens/library";
 import Pages from "./src/screens/pages";
 import Teacher from "./src/screens/teacher";
 import Settings from "./src/screens/settings";
+import SplashScreen from "./src/screens/splashScreen";
 
 //Screen const
 import Test from "./src/screens/test";
@@ -86,6 +87,11 @@ export default class App extends Component {
                 </View>),
                 headerLeft: null
         }}>
+            <Stack.Screen
+                name={"SplashScreen"}
+                component={SplashScreen}
+                options={{headerShown: false}}
+            />
             <Stack.Screen
                 name={"Login"}
                 component={Login}

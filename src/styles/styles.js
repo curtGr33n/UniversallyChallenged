@@ -101,6 +101,13 @@ const page = StyleSheet.create({
         aspectRatio: 1,
         resizeMode: 'contain',
     },
+    splash: {
+        width: '60%',
+        height: undefined,
+        justifyContent: 'center',
+        aspectRatio: 1,
+        resizeMode: 'contain',
+    },
     buzz: {
         alignSelf: 'flex-end',
         width: '15%',
