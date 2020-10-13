@@ -60,16 +60,8 @@ const Library = (props) => {
     }
 
     return (
-        <View style={{
-            backgroundColor: "gold",
-            flex: 1
-            }}>
-            <View style={{
-                backgroundColor: "#f8ebc4",
-                flex: 0.6,
-                justifyContent: 'center',
-                alignItems: 'center'
-            }}>
+        <View style={{flex: 1}}>
+            <View>
                 <Text style={page.title}>Library</Text>
             </View>
             <View style={{
