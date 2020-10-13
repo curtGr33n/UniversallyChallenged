@@ -62,3 +62,4 @@ buck-out/
 .expo/*
 .expo/packager-info.json
 web-build/
+.expo/packager-info.json

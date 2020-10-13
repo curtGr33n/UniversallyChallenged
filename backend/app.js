@@ -29,7 +29,7 @@ function insertStudent(res, name, email, password, type, school, classnum){
 					password:password,
 					type:type,
 					school:school,
-					classId:classnum
+					class:classnum
 				}
 			);
 		}
@@ -38,43 +38,56 @@ function insertStudent(res, name, email, password, type, school, classnum){
 		}
 		db.close();
 	});
-	
+
 });
 }
 
 function login(res, email, password){
-        MongoClient.connect(url, function(err, db) {
-        	var dbo = db.db('login');
-        	dbo.collection('details').find({email: email} ).toArray(function(err,result){
-        		if(result[0].password === password){
-				res.send('correct password');
-			}else{
-				res.send('incorrect password');
+	MongoClient.connect(url, function(err, db) {
+		var dbo = db.db('login');
+		dbo.collection('details').find({email: email} ).toArray(function(err,result){
+		console.log(result);
+		if(result.length == 0){
+			res.send('wrong email');
+			return
+		}
+		if(result[0].password === password){
+			if(result[0].type.includes("student")){
+			res.send("logged in as student");
 			}
-		});
-		db.close();
-        });
+			else if(result[0].type.includes("teacher")){
+			res.send("logged in as teacher");
+			}
+			else{
+			res.send('correct password but no user type');
+			}
+		}else{
+			res.send('incorrect password');
+		}
+	});
+	db.close();
+	});
 }
 
-function addBook(bookTitle, bookCoverLink, school, classId){
+function addBook(bookTitle, bookCoverLink, school, classID){
 	MongoClient.connect(url, function(err, db) {
 		var dbo = db.db('books');
+		var intClassId = Number(classID);
 		dbo.collection('book').find({}, {'bookId':1}).limit(1).sort({$natural:-1}).toArray(function(err, result){
 			var nextID = result[0].bookId;
 			nextID++;
 			console.log(nextID);
 			console.log(result);
 			dbo.collection('book').insertOne({
-                        bookId:nextID,
-                        bookTitle:bookTitle,
-                        bookCoverLink:bookCoverLink,
-                        school:school,
-                        classId:classId,
-                        pages:[]
-                });	
+				bookId:nextID,
+				bookTitle:bookTitle,
+				bookCoverLink:bookCoverLink,
+				school:school,
+				classID:intClassId,
+				pages:[]
+			});
 		});
 	});
-	db.close();
 }
 
 async function addPage2(ID,  dbo){
@@ -132,81 +145,66 @@ async function getCreator(dbo, bookId, pageId){
 	var intPageId = Number(pageId);
 	var book = await dbo.collection('book').findOne({bookId:intBookId});
 	for(i = 0; i < book.pages.length; i++){
-			if(book.pages[i].pagenum == intPageId){
-					console.log(book.pages[i].creators);
-					return book.pages[i].creators;
-			}
+		if(book.pages[i].pagenum == intPageId){
+			console.log(book.pages[i].creators);
+			return book.pages[i].creators;
+		}
 	}
 }
 
 async function getPages(dbo, bookId){
-    var intBookId = Number(bookId);
-    var book = await dbo.collection('book').findOne({bookId:intBookId});
+	var intBookId = Number(bookId);
+	var book = await dbo.collection('book').findOne({bookId:intBookId});
 	console.log(book.pages);
-	return book.pages;	
+	return book.pages;
 }
 
-async function getClassBooks(dbo, classId){
+async function getClassBooks(dbo, classId, res){
 	var intClassId = Number(classId);
-	dbo.collection('book').find({classId: intClassId}).toArray(function(err,result){
+	dbo.collection('book').find({classID: intClassId}).toArray(function(err,result){
 		console.log(result);
+		res.send(result);
 		return result;
 	})
 }
 
-async function getSchoolBooks(dbo, school){
+async function getSchoolBooks(dbo, school, res){
 	dbo.collection('book').find({school: school}).toArray(function(err,result){
 		console.log(result);
+		res.send(result);
 		return result;
 	})
 }
-
-/*
-async function getStudentBooks(dbo, sID){
-	var numSID = Number(sID);
-	var studentReturn
-	var imMad = await dbo.collection('book').find({}).toArray(function(err,result){
-		for(i = 0; i < imMad.length; i++){
-			for(j = 0; j < imMad[i].pages.length; j++){
-				
-				if(imMad[i].pages[j].creators == numSID){
-					studentReturn += imMad[i].pages[j].creators;
-				}
-			}
-		}
-		return studentReturn;
-	})
-}
-*/
 
 app.get('/getSchoolBooks', async function(req, res){
 	db = await MongoClient.connect(url);
     var dbo = await db.db('books');
-    getSchoolBooks(dbo, req.query.school);
+    getSchoolBooks(dbo, req.query.school, res);
 })
 
 app.get('/getClassBooks', async function(req, res){
 	db = await MongoClient.connect(url);
     var dbo = await db.db('books');
-    getClassBooks(dbo, req.query.classId);
+    getClassBooks(dbo, req.query.classId, res);
 })
+
 
 app.get('/getPages', async function(req, res){
 	db = await MongoClient.connect(url);
-    var dbo = await db.db('books');
-    getPages(dbo, req.query.bookId);
+	var dbo = await db.db('books');
+	getPages(dbo, req.query.bookId);
 })
 
 app.get('/getCreator', async function(req, res){
-        db = await MongoClient.connect(url);
-        var dbo = await db.db('books');
-        getCreator(dbo, req.query.bookId, req.query.pageId);
+	db = await MongoClient.connect(url);
+	var dbo = await db.db('books');
+	getCreator(dbo, req.query.bookId, req.query.pageId);
 })
 
 app.get('/getPage', async function(req, res){
-        db = await MongoClient.connect(url);
-        var dbo = await db.db('books');
-        getPage(dbo, req.query.bookId, req.query.pageId);
+	db = await MongoClient.connect(url);
+	var dbo = await db.db('books');
+	getPage(dbo, req.query.bookId, req.query.pageId);
 })
 
 app.get('/getBook', async function(req, res){
@@ -239,12 +237,11 @@ app.get('/book', function(req, res){
 })
 
 
-app.post('/login', function (req, res){
+app.get('/login', function (req, res){
 	login(res, req.query.email, req.query.password);
-
 })
 
-app.post('/register', function (req, res){
+app.get('/register', function (req, res){
 	console.log('got reg req g respect');
 	insertStudent(res, req.query.name, req.query.email, req.query.password, req.query.type, req.query.school, req.query.classnum);
 	res.send("finished registration");

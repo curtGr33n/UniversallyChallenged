@@ -1,5 +1,5 @@
 import 'react-native-gesture-handler';
-import React, { Component } from 'react';
+import React, {Component, useState} from 'react';
 
 //Screen class
 import Main from './src/screens/main';
@@ -7,11 +7,19 @@ import WelcomeScreen from "./src/screens/welcomeScreen";
 import Login from "./src/screens/login";
 import Library from "./src/screens/library";
 import Pages from "./src/screens/pages";
+import Teacher from "./src/screens/teacher";
+import Settings from "./src/screens/settings";
+import SplashScreen from "./src/screens/splashScreen";
 
 //Screen const
-import TestScreen2 from "./src/screens/testScreen2";
-import Draw from "./src/screens/Draw";
-import Draw2 from "./src/screens/Draw2"
+// <<<<<<< HEAD
+// import TestScreen2 from "./src/screens/testScreen2";
+// import Draw from "./src/screens/Draw";
+// import Draw2 from "./src/screens/Draw2"
+// =======
+// import Test from "./src/screens/test";
+// import Draw from "./src/components/draw";
+// >>>>>>> 33fea3c232d4dc4bd0f77dc3148e6462b8de5ba0
 
 
 // Navigation types
@@ -21,7 +29,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 
 
 // React native components
-import { Image, View } from 'react-native'
+import { Image, View, TouchableOpacity } from 'react-native'
 import { Icon } from 'react-native-elements'
 
 // Navigation containers
@@ -47,11 +55,12 @@ export default class App extends Component {
       <View style={{ flexDirection: 'row' }} >
          <Image
             style={{
-                width: 350,
-                height: 100,
-                marginLeft: 15,
+                width: 500,
+                height: 300,
+                aspectRatio: 1,
+                resizeMode: 'contain'
             }}
-            source={require('./src/images/logo.png')}
+            source={require('./src/assets/images/logo.png')}
          />
      </View>
 
@@ -68,27 +77,34 @@ export default class App extends Component {
                     fontWeight: 'bold',
                 },
                 headerTitle: this.setLogo,
-                headerRight: () => (< View style={{ flexDirection: 'row' }} >
-                    <Icon style={{ paddingRight: 50 }}
-                          name='home'
-                          size={80}
-                          type='font-awesome'
-                          color='white'
-                          onPress={() => navigation.navigate('Main')}
-                    />
-                    <Icon style={{ paddingRight: 80 }}
-                          name='cog'
-                          size={80}
-                          type='font-awesome'
-                          color='white'
-                          onPress={() => navigation.navigate('Main')}
-                    />
+                headerRight: () => (< View style={{ flexDirection: 'row', padding: 20 }} >
+                    <TouchableOpacity onPress={() => navigation.navigate('Main')}>
+                        <Image source={require('./src/assets/images/home.png')}
+                               style={{
+                                   width: 90,
+                                   height: 80,
+                               }}/>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => navigation.navigate('Settings')}>
+                        <Image source={require('./src/assets/images/settings.png')}
+                               style={{
+                                   width: 90,
+                                   height: 90,
+                                   marginLeft: 25,
+                               }}/>
+                    </TouchableOpacity>
                 </View>),
                 headerLeft: null
         }}>
             <Stack.Screen
+                name={"SplashScreen"}
+                component={SplashScreen}
+                options={{headerShown: false}}
+            />
+            <Stack.Screen
                 name={"Login"}
                 component={Login}
+                options={{headerShown: false}}
             />
             <Stack.Screen
                 name={"Main"}
@@ -98,10 +114,15 @@ export default class App extends Component {
                 name={"Draw"}
                 component={Draw}
             />
-            <Stack.Screen
-                name={"ViewSnapShot"}
-                component={TestScreen2}
-            />
+            {/*<Stack.Screen*/}
+{/*<<<<<<< HEAD*/}
+{/*                name={"ViewSnapShot"}*/}
+{/*                component={TestScreen2}*/}
+{/*=======*/}
+{/*                name={"Test"}*/}
+{/*                component={Test}*/}
+{/*>>>>>>> 33fea3c232d4dc4bd0f77dc3148e6462b8de5ba0*/}
+{/*            />*/}
             <Stack.Screen
                 name={"Library"}
                 component={Library}
@@ -109,11 +130,27 @@ export default class App extends Component {
                     headerTitle: this.setLogo
             }}/>
             <Stack.Screen
+                name={"Teacher"}
+                component={Teacher}
+            />
+            <Stack.Screen
                 name={"Pages"}
                 component={Pages}
                 options={{
                     headerTitle: this.setLogo
             }}/>
+            <Stack.Screen
+                name={"Settings"}
+                component={Settings}
+                options={{
+                    headerTitle: this.setLogo
+                }}/>
+            <Stack.Screen
+                name={"WelcomeScreen"}
+                component={WelcomeScreen}
+                options={{
+                    headerTitle: this.setLogo
+                }}/>
         </Stack.Navigator>
 }
 
