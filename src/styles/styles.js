@@ -310,6 +310,19 @@ const canvas= StyleSheet.create({
         justifyContent: 'center',
         left: 7,
         top: 7
+    },
+    roleWindow: {
+        position: "absolute",
+        width: 300,
+        height: 300,
+        left: 200,
+        top: 300,
+        flexDirection: "row",
+        backgroundColor: "black"
+    },
+    roleOption: {
+        height: 40,
+        width: 100
     }
 })
 

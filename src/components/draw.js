@@ -1,5 +1,5 @@
 import React, {Component, createRef} from 'react';
-import {View, TouchableOpacity, Image, AppRegistry} from 'react-native';
+import {View, Alert, TouchableOpacity, Image, AppRegistry, Text} from 'react-native';
 
 import {SketchCanvas} from '@terrylinla/react-native-sketch-canvas';
 
@@ -18,7 +18,30 @@ export default class Draw extends Component {
         sColorShow: false,
         color: "red",
         brushSizeShow: false,
-        brushSize: 10
+        brushSize: 10,
+        image: null,
+    };
+
+    saveCanvas = async () => {
+        this.myRef.current.getBase64('jpg', false, false, false, false, (err, result) => {
+            console.log(result);
+            this.setState({image: result});
+        });
+        try {
+            const url = 'https://deco3801-universally-challenged.uqcloud.net/';
+            const query = 'addImageToCreator?';
+            const info = "bookId=3&pageId=1&studentId=" + global.id + "&image=" + this.state.image;
+            let response = await fetch(url + query + info);
+            if (response.ok) {
+                console.log("base64 sent to server successfully");
+            } else {
+                console.log("response not received");
+            }
+        } catch (error) {
+            console.error(error);
+            console.log("caught error");
+        }
+
     };
 
     /*
@@ -185,6 +208,7 @@ export default class Draw extends Component {
     render() {
         return (
             <View style={canvas.container}>
+                {this.state.showRoles ? (this.roleChooser()) : null}
                 <View style={{backgroundColor: '#fbf3dc', width: 100, height: 400,
                     flexDirection: 'column', justifyContent: "space-around", alignItems: "center"}}>
                     <TouchableOpacity
@@ -226,7 +250,13 @@ export default class Draw extends Component {
                     </TouchableOpacity>
                     <TouchableOpacity
                         style={canvas.button}
-                        onPress={() => this.myRef.current.save('png', false, "CanvasSaves", "temp", false, false, false)}>
+                        onPress={() => {
+                            console.log(this.myRef.current.getPaths());
+                            Alert.alert(JSON.stringify(this.myRef.current.getPaths()));
+                            this.myRef.current.getBase64('jpg', false, false, false, false, (err, result) => {
+                                console.log(result)
+                            });
+                        }}>
                         <Image
                             source={require("../assets/save.jpeg")}
                             resizeMode="center"
