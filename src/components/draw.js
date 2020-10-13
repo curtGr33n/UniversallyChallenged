@@ -30,7 +30,7 @@ export default class Draw extends Component {
         try {
             const url = 'https://deco3801-universally-challenged.uqcloud.net/';
             const query = 'addImageToCreator?';
-            const info = "bookId=3&pageId=1&studentId=" + global.id + "&image=" + this.state.image;
+            const info = "bookId=1&pageId=0&studentId=" + 1 +  "&image=" + this.state.image;
             let response = await fetch(url + query + info);
             if (response.ok) {
                 console.log("base64 sent to server successfully");
