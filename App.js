@@ -10,6 +10,9 @@ import Pages from "./src/screens/pages";
 import Teacher from "./src/screens/teacher";
 import Settings from "./src/screens/settings";
 import Register from "./src/screens/Register"; //pls work
+import SplashScreen from "./src/screens/splashScreen";
+import addBook from "./src/screens/addBook";
+import editBook from "./src/screens/editBook";
 
 //Screen const
 import Test from "./src/screens/test";
@@ -46,11 +49,12 @@ export default class App extends Component {
       <View style={{ flexDirection: 'row' }} >
          <Image
             style={{
-                width: 380,
-                height: 100,
-                marginLeft: 15,
+                width: 500,
+                height: 300,
+                aspectRatio: 1,
+                resizeMode: 'contain'
             }}
-            source={require('./src/screens/images/logo.png')}
+            source={require('./src/assets/images/logo.png')}
          />
      </View>
 
@@ -69,14 +73,14 @@ export default class App extends Component {
                 headerTitle: this.setLogo,
                 headerRight: () => (< View style={{ flexDirection: 'row', padding: 20 }} >
                     <TouchableOpacity onPress={() => navigation.navigate('Main')}>
-                        <Image source={require('./src/screens/images/home.png')}
+                        <Image source={require('./src/assets/images/home.png')}
                                style={{
                                    width: 90,
                                    height: 80,
                                }}/>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => navigation.navigate('Settings')}>
-                        <Image source={require('./src/screens/images/settings.png')}
+                        <Image source={require('./src/assets/images/settings.png')}
                                style={{
                                    width: 90,
                                    height: 90,
@@ -87,8 +91,14 @@ export default class App extends Component {
                 headerLeft: null
         }}>
             <Stack.Screen
+                name={"SplashScreen"}
+                component={SplashScreen}
+                options={{headerShown: false}}
+            />
+            <Stack.Screen
                 name={"Login"}
                 component={Login}
+                options={{headerShown: false}}
             />
             <Stack.Screen
                 name={"Register"}
@@ -125,6 +135,18 @@ export default class App extends Component {
             <Stack.Screen
                 name={"Settings"}
                 component={Settings}
+                options={{
+                    headerTitle: this.setLogo
+                }}/>
+            <Stack.Screen
+                name={"addBook"}
+                component={addBook}
+                options={{
+                    headerTitle: this.setLogo
+                }}/>
+            <Stack.Screen
+                name={"editBook"}
+                component={editBook}
                 options={{
                     headerTitle: this.setLogo
                 }}/>

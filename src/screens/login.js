@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, ScrollView, KeyboardAvoidingView  } from 'react-native';
 
 //im really scared loool
 import { Button, TextInput } from 'react-native';
 import { Formik } from 'formik';
 
 //This is how you import the style sheet
-import { styles, buttons } from '../styles/styles.js'
-import {TouchableOpacity,TouchableHighlight, Image}  from "react-native";
+import {buttons, login, page} from '../styles/styles.js'
+import {TouchableOpacity, Image}  from "react-native";
+import { Header } from '@react-navigation/stack';
 
 class Login extends Component {
 
@@ -30,7 +31,7 @@ class Login extends Component {
                 else{
                     global.user = "undefined";
                 }*/
-                //juice = juice.replace('"', " "); 
+                //juice = juice.replace('"', " ");
                 juice = JSON.parse(juice);
                 console.log(juice);
                 console.log(typeof(juice));
@@ -57,7 +58,8 @@ class Login extends Component {
 
     MyReactNativeForm = props => (
         <Formik
-            initialValues={{ email: '', password: '' }}
+            // initialValues={{ email: '', password: '' }}
+            initialValues={{email: 'eee@live.com.au', password: '1111'}}
             onSubmit={
                 values => this.getData(values)
             }
@@ -66,27 +68,75 @@ class Login extends Component {
                   handleBlur,
                   handleSubmit,
                   values }) => (
-                <View>
-                    <TextInput
-                        style={{ borderColor:'black', borderWidth:2 }}
-                        onChangeText={handleChange('email')}
-                        onBlur={handleBlur('email')}
-                        value={values.email}
-                    />
-                    <TextInput
-                        style={{ borderColor: 'black', borderWidth: 2 }}
-                        onChangeText={handleChange('password')}
-                        onBlur={handleBlur('password')}
-                        value={values.password}
-                    />
-                    <Button onPress={handleSubmit} title="Submit" />
-                </View>
+                        <View style={login.container}>
+                            <View style={{
+                                flexDirection: 'row',
+                                width: '70%',
+                                justifyContent: 'center',
+                                alignSelf: 'center',
+                                alignItems: 'center',
+                                alignContent: 'center',
+                                flex: 0.5,
+                            }}>
+                                <Text style={login.emailText}>Email:</Text>
+                                <TextInput
+                                    style={login.input}
+                                    onChangeText={handleChange('email')}
+                                    onBlur={handleBlur('email')}
+                                    value={values.email}
+                                    // placeholder="bumble@uq.net.au"
+                                    placeholder="eee@live.com.au"
+                                />
+                            </View>
+                            <View style={{
+                                flexDirection: 'row',
+                                width: '70%',
+                                justifyContent: 'center',
+                                alignSelf: 'center',
+                                alignItems: 'center',
+                                alignContent: 'center',
+                                flex: 0.5,
+                            }}>
+                                <Text style={login.buttonText}>Password:</Text>
+                                <TextInput
+                                    style={login.input}
+                                    onChangeText={handleChange('password')}
+                                    onBlur={handleBlur('password')}
+                                    value={values.password}
+                                    // placeholder="*************"
+                                    placeholder="1111"
+                                />
+                            </View>
+
+                        <View style={{flexDirection: 'row', width: '60%', justifyContent: 'center'}}>
+                            <TouchableOpacity
+                                style={login.buttonPrimary}
+                                onPress={handleSubmit}
+                            >
+                                <Text style={login.buttonText}>Login</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                                style={login.buttonPrimary}
+                                onPress={() => this.props.navigation.navigate('Main')}
+                            >
+                                <Text style={login.buttonText}>Sign Up</Text>
+                            </TouchableOpacity>
+                        </View>
+                            <TouchableOpacity
+                                style={login.buttonBottom}
+                                onPress={() => this.props.navigation.navigate('Main')}
+                            >
+                                <Text style={login.buttonBottom}>forgot your login?</Text>
+                            </TouchableOpacity>
+
+                    </View>
             )}
         </Formik>
     );
 
     render() {
         return (
+<<<<<<< HEAD
             <View style={styles.container}>
                 <this.MyReactNativeForm />
                 <TouchableHighlight
@@ -103,6 +153,28 @@ class Login extends Component {
                     <Text style={buttons.buttonText}>Register</Text>
                 </TouchableHighlight>
             </View>
+=======
+            <KeyboardAvoidingView
+                style={login.layout}
+                behavior="position"
+                keyboardVerticalOffset={-1000}
+            >
+                <Image
+                    style={{
+                        width: 800,
+                        height: undefined,
+                        resizeMode: 'contain',
+                        flex: 1,
+                        marginTop: '5%'
+                    }}
+                        source={require('../assets/images/logo.png')}
+                    />
+                <ScrollView>
+                    <this.MyReactNativeForm/>
+                </ScrollView>
+            </KeyboardAvoidingView>
+
+>>>>>>> 4caa38e3337ac6d194763366e252030f87df7846
         )
     }
 }

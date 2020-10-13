@@ -33,6 +33,12 @@ class Settings extends Component {
                         <Text style={buttons.buttonText}>Welcome Screen</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
+                        onPress={() => this.props.navigation.navigate('SplashScreen')}
+                        style={page.primary}
+                    >
+                        <Text style={buttons.buttonText}>Splash Screen</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
                         onPress={() => this.props.navigation.navigate('Pages')}
                         style={page.primary}
                     >

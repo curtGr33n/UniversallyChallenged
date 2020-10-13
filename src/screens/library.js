@@ -1,26 +1,33 @@
-import React, { Component, useState } from 'react';
-import { View, Text, ScrollView} from 'react-native';
-import { Button, TextInput } from 'react-native';
-import { Formik } from 'formik';
-import BooksList from '../components/booksList.js'
-import { Tile } from 'react-native-elements';
-import { SectionGrid } from 'react-native-super-grid';
-import {TouchableOpacity,TouchableHighlight, Image}  from "react-native";
-
-//This is how you import the style sheet
+import React, {useState} from 'react';
+import { View, Text, TouchableOpacity, ImageBackground} from 'react-native';
+import {Picker} from '@react-native-community/picker';
 import {styles, buttons, page} from '../styles/styles.js';
+import {FlatGrid} from "react-native-super-grid";
+import Pages from "./pages";
 
-class Library extends Component {
-    getData = async (values) => {
+const background = {uri: '../assets/place-holder-open-book.png'};
+
+const Library = (props) => {
+    const [books, setBooks] = useState([])
+    const [schoolId, setSchoolId] = useState(0)
+    const [classId, setClassId] = useState(0)
+    const [studentId, setStudentId] = useState(0)
+    const [userClasses, setUserClasses] = useState(global.classid)
+
+    /** Gets the list of books based on the classId chosen
+     *  sets books to this list
+     *  return: null
+     */
+    const getData = async () => {
         try {
-            console.log(values.classId);
-            //console.log('deco3801-universally-challenged.uqcloud.net/getClassBooks?classId=' + values.classId);
-            //let response = await fetch('deco3801-universally-challenged.uqcloud.net/getClassBooks?classId=' + values.classId);
-            let response = await fetch('https://deco3801-universally-challenged.uqcloud.net/getClassBooks?classId=' + values.classId);
+            console.log(classId);
+            let response = await fetch('https://deco3801-universally-challenged.uqcloud.net/getClassBooks?classId=' + classId);
             if (response.ok) {
-                console.log(response);
                 let juice = await response.text();
-                console.log(juice);
+                let data = JSON.parse(juice)
+                console.log(data)
+                setBooks(data
+                )
             } else {
                 alert("HTTP-Error: " + response.status);
             }
@@ -29,61 +36,84 @@ class Library extends Component {
         }
     };
 
-    MyReactNativeForm = props => (
-        <Formik
-            initialValues={{ classId : -1 }}
-            onSubmit={
-                values => this.getData(values)
-                //values => console.log(values)
-                //this.getData(values);
-            }
-        >
-            {({ handleChange, handleBlur, handleSubmit, values }) => (
-                <View>
-                    <TextInput
-                        style={{ borderColor: 'black', borderWidth: 2 }}
-                        onChangeText={handleChange('classId')}
-                        onBlur={handleBlur('classId')}
-                        value={values.email}
-                    />
-                    <Button onPress={handleSubmit} title="Submit" />
-                </View>
-            )}
-        </Formik>
-    );
+    /* Helper function to create a list of <Picker> objects to display in
+     * picker list
+    */
+    function getPickerItems()
+    {
+        return userClasses.map((user, index) => (
+            <Picker.Item label={user.toString()} value={user} key={index}/>
+        ))
+    }
 
-    render() {
+    /** Returns the path to the image file of a bookCover or the path of the
+     * generic bookCover image if bookCoverLink = null
+     * Returns: image path
+    */
+    const getImage = (bookCoverLink) => {
+        if (bookCoverLink == null || bookCoverLink == "none") {
+            return (background);
+        } else {
+            let path = bookCoverLink;
+            return path;
+        }
+    }
 
-        return (
+    return (
+        <View style={{flex: 1}}>
+            <View>
+                <Text style={page.title}>Library</Text>
+            </View>
             <View style={{
-                backgroundColor: "gold",
-                flex: 1
-                }}>
+                backgroundColor: "white",
+                flex: 7
+            }}>
                 <View style={{
-                    backgroundColor: "#f8ebc4",
-                    flex: 0.6,
-                    justifyContent: 'center',
-                    alignItems: 'center'
+                    flex: 0.1,
+                    flexDirection: 'row',
+                    justifyContent: "space-around",
+                    backgroundColor: '#fdda64'
                 }}>
-                    <Text style={page.title}>Library</Text>
-                </View>
-                <View style={{
-                    backgroundColor: "white",
-                    flex: 7
-                }}>
-                    <View style={{
-                        flex: 0.1,
-                    }}>
-                        {/*This is where the drop down menus are going*/}
+                    {/*This is where the drop down menus are going*/}
+                    <View>
+                        <Picker
+                            selectedValue={classId}
+                            style={{Height: 50, width: 300}}
+                            prompt={"Choose class books list"}
+                            onValueChange={((itemValue, itemIndex) => setClassId(itemValue))}>
+                            <Picker.Item label={"Select a class library"} value={''}/>
+                            {getPickerItems()}
+                        </Picker>
 
                     </View>
-                    <BooksList/>
+                    <TouchableOpacity onPress={() => getData()}
+                                      style={buttons.buttonPages}
+                                      title={"Load Books"}>
+                        <Text>Load Books</Text>
+                    </TouchableOpacity>
                 </View>
-                <this.MyReactNativeForm />
+
+                <FlatGrid
+                    itemDimension={300}
+                    data={books}
+                    style={styles.gridView}
+                    spacing={20}
+                    renderItem={({item}) => (
+                        <View style={styles.itemContainer}>
+                            <ImageBackground source={getImage(item.bookCoverLink)}
+                                   style={{width: '100%', height: '100%', alignItems:"center", justifyContent:"center"}}
+                                   >
+                                <TouchableOpacity style={styles.bookText}
+                                      onPress={() => props.navigation.navigate('Pages', item)}>
+                                    <Text>{item.bookTitle}</Text>
+                                </TouchableOpacity>
+                            </ImageBackground>
+                        </View>
+                    )}
+                />
             </View>
-        )
-    }
-    /* Returns the list of book objects to be displayed in the library */
+        </View>
+    )
 }
 
 export default Library;
