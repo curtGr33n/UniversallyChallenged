@@ -95,6 +95,13 @@ class Login extends Component {
                 >
                     <Text style={buttons.buttonText}>Login</Text>
                 </TouchableHighlight>
+
+                <TouchableHighlight
+                    style={buttons.primary}
+                    onPress={() => this.props.navigation.navigate('Register')}
+                >
+                    <Text style={buttons.buttonText}>Register</Text>
+                </TouchableHighlight>
             </View>
         )
     }

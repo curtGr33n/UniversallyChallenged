@@ -9,6 +9,7 @@ import Library from "./src/screens/library";
 import Pages from "./src/screens/pages";
 import Teacher from "./src/screens/teacher";
 import Settings from "./src/screens/settings";
+import Register from "./src/screens/Register"; //pls work
 
 //Screen const
 import Test from "./src/screens/test";
@@ -88,6 +89,10 @@ export default class App extends Component {
             <Stack.Screen
                 name={"Login"}
                 component={Login}
+            />
+            <Stack.Screen
+                name={"Register"}
+                component={Register}
             />
             <Stack.Screen
                 name={"Main"}
