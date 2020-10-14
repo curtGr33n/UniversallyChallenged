@@ -3,12 +3,15 @@ import {View, Text } from 'react-native';
 
 import {styles, buttons, page} from '../styles/styles.js';
 import {TouchableOpacity,TouchableHighlight, Image, Button}  from "react-native";
-import {Draw} from '../components/draw.js'
+import Draw from '../components/draw.js'
 
 const Pages = (book) => {
     //console.log("Hopefully the book passed into props")
     //console.log(book.route.params.bookTitle)
-    const [pageNumber, setPageNumber] = useState(book.route.params.pages.pagenum);
+    const bookId = book.route.params.bookId;
+    console.log("BookId: " + bookId);
+    // const [pageNumber, setPageNumber] = useState(book.route.params.pages.pagenum);
+    const [pageNumber, setPageNumber] = useState(0);
     const [pages, setPages] = useState(1);
     const [storyTitle, setStoryTitle] = useState(book.route.params.bookTitle);
     const [authors, setAuthors] = useState(book.route.params.pages.creators);
@@ -33,8 +36,10 @@ const Pages = (book) => {
                 justifyContent:'center',
                 alignItems: 'center'
             }}>
-                <Draw/>
-
+                <Draw
+                    bookId={bookId}
+                    pageId={pageNumber}
+                />
             </View>
             <View style={{
                 backgroundColor: "#f8ebc4",
