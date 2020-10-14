@@ -136,24 +136,6 @@ class Login extends Component {
 
     render() {
         return (
-<<<<<<< HEAD
-            <View style={styles.container}>
-                <this.MyReactNativeForm />
-                <TouchableHighlight
-                    style={buttons.primary}
-                    onPress={() => this.props.navigation.navigate('Main')}
-                >
-                    <Text style={buttons.buttonText}>Login</Text>
-                </TouchableHighlight>
-
-                <TouchableHighlight
-                    style={buttons.primary}
-                    onPress={() => this.props.navigation.navigate('Register')}
-                >
-                    <Text style={buttons.buttonText}>Register</Text>
-                </TouchableHighlight>
-            </View>
-=======
             <KeyboardAvoidingView
                 style={login.layout}
                 behavior="position"
@@ -173,8 +155,6 @@ class Login extends Component {
                     <this.MyReactNativeForm/>
                 </ScrollView>
             </KeyboardAvoidingView>
-
->>>>>>> 4caa38e3337ac6d194763366e252030f87df7846
         )
     }
 }

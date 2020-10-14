@@ -23,25 +23,25 @@ export default class Draw extends Component {
     };
 
     saveCanvas = async () => {
-        this.myRef.current.getBase64('jpg', false, false, false, false, (err, result) => {
-            console.log(result);
-            this.setState({image: result});
-        });
-        try {
-            const url = 'https://deco3801-universally-challenged.uqcloud.net/';
-            const query = 'addImageToCreator?';
-            const info = "bookId=3&pageId=1&studentId=" + global.id + "&image=" + this.state.image;
-            let response = await fetch(url + query + info);
-            if (response.ok) {
-                console.log("base64 sent to server successfully");
-            } else {
-                console.log("response not received");
-            }
-        } catch (error) {
-            console.error(error);
-            console.log("caught error");
-        }
+        if (this.state.image != null) {
+            try {
+                const url = 'https://deco3801-universally-challenged.uqcloud.net/addImageToCreator';
+                const info = "bookId=3&pageId=1&studentId=" + global.id + "&image=" + this.state.image;
+                let response = await fetch(url, {
+                    method: "POST",
+                    body: {image: this.state.image}
+                });
+                if (response.ok) {
+                    console.log("base64 sent to server successfully");
+                } else {
+                    console.log("response not received");
+                }
+            } catch (error) {
+                console.error(error);
+                console.log("caught error");
 
+            }
+        }
     };
 
     /*
@@ -250,11 +250,11 @@ export default class Draw extends Component {
                     <TouchableOpacity
                         style={canvas.button}
                         onPress={() => {
-                            console.log(this.myRef.current.getPaths());
-                            Alert.alert(JSON.stringify(this.myRef.current.getPaths()));
                             this.myRef.current.getBase64('jpg', false, false, false, false, (err, result) => {
-                                console.log(result)
+                                console.log(result);
+                                this.setState({image: result});
                             });
+                            this.saveCanvas()
                         }}>
                         <Image
                             source={require("../assets/save.jpeg")}
