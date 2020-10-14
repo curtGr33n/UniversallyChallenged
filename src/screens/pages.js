@@ -1,7 +1,7 @@
 import React, {Component, useState} from 'react';
 import {View, Text } from 'react-native';
 
-import { styles, buttons } from '../styles/styles.js';
+import {styles, buttons, page} from '../styles/styles.js';
 import {TouchableOpacity,TouchableHighlight, Image, Button}  from "react-native";
 import Draw from '../components/draw.js'
 
@@ -26,12 +26,7 @@ const Pages = (book) => {
             backgroundColor: "gold",
             flex: 1
         }}>
-            <View style={{
-                backgroundColor: "#f8ebc4",
-                flex: 0.8
-            }}>
-                <Text style={styles.storyTitleText}>{storyTitle}</Text>
-            </View>
+            <Text style={page.title}>{storyTitle}</Text>
             <View style={{
                 backgroundColor: "white",
                 flex: 7,
@@ -51,12 +46,13 @@ const Pages = (book) => {
                     flex: 0.8,
                     flexDirection: 'row',
                     justifyContent: "space-around",
+                    padding: 15
             }}>
                 <TouchableOpacity style={buttons.buttonPages}
                       onPress={() => console.log("Back Pressed")}
                         title={"Back"}
                                   >
-                    <Text>Back</Text>
+                    <Text style={buttons.buttonTextWhite}>back page</Text>
                 </TouchableOpacity>
                 <View
                     style={{
@@ -69,7 +65,7 @@ const Pages = (book) => {
                                   onPress={() => console.log("Next Pressed")}
                         title={"Next Page"}
                 >
-                    <Text>Next Page</Text>
+                    <Text style={buttons.buttonTextWhite}>next page</Text>
                 </TouchableOpacity>
             </View>
         </View>

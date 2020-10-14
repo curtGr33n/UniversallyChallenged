@@ -7,7 +7,7 @@ import { Formik } from 'formik';
 
 //This is how you import the style sheet
 import {buttons, login, page} from '../styles/styles.js'
-import {TouchableHighlight, Image}  from "react-native";
+import {TouchableOpacity, Image}  from "react-native";
 import { Header } from '@react-navigation/stack';
 
 class Login extends Component {
@@ -109,25 +109,25 @@ class Login extends Component {
                             </View>
 
                         <View style={{flexDirection: 'row', width: '60%', justifyContent: 'center'}}>
-                            <TouchableHighlight
+                            <TouchableOpacity
                                 style={login.buttonPrimary}
                                 onPress={handleSubmit}
                             >
                                 <Text style={login.buttonText}>Login</Text>
-                            </TouchableHighlight>
-                            <TouchableHighlight
+                            </TouchableOpacity>
+                            <TouchableOpacity
                                 style={login.buttonPrimary}
                                 onPress={() => this.props.navigation.navigate('Main')}
                             >
                                 <Text style={login.buttonText}>Sign Up</Text>
-                            </TouchableHighlight>
+                            </TouchableOpacity>
                         </View>
-                            <TouchableHighlight
+                            <TouchableOpacity
                                 style={login.buttonBottom}
                                 onPress={() => this.props.navigation.navigate('Main')}
                             >
                                 <Text style={login.buttonBottom}>forgot your login?</Text>
-                            </TouchableHighlight>
+                            </TouchableOpacity>
 
                     </View>
             )}

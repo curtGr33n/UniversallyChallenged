@@ -189,6 +189,24 @@ const login = StyleSheet.create({
     }
 })
 
+const library = StyleSheet.create({
+    buttonPrimary: {
+        width: '50%',
+        margin: 10,
+        backgroundColor: '#fdda64',
+        borderRadius: 30,
+        padding: 20,
+        color: 'black',
+        fontFamily: 'typewriter-Bold',
+    },
+    container: {
+        backgroundColor: '#ffff',
+        alignItems: 'center',
+        justifyContent: 'flex-end',
+        overflow: 'hidden'
+    },
+})
+
 const buttons = StyleSheet.create({
     primary: {
         flexDirection: 'row',
@@ -210,14 +228,24 @@ const buttons = StyleSheet.create({
         fontFamily: 'typewriter-Bold',
         lineHeight: 30
     },
+    buttonTextWhite: {
+        textAlign: 'center',
+        color: 'white',
+        fontSize: 25,
+        fontFamily: 'typewriter-Bold',
+        lineHeight: 30
+    },
     buttonPages: {
         backgroundColor: "#bb904f",
         textAlign: 'center',
         justifyContent: "center",
         alignItems: "flex-start",
-        color: '#fbf3dc',
-        padding: 15,
-        paddingBottom: 15
+        color: 'white',
+        fontSize: 25,
+        fontFamily: 'typewriter-Bold',
+        paddingBottom: 15,
+        borderRadius: 10,
+        padding: 20,
     },
     smallButton: {
         height: 30,
@@ -242,7 +270,7 @@ const canvas= StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#fbf3dc',
+        backgroundColor: 'white',
     },
     strokeColorButton: {
         marginHorizontal: 2.5,
@@ -283,7 +311,7 @@ const canvas= StyleSheet.create({
         height: 400,
         width:  100,
         borderRadius: 5,
-        backgroundColor: '#fbf3dc',
+        backgroundColor: '#f8ebc4',
         flexDirection: 'column',
         justifyContent: "space-around",
         alignItems: "center"
@@ -369,4 +397,4 @@ const colours = StyleSheet.create({
 })
 
 // if a new stylesheet is created please export it here.
-export {styles, buttons, page, canvas, login}
+export {styles, buttons, page, canvas, login, library}
