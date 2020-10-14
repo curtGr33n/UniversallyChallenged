@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {View, Text, Image} from 'react-native';
+import {View, Image, ActivityIndicator} from 'react-native';
 import {login,page} from '../styles/styles'
 
 class SplashScreen extends Component {
@@ -7,7 +7,7 @@ class SplashScreen extends Component {
         return new Promise((resolve) =>
             setTimeout(
                 () => { resolve('result') },
-                4000
+                6000
             )
         )
     }
@@ -27,6 +27,7 @@ class SplashScreen extends Component {
                     style = {page.splash}
                     source={require('../assets/images/logo.png')}
                 />
+                <ActivityIndicator size="large" color="#bb904f"/>
             </View>
         );
     }

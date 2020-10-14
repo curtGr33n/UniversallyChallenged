@@ -9,7 +9,10 @@ import Library from "./src/screens/library";
 import Pages from "./src/screens/pages";
 import Teacher from "./src/screens/teacher";
 import Settings from "./src/screens/settings";
+import Register from "./src/screens/Register"; //pls work
 import SplashScreen from "./src/screens/splashScreen";
+import addBook from "./src/screens/addBook";
+import editBook from "./src/screens/editBook";
 
 //Screen const
 import Test from "./src/screens/test";
@@ -98,6 +101,10 @@ export default class App extends Component {
                 options={{headerShown: false}}
             />
             <Stack.Screen
+                name={"Register"}
+                component={Register}
+            />
+            <Stack.Screen
                 name={"Main"}
                 component={Main}
                 />
@@ -128,6 +135,18 @@ export default class App extends Component {
             <Stack.Screen
                 name={"Settings"}
                 component={Settings}
+                options={{
+                    headerTitle: this.setLogo
+                }}/>
+            <Stack.Screen
+                name={"addBook"}
+                component={addBook}
+                options={{
+                    headerTitle: this.setLogo
+                }}/>
+            <Stack.Screen
+                name={"editBook"}
+                component={editBook}
                 options={{
                     headerTitle: this.setLogo
                 }}/>

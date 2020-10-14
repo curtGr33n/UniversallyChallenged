@@ -208,7 +208,6 @@ export default class Draw extends Component {
     render() {
         return (
             <View style={canvas.container}>
-                {this.state.showRoles ? (this.roleChooser()) : null}
                 <View style={{backgroundColor: '#fbf3dc', width: 100, height: 400,
                     flexDirection: 'column', justifyContent: "space-around", alignItems: "center"}}>
                     <TouchableOpacity
