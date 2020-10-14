@@ -5,12 +5,14 @@ import {SketchCanvas} from '@terrylinla/react-native-sketch-canvas';
 
 import {canvas} from '../styles/styles'
 import Slider from "@react-native-community/slider";
+import {cloneDeep} from "@babel/types";
 
 export default class Draw extends Component {
     constructor(props) {
         super(props);
         this.myRef = createRef();
         this.brushMaxVal = 90;
+        this.setState({image: null});
     }
 
     state = {
@@ -26,10 +28,18 @@ export default class Draw extends Component {
         if (this.state.image != null) {
             try {
                 const url = 'https://deco3801-universally-challenged.uqcloud.net/addImageToCreator';
-                const info = "bookId=3&pageId=1&studentId=" + global.id + "&image=" + this.state.image;
                 let response = await fetch(url, {
                     method: "POST",
-                    body: {image: this.state.image}
+                    headers: {
+                        Accept: 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                            bookId: 11,
+                            pageId: 0,
+                            studentId: 3,
+                            image: this.state.image
+                        }).replace(/\\n/g, "")
                 });
                 if (response.ok) {
                     console.log("base64 sent to server successfully");
@@ -251,7 +261,7 @@ export default class Draw extends Component {
                         style={canvas.button}
                         onPress={() => {
                             this.myRef.current.getBase64('jpg', false, false, false, false, (err, result) => {
-                                console.log(result);
+                                // console.log(result);
                                 this.setState({image: result});
                             });
                             this.saveCanvas()
