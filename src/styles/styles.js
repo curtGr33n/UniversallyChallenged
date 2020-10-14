@@ -48,11 +48,6 @@ const styles = StyleSheet.create({
         position: "absolute",
         top: 420
     },
-    image: {
-        width: 400,
-        height: 200,
-        justifyContent: 'center'
-    },
     storyTitleText: {
         textAlign: 'center',
         padding: 20,

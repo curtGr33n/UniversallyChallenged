@@ -12,14 +12,7 @@ import Settings from "./src/screens/settings";
 import SplashScreen from "./src/screens/splashScreen";
 
 //Screen const
-// <<<<<<< HEAD
-// import TestScreen2 from "./src/screens/testScreen2";
-// import Draw from "./src/screens/Draw";
-// import Draw2 from "./src/screens/Draw2"
-// =======
-// import Test from "./src/screens/test";
-// import Draw from "./src/components/draw";
-// >>>>>>> 33fea3c232d4dc4bd0f77dc3148e6462b8de5ba0
+import Draw from "./src/components/draw";
 
 
 // Navigation types
@@ -42,9 +35,6 @@ export default class App extends Component {
         <NavigationContainer>
           <Drawer.Navigator>
             <Drawer.Screen name={"Home"} children={this.createHomeStack}/>
-            <Drawer.Screen name={"View SnapShot Working"} component={TestScreen2}/>
-            <Drawer.Screen name={"Draw Test"} component={Draw}/>
-            <Drawer.Screen name={"Draw Test 2"} component={Draw2}/>
           </Drawer.Navigator>
         </NavigationContainer>
     )
@@ -114,15 +104,6 @@ export default class App extends Component {
                 name={"Draw"}
                 component={Draw}
             />
-            {/*<Stack.Screen*/}
-{/*<<<<<<< HEAD*/}
-{/*                name={"ViewSnapShot"}*/}
-{/*                component={TestScreen2}*/}
-{/*=======*/}
-{/*                name={"Test"}*/}
-{/*                component={Test}*/}
-{/*>>>>>>> 33fea3c232d4dc4bd0f77dc3148e6462b8de5ba0*/}
-{/*            />*/}
             <Stack.Screen
                 name={"Library"}
                 component={Library}

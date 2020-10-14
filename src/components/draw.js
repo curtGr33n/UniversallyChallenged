@@ -24,14 +24,14 @@ export default class Draw extends Component {
 
     saveCanvas = async () => {
         this.myRef.current.getBase64('jpg', false, false, false, false, (err, result) => {
-            console.log(result);
+            // console.log(result);
             this.setState({image: result});
         });
         try {
-            const url = 'https://deco3801-universally-challenged.uqcloud.net/';
-            const query = 'addImageToCreator?';
-            const info = "bookId=1&pageId=0&studentId=" + 1 +  "&image=" + this.state.image;
-            let response = await fetch(url + query + info);
+            const url = 'https://deco3801-universally-challenged.uqcloud.net/addImageToCreator?';
+            const info = "bookId=13&pageId=0&studentId=" + 2 +  "&image=" + this.state.image;
+            console.log(url + info);
+            let response = await fetch(url + info);
             if (response.ok) {
                 console.log("base64 sent to server successfully");
             } else {
@@ -250,13 +250,7 @@ export default class Draw extends Component {
                     </TouchableOpacity>
                     <TouchableOpacity
                         style={canvas.button}
-                        onPress={() => {
-                            console.log(this.myRef.current.getPaths());
-                            Alert.alert(JSON.stringify(this.myRef.current.getPaths()));
-                            this.myRef.current.getBase64('jpg', false, false, false, false, (err, result) => {
-                                console.log(result)
-                            });
-                        }}>
+                        onPress={() => this.saveCanvas()}>
                         <Image
                             source={require("../assets/save.jpeg")}
                             resizeMode="center"

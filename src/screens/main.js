@@ -17,32 +17,6 @@ class Main extends Component {
                     >
                         <Image source={require('../assets/images/library.png')} style={page.image}/>
                         <Text style={buttons.buttonText}>Library</Text>
-{/*<<<<<<< HEAD*/}
-{/*                    </View>*/}
-{/*                </TouchableOpacity>*/}
-{/*                <TouchableOpacity*/}
-{/*                    onPress={() => this.props.navigation.navigate('Login')}*/}
-{/*                >*/}
-{/*                    <View style={buttons.primary}>*/}
-{/*                        <Text style={buttons.buttonText}>Login</Text>*/}
-{/*                    </View>*/}
-{/*                </TouchableOpacity>*/}
-{/*                <TouchableOpacity*/}
-{/*                    onPress={() => this.props.navigation.navigate('Draw')}*/}
-{/*                >*/}
-{/*                    <View style={buttons.primary}>*/}
-{/*                        <Text style={buttons.buttonText}>Draw</Text>*/}
-{/*                    </View>*/}
-{/*                </TouchableOpacity>*/}
-{/*                <TouchableOpacity*/}
-{/*                    onPress={() => this.props.navigation.navigate('ViewSnapShot')}*/}
-{/*                >*/}
-{/*                    <View style={buttons.primary}>*/}
-{/*                        <Text style={buttons.buttonText}>ViewSnapShot</Text>*/}
-{/*                    </View>*/}
-{/*                </TouchableOpacity>*/}
-{/*=======*/}
-
                     </TouchableOpacity>
 
                     <TouchableOpacity
@@ -63,8 +37,6 @@ class Main extends Component {
                 </View>
 
                 <Image source={require('../assets/images/buzz_words.png')} style={page.buzz}/>
-
-{/*>>>>>>> 33fea3c232d4dc4bd0f77dc3148e6462b8de5ba0*/}
             </View>
         )
     }
