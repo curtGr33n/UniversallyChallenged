@@ -16,7 +16,7 @@ import editBook from "./src/screens/editBook";
 
 //Screen const
 import Test from "./src/screens/test";
-import Draw from "./src/components/draw";
+import {Draw} from "./src/components/draw";
 
 
 // Navigation types

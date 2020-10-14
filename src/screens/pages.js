@@ -3,7 +3,7 @@ import {View, Text } from 'react-native';
 
 import {styles, buttons, page} from '../styles/styles.js';
 import {TouchableOpacity,TouchableHighlight, Image, Button}  from "react-native";
-import Draw from '../components/draw.js'
+import {Draw} from '../components/draw.js'
 
 const Pages = (book) => {
     //console.log("Hopefully the book passed into props")
