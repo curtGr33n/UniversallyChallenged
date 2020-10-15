@@ -14,14 +14,6 @@ const Pages = (book) => {
     const [pageNumber, setPageNumber] = useState(0);
     const [pages, setPages] = useState(1);
     const [storyTitle, setStoryTitle] = useState(book.route.params.bookTitle);
-    const [authors, setAuthors] = useState(book.route.params.pages.creators);
-
-    /*function displayAuthors() {
-        let auths = "";
-        authors.map(auth => auths + auth);
-        return auths;
-    }*/
-    //console.log(authors)
 
     return (
         <View

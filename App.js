@@ -1,4 +1,3 @@
-import 'react-native-gesture-handler';
 import React, {Component, useState} from 'react';
 
 //Screen class
