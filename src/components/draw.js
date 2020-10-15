@@ -11,6 +11,10 @@ export default class Draw extends Component {
         super(props);
         this.myRef = createRef();
         this.brushMaxVal = 90;
+        this.setState({image: null});
+        this.book = props.bookId;
+        this.page = props.pageId;
+        console.log("StudentId: " + global.id + " BookId: " + this.book + " PageId: " + this.page);
     }
 
     state = {
@@ -18,7 +22,39 @@ export default class Draw extends Component {
         sColorShow: false,
         color: "red",
         brushSizeShow: false,
-        brushSize: 10
+        brushSize: 10,
+        image: null,
+    };
+
+    saveCanvas = async () => {
+        if (this.state.image != null) {
+            console.log("saving image")
+            try {
+                const url = 'https://deco3801-universally-challenged.uqcloud.net/addImageToCreator';
+                let response = await fetch(url, {
+                    method: "POST",
+                    headers: {
+                        Accept: 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        bookId: this.book,
+                        pageId: this.page,
+                        studentId: global.id,
+                        image: this.state.image
+                    }).replace(/\\n/g, "")
+                });
+                if (response.ok) {
+                    console.log("base64 sent to server successfully");
+                } else {
+                    console.log("response not received");
+                }
+            } catch (error) {
+                console.error(error);
+                console.log("caught error");
+
+            }
+        }
     };
 
     /*
@@ -74,8 +110,8 @@ export default class Draw extends Component {
     primaryColors () {
         const colors = ["red", "blue", "green", "brown", "black"];
         const colorComponents = colors.map(color =>
-                <TouchableOpacity style={[canvas.button, {backgroundColor: color}]}
-                                  onPress={() => this.chooseColor(color)}/>)
+            <TouchableOpacity style={[canvas.button, {backgroundColor: color}]}
+                              onPress={() => this.chooseColor(color)}/>)
         return(
             <View style={canvas.sideBar}>
                 <>{colorComponents}</>
@@ -185,7 +221,7 @@ export default class Draw extends Component {
     render() {
         return (
             <View style={canvas.container}>
-                <View style={{backgroundColor: '#f8ebc4', width: 100, height: 400,
+                <View style={{backgroundColor: '#fbf3dc', width: 100, height: 400,
                     flexDirection: 'column', justifyContent: "space-around", alignItems: "center"}}>
                     <TouchableOpacity
                         style={canvas.button}
@@ -226,7 +262,13 @@ export default class Draw extends Component {
                     </TouchableOpacity>
                     <TouchableOpacity
                         style={canvas.button}
-                        onPress={() => this.myRef.current.save('png', false, "CanvasSaves", "temp", false, false, false)}>
+                        onPress={() => {
+                            this.myRef.current.getBase64('jpg', false, false, false, false, (err, result) => {
+                                // console.log(result);
+                                this.setState({image: result});
+                            });
+                            this.saveCanvas()
+                        }}>
                         <Image
                             source={require("../assets/save.jpeg")}
                             resizeMode="center"

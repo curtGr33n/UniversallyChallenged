@@ -155,7 +155,6 @@ class Login extends Component {
                     <this.MyReactNativeForm/>
                 </ScrollView>
             </KeyboardAvoidingView>
-
         )
     }
 }
