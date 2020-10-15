@@ -1,10 +1,6 @@
 import React, {Component} from 'react';
-import {Button, Picker, TextInput, View, Text, TouchableOpacity, Image} from 'react-native';
-import {Field, Formik} from 'formik';
-import {CheckBox} from "react-native-elements";
-import {Drawer} from "react-native-paper";
-import {styles, buttons, page, login} from '../styles/styles.js';
-
+import {View, Text, TouchableOpacity, Image} from 'react-native';
+import {styles, buttons, page} from '../styles/styles.js';
 
 class Teacher extends Component {
     render() {

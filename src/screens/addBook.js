@@ -1,10 +1,7 @@
 import React, {Component} from 'react';
-import {Button, Picker, TextInput, View, Text, TouchableOpacity, Image} from 'react-native';
-import {Field, Formik} from 'formik';
-import {CheckBox} from "react-native-elements";
-import {Drawer} from "react-native-paper";
-import {styles, buttons, page} from '../styles/styles.js';
-
+import {Picker, TextInput, View, Text, TouchableOpacity, Image, ScrollView} from 'react-native';
+import {Formik} from 'formik';
+import {forms, login} from '../styles/styles.js';
 
 class Book extends Component {
     state = {
@@ -34,31 +31,48 @@ class Book extends Component {
 
     showBookForm = () => {
         return (
-            <Formik
-                initialValues={{ bookTitle:'', classId: global.classid[0]}} //put class session variable here
-                onSubmit={
-                    values => this.addBook(values)
-                    //values => console.log(values)
-                }
-            >
-                {(props) => (
-                    <View>
-                        <TextInput
-                            style={{ borderColor: 'black', borderWidth: 2 }}
-                            placeholder= 'bookTitle'
-                            onChangeText={props.handleChange('bookTitle')}
-                            value={props.values.bookTitle}
-                        />
-                        <Picker
-                            selectedValue={props.values.classId}
-                            onValueChange={props.handleChange('classId')}>
-                            {this.classIds}
-                        </Picker>
-                        <Button title='submit' color='red' onPress={props.handleSubmit} />
-                        <Button  title={'Close'} onPress={() => this.setState({showBookForm: false})}/>
-                    </View>
-                )}
-            </Formik>
+            <View style={{flex: 1, justifyContent : 'center'}}>
+                <Text style={forms.title}>Add Book</Text>
+                <Formik
+                    initialValues={{ bookTitle:'', classId: global.classid[0]}} //put class session variable here
+                    onSubmit={
+                        values => this.addBook(values)
+                        //values => console.log(values)
+                    }
+                >
+                    {(props) => (
+                        <ScrollView style={forms.container}>
+                            <View style={{alignItems: 'center'}}>
+                                <TextInput
+                                    style={forms.bookInput}
+                                    placeholder= 'Add a book title...'
+                                    onChangeText={props.handleChange('bookTitle')}
+                                    value={props.values.bookTitle}
+                                />
+                                <View style={[forms.dropDown]}>
+                                    <Picker
+                                        selectedValue={props.values.classId}
+                                        onValueChange={props.handleChange('classId')}>
+                                        {this.classIds}
+                                    </Picker>
+                                </View>
+                                <TouchableOpacity
+                                    style={forms.buttonPrimary}
+                                    onPress={() => this.props.handleSubmit}
+                                >
+                                    <Text style={login.buttonText}>Submit</Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity
+                                    style={forms.buttonPrimary}
+                                    onPress={() => this.setState({showBookForm: false})}
+                                >
+                                    <Text style={login.buttonText}>Close</Text>
+                                </TouchableOpacity>
+                            </View>
+                        </ScrollView>
+                    )}
+                </Formik>
+            </View>
         );
     }
 

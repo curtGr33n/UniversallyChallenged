@@ -192,21 +192,56 @@ const login = StyleSheet.create({
     }
 })
 
-const library = StyleSheet.create({
-    buttonPrimary: {
+const forms = StyleSheet.create({
+    title: {
+        backgroundColor: '#bb904f',
+        alignItems: 'center',
+        textTransform: 'uppercase',
+        textAlign: 'center',
+        fontSize: 40,
+        padding: 20,
+        width: '100%',
+        color:'white',
+        fontFamily: 'Typewriter2-Bold',
+        lineHeight: 30
+    },
+    bookInput: {
         width: '50%',
         margin: 10,
-        backgroundColor: '#fdda64',
+        backgroundColor: 'white',
         borderRadius: 30,
         padding: 20,
+        fontSize: 30,
         color: 'black',
         fontFamily: 'typewriter-Bold',
     },
     container: {
-        backgroundColor: '#ffff',
-        alignItems: 'center',
-        justifyContent: 'flex-end',
-        overflow: 'hidden'
+        backgroundColor: '#feecb1',
+        flex: 1,
+        position: 'relative',
+        width: '100%',
+    },
+    dropDown: {
+        width: '20%',
+        height: 60,
+        margin: 10,
+        backgroundColor: 'white',
+        borderRadius: 30,
+        padding: 20,
+        fontSize: 30,
+        color: 'black',
+        fontFamily: 'typewriter-Bold',
+        justifyContent: 'center'
+    },
+    buttonPrimary: {
+        height: 60,
+        width: 300,
+        margin: 10,
+        backgroundColor: '#fdda64',
+        borderRadius: 30,
+        padding: 15,
+        color: 'black',
+        fontFamily: 'typewriter-Bold',
     },
 })
 
@@ -358,4 +393,4 @@ const canvas= StyleSheet.create({
 })
 
 // if a new stylesheet is created please export it here.
-export {styles, buttons, page, canvas, login, library}
+export {styles, buttons, page, canvas, login, forms}
