@@ -117,6 +117,9 @@ const page = StyleSheet.create({
         marginRight: 5,
         marginBottom: 5,
         marginTop: 50,
+    },
+    offsetData: {
+       marginBottom: '20%'
     }
 })
 
