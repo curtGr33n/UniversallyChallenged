@@ -14,7 +14,9 @@ export default class Draw extends Component {
         this.setState({image: null});
         this.book = props.bookId;
         this.page = props.pageId;
-        console.log("StudentId: " + global.id + " BookId: " + this.book + " PageId: " + this.page);
+        this.role = "";
+        //this.getRole();
+        console.log("StudentId: " + global.id + " BookId: " + this.book + " PageId: " + this.page + " Role: " + this.role);
     }
 
     state = {
@@ -23,10 +25,25 @@ export default class Draw extends Component {
         color: "red",
         brushSizeShow: false,
         brushSize: 10,
-        image: null,
+        image: null
     };
 
+    getRole = async () => {
+        console.log("get the role of the user");
+        try {
+            const url = 'https://deco3801-universally-challenged.uqcloud.net/getRole?';
+            const query = "bookid=" + this.book + "&pageId=" + this.page + "&studentId=" + global.user;
+            let response = await fetch(url + query);
+            if (response.ok) {
+                this.role = response.text();
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
     saveCanvas = async () => {
+
         if (this.state.image != null) {
             console.log("saving image")
             try {
@@ -45,7 +62,7 @@ export default class Draw extends Component {
                     }).replace(/\\n/g, "")
                 });
                 if (response.ok) {
-                    console.log("base64 sent to server successfully");
+                    console.log("image sent to server successfully");
                 } else {
                     console.log("response not received");
                 }
@@ -266,8 +283,8 @@ export default class Draw extends Component {
                             this.myRef.current.getBase64('jpg', false, false, false, false, (err, result) => {
                                 // console.log(result);
                                 this.setState({image: result});
-                            });
-                            this.saveCanvas()
+                            })
+                            setTimeout(() => this.saveCanvas(), 100);
                         }}>
                         <Image
                             source={require("../assets/save.jpeg")}
