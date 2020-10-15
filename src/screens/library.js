@@ -9,9 +9,7 @@ const background = {uri: '../assets/place-holder-open-book.png'};
 
 const Library = (props) => {
     const [books, setBooks] = useState([])
-    const [schoolId, setSchoolId] = useState(0)
     const [classId, setClassId] = useState(0)
-    const [studentId, setStudentId] = useState(0)
     const [userClasses, setUserClasses] = useState(global.classid)
 
     /** Gets the list of books based on the classId chosen
