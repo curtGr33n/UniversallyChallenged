@@ -11,11 +11,11 @@ export default class Draw extends Component {
         super(props);
         this.myRef = createRef();
         this.brushMaxVal = 90;
-        this.setState({image: null});
         this.book = props.bookId;
         this.page = props.pageId;
         this.role = "";
-        //this.getRole();
+        this.getRole();
+        // this.getRole().then(select tool bar for role)
         console.log("StudentId: " + global.id + " BookId: " + this.book + " PageId: " + this.page + " Role: " + this.role);
     }
 
@@ -32,10 +32,15 @@ export default class Draw extends Component {
         console.log("get the role of the user");
         try {
             const url = 'https://deco3801-universally-challenged.uqcloud.net/getRole?';
-            const query = "bookid=" + this.book + "&pageId=" + this.page + "&studentId=" + global.user;
+            const query = "bookId=" + this.book + "&pageId=" + this.page + "&studentId=" + global.id;
+            console.log(url + query);
             let response = await fetch(url + query);
             if (response.ok) {
+                console.log("successful response");
                 this.role = response.text();
+                console.log(response.text());
+            } else {
+                console.log("response not ok");
             }
         } catch (error) {
             console.error(error);
