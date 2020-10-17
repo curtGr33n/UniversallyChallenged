@@ -234,7 +234,7 @@ const forms = StyleSheet.create({
         width: '100%',
     },
     dropDown: {
-        width: '20%',
+        width: '30%',
         height: 60,
         margin: 10,
         backgroundColor: 'white',
@@ -247,12 +247,22 @@ const forms = StyleSheet.create({
     },
     buttonPrimary: {
         height: 60,
-        width: 300,
+        width: 200,
         margin: 10,
         backgroundColor: '#fdda64',
         borderRadius: 30,
         padding: 15,
         color: 'black',
+        fontFamily: 'typewriter-Bold',
+    },
+    buttonSecondary: {
+        height: 60,
+        width: 200,
+        margin: 10,
+        backgroundColor: '#bb904f',
+        borderRadius: 30,
+        padding: 15,
+        color: 'white',
         fontFamily: 'typewriter-Bold',
     },
 })

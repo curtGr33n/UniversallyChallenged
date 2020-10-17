@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
-import {Button, Picker, TextInput, View, Text, TouchableOpacity, Image} from 'react-native';
+import {Button, Picker, TextInput, View, Text, TouchableOpacity, Image, ScrollView} from 'react-native';
 import {Field, Formik} from 'formik';
 import {CheckBox} from "react-native-elements";
 import {Drawer} from "react-native-paper";
-import {styles, buttons, page} from '../styles/styles.js';
+import {styles, buttons, page, forms, login} from '../styles/styles.js';
 
 
 class Teacher extends Component {
@@ -209,13 +209,21 @@ class Teacher extends Component {
                 }
             >
                 {(props) => (
-                    <View>
-                        <Picker
-                            selectedValue={props.values.classId}
-                            onValueChange={props.handleChange('classId')}>
-                            {this.classIds}
-                        </Picker>
-                        <Button title='submit' color='red' onPress={props.handleSubmit} />
+                    <View style={{alignItems: 'center'}}>
+                        <View style={[forms.dropDown]}>
+                            <Picker
+                                selectedValue={props.values.classId}
+                                onValueChange={props.handleChange('classId')}>
+                                <Picker.Item label={"Class Id"} value={"-1"}/>
+                                {this.classIds}
+                            </Picker>
+                        </View>
+                        <TouchableOpacity
+                            style={forms.buttonPrimary}
+                            onPress={props.handleSubmit}
+                        >
+                            <Text style={login.buttonText}>Submit</Text>
+                        </TouchableOpacity>
                     </View>
                 )}
             </Formik>
@@ -231,13 +239,15 @@ class Teacher extends Component {
                 }
             >
                 {(props) => (
-                    <View>
-                        <Picker
-                            selectedValue={props.values.bookId}
-                            onValueChange={props.handleChange('bookId')}>
-                            <Picker.Item label={"..."} value={"-1"}/>
-                            {this.state.bookSelectorOptions}
-                        </Picker>
+                    <View style={{alignItems: 'center'}}>
+                        <View style={[forms.dropDown]}>
+                            <Picker
+                                selectedValue={props.values.bookId}
+                                onValueChange={props.handleChange('bookId')}>
+                                <Picker.Item label={"..."} value={"-1"}/>
+                                {this.state.bookSelectorOptions}
+                            </Picker>
+                        </View>
                         <CheckBox
                             checkedIcon='check-box'
                             iconType='material'
@@ -247,7 +257,12 @@ class Teacher extends Component {
                             checked={props.values.check}
                             onPress={() => props.setFieldValue('check', !props.values.check)}
                         />
-                        <Button title='Submit' color='red' onPress={props.handleSubmit} />
+                        <TouchableOpacity
+                            style={forms.buttonPrimary}
+                            onPress={props.handleSubmit}
+                        >
+                            <Text style={login.buttonText}>Submit</Text>
+                        </TouchableOpacity>
                     </View>
                 )}
             </Formik>
@@ -263,14 +278,21 @@ class Teacher extends Component {
                 }
             >
                 {(props) => (
-                    <View>
-                        <Picker
-                            selectedValue={props.values.pagenum}
-                            onValueChange={props.handleChange('pagenum')}>
-                            <Picker.Item label={"..."} value={"-1"}/>
-                            {this.state.pageSelectorOptions}
-                        </Picker>
-                        <Button title='Submit' color='blue' onPress={props.handleSubmit} />
+                    <View style={{alignItems: 'center'}}>
+                        <View style={[forms.dropDown]}>
+                            <Picker
+                                selectedValue={props.values.pagenum}
+                                onValueChange={props.handleChange('pagenum')}>
+                                <Picker.Item label={"..."} value={"-1"}/>
+                                {this.state.pageSelectorOptions}
+                            </Picker>
+                        </View>
+                        <TouchableOpacity
+                            style={forms.buttonPrimary}
+                            onPress={props.handleSubmit}
+                        >
+                            <Text style={login.buttonText}>Submit</Text>
+                        </TouchableOpacity>
                     </View>
                 )}
             </Formik>
@@ -287,22 +309,29 @@ class Teacher extends Component {
                     }
                 >
                     {(props) => (
-                        <View>
-                            <Text>{values.role}</Text>
-                            <Picker
-                                selectedValue={props.values.sID}
-                                onValueChange={props.handleChange('sID')}>
-                                <Picker.Item label={"..."} value={"-1"}/>
-                                {this.state.sIDSelectorOptions}
-                            </Picker>
-                            <Button title='Submit' color='red' onPress={props.handleSubmit}/>
+                        <View style={{alignItems: 'center'}}>
+                            <Text style={login.buttonText}>{values.role}</Text>
+                            <View style={[forms.dropDown]}>
+                                <Picker
+                                    selectedValue={props.values.sID}
+                                    onValueChange={props.handleChange('sID')}>
+                                    <Picker.Item label={"..."} value={"-1"}/>
+                                    {this.state.sIDSelectorOptions}
+                                </Picker>
+                            </View>
+                            <TouchableOpacity
+                                style={forms.buttonPrimary}
+                                onPress={props.handleSubmit}
+                            >
+                                <Text style={login.buttonText}>Submit</Text>
+                            </TouchableOpacity>
                         </View>
                     )}
                 </Formik>
             );
         } else{
             return (
-                <View>
+                <View style={{alignItems: 'center'}}>
                     <Text>{values.sID}</Text>
                     <Text>{values.role}</Text>
                 </View>
@@ -312,46 +341,58 @@ class Teacher extends Component {
 
     showStageOneValue = () => {
         return (
-            <View>
-            <Text>ClassID = {this.state.classId}</Text>
-            <Button title='edit' color='orange' onPress={() => {
-                this.setState({showPageForm: true});
-                this.setState({stageOneValue: false});
-                this.setState({showPageFormStage2: false});
-                this.setState({stageTwoValue: false});
-                this.setState({showPageFormStage3: false});
-                this.setState({illustratorForm: false});
-                this.setState({drawerForm: false});
-                this.setState({authorForm: false});
-            }}/>
+            <View style={{alignItems: 'center'}}>
+            <Text style={buttons.buttonText}>ClassID = {this.state.classId}</Text>
+                <TouchableOpacity
+                    style={forms.buttonSecondary}
+                    onPress={() => {
+                        this.setState({showPageForm: true});
+                        this.setState({stageOneValue: false});
+                        this.setState({showPageFormStage2: false});
+                        this.setState({stageTwoValue: false});
+                        this.setState({showPageFormStage3: false});
+                        this.setState({illustratorForm: false});
+                        this.setState({drawerForm: false});
+                        this.setState({authorForm: false});
+                    }}
+                >
+                    <Text style={buttons.buttonTextWhite}>Edit</Text>
+                </TouchableOpacity>
             </View>
         );
     }
 
     showStageTwoValue = () => {
         return (
-            <View>
-                <Text>BookID = {this.state.bookId}</Text>
-                <Button title='edit' color='orange' onPress={() => {
-                    this.setState({showPageFormStage2: true});
-                    this.setState({stageTwoValue: false});
-                }}/>
+            <View style={{alignItems: 'center'}}>
+                <Text style={buttons.buttonText}>BookID = {this.state.bookId}</Text>
+
+                <TouchableOpacity
+                    style={forms.buttonSecondary}
+                    onPress={() => {
+                        this.setState({showPageFormStage2: true});
+                        this.setState({stageTwoValue: false});
+                    }}
+                >
+                    <Text style={buttons.buttonTextWhite}>Edit</Text>
+                </TouchableOpacity>
             </View>
         );
     }
 
     render() {
         return (
-            <View>
-                {this.state.showPageForm ? this.showPageFormStageOne() : null}
-                {this.state.stageOneValue ? this.showStageOneValue() : null}
-                {this.state.showPageFormStage2 ? this.showPageFormStageTwo() : null}
-                {this.state.stageTwoValue ? this.showStageTwoValue() : null}
-                {this.state.showPageFormStage3 ? this.showPageFormStageThree() : null}
-                {this.state.showIllustrator ? this.state.illustratorForm : null}
-                {this.state.showDrawer ? this.state.drawerForm : null}
-                {this.state.showAuthor ? this.state.authorForm : null}
-            </View>
+            <ScrollView style={{backgroundColor:'#feecb1', flex: 1}}>
+                <Text style={forms.title}>Edit Book</Text>
+                    {this.state.showPageForm ? this.showPageFormStageOne() : null}
+                    {this.state.stageOneValue ? this.showStageOneValue() : null}
+                    {this.state.showPageFormStage2 ? this.showPageFormStageTwo() : null}
+                    {this.state.stageTwoValue ? this.showStageTwoValue() : null}
+                    {this.state.showPageFormStage3 ? this.showPageFormStageThree() : null}
+                    {this.state.showIllustrator ? this.state.illustratorForm : null}
+                    {this.state.showDrawer ? this.state.drawerForm : null}
+                    {this.state.showAuthor ? this.state.authorForm : null}
+            </ScrollView>
         )
     }
 }
