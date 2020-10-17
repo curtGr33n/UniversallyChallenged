@@ -1,12 +1,12 @@
 import React, { Component, useState } from 'react';
-import { View, Text, Picker } from 'react-native';
+import {View, Text, Picker, ScrollView} from 'react-native';
 
 //im really scared loool
 import { Button, TextInput } from 'react-native';
 import { Formik } from 'formik';
 
 //This is how you import the style sheet
-import { styles, buttons } from '../styles/styles.js'
+import {styles, buttons, forms, login} from '../styles/styles.js'
 import {TouchableOpacity,TouchableHighlight, Image}  from "react-native";
 
 class Register extends Component {
@@ -31,6 +31,7 @@ class Register extends Component {
     };
 
     MyReactNativeForm = props => (
+        <View style={{flex: 1, justifyContent : 'center'}}>
 
         <Formik
             initialValues={{ name: '', email: '', password: '', type: '', school: '', classnum: '' }}
@@ -42,71 +43,75 @@ class Register extends Component {
                   handleBlur,
                   handleSubmit,
                   values }) => (
-                <View>
-                    <TextInput
-                        style={{ borderColor:'black', borderWidth:2 }}
-                        onChangeText={handleChange('name')}
-                        onBlur={handleBlur('name')}
-                        value={values.name} 
-                        placeholder={'name'}
-                    />
+                <ScrollView style={forms.container}>
+                    <View style={{alignItems: 'center'}}>
+                        <TextInput
+                            style={forms.bookInput}
+                            onChangeText={handleChange('name')}
+                            onBlur={handleBlur('name')}
+                            value={values.name}
+                            placeholder={'Name'}
+                        />
 
-                    <TextInput
-                        style={{ borderColor: 'black', borderWidth: 2 }}
-                        onChangeText={handleChange('email')}
-                        onBlur={handleBlur('email')}
-                        value={values.email}
-                        placeholder={'email'}
-                    />
+                        <TextInput
+                            style={forms.bookInput}
+                            onChangeText={handleChange('email')}
+                            onBlur={handleBlur('email')}
+                            value={values.email}
+                            placeholder={'Email'}
+                        />
 
-                    <TextInput
-                        style={{ borderColor:'black', borderWidth:2 }}
-                        onChangeText={handleChange('password')}
-                        onBlur={handleBlur('password')}
-                        value={values.password}
-                        placeholder={'password'}
-                    />
+                        <TextInput
+                            style={forms.bookInput}
+                            onChangeText={handleChange('password')}
+                            onBlur={handleBlur('password')}
+                            value={values.password}
+                            placeholder={'Password'}
+                        />
 
-                    <TextInput
-                        style={{ borderColor:'black', borderWidth:2 }}
-                        onChangeText={handleChange('type')}
-                        onBlur={handleBlur('type')}
-                        value={values.type}
-                        placeholder={'student/teacher'}
-                    />
+                        <TextInput
+                            style={forms.bookInput}
+                            onChangeText={handleChange('type')}
+                            onBlur={handleBlur('type')}
+                            value={values.type}
+                            placeholder={'Student/Teacher'}
+                        />
 
-                    <TextInput
-                        style={{ borderColor:'black', borderWidth:2 }}
-                        onChangeText={handleChange('school')}
-                        onBlur={handleBlur('school')}
-                        value={values.school}
-                        placeholder={'school'}
-                    />
+                        <TextInput
+                            style={forms.bookInput}
+                            onChangeText={handleChange('school')}
+                            onBlur={handleBlur('school')}
+                            value={values.school}
+                            placeholder={'School'}
+                        />
 
-                    <TextInput
-                        style={{ borderColor:'black', borderWidth:2 }}
-                        onChangeText={handleChange('classnum')}
-                        onBlur={handleBlur('classnum')}
-                        value={values.classnum}
-                        placeholder={'classnum'}
-                    />
+                        <TextInput
+                            style={forms.bookInput}
+                            onChangeText={handleChange('classnum')}
+                            onBlur={handleBlur('classnum')}
+                            value={values.classnum}
+                            placeholder={'Class Number'}
+                        />
 
-                    <Button onPress={handleSubmit} title="Submit" />
-                </View>
+                        <TouchableHighlight
+                            style={forms.buttonPrimary}
+                            onPress={handleSubmit}
+                        >
+                            <Text style={login.buttonText}>Submit</Text>
+                        </TouchableHighlight>
+                    </View>
+                </ScrollView>
+
             )}
         </Formik>
+        </View>
     );
 
     render() {
         return (
-            <View style={styles.container}>
+            <View style={{flex: 1, justifyContent : 'center'}}>
+                <Text style={forms.title}>Sign Up</Text>
                 <this.MyReactNativeForm />
-                <TouchableHighlight
-                    style={buttons.primary}
-                    onPress={() => this.props.navigation.navigate('Main')}
-                >
-                    <Text style={buttons.buttonText}>Login</Text>
-                </TouchableHighlight>
             </View>
         )
     }
