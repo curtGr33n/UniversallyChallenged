@@ -9,7 +9,7 @@ import { Formik } from 'formik';
 import { styles, buttons } from '../styles/styles.js'
 import {TouchableOpacity,TouchableHighlight, Image}  from "react-native";
 
-class Login extends Component {
+class Register extends Component {
 
     getData = async (values) => {
         try {
@@ -112,4 +112,4 @@ class Login extends Component {
     }
 }
 
-export default Login;
+export default Register;

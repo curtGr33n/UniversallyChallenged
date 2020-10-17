@@ -120,7 +120,19 @@ const page = StyleSheet.create({
     },
     offsetData: {
        marginBottom: '20%'
-    }
+    },
+    dropDown: {
+        width: '20%',
+        height: 60,
+        margin: 10,
+        backgroundColor: '#f8ebc4',
+        borderRadius: 30,
+        padding: 20,
+        fontSize: 30,
+        color: 'black',
+        fontFamily: 'typewriter-Bold',
+        justifyContent: 'center'
+    },
 })
 
 const login = StyleSheet.create({
@@ -281,7 +293,6 @@ const buttons = StyleSheet.create({
         color: 'white',
         fontSize: 25,
         fontFamily: 'typewriter-Bold',
-        paddingBottom: 15,
         borderRadius: 10,
         padding: 20,
     },
@@ -299,7 +310,14 @@ const buttons = StyleSheet.create({
         // top: 300,
         // margin: 20
 
-    }
+    },
+    textWhite: {
+        textAlign: 'center',
+        color: 'white',
+        fontSize: 30,
+        fontFamily: 'typewriter-Bold',
+        lineHeight: 30,
+    },
 })
 
 const canvas= StyleSheet.create({
