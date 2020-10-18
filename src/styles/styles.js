@@ -265,6 +265,23 @@ const forms = StyleSheet.create({
         color: 'white',
         fontFamily: 'typewriter-Bold',
     },
+    creatorText: {
+        textAlign: 'center',
+        color: '#bb904f',
+        fontSize: 30,
+        fontFamily: 'typewriter',
+        lineHeight: 30,
+    },
+    load: {
+        position: 'absolute',
+        alignItems: 'center',
+        justifyContent: 'center',
+        top : 100,
+        left: '25%',
+        zIndex: 1,
+        width: '50%',
+        height: 150,
+    }
 })
 
 const buttons = StyleSheet.create({
