@@ -7,6 +7,9 @@ import {forms, login} from '../styles/styles.js';
  * Deals with adding a book
  */
 class AddBook extends Component {
+    state = {
+        submitted: <Text/>,
+    }
     /**
      * Creates the classId picker options based on logged in teacher
      * @type {JSX.Element} the picker option elements
@@ -21,11 +24,13 @@ class AddBook extends Component {
      */
     addBook = async (values) => {
         try {
+            this.setState({submitted: <Text>Loading...</Text>})
             if(values.classId !== -1) {
                 let response = await fetch(
                     'https://deco3801-universally-challenged.uqcloud.net/book?bookTitle=' +
                     values.bookTitle + '&bookCoverLink=none&school=' + global.school +
                     '&classID=' + values.classId);
+                this.setState({submitted: <Text>New Book Added</Text>})
                 if (!response.ok) {
                     alert("HTTP-Error: " + response.status);
                 }
@@ -68,6 +73,7 @@ class AddBook extends Component {
                                         {this.classIds}
                                     </Picker>
                                 </View>
+                                {this.state.submitted}
                                 <TouchableOpacity
                                     style={forms.buttonPrimary}
                                     onPress={props.handleSubmit}
