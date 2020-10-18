@@ -1,12 +1,13 @@
 import React, {Component} from 'react';
-import {Button, Picker, TextInput, View, Text, TouchableOpacity, Image, ScrollView} from 'react-native';
-import {Field, Formik} from 'formik';
+import {Picker, ScrollView, Text, TouchableOpacity, View} from 'react-native';
+import {Formik} from 'formik';
 import {CheckBox} from "react-native-elements";
-import {Drawer} from "react-native-paper";
-import {styles, buttons, page, forms, login} from '../styles/styles.js';
+import {buttons, forms, login} from '../styles/styles.js';
 
-
-class Teacher extends Component {
+/**
+ * Allows users to be added to pages along with their role
+ */
+class EditBook extends Component {
     state = {
         showPageForm : true,
         stageOneValue: false,
@@ -27,17 +28,28 @@ class Teacher extends Component {
         bookId: -1,
         pagenum: -1
     }
+
+    /**
+     * Picker Items for the classes
+     * @type {JSX.Element} Picker items
+     */
     classIds = global.classid.map(i => (
         <Picker.Item label={i.toString()} value={i.toString()} />
     ));
 
+    /**
+     * gets the books for a class
+     * @param values holds the class ID
+     * @returns {JSON.object} the books from the class ID
+     */
     getClassBooks = async (values) => {
         try {
-            let response = await fetch('https://deco3801-universally-challenged.uqcloud.net/getClassBooks?classId=' + values.classId);
+            let response = await fetch(
+                'https://deco3801-universally-challenged.uqcloud.net/getClassBooks?classId=' +
+                values.classId);
             if (response.ok) {
                 let juice = await response.text();
-                let data = JSON.parse(juice);
-                return data;
+                return JSON.parse(juice);
             } else {
                 alert("HTTP-Error: " + response.status);
             }
@@ -46,135 +58,62 @@ class Teacher extends Component {
         }
     };
 
-    addCreator = async (values) => {
-        try {
-            let response = await fetch('https://deco3801-universally-challenged.uqcloud.net/addDetails?bookID=' + this.state.bookId + '&pageID='+ this.state.pagenum + '&sID=' + values.sID + '&role=' + values.role);
-            if (response.ok) {
-                // console.log(response);
-                let juice = await response.text();
-                //console.log(juice);
-                if(juice.ok) {
-                   await this.displayRoles({pagenum: this.state.pagenum})
-                }
-            } else {
-                alert("HTTP-Error: " + response.status);
-            }
-        } catch (error) {
-            console.error(error);
-        }
-    };
-
+    /**
+     * Creates the picker of class Books and deals with form stage one submission
+     * @param values contains the classId
+     */
     displayBook = async (values) => {
-        let classBooksDigits = await this.getClassBooks(values);
-        let classBookSelection = classBooksDigits.map(i => (
-            <Picker.Item label={i.bookTitle.toString()} value={i.bookId.toString()}/>
-        ));
-        this.setState({classId: values.classId});
-        this.setState({showPageForm: false});
-        this.setState({stageOneValue: true});
-        this.setState({showPageFormStage2: true});
-        this.setState({bookSelectorOptions: classBookSelection});
+        if(values.classId !== -1) {
+            let classBooksDigits = await this.getClassBooks(values);
+            let classBookSelection = classBooksDigits.map(i => (
+                <Picker.Item label={i.bookTitle.toString()} value={i.bookId.toString()}/>
+            ));
+            this.setState({classId: values.classId});
+            this.setState({showPageForm: false});
+            this.setState({stageOneValue: true});
+            this.setState({showPageFormStage2: true});
+            this.setState({bookSelectorOptions: classBookSelection});
+        } else{
+            alert("Select a Class Number");
+        }
     };
 
+    /**
+     * Creates the picker for page numbers of the sent book
+     * @param values contains the selected bookId
+     */
     displayPage = async (values) => {
-        console.log(values.check);
-        console.log(values.bookId);
-        if(values.check){
-            await this.addPage(values);
-        }
-        let pages = await this.getPages(values);
-        let pageSelection = pages.map(i => (
-            <Picker.Item label={i.pagenum.toString()} value={i.pagenum.toString()}/>
-        ));
-        this.setState({bookId: values.bookId});
-        this.setState({showPageFormStage2: false});
-        this.setState({stageTwoValue: true});
-        this.setState({pageSelectorOptions: pageSelection});
-        this.setState({showPageFormStage3: true});
-    };
-
-    displayRoles = async (values) => {
-        let creators = await this.getCreators(values);
-        let illustrator = {needInput: true, role: 'illustrator'};
-        let drawer = {needInput: true, role: 'drawer'};
-        let author = {needInput: true, role: 'author'};
-        console.log(creators);
-        console.log(values.pagenum);
-        creators.map((item) => {
-                if(item.role === "illustrator"){
-                    illustrator = {needInput: false, sID: item.studentId, role: item.role};
-                }
-                if(item.role === "drawer"){
-                    drawer = {needInput: false, sID: item.studentId, role: item.role};
-                }
-                if(item.role === "author"){
-                    author = {needInput: false, sID: item.studentId, role: item.role};
-                }
+        if(values.bookId !== -1) {
+            if (values.check) {
+                await this.addPage(values);
             }
-        );
-        console.log(illustrator);
-        let students = await this.getStudents();
-        let studentsSelection = students.map(i => (
-            <Picker.Item label={i[1].toString()} value={i[0].toString()}/>
-        ));
-        this.setState({sIDSelectorOptions: studentsSelection});
-        this.setState({pagenum: values.pagenum});
-        this.setState({illustratorForm : this.showPageFormStageFour(illustrator)});
-        this.setState({showIllustrator : true});
-        this.setState({drawerForm : this.showPageFormStageFour(drawer)});
-        this.setState({showDrawer : true});
-        this.setState({authorForm : this.showPageFormStageFour(author)});
-        this.setState({showAuthor : true});
-    };
-
-    getStudents = async () => {
-        try {
-            console.log(this.state.classId);
-            let response = await fetch('https://deco3801-universally-challenged.uqcloud.net/getClassStudents?classId=' + this.state.classId);
-            console.log(response);
-            if (response.ok) {
-                console.log(response);
-                let juice = await response.text();
-                let data = JSON.parse(juice);
-                return data;
-            } else {
-                alert("HTTP-Error: " + response.status);
-            }
-        } catch (error) {
-            console.error(error);
+            let pages = await this.getPages(values);
+            let pageSelection = pages.map(i => (
+                <Picker.Item label={i.pagenum.toString()} value={i.pagenum.toString()}/>
+            ));
+            this.setState({bookId: values.bookId});
+            this.setState({showPageFormStage2: false});
+            this.setState({stageTwoValue: true});
+            this.setState({pageSelectorOptions: pageSelection});
+            this.setState({showPageFormStage3: true});
+        }else{
+            alert("Select a Book");
         }
     };
 
-    getCreators = async (values) => {
-        try {
-            console.log(values.pagenum);
-            console.log(this.state.bookId);
-            let response = await fetch('https://deco3801-universally-challenged.uqcloud.net/getCreator?bookId=' + this.state.bookId +"&pageId=" + values.pagenum);
-            console.log(response);
-            if (response.ok) {
-                console.log(response);
-                let juice = await response.text();
-                let data = JSON.parse(juice);
-                return data;
-            } else {
-                alert("HTTP-Error: " + response.status);
-            }
-        } catch (error) {
-            console.error(error);
-        }
-    };
-
+    /**
+     * Gets all the pages of a book
+     * @param values contains the bookId
+     * @returns an array of page objects from a book
+     */
     getPages = async (values) => {
         try {
-            console.log("*********************************************************");
-            console.log(values.bookId);
-            let response = await fetch('https://deco3801-universally-challenged.uqcloud.net/getPages?bookId=' + values.bookId);
+            let response = await fetch(
+                'https://deco3801-universally-challenged.uqcloud.net/getPages?bookId=' +
+                values.bookId);
             if (response.ok) {
-                console.log(response);
                 let juice = await response.text();
-                let data = JSON.parse(juice);
-                // console.log(data);
-                return data;
+                return JSON.parse(juice);
             } else {
                 alert("HTTP-Error: " + response.status);
             }
@@ -183,15 +122,78 @@ class Teacher extends Component {
         }
     };
 
+    /**
+     * Adds a blank page to a book
+     * @param values contains the bookId
+     */
     addPage = async (values) => {
         try {
-            console.log("*********************************************************");
             console.log(values.bookId);
-            let response = await fetch('https://deco3801-universally-challenged.uqcloud.net/createPage?id=' + values.bookId);
+            let response = await fetch(
+                'https://deco3801-universally-challenged.uqcloud.net/createPage?id='
+                + values.bookId);
+            if (!response.ok) {
+                alert("HTTP-Error: " + response.status);
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    /**
+     * Deals with the roles and assigns the data to them
+     * Also builds the picker for student ids
+     * @param values contains the pagenum
+     * @returns {Promise<void>}
+     */
+    displayRoles = async (values) => {
+        if(values.pagenum !== -1) {
+            let creators = await this.getCreators(values);
+            let illustrator = {needInput: true, role: 'illustrator'};
+            let drawer = {needInput: true, role: 'drawer'};
+            let author = {needInput: true, role: 'author'};
+            creators.map((item) => {
+                    if (item.role === "illustrator") {
+                        illustrator = {needInput: false, sID: item.studentId, role: item.role};
+                    }
+                    if (item.role === "drawer") {
+                        drawer = {needInput: false, sID: item.studentId, role: item.role};
+                    }
+                    if (item.role === "author") {
+                        author = {needInput: false, sID: item.studentId, role: item.role};
+                    }
+                }
+            );
+            console.log(illustrator);
+            let students = await this.getStudents();
+            let studentsSelection = students.map(i => (
+                <Picker.Item label={i[1].toString()} value={i[0].toString()}/>
+            ));
+            this.setState({sIDSelectorOptions: studentsSelection});
+            this.setState({pagenum: values.pagenum});
+            this.setState({illustratorForm: this.showPageFormStageFour(illustrator)});
+            this.setState({showIllustrator: true});
+            this.setState({drawerForm: this.showPageFormStageFour(drawer)});
+            this.setState({showDrawer: true});
+            this.setState({authorForm: this.showPageFormStageFour(author)});
+            this.setState({showAuthor: true});
+        }else{
+            alert("Please select a page number")
+        }
+    };
+
+    /**
+     * Gets all the students in a class
+     * @returns An array of user objects
+     */
+    getStudents = async () => {
+        try {
+            let response = await fetch(
+                'https://deco3801-universally-challenged.uqcloud.net/getClassStudents?classId='
+                + this.state.classId);
             if (response.ok) {
-                console.log(response);
                 let juice = await response.text();
-                console.log(juice);
+                return JSON.parse(juice);
             } else {
                 alert("HTTP-Error: " + response.status);
             }
@@ -200,10 +202,60 @@ class Teacher extends Component {
         }
     };
 
+    /**
+     * Adds a creator to a page in the book
+     * @param values
+     * @returns {Promise<void>}
+     */
+    addCreator = async (values) => {
+        try {
+            let response = await fetch(
+                'https://deco3801-universally-challenged.uqcloud.net/addDetails?bookID=' +
+                this.state.bookId + '&pageID='+ this.state.pagenum + '&sID=' + values.sID +
+                '&role=' + values.role);
+            if (response.ok) {
+                let juice = await response.text();
+                if(juice.ok) {
+                    await this.displayRoles({pagenum: this.state.pagenum})
+                }
+            } else {
+                alert("HTTP-Error: " + response.status);
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    /**
+     * gets the creators of a books page
+     * @param values contains the selected pagenum
+     * @returns an array of role objects
+     */
+    getCreators = async (values) => {
+        try {
+            let response = await fetch(
+                'https://deco3801-universally-challenged.uqcloud.net/getCreator?bookId=' +
+                this.state.bookId +"&pageId=" + values.pagenum);
+            if (response.ok) {
+                let juice = await response.text();
+                return JSON.parse(juice);
+            } else {
+                alert("HTTP-Error: " + response.status);
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+
+    /**
+     * Creates the form for selecting the classId
+     * @returns {JSX.Element} the stage one form
+     */
     showPageFormStageOne = () => {
         return (
             <Formik
-                initialValues={{classId: global.classid[0]}} //put class session variable here
+                initialValues={{classId: -1}}
                 onSubmit={
                     values => this.displayBook(values)
                 }
@@ -214,7 +266,7 @@ class Teacher extends Component {
                             <Picker
                                 selectedValue={props.values.classId}
                                 onValueChange={props.handleChange('classId')}>
-                                <Picker.Item label={"Class Id"} value={"-1"}/>
+                                <Picker.Item label={"Class Number"} value={"-1"}/>
                                 {this.classIds}
                             </Picker>
                         </View>
@@ -230,6 +282,10 @@ class Teacher extends Component {
         );
     }
 
+    /**
+     * Creates the form for selecting the book
+     * @returns {JSX.Element} the stage two form
+     */
     showPageFormStageTwo = () => {
         return (
             <Formik
@@ -244,7 +300,7 @@ class Teacher extends Component {
                             <Picker
                                 selectedValue={props.values.bookId}
                                 onValueChange={props.handleChange('bookId')}>
-                                <Picker.Item label={"..."} value={"-1"}/>
+                                <Picker.Item label={"Select a Book"} value={"-1"}/>
                                 {this.state.bookSelectorOptions}
                             </Picker>
                         </View>
@@ -269,6 +325,10 @@ class Teacher extends Component {
         );
     }
 
+    /**
+     * Creates the form for selecting the page number
+     * @returns {JSX.Element} the stage three form
+     */
     showPageFormStageThree = () => {
         return (
             <Formik
@@ -283,7 +343,7 @@ class Teacher extends Component {
                             <Picker
                                 selectedValue={props.values.pagenum}
                                 onValueChange={props.handleChange('pagenum')}>
-                                <Picker.Item label={"..."} value={"-1"}/>
+                                <Picker.Item label={"Select a Page Number"} value={"-1"}/>
                                 {this.state.pageSelectorOptions}
                             </Picker>
                         </View>
@@ -299,6 +359,13 @@ class Teacher extends Component {
         );
     }
 
+    /**
+     * Creates the form for selecting the students for a role
+     * or shows the current student
+     * @param values holds a need input value that determines
+     *          whether to display the form or submitted information
+     * @returns {JSX.Element} the stage four form
+     */
     showPageFormStageFour = (values) => {
         if(values.needInput) {
             return (
@@ -339,6 +406,10 @@ class Teacher extends Component {
         }
     }
 
+    /**
+     * Shows the submitted form value from stage One and allows editing
+     * @returns {JSX.Element} the element to display information
+     */
     showStageOneValue = () => {
         return (
             <View style={{alignItems: 'center'}}>
@@ -362,6 +433,10 @@ class Teacher extends Component {
         );
     }
 
+    /**
+     * Shows the submitted form value from stage Two and allows editing
+     * @returns {JSX.Element} the element to display information
+     */
     showStageTwoValue = () => {
         return (
             <View style={{alignItems: 'center'}}>
@@ -397,4 +472,4 @@ class Teacher extends Component {
     }
 }
 
-export default Teacher
+export default EditBook

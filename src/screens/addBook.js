@@ -1,43 +1,54 @@
 import React, {Component} from 'react';
-import {Picker, TextInput, View, Text, TouchableOpacity, Image, ScrollView} from 'react-native';
+import {Picker, TextInput, View, Text, TouchableOpacity, ScrollView} from 'react-native';
 import {Formik} from 'formik';
 import {forms, login} from '../styles/styles.js';
 
-class Book extends Component {
-    state = {
-        showBookForm : false,
-    }
+/**
+ * Deals with adding a book
+ */
+class AddBook extends Component {
+    /**
+     * Creates the classId picker options based on logged in teacher
+     * @type {JSX.Element} the picker option elements
+     */
     classIds = global.classid.map(i => (
         <Picker.Item label={i.toString()} value={i.toString()} />
     ));
 
+    /**
+     * Adds a book to the database based on the values received
+     * @param values contains classId to add the book to
+     */
     addBook = async (values) => {
         try {
-            let response = await fetch('https://deco3801-universally-challenged.uqcloud.net/book?bookTitle=' + values.bookTitle + '&bookCoverLink=none&school='+ global.school + '&classID=' + values.classId);
-            if (response.ok) {
-               // console.log(response);
-                let juice = await response.text();
-                //console.log(juice);
-                this.setState({showBookForm: false})
-                this.setState({showPageForm : true})
-            } else {
-                alert("HTTP-Error: " + response.status);
+            if(values.classId !== -1) {
+                let response = await fetch(
+                    'https://deco3801-universally-challenged.uqcloud.net/book?bookTitle=' +
+                    values.bookTitle + '&bookCoverLink=none&school=' + global.school +
+                    '&classID=' + values.classId);
+                if (!response.ok) {
+                    alert("HTTP-Error: " + response.status);
+                }
+            } else{
+                alert("Select a Class Number");
             }
         } catch (error) {
             console.error(error);
         }
     };
 
-
+    /**
+     * Creates and displays the add book form
+     * @returns {JSX.Element} The form
+     */
     showBookForm = () => {
         return (
             <View style={{flex: 1, justifyContent : 'center'}}>
                 <Text style={forms.title}>Add Book</Text>
                 <Formik
-                    initialValues={{ bookTitle:'', classId: global.classid[0]}} //put class session variable here
+                    initialValues={{ bookTitle:'', classId: -1}}
                     onSubmit={
                         values => this.addBook(values)
-                        //values => console.log(values)
                     }
                 >
                     {(props) => (
@@ -53,18 +64,19 @@ class Book extends Component {
                                     <Picker
                                         selectedValue={props.values.classId}
                                         onValueChange={props.handleChange('classId')}>
+                                        <Picker.Item label={"Class Number"} value={"-1"}/>
                                         {this.classIds}
                                     </Picker>
                                 </View>
                                 <TouchableOpacity
                                     style={forms.buttonPrimary}
-                                    onPress={() => this.props.handleSubmit}
+                                    onPress={props.handleSubmit}
                                 >
                                     <Text style={login.buttonText}>Submit</Text>
                                 </TouchableOpacity>
                                 <TouchableOpacity
                                     style={forms.buttonPrimary}
-                                    onPress={() => this.setState({showBookForm: false})}
+                                    onPress={() => this.props.navigation.navigate('Teacher')}
                                 >
                                     <Text style={login.buttonText}>Close</Text>
                                 </TouchableOpacity>
@@ -83,4 +95,4 @@ class Book extends Component {
     }
 }
 
-export default Book
+export default AddBook
