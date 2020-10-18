@@ -51,7 +51,7 @@ class EditBook extends Component {
                     visible={this.props.visible}
                     presentationStyle={"overFullScreen"}
                     >
-                    <View style={{flex : 1, justifyContent: 'center', backgroundColor: 'rgba(0,0,0,0.5)'}}>
+                    <View style={forms.modalOverlay}>
                         <ActivityIndicator size="large" color="#bb904f"/>
                     </View>
                 </Modal>
@@ -127,7 +127,7 @@ class EditBook extends Component {
                 visible={this.props.visible}
                 presentationStyle={"overFullScreen"}
             >
-                <View style={{flex : 1, justifyContent: 'center', backgroundColor: 'rgba(0,0,0,0.5)'}}>
+                <View style={forms.modalOverlay}>
                     <ActivityIndicator size="large" color="#bb904f"/>
                 </View>
             </Modal>});
@@ -218,7 +218,7 @@ class EditBook extends Component {
                 visible={this.props.visible}
                 presentationStyle={"overFullScreen"}
             >
-                <View style={{flex : 1, justifyContent: 'center', backgroundColor: 'rgba(0,0,0,0.5)'}}>
+                <View style={forms.modalOverlay}>
                     <ActivityIndicator size="large" color="#bb904f"/>
                 </View>
             </Modal>});
@@ -250,7 +250,7 @@ class EditBook extends Component {
                 visible={this.props.visible}
                 presentationStyle={"overFullScreen"}
             >
-                <View style={{flex : 1, justifyContent: 'center', backgroundColor: 'rgba(0,0,0,0.5)'}}>
+                <View style={forms.modalOverlay}>
                     <ActivityIndicator size="large" color="#bb904f"/>
                 </View>
             </Modal>})
@@ -282,7 +282,7 @@ class EditBook extends Component {
                 visible={this.props.visible}
                 presentationStyle={"overFullScreen"}
             >
-                <View style={{flex : 1, justifyContent: 'center', backgroundColor: 'rgba(0,0,0,0.5)'}}>
+                <View style={forms.modalOverlay}>
                     <ActivityIndicator size="large" color="#bb904f"/>
                 </View>
             </Modal>})

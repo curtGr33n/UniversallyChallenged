@@ -281,6 +281,11 @@ const forms = StyleSheet.create({
         zIndex: 1,
         width: '50%',
         height: 150,
+    },
+    modalOverlay: {
+        flex : 1,
+        justifyContent: 'center',
+        backgroundColor: 'rgba(0,0,0,0.5)'
     }
 })
 
