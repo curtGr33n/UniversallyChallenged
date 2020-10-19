@@ -51,7 +51,7 @@ const Library = (props) => {
      * Returns: image path
     */
     const getImage = (bookCoverLink) => {
-        if (bookCoverLink == null || bookCoverLink == "none") {
+        if (bookCoverLink == null || bookCoverLink === "none") {
             return (background);
         } else {
             let path = bookCoverLink;
