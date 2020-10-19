@@ -1,64 +1,96 @@
 import React, {Component} from 'react';
-import {Button, Picker, TextInput, View, Text, TouchableOpacity, Image} from 'react-native';
-import {Field, Formik} from 'formik';
-import {CheckBox} from "react-native-elements";
-import {Drawer} from "react-native-paper";
-import {styles, buttons, page} from '../styles/styles.js';
+import {Picker, TextInput, View, Text, TouchableOpacity, ScrollView} from 'react-native';
+import {Formik} from 'formik';
+import {forms, login} from '../styles/styles.js';
 
-
-class Book extends Component {
+/**
+ * Deals with adding a book
+ */
+class AddBook extends Component {
     state = {
-        showBookForm : false,
+        submitted: <Text/>,
     }
+    /**
+     * Creates the classId picker options based on logged in teacher
+     * @type {JSX.Element} the picker option elements
+     */
     classIds = global.classid.map(i => (
         <Picker.Item label={i.toString()} value={i.toString()} />
     ));
 
+    /**
+     * Adds a book to the database based on the values received
+     * @param values contains classId to add the book to
+     */
     addBook = async (values) => {
         try {
-            let response = await fetch('https://deco3801-universally-challenged.uqcloud.net/book?bookTitle=' + values.bookTitle + '&bookCoverLink=none&school='+ global.school + '&classID=' + values.classId);
-            if (response.ok) {
-               // console.log(response);
-                let juice = await response.text();
-                //console.log(juice);
-                this.setState({showBookForm: false})
-                this.setState({showPageForm : true})
-            } else {
-                alert("HTTP-Error: " + response.status);
+            this.setState({submitted: <Text>Loading...</Text>})
+            if(values.classId !== -1) {
+                let response = await fetch(
+                    'https://deco3801-universally-challenged.uqcloud.net/book?bookTitle=' +
+                    values.bookTitle + '&bookCoverLink=none&school=' + global.school +
+                    '&classID=' + values.classId);
+                this.setState({submitted: <Text>New Book Added</Text>})
+                if (!response.ok) {
+                    alert("HTTP-Error: " + response.status);
+                }
+            } else{
+                alert("Select a Class Number");
             }
         } catch (error) {
             console.error(error);
         }
     };
 
-
+    /**
+     * Creates and displays the add book form
+     * @returns {JSX.Element} The form
+     */
     showBookForm = () => {
         return (
-            <Formik
-                initialValues={{ bookTitle:'', classId: global.classid[0]}} //put class session variable here
-                onSubmit={
-                    values => this.addBook(values)
-                    //values => console.log(values)
-                }
-            >
-                {(props) => (
-                    <View>
-                        <TextInput
-                            style={{ borderColor: 'black', borderWidth: 2 }}
-                            placeholder= 'bookTitle'
-                            onChangeText={props.handleChange('bookTitle')}
-                            value={props.values.bookTitle}
-                        />
-                        <Picker
-                            selectedValue={props.values.classId}
-                            onValueChange={props.handleChange('classId')}>
-                            {this.classIds}
-                        </Picker>
-                        <Button title='submit' color='red' onPress={props.handleSubmit} />
-                        <Button  title={'Close'} onPress={() => this.setState({showBookForm: false})}/>
-                    </View>
-                )}
-            </Formik>
+            <View style={{flex: 1, justifyContent : 'center'}}>
+                <Text style={forms.title}>Add Book</Text>
+                <Formik
+                    initialValues={{ bookTitle:'', classId: -1}}
+                    onSubmit={
+                        values => this.addBook(values)
+                    }
+                >
+                    {(props) => (
+                        <ScrollView style={forms.container}>
+                            <View style={{alignItems: 'center'}}>
+                                <TextInput
+                                    style={forms.bookInput}
+                                    placeholder= 'Add a book title...'
+                                    onChangeText={props.handleChange('bookTitle')}
+                                    value={props.values.bookTitle}
+                                />
+                                <View style={[forms.dropDown]}>
+                                    <Picker
+                                        selectedValue={props.values.classId}
+                                        onValueChange={props.handleChange('classId')}>
+                                        <Picker.Item label={"Class Number"} value={"-1"}/>
+                                        {this.classIds}
+                                    </Picker>
+                                </View>
+                                {this.state.submitted}
+                                <TouchableOpacity
+                                    style={forms.buttonPrimary}
+                                    onPress={props.handleSubmit}
+                                >
+                                    <Text style={login.buttonText}>Submit</Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity
+                                    style={forms.buttonPrimary}
+                                    onPress={() => this.props.navigation.navigate('Teacher')}
+                                >
+                                    <Text style={login.buttonText}>Close</Text>
+                                </TouchableOpacity>
+                            </View>
+                        </ScrollView>
+                    )}
+                </Formik>
+            </View>
         );
     }
 
@@ -69,4 +101,4 @@ class Book extends Component {
     }
 }
 
-export default Book
+export default AddBook

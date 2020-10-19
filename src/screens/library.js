@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import { View, Text, TouchableOpacity, ImageBackground} from 'react-native';
 import {Picker} from '@react-native-community/picker';
-import {styles, buttons, page} from '../styles/styles.js';
+import {styles, buttons, page, forms} from '../styles/styles.js';
 import {FlatGrid} from "react-native-super-grid";
 import Pages from "./pages";
 
@@ -70,24 +70,22 @@ const Library = (props) => {
                     flex: 0.1,
                     flexDirection: 'row',
                     justifyContent: "space-around",
-                    backgroundColor: '#fdda64'
+                    padding: 10
                 }}>
                     {/*This is where the drop down menus are going*/}
-                    <View>
+                    <View style={page.dropDown}>
                         <Picker
                             selectedValue={classId}
-                            style={{Height: 50, width: 300}}
                             prompt={"Choose class books list"}
                             onValueChange={((itemValue, itemIndex) => setClassId(itemValue))}>
-                            <Picker.Item label={"Select a class library"} value={''}/>
+                            <Picker.Item label={"Select a library..."} value={''}/>
                             {getPickerItems()}
                         </Picker>
-
                     </View>
                     <TouchableOpacity onPress={() => getData()}
                                       style={buttons.buttonPages}
                                       title={"Load Books"}>
-                        <Text>Load Books</Text>
+                        <Text style={buttons.textWhite}>Load Books</Text>
                     </TouchableOpacity>
                 </View>
 
