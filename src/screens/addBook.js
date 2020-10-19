@@ -39,7 +39,7 @@ class AddBook extends Component {
                     'https://deco3801-universally-challenged.uqcloud.net/book?bookTitle=' +
                     values.bookTitle + '&bookCoverLink=none&school=' + global.school +
                     '&classID=' + values.classId);
-                this.setState({submitted: alert("New Book Added")})
+                this.setState({submitted: <Text>Submitted</Text>});
                 if (!response.ok) {
                     alert("HTTP-Error: " + response.status);
                 }
