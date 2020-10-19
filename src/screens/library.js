@@ -5,8 +5,6 @@ import {styles, buttons, page, forms} from '../styles/styles.js';
 import {FlatGrid} from "react-native-super-grid";
 import Pages from "./pages";
 
-const background = {uri: '../assets/place-holder-open-book.png'};
-
 const Library = (props) => {
     const [books, setBooks] = useState([])
     const [classId, setClassId] = useState(0)
@@ -96,14 +94,14 @@ const Library = (props) => {
                     spacing={20}
                     renderItem={({item}) => (
                         <View style={styles.itemContainer}>
-                            <ImageBackground source={getImage(item.bookCoverLink)}
-                                   style={{width: '100%', height: '100%', alignItems:"center", justifyContent:"center"}}
-                                   >
                                 <TouchableOpacity style={styles.bookText}
                                       onPress={() => props.navigation.navigate('Pages', item)}>
                                     <Text>{item.bookTitle}</Text>
+                                    <ImageBackground source={require('../assets/place-holder-open-book.png')}
+                                                     style={{width: '100%', height: '100%', alignItems:"center", justifyContent:"center"}}
+                                                     resizeMode={'contain'}
+                                    />
                                 </TouchableOpacity>
-                            </ImageBackground>
                         </View>
                     )}
                 />
