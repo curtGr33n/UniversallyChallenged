@@ -48,7 +48,7 @@ class EditBook extends Component {
         try {
             let response = await fetch(
                 'https://deco3801-universally-challenged.uqcloud.net/getClassBooks?classId=' +
-                values.classId);
+                values.classId + '&school=' + global.school);
             if (response.ok) {
                 let juice = await response.text();
                 this.setState({submitted: <Text/>});
@@ -152,6 +152,7 @@ class EditBook extends Component {
      * @returns {Promise<void>}
      */
     displayRoles = async (values) => {
+        this.setState({submitted: <Text>Loading...</Text>});
         if(values.pagenum !== -1) {
             let creators = await this.getCreators(values);
             let illustrator = {needInput: true, role: 'illustrator'};
@@ -169,7 +170,6 @@ class EditBook extends Component {
                     }
                 }
             );
-            console.log(illustrator);
             let students = await this.getStudents();
             let studentsSelection = students.map(i => (
                 <Picker.Item label={i[1].toString()} value={i[0].toString()}/>
@@ -182,8 +182,29 @@ class EditBook extends Component {
             this.setState({showDrawer: true});
             this.setState({authorForm: this.showPageFormStageFour(author)});
             this.setState({showAuthor: true});
+            this.setState({submitted: <Text/>});
         }else{
             alert("Please select a page number")
+        }
+    };
+
+    /**
+     * Gets a students name via their id
+     * @param values the students id
+     */
+    getName = async (values) => {
+        try {
+            let response = await fetch(
+                'https://deco3801-universally-challenged.uqcloud.net/getName?sId='
+                + values.sId);
+            if (response.ok) {
+                let juice = await response.text();
+                return JSON.stringify(juice);
+            } else {
+                alert("HTTP-Error: " + response.status);
+            }
+        } catch (error) {
+            this.setState({submitted: <Text>{error}</Text>});
         }
     };
 
@@ -192,14 +213,12 @@ class EditBook extends Component {
      * @returns An array of user objects
      */
     getStudents = async () => {
-        this.setState({submitted: <Text>Loading...</Text>});
         try {
             let response = await fetch(
                 'https://deco3801-universally-challenged.uqcloud.net/getClassStudents?classId='
                 + this.state.classId);
             if (response.ok) {
                 let juice = await response.text();
-                this.setState({submitted: <Text/>});
                 return JSON.parse(juice);
             } else {
                 alert("HTTP-Error: " + response.status);
@@ -238,14 +257,12 @@ class EditBook extends Component {
      * @returns an array of role objects
      */
     getCreators = async (values) => {
-        this.setState({submitted: <Text>Loading...</Text>})
         try {
             let response = await fetch(
                 'https://deco3801-universally-challenged.uqcloud.net/getCreator?bookId=' +
                 this.state.bookId +"&pageId=" + values.pagenum);
             if (response.ok) {
                 let juice = await response.text();
-                this.setState({submitted: <Text/>});
                 return JSON.parse(juice);
             } else {
                 alert("HTTP-Error: " + response.status);
@@ -408,6 +425,7 @@ class EditBook extends Component {
             return (
                 <View style={{alignItems: 'center'}}>
                     <Text>{values.sID}</Text>
+                    <Text>{values.name}</Text>
                     <Text>{values.role}</Text>
                 </View>
             );
