@@ -15,14 +15,14 @@ class Teacher extends Component {
                         onPress={() => this.props.navigation.navigate('addBook')}
                         style={page.primary}
                     >
-                        <Image source={require('../assets/images/library.png')} style={page.image}/>
+                        <Image source={require('../assets/images/add_yellow.png')} style={page.image}/>
                         <Text style={buttons.buttonText}>Add Book</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
                         onPress={() => this.props.navigation.navigate('editBook')}
                         style={page.primary}
                     >
-                        <Image source={require('../assets/images/library.png')} style={page.image}/>
+                        <Image source={require('../assets/images/edit_yellow.png')} style={page.image}/>
                         <Text style={buttons.buttonText}>Add Page & Creators</Text>
                     </TouchableOpacity>
                 </View>

@@ -1,26 +1,23 @@
 import React, {Component, createRef} from 'react';
-import {View, TouchableOpacity, Image, AppRegistry} from 'react-native';
+import {View, TouchableOpacity, Image, AppRegistry, TextInput, Text, Alert} from 'react-native';
 
 import {SketchCanvas} from '@terrylinla/react-native-sketch-canvas';
 
 import {canvas} from '../styles/styles'
 import Slider from "@react-native-community/slider";
+import ViewShot, {captureRef} from "react-native-view-shot";
+
 
 export default class Draw extends Component {
     constructor(props) {
+        global.id = 4;
         super(props);
         this.myRef = createRef();
         this.brushMaxVal = 90;
         this.book = props.bookId;
         this.page = props.pageId;
-        this.role = "";
-        this.getRole();
-        console.log("book id:")
-        console.log(this.book)
-        console.log("page id:")
-        console.log(this.page)
-        // this.getRole().then(select tool bar for role)
-        console.log("StudentId: " + global.id + " BookId: " + this.book + " PageId: " + this.page + " Role: " + this.role);
+        setTimeout(() => this.getRole(), 500);
+        console.log("bookId: " + this.book + " pageId: " + this.page + " role: " + this.state.role + " user: " + global.id);
     }
 
 
@@ -30,7 +27,12 @@ export default class Draw extends Component {
         color: "red",
         brushSizeShow: false,
         brushSize: 10,
-        image: null
+        image: null,
+        role: "",
+        text: "",
+        textBoxShow: false,
+        textAlignment: "Center",
+        optionIndex: 0
     };
 
     getRole = async () => {
@@ -42,8 +44,12 @@ export default class Draw extends Component {
             let response = await fetch(url + query);
             if (response.ok) {
                 console.log("successful response");
-                this.role = response.text();
-                console.log(response.text());
+                let role = await response.text();
+                console.log(role)
+                this.setState({
+                    role: role
+                });
+                console.log("role: " + this.state.role);
             } else {
                 console.log("response not ok");
             }
@@ -53,9 +59,9 @@ export default class Draw extends Component {
     }
 
     saveCanvas = async () => {
-
         if (this.state.image != null) {
             console.log("saving image")
+            console.log(this.state.image)
             try {
                 const url = 'https://deco3801-universally-challenged.uqcloud.net/addImageToCreator';
                 let response = await fetch(url, {
@@ -72,6 +78,7 @@ export default class Draw extends Component {
                     }).replace(/\\n/g, "")
                 });
                 if (response.ok) {
+                    Alert.alert("Saved")
                     console.log("image sent to server successfully");
                 } else {
                     console.log("response not received");
@@ -79,7 +86,6 @@ export default class Draw extends Component {
             } catch (error) {
                 console.error(error);
                 console.log("caught error");
-
             }
         }
     };
@@ -245,76 +251,161 @@ export default class Draw extends Component {
         );
     }
 
+    getTextAlignment() {
+        const alignOptions = ['Left', 'Center', 'Right']
+        this.setState({optionIndex: this.state.optionIndex + 1});
+        let align = alignOptions[this.state.optionIndex % 3];
+        this.setState({textAlignment: align});
+        console.log("alignment: " + this.state.textAlignment + " with " + this.state.optionIndex);
+    }
+
+    getCanvas() {
+        if (this.state.role === "writer") {
+            return (
+                <View style={canvas.container}>
+                    <View style={{backgroundColor: '#fbf3dc', width: 100, height: 400,
+                        flexDirection: 'column', justifyContent: "space-around", alignItems: "center"}}>
+                        <TouchableOpacity
+                            style={canvas.button}
+                            onPress={() => this.toggleTextBox()}>
+                            <Text style={{fontSize: 20}}>Add Text</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={canvas.button}
+                            onPress={() => this.getTextAlignment()}>
+                            <Text style={{fontSize: 20}}>Alignment</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={canvas.button}
+                            onPress={() => captureRef(this.myRef, {
+                                result: "base64"
+                            }).then(uri => this.setState({image: uri})).then(
+                                () => setTimeout(() => this.saveCanvas(), 100)
+                            )}
+
+                            >
+                            <Image
+                                source={require("../assets/save.jpeg")}
+                                resizeMode="center"
+                                style={canvas.icon}
+                            />
+                        </TouchableOpacity>
+                    </View>
+                    <ViewShot
+                        ref={this.myRef}
+                        style={{flex: 1, flexDirection: "column"}}>
+                        <SketchCanvas
+                            touchEnabled={false}
+                            style={{flex: 1, backgroundColor: 'white'}}
+                            text={[{text: this.state.text,
+                                fontSize: 40,
+                                position: { x: 0.5, y: 0.01 },
+                                anchor: { x: 0.5, y: 0 },
+                                coordinate: 'Ratio',
+                                overlay: 'TextOnSketch',
+                                fontColor: 'black',
+                                alignment: this.state.textAlignment,
+                                imageType: 'jpg',
+                            }]}
+                        />
+                        {this.state.textBoxShow ? (
+                            <View style={{flexDirection: "row", height: 80, width: 200, position: "absolute", top: 50,
+                                left: 50}}>
+                                <TextInput
+                                    style={{height: 40}}
+                                    placeholder={"Type your story here"}
+                                    onChangeText={(story) => this.setState({text: story})}
+                                    defaultValue={""}
+                                    editable={true}
+                                    onSubmitEditing={() => this.toggleTextBox()}
+                                    autoFocus={true}
+                                />
+                            </View>
+                        ) : null}
+                    </ViewShot>
+                </View>
+            )
+        } else {
+            return (
+                <View style={canvas.container}>
+                    <View style={{backgroundColor: '#fbf3dc', width: 100, height: 400,
+                        flexDirection: 'column', justifyContent: "space-around", alignItems: "center"}}>
+                        <TouchableOpacity
+                            style={canvas.button}
+                            onPress={() => this.chooseColor()}>
+                            <Image
+                                source={require("../assets/pencil.png")}
+                                resizeMode="center"
+                                style={canvas.icon}
+                            />
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={canvas.button}
+                            onPress={() => this.setState({color: "white"})}>
+                            <Image
+                                source={require("../assets/rubber.png")}
+                                resizeMode="center"
+                                style={canvas.icon}
+                            />
+                        </TouchableOpacity>
+
+                        <TouchableOpacity
+                            style={canvas.button}
+                            onPress={() => this.myRef.current.undo()}>
+                            <Image
+                                source={require("../assets/undo.png")}
+                                resizeMode="center"
+                                style={canvas.icon}
+                            />
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={canvas.button}
+                            onPress={() => this.toggleBrushWindow()}>
+                            <Image
+                                source={require("../assets/top.png")}
+                                resizeMode="center"
+                                style={canvas.icon}
+                            />
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={canvas.button}
+                            onPress={() => {
+                                this.myRef.current.getBase64('jpg', false, false, false, false, (err, result) => {
+                                    // console.log(result);
+                                    this.setState({image: result});
+                                })
+                                setTimeout(() => this.saveCanvas(), 100);
+                            }}>
+                            <Image
+                                source={require("../assets/save.jpeg")}
+                                resizeMode="center"
+                                style={canvas.icon}
+                            />
+                        </TouchableOpacity>
+                    </View>
+                    {this.state.pColorShow ? (this.primaryColors()) : null}
+                    {this.state.sColorShow ? (this.secondaryColors(this.state.color)) : null}
+                    {this.state.brushSizeShow ? (this.brushAdjuster()) : null}
+                    <View style={{flex: 1, flexDirection: 'column'}}>
+                        <SketchCanvas
+                            ref={this.myRef}
+                            style={{flex: 1, backgroundColor: 'white'}}
+                            strokeColor={this.state.color}
+                            strokeWidth={this.state.brushSize}
+                        />
+                    </View>
+                </View>
+            );
+        }
+    }
+
+    toggleTextBox() {
+        this.setState({textBoxShow: !this.state.textBoxShow})
+    }
+
     render() {
         return (
-            <View style={canvas.container}>
-                <View style={{backgroundColor: '#fbf3dc', width: 100, height: 400,
-                    flexDirection: 'column', justifyContent: "space-around", alignItems: "center"}}>
-                    <TouchableOpacity
-                        style={canvas.button}
-                        onPress={() => this.chooseColor()}>
-                        <Image
-                            source={require("../assets/pencil.png")}
-                            resizeMode="center"
-                            style={canvas.icon}
-                        />
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        style={canvas.button}
-                        onPress={() => this.setState({color: "white"})}>
-                        <Image
-                            source={require("../assets/rubber.png")}
-                            resizeMode="center"
-                            style={canvas.icon}
-                        />
-                    </TouchableOpacity>
-
-                    <TouchableOpacity
-                        style={canvas.button}
-                        onPress={() => this.myRef.current.undo()}>
-                        <Image
-                            source={require("../assets/undo.png")}
-                            resizeMode="center"
-                            style={canvas.icon}
-                        />
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        style={canvas.button}
-                        onPress={() => this.toggleBrushWindow()}>
-                        <Image
-                            source={require("../assets/top.png")}
-                            resizeMode="center"
-                            style={canvas.icon}
-                        />
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        style={canvas.button}
-                        onPress={() => {
-                            this.myRef.current.getBase64('jpg', false, false, false, false, (err, result) => {
-                                // console.log(result);
-                                this.setState({image: result});
-                            })
-                            setTimeout(() => this.saveCanvas(), 100);
-                        }}>
-                        <Image
-                            source={require("../assets/save.jpeg")}
-                            resizeMode="center"
-                            style={canvas.icon}
-                        />
-                    </TouchableOpacity>
-                </View>
-                {this.state.pColorShow ? (this.primaryColors()) : null}
-                {this.state.sColorShow ? (this.secondaryColors(this.state.color)) : null}
-                {this.state.brushSizeShow ? (this.brushAdjuster()) : null}
-                <View style={{flex: 1, flexDirection: 'column'}}>
-                    <SketchCanvas
-                        ref={this.myRef}
-                        style={{flex: 1, backgroundColor: 'white'}}
-                        strokeColor={this.state.color}
-                        strokeWidth={this.state.brushSize}
-                    />
-                </View>
-            </View>
+            this.getCanvas()
         );
     }
 }

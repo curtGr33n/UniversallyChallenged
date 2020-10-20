@@ -1,117 +1,167 @@
-import React, { Component, useState } from 'react';
-import {View, Text, Picker, ScrollView} from 'react-native';
-
-//im really scared loool
-import { Button, TextInput } from 'react-native';
-import { Formik } from 'formik';
+import React, {Component} from 'react';
+import {Picker, ScrollView, Text, TextInput, TouchableHighlight, View} from 'react-native';
+import {Formik} from 'formik';
 
 //This is how you import the style sheet
-import {styles, buttons, forms, login} from '../styles/styles.js'
-import {TouchableOpacity,TouchableHighlight, Image}  from "react-native";
+import {forms, login} from '../styles/styles.js'
 
 class Register extends Component {
+    state = {
+        schoolSelectorOptions: [],
+        submitted: <Text/>
+    }
+    UNSAFE_componentWillMount() {
+        this.displaySchools();
+    }
 
-    getData = async (values) => {
+    /**
+     * Creates the picker options for the school options
+     */
+    displaySchools = async  () => {
+        let schools = await this.getSchools();
+        let test = schools.map(i => (
+            <Picker.Item label={i.toString()} value={i.toString()}/>
+        ));
+        this.setState({schoolSelectorOptions: test});
+    };
+
+    /**
+     * Retrieves all schools currently stored in the database
+     * @returns {Array} An array of schools
+     */
+    getSchools = async () => {
         try {
-            let response = await fetch('https://deco3801-universally-challenged.uqcloud.net/register?name=' + values.name + '&email=' + values.email + '&password=' + values.password + '&type=' + values.type + '&school=' + values.school + '&classnum=' + values.classnum);
+            let response = await fetch(
+                'https://deco3801-universally-challenged.uqcloud.net/getSchools');
             if (response.ok) {
                 let juice = await response.text();
-                console.log(juice);
-                if(juice.length != 0){
-                    this.props.navigation.navigate('Login');
-                }
-
-                //return juice;
+                return JSON.parse(juice);
             } else {
-                //noooo
+                alert("HTTP-Error: " + response.status);
             }
         } catch (error) {
-            //console.error(error);
+            alert(error);
         }
     };
 
-    MyReactNativeForm = props => (
-        <View style={{flex: 1, justifyContent : 'center'}}>
-
-        <Formik
-            initialValues={{ name: '', email: '', password: '', type: '', school: '', classnum: '' }}
-            onSubmit={
-                values => this.getData(values)
+    /**
+     * Registers the user
+     * @param values Their name, email, pasword, type, school, classnum
+     */
+    registerUser = async (values) => {
+        try {
+            if(values.school !== -1) {
+                this.setState({submitted: <Text>Loading...</Text>});
+                let response = await fetch(
+                    'https://deco3801-universally-challenged.uqcloud.net/register?name=' +
+                    values.name + '&email=' + values.email + '&password=' + values.password +
+                    '&type=' + values.type + '&school=' + values.school + '&classnum=' +
+                    values.classnum);
+                if (response.ok) {
+                    let juice = await response.text();
+                    console.log(juice);
+                    if (juice.length !== 0) {
+                        this.props.navigation.navigate('Login');
+                    }
+                } else {
+                    alert("HTTP-Error: " + response.status);
+                }
+            } else{
+                alert("Select a School");
             }
-        >
-            {({ handleChange,
-                  handleBlur,
-                  handleSubmit,
-                  values }) => (
-                <ScrollView style={forms.container}>
-                    <View style={{alignItems: 'center'}}>
-                        <TextInput
-                            style={forms.bookInput}
-                            onChangeText={handleChange('name')}
-                            onBlur={handleBlur('name')}
-                            value={values.name}
-                            placeholder={'Name'}
-                        />
+        } catch (error) {
+            alert(error);
+        }
+    };
 
-                        <TextInput
-                            style={forms.bookInput}
-                            onChangeText={handleChange('email')}
-                            onBlur={handleBlur('email')}
-                            value={values.email}
-                            placeholder={'Email'}
-                        />
+    /**
+     * The registration form
+     * @returns {JSX.Element}
+     */
+    registerForm = () => {
+        return (
+        <View style={{flex: 1, justifyContent : 'center'}}>
+            <Formik
+                initialValues={{ name: '', email: '', password: '', type: 'student',
+                    school: '-1', classnum: '' }}
+                onSubmit={
+                    values => this.registerUser(values)
+                }
+            >
+                {(props) => (
+                    <ScrollView style={forms.container}>
+                        <View style={{alignItems: 'center'}}>
+                            <TextInput
+                                style={forms.bookInput}
+                                onChangeText={props.handleChange('name')}
+                                onBlur={props.handleBlur('name')}
+                                value={props.values.name}
+                                placeholder={'Name'}
+                            />
 
-                        <TextInput
-                            style={forms.bookInput}
-                            onChangeText={handleChange('password')}
-                            onBlur={handleBlur('password')}
-                            value={values.password}
-                            placeholder={'Password'}
-                        />
+                            <TextInput
+                                style={forms.bookInput}
+                                onChangeText={props.handleChange('email')}
+                                onBlur={props.handleBlur('email')}
+                                value={props.values.email}
+                                placeholder={'Email'}
+                            />
 
-                        <TextInput
-                            style={forms.bookInput}
-                            onChangeText={handleChange('type')}
-                            onBlur={handleBlur('type')}
-                            value={values.type}
-                            placeholder={'Student/Teacher'}
-                        />
+                            <TextInput
+                                style={forms.bookInput}
+                                onChangeText={props.handleChange('password')}
+                                onBlur={props.handleBlur('password')}
+                                value={props.values.password}
+                                placeholder={'Password'}
+                            />
 
-                        <TextInput
-                            style={forms.bookInput}
-                            onChangeText={handleChange('school')}
-                            onBlur={handleBlur('school')}
-                            value={values.school}
-                            placeholder={'School'}
-                        />
+                            <View style={[forms.dropDown]}>
+                                <Picker
+                                    selectedValue={props.values.type}
+                                    onValueChange={props.handleChange('type')}>
+                                    <Picker.Item label={"Student"} value={"student"}/>
+                                    <Picker.Item label={"Teacher"} value={"teacher"}/>
+                                </Picker>
+                            </View>
 
-                        <TextInput
-                            style={forms.bookInput}
-                            onChangeText={handleChange('classnum')}
-                            onBlur={handleBlur('classnum')}
-                            value={values.classnum}
-                            placeholder={'Class Number'}
-                        />
+                            <View style={[forms.dropDown]}>
+                                <Picker
+                                    selectedValue={props.values.school}
+                                    onValueChange={props.handleChange('school')}>
+                                    <Picker.Item label={"Select a school"} value={"-1"}/>
+                                    {this.state.schoolSelectorOptions}
+                                </Picker>
+                            </View>
 
-                        <TouchableHighlight
-                            style={forms.buttonPrimary}
-                            onPress={handleSubmit}
-                        >
-                            <Text style={login.buttonText}>Submit</Text>
-                        </TouchableHighlight>
-                    </View>
-                </ScrollView>
+                            <TextInput
+                                style={forms.bookInput}
+                                onChangeText={props.handleChange('classnum')}
+                                onBlur={props.handleBlur('classnum')}
+                                value={props.values.classnum}
+                                placeholder={'Class Number'}
+                            />
 
-            )}
-        </Formik>
+                            <TouchableHighlight
+                                style={forms.buttonPrimary}
+                                onPress={props.handleSubmit}
+                            >
+                                <Text style={login.buttonText}>Submit</Text>
+                            </TouchableHighlight>
+                            {this.state.submitted}
+                        </View>
+                    </ScrollView>
+
+                )}
+            </Formik>
         </View>
     );
+}
 
     render() {
         return (
             <View style={{flex: 1, justifyContent : 'center'}}>
                 <Text style={forms.title}>Sign Up</Text>
-                <this.MyReactNativeForm />
+                <this.registerForm />
             </View>
         )
     }
