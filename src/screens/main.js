@@ -25,7 +25,7 @@ class Main extends Component {
                         onPress={() => this.props.navigation.navigate('Teacher')}
                         style={page.primary}
                     >
-                        <Image source={require('../assets/images/library.png')} style={page.image}/>
+                        <Image source={require('../assets/images/teacher_yellow.png')} style={page.image}/>
                         <Text style={buttons.buttonText}>Teacher Controls</Text>
                     </TouchableOpacity>
                         :
