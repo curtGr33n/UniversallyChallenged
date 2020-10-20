@@ -13,8 +13,8 @@ const Pages = (book) => {
     const [pages, setPages] = useState(book.route.params.pages);
     const [page, setPage] = useState(pages[pageNumber])
     const [storyTitle, setStoryTitle] = useState(book.route.params.bookTitle);
-    const [pageFinished, setPageFinished] = useState(false)
 
+    /*This will change the page and update pageNumber */
     function changePage(value) {
         if (value === 'increment' && pageNumber < pages.length - 1) {
             setPage(pages[pageNumber + 1])
@@ -45,13 +45,13 @@ const Pages = (book) => {
                 justifyContent:'center',
                 alignItems: 'center'
             }}>
-                {pageFinished
-                    ? <ShowBooks pageNum={pageNumber}/>
-                    : <Draw
+                {page.active
+                    ? <Draw
                         bookId={bookId}
                         pageId={pageNumber}
                         page={page}
                     />
+                    : <ShowBooks pageNum={pageNumber}/>
                 }
 
             </View>
