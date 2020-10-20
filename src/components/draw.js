@@ -15,9 +15,14 @@ export default class Draw extends Component {
         this.page = props.pageId;
         this.role = "";
         this.getRole();
+        console.log("book id:")
+        console.log(this.book)
+        console.log("page id:")
+        console.log(this.page)
         // this.getRole().then(select tool bar for role)
         console.log("StudentId: " + global.id + " BookId: " + this.book + " PageId: " + this.page + " Role: " + this.role);
     }
+
 
     state = {
         pColorShow: false,

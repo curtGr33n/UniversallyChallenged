@@ -13,12 +13,14 @@ const Pages = (book) => {
     const [pages, setPages] = useState(book.route.params.pages);
     const [page, setPage] = useState(pages[pageNumber])
     const [storyTitle, setStoryTitle] = useState(book.route.params.bookTitle);
+    const [key, setKey] = useState(100)
 
     /*This will change the page and update pageNumber */
     function changePage(value) {
         if (value === 'increment' && pageNumber < pages.length - 1) {
             setPage(pages[pageNumber + 1])
             setPageNumber((prevState) => prevState + 1)
+            setKey((prevState) => prevState + 1)
         }
         else if (value === 'increment' && pageNumber == pages.length - 1) {
             setPage(pages[pages.length - 1])
@@ -26,6 +28,7 @@ const Pages = (book) => {
         else if (value === 'decrement' && pageNumber > 0) {
             setPage(pages[pageNumber - 1])
             setPageNumber((prevState) => prevState - 1)
+            setKey((prevState) => prevState - 1)
         }
         else if (value === 'decrement' && pageNumber == 0) {
             setPage(pages[0])
@@ -50,6 +53,7 @@ const Pages = (book) => {
                         bookId={bookId}
                         pageId={pageNumber}
                         page={page}
+                        key={key}
                     />
                     : <ShowBooks pageNum={pageNumber}/>
                 }
