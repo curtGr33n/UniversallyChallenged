@@ -1,17 +1,13 @@
 import React, {useState} from 'react';
 import { View, Text, TouchableOpacity, ImageBackground} from 'react-native';
 import {Picker} from '@react-native-community/picker';
-import {styles, buttons, page} from '../styles/styles.js';
+import {styles, buttons, page, forms} from '../styles/styles.js';
 import {FlatGrid} from "react-native-super-grid";
 import Pages from "./pages";
 
-const background = {uri: '../assets/place-holder-open-book.png'};
-
 const Library = (props) => {
     const [books, setBooks] = useState([])
-    const [schoolId, setSchoolId] = useState(0)
     const [classId, setClassId] = useState(0)
-    const [studentId, setStudentId] = useState(0)
     const [userClasses, setUserClasses] = useState(global.classid)
 
     /** Gets the list of books based on the classId chosen
@@ -72,24 +68,22 @@ const Library = (props) => {
                     flex: 0.1,
                     flexDirection: 'row',
                     justifyContent: "space-around",
-                    backgroundColor: '#fdda64'
+                    padding: 10
                 }}>
                     {/*This is where the drop down menus are going*/}
-                    <View>
+                    <View style={page.dropDown}>
                         <Picker
                             selectedValue={classId}
-                            style={{Height: 50, width: 300}}
                             prompt={"Choose class books list"}
                             onValueChange={((itemValue, itemIndex) => setClassId(itemValue))}>
-                            <Picker.Item label={"Select a class library"} value={''}/>
+                            <Picker.Item label={"Select a library..."} value={''}/>
                             {getPickerItems()}
                         </Picker>
-
                     </View>
                     <TouchableOpacity onPress={() => getData()}
                                       style={buttons.buttonPages}
                                       title={"Load Books"}>
-                        <Text>Load Books</Text>
+                        <Text style={buttons.textWhite}>Load Books</Text>
                     </TouchableOpacity>
                 </View>
 
@@ -100,14 +94,15 @@ const Library = (props) => {
                     spacing={20}
                     renderItem={({item}) => (
                         <View style={styles.itemContainer}>
-                            <ImageBackground source={getImage(item.bookCoverLink)}
-                                   style={{width: '100%', height: '100%', alignItems:"center", justifyContent:"center"}}
-                                   >
                                 <TouchableOpacity style={styles.bookText}
                                       onPress={() => props.navigation.navigate('Pages', item)}>
-                                    <Text>{item.bookTitle}</Text>
+                                    <ImageBackground source={require('../assets/place-holder-open-book.png')}
+                                                     style={{width: '100%', height: '100%', alignItems:"center", justifyContent:"center"}}
+                                                     resizeMode={'contain'}
+                                    >
+                                    </ImageBackground>
+                                    <Text style={{alignItems: "center", justifyContent:'center'}}>{item.bookTitle}</Text>
                                 </TouchableOpacity>
-                            </ImageBackground>
                         </View>
                     )}
                 />

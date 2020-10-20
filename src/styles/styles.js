@@ -117,7 +117,22 @@ const page = StyleSheet.create({
         marginRight: 5,
         marginBottom: 5,
         marginTop: 50,
-    }
+    },
+    offsetData: {
+       marginBottom: '20%'
+    },
+    dropDown: {
+        width: '20%',
+        height: 60,
+        margin: 10,
+        backgroundColor: '#f8ebc4',
+        borderRadius: 30,
+        padding: 20,
+        fontSize: 30,
+        color: 'black',
+        fontFamily: 'typewriter-Bold',
+        justifyContent: 'center'
+    },
 })
 
 const login = StyleSheet.create({
@@ -189,21 +204,66 @@ const login = StyleSheet.create({
     }
 })
 
-const library = StyleSheet.create({
-    buttonPrimary: {
+const forms = StyleSheet.create({
+    title: {
+        backgroundColor: '#bb904f',
+        alignItems: 'center',
+        textTransform: 'uppercase',
+        textAlign: 'center',
+        fontSize: 40,
+        padding: 20,
+        width: '100%',
+        color:'white',
+        fontFamily: 'Typewriter2-Bold',
+        lineHeight: 30
+    },
+    bookInput: {
         width: '50%',
         margin: 10,
-        backgroundColor: '#fdda64',
+        backgroundColor: 'white',
         borderRadius: 30,
         padding: 20,
+        fontSize: 30,
         color: 'black',
         fontFamily: 'typewriter-Bold',
     },
     container: {
-        backgroundColor: '#ffff',
-        alignItems: 'center',
-        justifyContent: 'flex-end',
-        overflow: 'hidden'
+        backgroundColor: '#feecb1',
+        flex: 1,
+        position: 'relative',
+        width: '100%',
+    },
+    dropDown: {
+        width: '30%',
+        height: 60,
+        margin: 10,
+        backgroundColor: 'white',
+        borderRadius: 30,
+        padding: 20,
+        fontSize: 30,
+        color: 'black',
+        fontFamily: 'typewriter-Bold',
+        justifyContent: 'center'
+    },
+    buttonPrimary: {
+        height: 60,
+        width: 200,
+        margin: 10,
+        backgroundColor: '#fdda64',
+        borderRadius: 30,
+        padding: 15,
+        color: 'black',
+        fontFamily: 'typewriter-Bold',
+    },
+    buttonSecondary: {
+        height: 60,
+        width: 200,
+        margin: 10,
+        backgroundColor: '#bb904f',
+        borderRadius: 30,
+        padding: 15,
+        color: 'white',
+        fontFamily: 'typewriter-Bold',
     },
 })
 
@@ -243,7 +303,6 @@ const buttons = StyleSheet.create({
         color: 'white',
         fontSize: 25,
         fontFamily: 'typewriter-Bold',
-        paddingBottom: 15,
         borderRadius: 10,
         padding: 20,
     },
@@ -261,7 +320,14 @@ const buttons = StyleSheet.create({
         // top: 300,
         // margin: 20
 
-    }
+    },
+    textWhite: {
+        textAlign: 'center',
+        color: 'white',
+        fontSize: 30,
+        fontFamily: 'typewriter-Bold',
+        lineHeight: 30,
+    },
 })
 
 const canvas= StyleSheet.create({
@@ -397,4 +463,4 @@ const colours = StyleSheet.create({
 })
 
 // if a new stylesheet is created please export it here.
-export {styles, buttons, page, canvas, login, library}
+export {styles, buttons, page, canvas, login, forms}

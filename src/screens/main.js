@@ -18,15 +18,24 @@ class Main extends Component {
                         <Image source={require('../assets/images/library.png')} style={page.image}/>
                         <Text style={buttons.buttonText}>Library</Text>
                     </TouchableOpacity>
-
-                    <TouchableOpacity
+                    {
+                        global.type === "teacher" ?
+                        <TouchableOpacity
+                        onPress={() => this.props.navigation.navigate('Teacher')}
+                        style={page.primary}
+                    >
+                        <Image source={require('../assets/images/library.png')} style={page.image}/>
+                        <Text style={buttons.buttonText}>Teacher Controls</Text>
+                    </TouchableOpacity>
+                        :
+                        <TouchableOpacity
                         onPress={() => this.props.navigation.navigate('Library')}
                         style={page.primary}
                     >
                         <Image source={require('../assets/images/achievements.png')} style={page.image}/>
                         <Text style={buttons.buttonText}>Stripes Earned</Text>
                     </TouchableOpacity>
-
+                    }
                     <TouchableOpacity
                         onPress={() => this.props.navigation.navigate('Library')}
                         style={page.primary}

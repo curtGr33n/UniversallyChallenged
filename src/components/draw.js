@@ -1,5 +1,5 @@
-import React, {Component, createRef, useState} from 'react';
-import {View, TouchableOpacity, Image, AppRegistry, Text} from 'react-native';
+import React, {Component, createRef} from 'react';
+import {View, TouchableOpacity, Image, AppRegistry} from 'react-native';
 
 import {SketchCanvas} from '@terrylinla/react-native-sketch-canvas';
 
@@ -11,11 +11,8 @@ export default class Draw extends Component {
         super(props);
         this.myRef = createRef();
         this.brushMaxVal = 90;
-        this.setState({image: null});
         this.book = props.bookId;
         this.page = props.pageId;
-
-        setTimeout(() => this.getRole(), 500);
     }
 
     state = {
@@ -40,6 +37,7 @@ export default class Draw extends Component {
                 let role = await response.text();
                 console.log(role);
                 this.setState({role: role});
+
             } else {
                 console.log("response not ok");
             }

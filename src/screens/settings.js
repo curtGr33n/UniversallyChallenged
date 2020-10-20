@@ -18,14 +18,6 @@ class Settings extends Component {
                     >
                         <Text style={buttons.buttonText}>Library</Text>
                     </TouchableOpacity>
-
-                    <TouchableOpacity
-                        onPress={() => this.props.navigation.navigate('Teacher')}
-                        style={page.primary}
-                    >
-                        <Text style={buttons.buttonText}>Teacher</Text>
-                    </TouchableOpacity>
-
                     <TouchableOpacity
                         onPress={() => this.props.navigation.navigate('WelcomeScreen')}
                         style={page.primary}
