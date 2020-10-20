@@ -1,5 +1,5 @@
 import React, {Component, createRef} from 'react';
-import {View, TouchableOpacity, Image, AppRegistry, TextInput, Text} from 'react-native';
+import {View, TouchableOpacity, Image, AppRegistry, TextInput, Text, Alert} from 'react-native';
 
 import {SketchCanvas} from '@terrylinla/react-native-sketch-canvas';
 
@@ -77,6 +77,7 @@ export default class Draw extends Component {
                     }).replace(/\\n/g, "")
                 });
                 if (response.ok) {
+                    Alert.alert("Saved")
                     console.log("image sent to server successfully");
                 } else {
                     console.log("response not received");
@@ -396,7 +397,6 @@ export default class Draw extends Component {
             );
         }
     }
-
 
     toggleTextBox() {
         this.setState({textBoxShow: !this.state.textBoxShow})
