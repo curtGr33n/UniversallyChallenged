@@ -4,47 +4,32 @@ import {View, Text } from 'react-native';
 import {styles, buttons, page} from '../styles/styles.js';
 import {TouchableOpacity,TouchableHighlight, Image, Button}  from "react-native";
 import Draw from '../components/draw.js'
+import ShowBooks from '../components/showBook.js'
 
 const Pages = (book) => {
     const bookId = book.route.params.bookId;
-    console.log("BookId: " + bookId);
-    // const [pageNumber, setPageNumber] = useState(book.route.params.pages.pagenum);
-    //console.log("This is the pagenum")
-
+    //console.log("BookId: " + bookId);
     const [pageNumber, setPageNumber] = useState(0);
     const [pages, setPages] = useState(book.route.params.pages);
-    //console.log(pages)
     const [page, setPage] = useState(pages[pageNumber])
-    //console.log(page)
     const [storyTitle, setStoryTitle] = useState(book.route.params.bookTitle);
+    const [pageFinished, setPageFinished] = useState(false)
 
     function changePage(value) {
         if (value === 'increment' && pageNumber < pages.length - 1) {
-            //console.log('increment pressed')
-            //console.log("Current pageNum")
-            //console.log(pageNumber)
             setPage(pages[pageNumber + 1])
             setPageNumber((prevState) => prevState + 1)
-            //console.log("Current page")
-            //console.log(page)
         }
         else if (value === 'increment' && pageNumber == pages.length - 1) {
             setPage(pages[pages.length - 1])
         }
         else if (value === 'decrement' && pageNumber > 0) {
-            //console.log('decrement pressed')
-            //console.log("Current pageNum")
-            //console.log(pageNumber)
             setPage(pages[pageNumber - 1])
             setPageNumber((prevState) => prevState - 1)
-            //console.log("Current page")
-            //console.log(page)
         }
         else if (value === 'decrement' && pageNumber == 0) {
             setPage(pages[0])
         }
-        //console.log("Current pageNum after setPageNumber")
-        //console.log(pageNumber)
     }
 
     return (
@@ -60,10 +45,15 @@ const Pages = (book) => {
                 justifyContent:'center',
                 alignItems: 'center'
             }}>
-                <Draw
-                    bookId={bookId}
-                    pageId={pageNumber}
-                />
+                {pageFinished
+                    ? <ShowBooks pageNum={pageNumber}/>
+                    : <Draw
+                        bookId={bookId}
+                        pageId={pageNumber}
+                        page={page}
+                    />
+                }
+
             </View>
             <View style={{
                 backgroundColor: "#f8ebc4",
@@ -100,6 +90,5 @@ const Pages = (book) => {
         </View>
     );
 }
-
 
 export default Pages;
