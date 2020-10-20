@@ -18,7 +18,7 @@ const Library = (props) => {
         try {
             console.log(classId);
             let response = await fetch('https://deco3801-universally-challenged.uqcloud.net/getClassBooks?classId='
-                + classId + "&school=SheldonCollege");
+                + classId + "&school=" + global.school);
             if (response.ok) {
                 let juice = await response.text();
                 let data = JSON.parse(juice)
