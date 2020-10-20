@@ -17,7 +17,6 @@ class Main extends Component {
                     >
                         <Image source={require('../assets/images/library.png')} style={page.image}/>
                         <Text style={buttons.buttonText}>Library</Text>
-
                     </TouchableOpacity>
 
                     <TouchableOpacity
@@ -38,7 +37,6 @@ class Main extends Component {
                 </View>
 
                 <Image source={require('../assets/images/buzz_words.png')} style={page.buzz}/>
-
             </View>
         )
     }

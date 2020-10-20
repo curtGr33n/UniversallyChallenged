@@ -354,5 +354,47 @@ const canvas= StyleSheet.create({
     }
 })
 
+const colours = StyleSheet.create({
+    colourBar: {
+        flexDirection: 'column',
+        backgroundColor: 'orange',
+        width: 200
+    },
+    screenOnTop: {
+        flexDirection: 'column',
+        backgroundColor: 'red',
+
+    },
+    screen: {
+        flexDirection: 'row'
+    },
+    sketch: {
+        flex: 1,
+        height: 500,
+        width: 700
+    },
+    button: {
+        height: 110,
+        width: 110,
+        marginHorizontal: 20,
+        marginVertical: 20
+    },
+    red: {
+        backgroundColor: '#fc0703'
+    },
+    blue: {
+        backgroundColor: '#0422e0'
+    },
+    green: {
+        backgroundColor: '#1a8000'
+    },
+    pink: {
+        backgroundColor: '#d103ff'
+    },
+    yellow: {
+        backgroundColor: '#f3cd3c'
+    }
+})
+
 // if a new stylesheet is created please export it here.
 export {styles, buttons, page, canvas, login, library}

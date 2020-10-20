@@ -15,7 +15,6 @@ import addBook from "./src/screens/addBook";
 import editBook from "./src/screens/editBook";
 
 //Screen const
-import Test from "./src/screens/test";
 import Draw from "./src/components/draw";
 
 
@@ -111,10 +110,6 @@ export default class App extends Component {
             <Stack.Screen
                 name={"Draw"}
                 component={Draw}
-            />
-            <Stack.Screen
-                name={"Test"}
-                component={Test}
             />
             <Stack.Screen
                 name={"Library"}

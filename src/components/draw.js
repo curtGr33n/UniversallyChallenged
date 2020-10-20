@@ -14,11 +14,8 @@ export default class Draw extends Component {
         this.setState({image: null});
         this.book = props.bookId;
         this.page = props.pageId;
-        this.role = "";
-        this.getRole();
-        setTimeout(() =>
-            console.log("StudentId: " + global.id + " BookId: " + this.book + " PageId: " + this.page + " Role: " + this.role),
-            500);
+
+        setTimeout(() => this.getRole(), 500);
     }
 
     state = {
@@ -27,23 +24,31 @@ export default class Draw extends Component {
         color: "red",
         brushSizeShow: false,
         brushSize: 10,
-        image: null
+        image: null,
+        role: ""
     };
 
     getRole = async () => {
         console.log("get the role of the user");
         try {
             const url = 'https://deco3801-universally-challenged.uqcloud.net/getRole?';
-            const query = "bookid=" + this.book + "&pageId=" + this.page + "&studentId=" + global.user;
+            const query = "bookId=" + this.book + "&pageId=" + this.page + "&studentId=" + global.id;
+            console.log(url + query);
             let response = await fetch(url + query);
             if (response.ok) {
-                this.role = response.text();
+                console.log("successful response");
+                let role = await response.text();
+                console.log(role);
+                this.setState({role: role});
+            } else {
+                console.log("response not ok");
             }
         } catch (error) {
             console.error(error);
         }
+        console.log("StudentId: " + global.id + " BookId: " + this.book + " PageId: " + this.page +
+            " Role: " + this.state.role);
     }
-
     saveCanvas = async () => {
 
         if (this.state.image != null) {
@@ -71,7 +76,6 @@ export default class Draw extends Component {
             } catch (error) {
                 console.error(error);
                 console.log("caught error");
-
             }
         }
     };
@@ -236,6 +240,92 @@ export default class Draw extends Component {
             </View>
         );
     }
+
+    // getTools(role) {
+    //     if (role === "author") {
+    //         return (
+    //             <View style={{backgroundColor: '#fbf3dc', width: 100, height: 400,
+    //                 flexDirection: 'column', justifyContent: "space-around", alignItems: "center"}}>
+    //                 <TouchableOpacity
+    //                     style={canvas.button}
+    //                     onPress={() => {
+    //                         this.myRef.current.getBase64('jpg', false, false, false, false, (err, result) => {
+    //                             // console.log(result);
+    //                             this.setState({image: result});
+    //                         })
+    //                         setTimeout(() => this.saveCanvas(), 100);
+    //                     }}>
+    //                     <Image
+    //                         source={require("../assets/save.jpeg")}
+    //                         resizeMode="center"
+    //                         style={canvas.icon}
+    //                     />
+    //                 </TouchableOpacity>
+    //             </View>
+    //         )
+    //     } else if (role === "illustrator") {
+    //         return (
+    //             <View style={{backgroundColor: '#fbf3dc', width: 100, height: 400,
+    //                 flexDirection: 'column', justifyContent: "space-around", alignItems: "center"}}>
+    //                 <TouchableOpacity
+    //                     style={canvas.button}
+    //                     onPress={() => this.chooseColor()}>
+    //                     <Image
+    //                         source={require("../assets/pencil.png")}
+    //                         resizeMode="center"
+    //                         style={canvas.icon}
+    //                     />
+    //                 </TouchableOpacity>
+    //                 <TouchableOpacity
+    //                     style={canvas.button}
+    //                     onPress={() => this.setState({color: "white"})}>
+    //                     <Image
+    //                         source={require("../assets/rubber.png")}
+    //                         resizeMode="center"
+    //                         style={canvas.icon}
+    //                     />
+    //                 </TouchableOpacity>
+    //
+    //                 <TouchableOpacity
+    //                     style={canvas.button}
+    //                     onPress={() => this.myRef.current.undo()}>
+    //                     <Image
+    //                         source={require("../assets/undo.png")}
+    //                         resizeMode="center"
+    //                         style={canvas.icon}
+    //                     />
+    //                 </TouchableOpacity>
+    //                 <TouchableOpacity
+    //                     style={canvas.button}
+    //                     onPress={() => this.toggleBrushWindow()}>
+    //                     <Image
+    //                         source={require("../assets/top.png")}
+    //                         resizeMode="center"
+    //                         style={canvas.icon}
+    //                     />
+    //                 </TouchableOpacity>
+    //                 <TouchableOpacity
+    //                     style={canvas.button}
+    //                     onPress={() => {
+    //                         this.myRef.current.getBase64('jpg', false, false, false, false, (err, result) => {
+    //                             // console.log(result);
+    //                             this.setState({image: result});
+    //                         })
+    //                         setTimeout(() => this.saveCanvas(), 100);
+    //                     }}>
+    //                     <Image
+    //                         source={require("../assets/save.jpeg")}
+    //                         resizeMode="center"
+    //                         style={canvas.icon}
+    //                     />
+    //                 </TouchableOpacity>
+    //             </View>
+    //         )
+    //     } else {
+    //         // role === "background"
+    //         return(null)
+    //     }
+    // }
 
     render() {
         return (
