@@ -5,13 +5,9 @@ import {styles, buttons, page, forms} from '../styles/styles.js';
 import {FlatGrid} from "react-native-super-grid";
 import Pages from "./pages";
 
-const background = {uri: '../assets/place-holder-open-book.png'};
-
 const Library = (props) => {
     const [books, setBooks] = useState([])
-    const [schoolId, setSchoolId] = useState(0)
     const [classId, setClassId] = useState(0)
-    const [studentId, setStudentId] = useState(0)
     const [userClasses, setUserClasses] = useState(global.classid)
 
     /** Gets the list of books based on the classId chosen
@@ -21,7 +17,8 @@ const Library = (props) => {
     const getData = async () => {
         try {
             console.log(classId);
-            let response = await fetch('https://deco3801-universally-challenged.uqcloud.net/getClassBooks?classId=' + classId);
+            let response = await fetch('https://deco3801-universally-challenged.uqcloud.net/getClassBooks?classId='
+                + classId + "&school=" + global.school);
             if (response.ok) {
                 let juice = await response.text();
                 let data = JSON.parse(juice)
@@ -98,14 +95,15 @@ const Library = (props) => {
                     spacing={20}
                     renderItem={({item}) => (
                         <View style={styles.itemContainer}>
-                            <ImageBackground source={getImage(item.bookCoverLink)}
-                                   style={{width: '100%', height: '100%', alignItems:"center", justifyContent:"center"}}
-                                   >
                                 <TouchableOpacity style={styles.bookText}
                                       onPress={() => props.navigation.navigate('Pages', item)}>
-                                    <Text>{item.bookTitle}</Text>
+                                    <ImageBackground source={require('../assets/place-holder-open-book.png')}
+                                                     style={{width: '100%', height: '100%', alignItems:"center", justifyContent:"center"}}
+                                                     resizeMode={'contain'}
+                                    >
+                                    </ImageBackground>
+                                    <Text style={{alignItems: "center", justifyContent:'center'}}>{item.bookTitle}</Text>
                                 </TouchableOpacity>
-                            </ImageBackground>
                         </View>
                     )}
                 />

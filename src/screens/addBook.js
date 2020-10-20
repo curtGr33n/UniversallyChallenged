@@ -45,6 +45,7 @@ class AddBook extends Component {
                 }
             } else{
                 alert("Select a Class Number");
+                this.setState({submitted: <Text></Text>});
             }
         } catch (error) {
             console.error(error);

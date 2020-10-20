@@ -4,24 +4,36 @@ import {View, Text } from 'react-native';
 import {styles, buttons, page} from '../styles/styles.js';
 import {TouchableOpacity,TouchableHighlight, Image, Button}  from "react-native";
 import Draw from '../components/draw.js'
+import ShowBooks from '../components/showBook.js'
 
 const Pages = (book) => {
-    //console.log("Hopefully the book passed into props")
-    //console.log(book.route.params.bookTitle)
     const bookId = book.route.params.bookId;
-    console.log("BookId: " + bookId);
-    // const [pageNumber, setPageNumber] = useState(book.route.params.pages.pagenum);
+    //console.log("BookId: " + bookId);
     const [pageNumber, setPageNumber] = useState(0);
-    const [pages, setPages] = useState(1);
+    const [pages, setPages] = useState(book.route.params.pages);
+    const [page, setPage] = useState(pages[pageNumber])
     const [storyTitle, setStoryTitle] = useState(book.route.params.bookTitle);
-    const [authors, setAuthors] = useState(book.route.params.pages.creators);
+    const [key, setKey] = useState(100)
 
-    /*function displayAuthors() {
-        let auths = "";
-        authors.map(auth => auths + auth);
-        return auths;
-    }*/
-    //console.log(authors)
+    /*This will change the page and update pageNumber */
+    function changePage(value) {
+        if (value === 'increment' && pageNumber < pages.length - 1) {
+            setPage(pages[pageNumber + 1])
+            setPageNumber((prevState) => prevState + 1)
+            setKey((prevState) => prevState + 1)
+        }
+        else if (value === 'increment' && pageNumber == pages.length - 1) {
+            setPage(pages[pages.length - 1])
+        }
+        else if (value === 'decrement' && pageNumber > 0) {
+            setPage(pages[pageNumber - 1])
+            setPageNumber((prevState) => prevState - 1)
+            setKey((prevState) => prevState - 1)
+        }
+        else if (value === 'decrement' && pageNumber == 0) {
+            setPage(pages[0])
+        }
+    }
 
     return (
         <View
@@ -36,10 +48,16 @@ const Pages = (book) => {
                 justifyContent:'center',
                 alignItems: 'center'
             }}>
-                <Draw
-                    bookId={bookId}
-                    pageId={pageNumber}
-                />
+                {page.active
+                    ? <Draw
+                        bookId={bookId}
+                        pageId={pageNumber}
+                        page={page}
+                        key={key}
+                    />
+                    : <ShowBooks pageNum={pageNumber}/>
+                }
+
             </View>
             <View style={{
                 backgroundColor: "#f8ebc4",
@@ -54,7 +72,7 @@ const Pages = (book) => {
                     padding: 15
             }}>
                 <TouchableOpacity style={buttons.buttonPages}
-                      onPress={() => console.log("Back Pressed")}
+                      onPress={() => changePage('decrement')}
                         title={"Back"}
                                   >
                     <Text style={buttons.buttonTextWhite}>back page</Text>
@@ -64,10 +82,10 @@ const Pages = (book) => {
                         backgroundColor: "#fdda64",
                         justifyContent: "center",
                     }}>
-                    <Text style={styles.storyTitleText}>page {pageNumber} of {pages}</Text>
+                    <Text style={styles.storyTitleText}>page {pageNumber + 1} of {pages.length}</Text>
                 </View>
                 <TouchableOpacity style={buttons.buttonPages}
-                                  onPress={() => console.log("Next Pressed")}
+                                  onPress={() => changePage('increment')}
                         title={"Next Page"}
                 >
                     <Text style={buttons.buttonTextWhite}>next page</Text>
@@ -76,6 +94,5 @@ const Pages = (book) => {
         </View>
     );
 }
-
 
 export default Pages;

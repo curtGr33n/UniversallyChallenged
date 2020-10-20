@@ -1,5 +1,5 @@
-import 'react-native-gesture-handler';
 import React, {Component, useState} from 'react';
+import 'react-native-gesture-handler'
 
 //Screen class
 import Main from './src/screens/main';
