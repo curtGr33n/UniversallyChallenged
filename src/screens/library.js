@@ -17,7 +17,8 @@ const Library = (props) => {
     const getData = async () => {
         try {
             console.log(classId);
-            let response = await fetch('https://deco3801-universally-challenged.uqcloud.net/getClassBooks?classId=' + classId);
+            let response = await fetch('https://deco3801-universally-challenged.uqcloud.net/getClassBooks?classId='
+                + classId + "&school=SheldonCollege");
             if (response.ok) {
                 let juice = await response.text();
                 let data = JSON.parse(juice)
