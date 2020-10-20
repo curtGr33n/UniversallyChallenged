@@ -96,11 +96,12 @@ const Library = (props) => {
                         <View style={styles.itemContainer}>
                                 <TouchableOpacity style={styles.bookText}
                                       onPress={() => props.navigation.navigate('Pages', item)}>
-                                    <Text>{item.bookTitle}</Text>
                                     <ImageBackground source={require('../assets/place-holder-open-book.png')}
                                                      style={{width: '100%', height: '100%', alignItems:"center", justifyContent:"center"}}
                                                      resizeMode={'contain'}
-                                    />
+                                    >
+                                    </ImageBackground>
+                                    <Text style={{alignItems: "center", justifyContent:'center'}}>{item.bookTitle}</Text>
                                 </TouchableOpacity>
                         </View>
                     )}
