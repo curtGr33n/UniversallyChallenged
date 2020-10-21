@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Picker, ScrollView, Text, TextInput, TouchableHighlight, View} from 'react-native';
+import {Image, KeyboardAvoidingView, Picker, ScrollView, Text, TextInput, TouchableHighlight, View} from 'react-native';
 import {Formik} from 'formik';
 
 //This is how you import the style sheet
@@ -115,7 +115,15 @@ class Register extends Component {
                                 placeholder={'Password'}
                             />
 
-                            <View style={[forms.dropDown]}>
+                            <TextInput
+                                style={forms.bookInput}
+                                onChangeText={props.handleChange('classnum')}
+                                onBlur={props.handleBlur('classnum')}
+                                value={props.values.classnum}
+                                placeholder={'Class Number'}
+                            />
+
+                            <View style={forms.dropDown}>
                                 <Picker
                                     selectedValue={props.values.type}
                                     onValueChange={props.handleChange('type')}>
@@ -124,7 +132,7 @@ class Register extends Component {
                                 </Picker>
                             </View>
 
-                            <View style={[forms.dropDown]}>
+                            <View style={forms.dropDown}>
                                 <Picker
                                     selectedValue={props.values.school}
                                     onValueChange={props.handleChange('school')}>
@@ -132,14 +140,6 @@ class Register extends Component {
                                     {this.state.schoolSelectorOptions}
                                 </Picker>
                             </View>
-
-                            <TextInput
-                                style={forms.bookInput}
-                                onChangeText={props.handleChange('classnum')}
-                                onBlur={props.handleBlur('classnum')}
-                                value={props.values.classnum}
-                                placeholder={'Class Number'}
-                            />
 
                             <TouchableHighlight
                                 style={forms.buttonPrimary}

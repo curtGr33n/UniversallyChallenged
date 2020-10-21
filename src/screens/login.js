@@ -1,14 +1,9 @@
 import React, { Component } from 'react';
-import { View, Text, ScrollView, KeyboardAvoidingView  } from 'react-native';
-
-//im really scared loool
-import { Button, TextInput } from 'react-native';
+import { View, Text, ScrollView, KeyboardAvoidingView, TextInput } from 'react-native';
 import { Formik } from 'formik';
 
-//This is how you import the style sheet
-import {buttons, login, page} from '../styles/styles.js'
+import {login} from '../styles/styles.js'
 import {TouchableOpacity, Image}  from "react-native";
-import { Header } from '@react-navigation/stack';
 
 class Login extends Component {
 
@@ -124,7 +119,7 @@ class Login extends Component {
                         </View>
                             <TouchableOpacity
                                 style={login.buttonBottom}
-                                onPress={() => this.props.navigation.navigate('Main')}
+                                //onPress={() => this.props.navigation.navigate('Main')}
                             >
                                 <Text style={login.buttonBottom}>forgot your login?</Text>
                             </TouchableOpacity>
