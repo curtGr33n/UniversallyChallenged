@@ -9,6 +9,7 @@ const Library = (props) => {
     const [books, setBooks] = useState([])
     const [classId, setClassId] = useState(0)
     const [userClasses, setUserClasses] = useState(global.classid)
+    const [schoolId, getSchoolId] = useState(global.school)
 
     /** Gets the list of books based on the classId chosen
      *  sets books to this list
@@ -17,8 +18,7 @@ const Library = (props) => {
     const getData = async () => {
         try {
             console.log(classId);
-            let response = await fetch('https://deco3801-universally-challenged.uqcloud.net/getClassBooks?classId='
-                + classId + "&school=" + global.school);
+            let response = await fetch('https://deco3801-universally-challenged.uqcloud.net/getClassBooks?classId=' + classId + '&school=' + schoolId);
             if (response.ok) {
                 let juice = await response.text();
                 let data = JSON.parse(juice)
