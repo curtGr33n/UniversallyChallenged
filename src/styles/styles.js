@@ -286,7 +286,19 @@ const forms = StyleSheet.create({
         flex : 1,
         justifyContent: 'center',
         backgroundColor: 'rgba(0,0,0,0.5)'
-    }
+    },
+    dropDownHorizontal: {
+        width: '95%',
+        height: 60,
+        margin: 10,
+        backgroundColor: 'white',
+        borderRadius: 30,
+        padding: 20,
+        fontSize: 30,
+        color: 'black',
+        fontFamily: 'typewriter-Bold',
+        justifyContent: 'center'
+    },
 })
 
 const buttons = StyleSheet.create({

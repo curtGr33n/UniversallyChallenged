@@ -452,7 +452,7 @@ class EditBook extends Component {
                     {(props) => (
                         <View style={{alignItems: 'center'}}>
                             <Text style={login.buttonText}>{values.role}</Text>
-                            <View style={[forms.dropDown]}>
+                            <View style={[forms.dropDownHorizontal]}>
                                 <Picker
                                     selectedValue={props.values.sID}
                                     onValueChange={props.handleChange('sID')}>
@@ -491,8 +491,8 @@ class EditBook extends Component {
      */
     showStageOneValue = () => {
         return (
-            <View style={{alignItems: 'center'}}>
-            <Text style={buttons.buttonText}>ClassID: {this.state.classId}</Text>
+            <View style={{alignItems: 'center', flexDirection: 'row', justifyContent: 'center'}}>
+                <Text style={buttons.buttonText}>ClassID: {this.state.classId}</Text>
                 <TouchableOpacity
                     style={forms.buttonSecondary}
                     onPress={() => {
@@ -505,7 +505,7 @@ class EditBook extends Component {
                         this.setState({drawerForm: false});
                         this.setState({authorForm: false});
                     }}
-                >
+                    >
                     <Text style={buttons.buttonTextWhite}>Edit</Text>
                 </TouchableOpacity>
             </View>
@@ -518,7 +518,7 @@ class EditBook extends Component {
      */
     showStageTwoValue = () => {
         return (
-            <View style={{alignItems: 'center'}}>
+            <View style={{alignItems: 'center', flexDirection: 'row', justifyContent: 'center'}}>
                 <Text style={buttons.buttonText}>BookID: {this.state.bookId}</Text>
 
                 <TouchableOpacity
@@ -544,9 +544,11 @@ class EditBook extends Component {
                     {this.state.showPageFormStage2 ? this.showPageFormStageTwo() : null}
                     {this.state.stageTwoValue ? this.showStageTwoValue() : null}
                     {this.state.showPageFormStage3 ? this.showPageFormStageThree() : null}
-                    {this.state.showIllustrator ? this.state.illustratorForm : null}
-                    {this.state.showDrawer ? this.state.drawerForm : null}
-                    {this.state.showAuthor ? this.state.authorForm : null}
+                    <View style={{flexDirection: 'row', justifyContent : 'center'}}>
+                        {this.state.showIllustrator ? this.state.illustratorForm : null}
+                        {this.state.showDrawer ? this.state.drawerForm : null}
+                        {this.state.showAuthor ? this.state.authorForm : null}
+                    </View>
             </ScrollView>
         )
     }
