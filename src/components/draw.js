@@ -263,8 +263,7 @@ export default class Draw extends Component {
         if (this.state.role === "writer") {
             return (
                 <View style={canvas.container}>
-                    <View style={{backgroundColor: '#fbf3dc', width: 100, height: 400,
-                        flexDirection: 'column', justifyContent: "space-around", alignItems: "center"}}>
+                    <View style={canvas.sideBar}>
                         <TouchableOpacity
                             style={canvas.button}
                             onPress={() => this.toggleTextBox()}>
@@ -328,8 +327,7 @@ export default class Draw extends Component {
         } else {
             return (
                 <View style={canvas.container}>
-                    <View style={{backgroundColor: '#fbf3dc', width: 100, height: 400,
-                        flexDirection: 'column', justifyContent: "space-around", alignItems: "center"}}>
+                    <View style={canvas.sideBarOverlay}>
                         <TouchableOpacity
                             style={canvas.button}
                             onPress={() => this.chooseColor()}>
@@ -362,7 +360,7 @@ export default class Draw extends Component {
                             style={canvas.button}
                             onPress={() => this.toggleBrushWindow()}>
                             <Image
-                                source={require("../assets/top.png")}
+                                source={require("../assets/images/resizing.png")}
                                 resizeMode="center"
                                 style={canvas.icon}
                             />

@@ -57,11 +57,17 @@ const styles = StyleSheet.create({
         fontFamily: 'typewriter'
     },
     title: {
-        fontSize: 36,
-        marginBottom: 16,
-        //color: 'orange'
-        fontFamily: 'typewriter'
-    }
+        backgroundColor: '#f8ebc4',
+        alignItems: 'center',
+        textTransform: 'uppercase',
+        textAlign: 'center',
+        fontSize: 40,
+        padding: 20,
+        width: '100%',
+        color:'black',
+        fontFamily: 'Typewriter2-Bold',
+        lineHeight: 30
+    },
 })
 
 const page = StyleSheet.create({
@@ -418,8 +424,16 @@ const canvas= StyleSheet.create({
     },
     sideBar: {
         position: "absolute",
-        top: 44.5,
         left: 0,
+        height: 400,
+        width:  100,
+        borderRadius: 5,
+        backgroundColor: '#f8ebc4',
+        flexDirection: 'column',
+        justifyContent: "space-around",
+        alignItems: "center"
+    },
+    sideBarOverlay: {
         height: 400,
         width:  100,
         borderRadius: 5,
