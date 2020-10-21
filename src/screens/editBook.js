@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Picker, ScrollView, Text, TouchableOpacity, View} from 'react-native';
+import {ActivityIndicator, Modal, Picker, ScrollView, Text, TouchableOpacity, View} from 'react-native';
 import {Formik} from 'formik';
 import {CheckBox} from "react-native-elements";
 import {buttons, forms, login} from '../styles/styles.js';
@@ -44,7 +44,18 @@ class EditBook extends Component {
      * @returns {JSON.object} the books from the class ID
      */
     getClassBooks = async (values) => {
-        this.setState({submitted: <Text>Loading...</Text>})
+        this.setState({submitted:
+                <Modal
+                    animationType="fade"
+                    transparent={true}
+                    visible={this.props.visible}
+                    presentationStyle={"overFullScreen"}
+                    >
+                    <View style={forms.modalOverlay}>
+                        <ActivityIndicator size="large" color="#bb904f"/>
+                    </View>
+                </Modal>
+               })
         try {
             let response = await fetch(
                 'https://deco3801-universally-challenged.uqcloud.net/getClassBooks?classId=' +
@@ -110,7 +121,16 @@ class EditBook extends Component {
      * @returns an array of page objects from a book
      */
     getPages = async (values) => {
-        this.setState({submitted: <Text>Loading...</Text>});
+        this.setState({submitted: <Modal
+                animationType="fade"
+                transparent={true}
+                visible={this.props.visible}
+                presentationStyle={"overFullScreen"}
+            >
+                <View style={forms.modalOverlay}>
+                    <ActivityIndicator size="large" color="#bb904f"/>
+                </View>
+            </Modal>});
         try {
             let response = await fetch(
                 'https://deco3801-universally-challenged.uqcloud.net/getPages?bookId=' +
@@ -213,6 +233,16 @@ class EditBook extends Component {
      * @returns An array of user objects
      */
     getStudents = async () => {
+        this.setState({submitted: <Modal
+                animationType="fade"
+                transparent={true}
+                visible={this.props.visible}
+                presentationStyle={"overFullScreen"}
+            >
+                <View style={forms.modalOverlay}>
+                    <ActivityIndicator size="large" color="#bb904f"/>
+                </View>
+            </Modal>});
         try {
             let response = await fetch(
                 'https://deco3801-universally-challenged.uqcloud.net/getClassStudents?classId='
@@ -234,7 +264,16 @@ class EditBook extends Component {
      * @returns {Promise<void>}
      */
     addCreator = async (values) => {
-        this.setState({submitted: <Text>Loading...</Text>})
+        this.setState({submitted: <Modal
+                animationType="fade"
+                transparent={true}
+                visible={this.props.visible}
+                presentationStyle={"overFullScreen"}
+            >
+                <View style={forms.modalOverlay}>
+                    <ActivityIndicator size="large" color="#bb904f"/>
+                </View>
+            </Modal>})
         try {
             let response = await fetch(
                 'https://deco3801-universally-challenged.uqcloud.net/addDetails?bookID=' +
@@ -257,6 +296,16 @@ class EditBook extends Component {
      * @returns an array of role objects
      */
     getCreators = async (values) => {
+        this.setState({submitted: <Modal
+                animationType="fade"
+                transparent={true}
+                visible={this.props.visible}
+                presentationStyle={"overFullScreen"}
+            >
+                <View style={forms.modalOverlay}>
+                    <ActivityIndicator size="large" color="#bb904f"/>
+                </View>
+            </Modal>})
         try {
             let response = await fetch(
                 'https://deco3801-universally-challenged.uqcloud.net/getCreator?bookId=' +
@@ -423,10 +472,14 @@ class EditBook extends Component {
             );
         } else{
             return (
-                <View style={{alignItems: 'center'}}>
-                    <Text>{values.sID}</Text>
-                    <Text>{values.name}</Text>
-                    <Text>{values.role}</Text>
+                <View style={{
+                    flexDirection: 'row',
+                    alignContent: 'center',
+                    alignSelf: 'center',
+                    alignItems: 'center'}}>
+                    <Text style={forms.creatorText}>{values.role}: </Text>
+                    <Text style={forms.creatorText}>{values.name}</Text>
+                    <Text style={forms.creatorText}>{values.sID}</Text>
                 </View>
             );
         }
@@ -439,7 +492,7 @@ class EditBook extends Component {
     showStageOneValue = () => {
         return (
             <View style={{alignItems: 'center'}}>
-            <Text style={buttons.buttonText}>ClassID = {this.state.classId}</Text>
+            <Text style={buttons.buttonText}>ClassID: {this.state.classId}</Text>
                 <TouchableOpacity
                     style={forms.buttonSecondary}
                     onPress={() => {
@@ -466,7 +519,7 @@ class EditBook extends Component {
     showStageTwoValue = () => {
         return (
             <View style={{alignItems: 'center'}}>
-                <Text style={buttons.buttonText}>BookID = {this.state.bookId}</Text>
+                <Text style={buttons.buttonText}>BookID: {this.state.bookId}</Text>
 
                 <TouchableOpacity
                     style={forms.buttonSecondary}

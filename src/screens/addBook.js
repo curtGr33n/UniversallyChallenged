@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Picker, TextInput, View, Text, TouchableOpacity, ScrollView} from 'react-native';
+import {Picker, TextInput, View, Text, TouchableOpacity, ScrollView, ActivityIndicator, Modal} from 'react-native';
 import {Formik} from 'formik';
 import {forms, login} from '../styles/styles.js';
 
@@ -24,18 +24,28 @@ class AddBook extends Component {
      */
     addBook = async (values) => {
         try {
-            this.setState({submitted: <Text>Loading...</Text>})
+            this.setState({submitted: <Modal
+                    animationType="fade"
+                    transparent={true}
+                    visible={this.props.visible}
+                    presentationStyle={"overFullScreen"}
+                >
+                    <View style={forms.modalOverlay}>
+                        <ActivityIndicator size="large" color="#bb904f"/>
+                    </View>
+                </Modal>})
             if(values.classId !== -1) {
                 let response = await fetch(
                     'https://deco3801-universally-challenged.uqcloud.net/book?bookTitle=' +
                     values.bookTitle + '&bookCoverLink=none&school=' + global.school +
                     '&classID=' + values.classId);
-                this.setState({submitted: <Text>New Book Added</Text>})
+                this.setState({submitted: <Text>Submitted</Text>});
                 if (!response.ok) {
                     alert("HTTP-Error: " + response.status);
                 }
             } else{
                 alert("Select a Class Number");
+                this.setState({submitted: <Text></Text>});
             }
         } catch (error) {
             console.error(error);
