@@ -110,7 +110,10 @@ const Pages = (book) => {
                         page={page}
                         key={key}
                     />
-                    : <ShowBooks pageNum={pageNumber} imageString={imageString}/>
+                    : <ShowBooks
+                        pageNum={pageNumber}
+                        imageString={imageString}
+                        key={key}/>
                 }
             </View>
             <View style={{

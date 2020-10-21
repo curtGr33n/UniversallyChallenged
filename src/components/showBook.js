@@ -4,7 +4,7 @@ import {View, Text, Image } from 'react-native';
 
 
 const ShowBooks = (input) => {
-    const imageList =
+    /*const imageList =
         [require('../assets/current-book-pages/page0.png'),
             require('../assets/current-book-pages/page1.png'),
             require('../assets/current-book-pages/page2.png'),
@@ -20,10 +20,10 @@ const ShowBooks = (input) => {
             require('../assets/current-book-pages/page12.png'),
             require('../assets/current-book-pages/page13.png'),
             require('../assets/current-book-pages/page14.png')];
-
+    */
     console.log(input.pageNum)
     return(
-        <Image source={imageList[input.pageNum]}
+        <Image source={{uri: 'data:image/png;base64,' + input.imageString}}
                resizeMode={'contain'}
                style={{width: '100%',
                    height: '100%',
