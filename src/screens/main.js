@@ -1,10 +1,19 @@
-import React, { Component } from 'react';
-import {View, Text, TouchableOpacity, Image} from 'react-native';
-
-import {buttons, styles, page} from '../styles/styles'
+import React, {Component, useState} from 'react';
+import {View, Text, TouchableOpacity, Image, Modal} from 'react-native';
+import {buttons, styles, page, forms} from '../styles/styles';
+import {alert} from "react-native-web";
 
 class Main extends Component {
+    state = {
+        modalVisible: false
+    };
+
+    setModalVisible = (visible) => {
+        this.setState({ modalVisible: visible });
+    }
+
     render() {
+        const { modalVisible } = this.state;
         return (
             <View style={styles.container}>
 
@@ -37,8 +46,11 @@ class Main extends Component {
                         <Text style={buttons.buttonText}>Stripes Earned</Text>
                     </TouchableOpacity>
                     }
+
                     <TouchableOpacity
-                        onPress={() => this.props.navigation.navigate('Library')}
+                        onPress={() => {
+                            this.setModalVisible(modalVisible);
+                        }}
                         style={page.primary}
                     >
                         <Image source={require('../assets/images/video.png')} style={page.image}/>
