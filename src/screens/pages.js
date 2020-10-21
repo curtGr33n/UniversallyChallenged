@@ -103,7 +103,7 @@ const Pages = (book) => {
                 justifyContent:'center',
                 alignItems: 'center'
             }}>
-                {creatorFinal && page.active
+                { !creatorFinal && page.active
                     ? <Draw
                         bookId={bookId}
                         pageId={pageNumber}
