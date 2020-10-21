@@ -69,7 +69,8 @@ const Library = (props) => {
                     flex: 0.1,
                     flexDirection: 'row',
                     justifyContent: "space-around",
-                    padding: 10
+                    padding: 10,
+                    margin: 10,
                 }}>
                     {/*This is where the drop down menus are going*/}
                     <View style={page.dropDown}>
@@ -98,11 +99,11 @@ const Library = (props) => {
                                 <TouchableOpacity style={styles.bookText}
                                       onPress={() => props.navigation.navigate('Pages', item)}>
                                     <ImageBackground source={require('../assets/place-holder-open-book.png')}
-                                                     style={{width: '100%', height: '100%', alignItems:"center", justifyContent:"center"}}
+                                                     style={page.bookImage}
                                                      resizeMode={'contain'}
                                     >
                                     </ImageBackground>
-                                    <Text style={{alignItems: "center", justifyContent:'center'}}>{item.bookTitle}</Text>
+                                    <Text style={page.bookText}>{item.bookTitle}</Text>
                                 </TouchableOpacity>
                         </View>
                     )}

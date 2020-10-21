@@ -124,15 +124,27 @@ const page = StyleSheet.create({
     dropDown: {
         width: '20%',
         height: 60,
-        margin: 10,
         backgroundColor: '#f8ebc4',
         borderRadius: 30,
         padding: 20,
         fontSize: 30,
         color: 'black',
         fontFamily: 'typewriter-Bold',
-        justifyContent: 'center'
+        justifyContent: 'center',
     },
+    bookImage: {
+        width: '100%',
+        height: '100%',
+        alignItems:"center",
+        justifyContent:"center",
+    },
+    bookText: {
+        textAlign: 'center',
+        color: 'black',
+        fontSize: 15,
+        fontFamily: 'typewriter-Bold',
+        lineHeight: 20,
+    }
 })
 
 const login = StyleSheet.create({
