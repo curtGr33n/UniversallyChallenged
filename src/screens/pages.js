@@ -1,12 +1,11 @@
 import React, {Component, useState} from 'react';
 import {View, Text } from 'react-native';
-
 import {styles, buttons, page} from '../styles/styles.js';
 import {TouchableOpacity,TouchableHighlight, Image, Button}  from "react-native";
 import Draw from '../components/draw.js'
 import ShowBooks from '../components/showBook.js'
 import { returnBuzz64String } from "../assets/buzz64";
-
+import Sound from 'react-native-sound';
 
 /***
  * A screen to display either the Canvas or the created image of the book
@@ -24,6 +23,22 @@ const Pages = (book) => {
     const [key, setKey] = useState(1000)
     const [creatorFinal, setCreatorFinal] = useState(false)
     const [imageString, setImageString] = useState("")
+
+    const sound = new Sound('page_turn.mp3', Sound.MAIN_BUNDLE, (error) => {
+        if (error) {
+            console.log('failed to load the sound', error);
+            return;
+        }
+
+        // Play the sound with an onEnd callback
+        sound.play((success) => {
+            if (success) {
+                console.log('successfully finished playing');
+            } else {
+                console.log('playback failed due to audio decoding errors');
+            }
+        });
+    });
 
     /* Check to see if creator has finished their contribution for that page */
     function checkCreatorFinal() {
@@ -88,6 +103,7 @@ const Pages = (book) => {
         else if (value === 'decrement' && pageNumber == 0) {
             setPage(pages[0])
         }
+        sound.play();
     }
 
     return (
