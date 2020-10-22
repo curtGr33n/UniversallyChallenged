@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Image, KeyboardAvoidingView, Picker, ScrollView, Text, TextInput, TouchableHighlight, View} from 'react-native';
+import {Picker, ScrollView, Text, TextInput, TouchableHighlight, View} from 'react-native';
 import {Formik} from 'formik';
 
 //This is how you import the style sheet
@@ -150,7 +150,6 @@ class Register extends Component {
                             {this.state.submitted}
                         </View>
                     </ScrollView>
-
                 )}
             </Formik>
         </View>

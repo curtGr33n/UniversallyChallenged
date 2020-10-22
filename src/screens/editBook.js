@@ -26,6 +26,7 @@ class EditBook extends Component {
         sIDSelectorOptions: [],
         classId: -1,
         bookId: -1,
+        bookName: "",
         pagenum: -1,
         submitted: <Text/>,
     }
@@ -107,6 +108,8 @@ class EditBook extends Component {
             ));
             this.setState({bookId: values.bookId});
             this.setState({showPageFormStage2: false});
+            let name = await this.getBookName({bookId: values.bookId});
+            this.setState({bookName: name});
             this.setState({stageTwoValue: true});
             this.setState({pageSelectorOptions: pageSelection});
             this.setState({showPageFormStage3: true});
@@ -178,15 +181,18 @@ class EditBook extends Component {
             let illustrator = {needInput: true, role: 'illustrator'};
             let drawer = {needInput: true, role: 'drawer'};
             let author = {needInput: true, role: 'author'};
-            creators.map((item) => {
+             creators.map(async (item) => {
                     if (item.role === "illustrator") {
-                        illustrator = {needInput: false, sID: item.studentId, role: item.role};
+                        let name = await this.getName({sId:item.studentId});
+                        illustrator = {needInput: false, sID: item.studentId, role: item.role, name:name};
                     }
                     if (item.role === "drawer") {
-                        drawer = {needInput: false, sID: item.studentId, role: item.role};
+                        let name = await this.getName({sId:item.studentId});
+                        drawer = {needInput: false, sID: item.studentId, role: item.role, name:name};
                     }
                     if (item.role === "author") {
-                        author = {needInput: false, sID: item.studentId, role: item.role};
+                        let name = await this.getName({sId:item.studentId});
+                        author = {needInput: false, sID: item.studentId, role: item.role, name:name};
                     }
                 }
             );
@@ -218,8 +224,26 @@ class EditBook extends Component {
                 'https://deco3801-universally-challenged.uqcloud.net/getName?sId='
                 + values.sId);
             if (response.ok) {
-                let juice = await response.text();
-                return JSON.stringify(juice);
+                return await response.text();
+            } else {
+                alert("HTTP-Error: " + response.status);
+            }
+        } catch (error) {
+            this.setState({submitted: <Text>{error}</Text>});
+        }
+    };
+
+    /**
+     * Gets a books name via its id
+     * @param values the students id
+     */
+    getBookName = async (values) => {
+        try {
+            let response = await fetch(
+                'https://deco3801-universally-challenged.uqcloud.net/getBookName?bookId='
+                + values.bookId);
+            if (response.ok) {
+                return await response.text();
             } else {
                 alert("HTTP-Error: " + response.status);
             }
@@ -246,7 +270,7 @@ class EditBook extends Component {
         try {
             let response = await fetch(
                 'https://deco3801-universally-challenged.uqcloud.net/getClassStudents?classId='
-                + this.state.classId);
+                + this.state.classId + '&school=' + global.school);
             if (response.ok) {
                 let juice = await response.text();
                 return JSON.parse(juice);
@@ -473,13 +497,12 @@ class EditBook extends Component {
         } else{
             return (
                 <View style={{
-                    flexDirection: 'row',
+                    flexDirection: 'column',
                     alignContent: 'center',
                     alignSelf: 'center',
                     alignItems: 'center'}}>
-                    <Text style={forms.creatorText}>{values.role}: </Text>
+                    <Text style={login.buttonText}>{values.role} </Text>
                     <Text style={forms.creatorText}>{values.name}</Text>
-                    <Text style={forms.creatorText}>{values.sID}</Text>
                 </View>
             );
         }
@@ -516,10 +539,10 @@ class EditBook extends Component {
      * Shows the submitted form value from stage Two and allows editing
      * @returns {JSX.Element} the element to display information
      */
-    showStageTwoValue = () => {
+    showStageTwoValue = (values) => {
         return (
             <View style={{alignItems: 'center', flexDirection: 'row', justifyContent: 'center'}}>
-                <Text style={buttons.buttonText}>BookID: {this.state.bookId}</Text>
+                <Text style={buttons.buttonText}>{values.name}</Text>
 
                 <TouchableOpacity
                     style={forms.buttonSecondary}
@@ -542,7 +565,7 @@ class EditBook extends Component {
                     {this.state.showPageForm ? this.showPageFormStageOne() : null}
                     {this.state.stageOneValue ? this.showStageOneValue() : null}
                     {this.state.showPageFormStage2 ? this.showPageFormStageTwo() : null}
-                    {this.state.stageTwoValue ? this.showStageTwoValue() : null}
+                    {this.state.stageTwoValue ? this.showStageTwoValue({name: this.state.bookName}) : null}
                     {this.state.showPageFormStage3 ? this.showPageFormStageThree() : null}
                     <View style={{flexDirection: 'row', justifyContent : 'center'}}>
                         {this.state.showIllustrator ? this.state.illustratorForm : null}
