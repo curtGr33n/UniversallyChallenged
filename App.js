@@ -3,7 +3,6 @@ import 'react-native-gesture-handler'
 
 //Screen class
 import Main from './src/screens/main';
-import WelcomeScreen from "./src/screens/welcomeScreen";
 import Login from "./src/screens/login";
 import Library from "./src/screens/library";
 import Pages from "./src/screens/pages";
@@ -27,7 +26,6 @@ import {createStackNavigator} from '@react-navigation/stack';
 
 // React native components
 import { Image, View, TouchableOpacity } from 'react-native'
-import { Icon } from 'react-native-elements'
 
 // Navigation containers
 const Drawer = createDrawerNavigator();
@@ -147,12 +145,6 @@ export default class App extends Component {
             <Stack.Screen
                 name={"editBook"}
                 component={editBook}
-                options={{
-                    headerTitle: this.setLogo
-                }}/>
-            <Stack.Screen
-                name={"WelcomeScreen"}
-                component={WelcomeScreen}
                 options={{
                     headerTitle: this.setLogo
                 }}/>
