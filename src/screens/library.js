@@ -11,9 +11,10 @@ const Library = (props) => {
     const [userClasses, setUserClasses] = useState(global.classid)
     const [schoolId, getSchoolId] = useState(global.school)
 
-    /** Gets the list of books based on the classId chosen
-     *  sets books to this list
-     *  return: null
+    /**
+     * Gets the list of books based on the classId chosen
+     * sets books to this list
+     * @returns {Promise<void>}
      */
     const getData = async () => {
         try {
@@ -33,19 +34,21 @@ const Library = (props) => {
         }
     };
 
-    /* Helper function to create a list of <Picker> objects to display in
+    /**
+     * Helper function to create a list of <Picker> objects to display in
      * picker list
-    */
-    function getPickerItems()
-    {
+     * @returns {*}
+     */
+    function getPickerItems() {
         return userClasses.map((user, index) => (
             <Picker.Item label={user.toString()} value={user} key={index}/>
         ))
     }
 
-    /** Returns the path to the image file of a bookCover or the path of the
+    /**
+     * Returns the path to the image file of a bookCover or the path of the
      * generic bookCover image if bookCoverLink = null
-     * Returns: image path
+     * @returns image path
     */
     const getImage = (bookCoverLink) => {
         if (bookCoverLink == null || bookCoverLink === "none") {
@@ -58,21 +61,14 @@ const Library = (props) => {
 
     return (
         <View style={{flex: 1}}>
-            <View>
-                <Text style={page.title}>Library</Text>
-            </View>
-            <View style={{
-                backgroundColor: "white",
-                flex: 7
-            }}>
-                <View style={{
-                    flex: 0.1,
-                    flexDirection: 'row',
-                    justifyContent: "space-around",
-                    padding: 10,
-                    margin: 10,
-                }}>
-                    {/*This is where the drop down menus are going*/}
+
+            {/* Page Title */}
+            <Text style={page.title}>Library</Text>
+
+            <View style={{ backgroundColor: "white", flex: 7}}>
+                <View style={page.libraryLayout}>
+
+                    {/* DropDown Selection */}
                     <View style={page.dropDown}>
                         <Picker
                             selectedValue={classId}
@@ -82,6 +78,8 @@ const Library = (props) => {
                             {getPickerItems()}
                         </Picker>
                     </View>
+
+                    {/* Submit/Load Button */}
                     <TouchableOpacity onPress={() => getData()}
                                       style={buttons.buttonPages}
                                       title={"Load Books"}>
@@ -89,6 +87,7 @@ const Library = (props) => {
                     </TouchableOpacity>
                 </View>
 
+                {/* Library Layout */}
                 <FlatGrid
                     itemDimension={300}
                     data={books}

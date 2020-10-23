@@ -17,9 +17,13 @@ class Main extends Component {
         return (
             <View style={styles.container}>
 
+                {/* Page Title */}
                 <Text style={page.title}>Home Page</Text>
 
+                {/* Home Buttons */}
                 <View style={page.homeButtons}>
+
+                    {/* Library Button */}
                     <TouchableOpacity
                         onPress={() => this.props.navigation.navigate('Library', {/* We can put params here use 'varNam: variable' */})}
                         style={page.primary}
@@ -28,6 +32,8 @@ class Main extends Component {
                         <Text style={buttons.buttonText}>Library</Text>
 
                     </TouchableOpacity>
+
+                    {/* Teacher/Achievements Button */}
                     {
                         global.type === "teacher" ?
                         <TouchableOpacity
@@ -47,6 +53,7 @@ class Main extends Component {
                     </TouchableOpacity>
                     }
 
+                    {/* Video Tutorial Button */}
                     <TouchableOpacity
                         onPress={() => {
                             this.setModalVisible(modalVisible);
@@ -58,14 +65,12 @@ class Main extends Component {
                     </TouchableOpacity>
                 </View>
 
+                {/* Buzz Image */}
                 <Image source={require('../assets/images/buzz_words.png')} style={page.buzz}/>
 
             </View>
         )
     }
 }
-
-
-
 
 export default Main;

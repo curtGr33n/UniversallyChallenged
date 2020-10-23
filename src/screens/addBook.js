@@ -99,7 +99,11 @@ class AddBook extends Component {
     showBookForm = () => {
         return (
             <View style={{flex: 1, justifyContent : 'center'}}>
+
+                {/* Page Title */}
                 <Text style={forms.title}>Add Book</Text>
+
+                {/* Form Layout */}
                 <Formik
                     initialValues={{ bookTitle:'', classId: -1}}
                     onSubmit={
@@ -109,12 +113,16 @@ class AddBook extends Component {
                     {(props) => (
                         <ScrollView style={forms.container}>
                             <View style={{alignItems: 'center'}}>
+
+                                {/* Book Text Input */}
                                 <TextInput
                                     style={forms.bookInput}
                                     placeholder= 'Add a book title...'
                                     onChangeText={props.handleChange('bookTitle')}
                                     value={props.values.bookTitle}
                                 />
+
+                                {/* Class Selection Dropdown */}
                                 <View style={[forms.dropDown]}>
                                     <Picker
                                         selectedValue={props.values.classId}
@@ -123,6 +131,8 @@ class AddBook extends Component {
                                         {this.classIds}
                                     </Picker>
                                 </View>
+
+                                {/* Submit Button */}
                                 {this.state.submitted}
                                 <TouchableOpacity
                                     style={forms.buttonPrimary}
@@ -130,6 +140,8 @@ class AddBook extends Component {
                                 >
                                     <Text style={login.buttonText}>Submit</Text>
                                 </TouchableOpacity>
+
+                                {/* Close Button */}
                                 <TouchableOpacity
                                     style={forms.buttonPrimary}
                                     onPress={() => this.props.navigation.navigate('Teacher')}

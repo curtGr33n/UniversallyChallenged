@@ -9,8 +9,14 @@ class Teacher extends Component {
     render() {
         return (
             <View style={styles.container}>
+
+                {/* Page Title */}
                 <Text style={page.title}>Teacher Settings</Text>
+
+                {/* Navigation to Relevant Book/Teacher Controls */}
                 <View style={[page.homeButtons, page.offsetData]}>
+
+                    {/* Add Book Navigation */}
                     <TouchableOpacity
                         onPress={() => this.props.navigation.navigate('addBook')}
                         style={page.primary}
@@ -18,6 +24,8 @@ class Teacher extends Component {
                         <Image source={require('../assets/images/add_yellow.png')} style={page.image}/>
                         <Text style={buttons.buttonText}>Add Book</Text>
                     </TouchableOpacity>
+
+                    {/* Add Page & Creators Navigation */}
                     <TouchableOpacity
                         onPress={() => this.props.navigation.navigate('editBook')}
                         style={page.primary}
@@ -25,6 +33,7 @@ class Teacher extends Component {
                         <Image source={require('../assets/images/edit_yellow.png')} style={page.image}/>
                         <Text style={buttons.buttonText}>Manage Books</Text>
                     </TouchableOpacity>
+                    
                 </View>
             </View>
         )

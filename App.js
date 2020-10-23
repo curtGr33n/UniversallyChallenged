@@ -34,6 +34,7 @@ const Stack = createStackNavigator();
 export default class App extends Component {
   render() {
     return (
+        /* Navigation Container */
         <NavigationContainer>
           <Drawer.Navigator>
             <Drawer.Screen name={"Home"} children={this.createHomeStack}/>
@@ -42,23 +43,26 @@ export default class App extends Component {
     )
   }
 
-  // Set logo image for each page
+    /**
+     * Logo image and styling for header.
+     * @returns {JSX.Element}
+     */
   setLogo = () =>
       <View style={{ flexDirection: 'row' }} >
          <Image
-            style={{
-                width: 500,
-                height: 300,
-                aspectRatio: 1,
-                resizeMode: 'contain'
-            }}
+            style={{ width: 500, height: 300, aspectRatio: 1, resizeMode: 'contain'}}
             source={require('./src/assets/images/logo.png')}
          />
      </View>
 
-  // Any separate functions keep out side of the render() method
+    /**
+     * Creates the home stack for application.
+     * @param navigation
+     * @returns {JSX.Element}
+     */
     createHomeStack = ({ navigation }) =>
         <Stack.Navigator
+            /* Screen/Header Styling */
             screenOptions = {{
                 headerStyle: {
                     backgroundColor: '#fdda64',
@@ -72,18 +76,11 @@ export default class App extends Component {
                 headerRight: () => (< View style={{ flexDirection: 'row', padding: 20 }} >
                     <TouchableOpacity onPress={() => navigation.navigate('Main')}>
                         <Image source={require('./src/assets/images/home.png')}
-                               style={{
-                                   width: 90,
-                                   height: 80,
-                               }}/>
+                               style={{width: 90, height: 80}}/>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => navigation.navigate('Settings')}>
                         <Image source={require('./src/assets/images/settings.png')}
-                               style={{
-                                   width: 90,
-                                   height: 90,
-                                   marginLeft: 25,
-                               }}/>
+                               style={{width: 90, height: 90, marginLeft: 25}}/>
                     </TouchableOpacity>
                 </View>),
                 headerLeft: null

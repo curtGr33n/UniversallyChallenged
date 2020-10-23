@@ -4,6 +4,7 @@ import {Formik} from 'formik';
 
 //This is how you import the style sheet
 import {forms, login} from '../styles/styles.js'
+import {page} from "../styles/styles";
 
 class Register extends Component {
     state = {
@@ -80,7 +81,9 @@ class Register extends Component {
      */
     registerForm = () => {
         return (
-        <View style={{flex: 1, justifyContent : 'center'}}>
+        <View style={page.basicLayout}>
+
+            {/* Form Layout */}
             <Formik
                 initialValues={{ name: '', email: '', password: '', type: 'student',
                     school: '-1', classnum: '' }}
@@ -91,6 +94,8 @@ class Register extends Component {
                 {(props) => (
                     <ScrollView style={forms.container}>
                         <View style={{alignItems: 'center'}}>
+
+                            {/* Form Inputs */}
                             <TextInput
                                 style={forms.bookInput}
                                 onChangeText={props.handleChange('name')}
@@ -123,6 +128,7 @@ class Register extends Component {
                                 placeholder={'Class Number'}
                             />
 
+                            {/* Form Dropdowns */}
                             <View style={forms.dropDown}>
                                 <Picker
                                     selectedValue={props.values.type}
@@ -141,6 +147,7 @@ class Register extends Component {
                                 </Picker>
                             </View>
 
+                            {/* Submit Button */}
                             <TouchableHighlight
                                 style={forms.buttonPrimary}
                                 onPress={props.handleSubmit}
@@ -148,6 +155,7 @@ class Register extends Component {
                                 <Text style={login.buttonText}>Submit</Text>
                             </TouchableHighlight>
                             {this.state.submitted}
+
                         </View>
                     </ScrollView>
                 )}
@@ -158,8 +166,11 @@ class Register extends Component {
 
     render() {
         return (
-            <View style={{flex: 1, justifyContent : 'center'}}>
+            <View style={page.basicLayout}>
+                {/* Title */}
                 <Text style={forms.title}>Sign Up</Text>
+
+                {/* Form Content */}
                 <this.registerForm />
             </View>
         )

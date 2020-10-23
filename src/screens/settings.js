@@ -9,6 +9,7 @@ class Settings extends Component {
         return (
             <View style={styles.container}>
 
+                {/* Page Title */}
                 <Text style={page.title}>Settings</Text>
 
                 <View>

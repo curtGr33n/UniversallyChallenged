@@ -1,12 +1,12 @@
-import React, {Component, useState} from 'react';
+import React, {useState} from 'react';
 import {View, Text } from 'react-native';
-
-import {styles, buttons, page} from '../styles/styles.js';
-import {TouchableOpacity,TouchableHighlight, Image, Button}  from "react-native";
+import {styles, buttons} from '../styles/styles.js';
+import {TouchableOpacity}  from "react-native";
 import Draw from '../components/draw.js'
 import ShowBooks from '../components/showBook.js'
 import { returnBuzz64String } from "../assets/buzz64";
-
+import Sound from 'react-native-sound';
+import {canvas} from "../styles/styles";
 
 /***
  * A screen to display either the Canvas or the created image of the book
@@ -24,6 +24,23 @@ const Pages = (book) => {
     const [key, setKey] = useState(1000)
     const [creatorFinal, setCreatorFinal] = useState(false)
     const [imageString, setImageString] = useState("")
+
+    /* Create sound effect to be played on page increment/decrement */
+    const sound = new Sound('page_turn.mp3', Sound.MAIN_BUNDLE, (error) => {
+        if (error) {
+            console.log('failed to load the sound', error);
+            return;
+        }
+
+        // Play the sound with an onEnd callback
+        sound.play((success) => {
+            if (success) {
+                console.log('successfully finished playing');
+            } else {
+                console.log('playback failed due to audio decoding errors');
+            }
+        });
+    });
 
     /* Check to see if creator has finished their contribution for that page */
     function checkCreatorFinal() {
@@ -88,17 +105,18 @@ const Pages = (book) => {
         else if (value === 'decrement' && pageNumber == 0) {
             setPage(pages[0])
         }
+        // Play sound effect
+        sound.play();
     }
 
     return (
         <View style={{flex: 1}}>
+
+            {/* Page title */}
             <Text style={styles.title}>{storyTitle}</Text>
-            <View style={{
-                backgroundColor: "white",
-                flex: 7,
-                justifyContent:'center',
-                alignItems: 'center'
-            }}>
+
+            {/* Canvas Layout */}
+            <View style={canvas.layout}>
                 { !creatorFinal && page.active
                     ? <Draw
                         bookId={bookId}
@@ -112,37 +130,28 @@ const Pages = (book) => {
                         key={key}/>
                 }
             </View>
-            <View style={{
-                backgroundColor: "#f8ebc4",
-                flex: 1
-            }}/>
-            <View
-                style={{
-                    backgroundColor:"#fdda64",
-                    flex: 0.8,
-                    flexDirection: 'row',
-                    justifyContent: "space-around",
-                    padding: 15
-            }}>
+
+            {/* Page Navigation */}
+            <View style={canvas.pageNav}>
+
                 <TouchableOpacity style={buttons.buttonPages}
-                      onPress={() => changePage('decrement')}
-                        title={"Back"}
-                                  >
+                                  onPress={() => changePage('decrement')}
+                                  title={"Back"}
+                >
                     <Text style={buttons.buttonTextWhite}>back page</Text>
                 </TouchableOpacity>
-                <View
-                    style={{
-                        backgroundColor: "#fdda64",
-                        justifyContent: "center",
-                    }}>
+
+                <View style={{backgroundColor: "#fdda64", justifyContent: "center"}}>
                     <Text style={styles.storyTitleText}>page {pageNumber + 1} of {pages.length}</Text>
                 </View>
+
                 <TouchableOpacity style={buttons.buttonPages}
                                   onPress={() => changePage('increment')}
-                        title={"Next Page"}
+                                  title={"Next Page"}
                 >
                     <Text style={buttons.buttonTextWhite}>next page</Text>
                 </TouchableOpacity>
+
             </View>
         </View>
     );
