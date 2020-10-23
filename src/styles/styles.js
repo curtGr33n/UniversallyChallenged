@@ -427,6 +427,14 @@ const canvas= StyleSheet.create({
         height: 65,
         backgroundColor: "white"
     },
+    colorPalette: {
+        position: "absolute",
+        left: 100,
+        top: 50,
+        flexDirection: "column",
+        justifyContent: "space-around",
+        alignItems: "center"
+    },
     sideBar: {
         position: "absolute",
         left: 0,
