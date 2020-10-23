@@ -30,14 +30,14 @@ class Login extends Component {
                 juice = JSON.parse(juice);
                 console.log(juice);
                 console.log(typeof(juice));
-                if(juice.length != 0){
+                if(juice.length !== 0){
                     //console.log(juice.id);
                     global.id = juice.id;
                     global.name = juice.name;
                     global.classid = juice.class;
                     global.school = juice.school;
                     global.type = juice.type;
-
+                    global.mute = false;
                     this.props.navigation.navigate('Main');
                 }
 

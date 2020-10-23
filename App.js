@@ -1,6 +1,5 @@
 import React, {Component, useState} from 'react';
 import 'react-native-gesture-handler'
-
 //Screen class
 import Main from './src/screens/main';
 import Login from "./src/screens/login";
@@ -8,25 +7,19 @@ import Library from "./src/screens/library";
 import Pages from "./src/screens/pages";
 import Teacher from "./src/screens/teacher";
 import Settings from "./src/screens/settings";
-import Register from "./src/screens/Register"; //pls work
+import Register from "./src/screens/Register";
 import SplashScreen from "./src/screens/splashScreen";
 import addBook from "./src/screens/addBook";
 import editBook from "./src/screens/editBook";
-
 //Screen const
 import Test from "./src/screens/test";
 import Draw from "./src/components/draw";
-
-
 // Navigation types
 import {NavigationContainer} from '@react-navigation/native';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import {createStackNavigator} from '@react-navigation/stack';
-
-
 // React native components
 import { Image, View, TouchableOpacity } from 'react-native'
-
 // Navigation containers
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
