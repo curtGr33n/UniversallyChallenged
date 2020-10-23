@@ -19,8 +19,7 @@ export default class Draw extends Component {
         setTimeout(() => this.getRole(), 500);
         console.log("bookId: " + this.book + " pageId: " + this.page + " role: " + this.state.role + " user: " + global.id);
     }
-
-
+    
     state = {
         pColorShow: false,
         sColorShow: false,
@@ -30,9 +29,7 @@ export default class Draw extends Component {
         image: null,
         role: "",
         text: "",
-        textBoxShow: false,
-        textAlignment: "Center",
-        optionIndex: 0
+        textBoxShow: false
     };
 
     getRole = async () => {
@@ -251,14 +248,6 @@ export default class Draw extends Component {
         );
     }
 
-    getTextAlignment() {
-        const alignOptions = ['Left', 'Center', 'Right']
-        this.setState({optionIndex: this.state.optionIndex + 1});
-        let align = alignOptions[this.state.optionIndex % 3];
-        this.setState({textAlignment: align});
-        console.log("alignment: " + this.state.textAlignment + " with " + this.state.optionIndex);
-    }
-
     getCanvas() {
         if (this.state.role === "writer") {
             return (
@@ -268,12 +257,11 @@ export default class Draw extends Component {
                         <TouchableOpacity
                             style={canvas.button}
                             onPress={() => this.toggleTextBox()}>
-                            <Text style={{fontSize: 20}}>Add Text</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            style={canvas.button}
-                            onPress={() => this.getTextAlignment()}>
-                            <Text style={{fontSize: 20}}>Alignment</Text>
+                            <Image
+                                source={require("../assets/text.png")}
+                                resizeMode="center"
+                                style={canvas.icon}
+                            />
                         </TouchableOpacity>
                         <TouchableOpacity
                             style={canvas.button}
@@ -291,6 +279,20 @@ export default class Draw extends Component {
                             />
                         </TouchableOpacity>
                     </View>
+                    {this.state.textBoxShow ? (
+                        <View style={{flexDirection: "row", height: 80, width: 200, position: "absolute", top: 50,
+                            left: 150}}>
+                            <TextInput
+                                style={{height: 40}}
+                                placeholder={"Type your story here"}
+                                onChangeText={(story) => this.setState({text: story})}
+                                defaultValue={""}
+                                editable={true}
+                                onSubmitEditing={() => this.toggleTextBox()}
+                                autoFocus={true}
+                            />
+                        </View>
+                    ) : null}
                     <ViewShot
                         ref={this.myRef}
                         style={{flex: 1, flexDirection: "column"}}>
@@ -304,28 +306,13 @@ export default class Draw extends Component {
                                 coordinate: 'Ratio',
                                 overlay: 'TextOnSketch',
                                 fontColor: 'black',
-                                alignment: this.state.textAlignment,
-                                imageType: 'jpg',
+                                imageType: 'jpg'
                             }]}
                         />
-                        {this.state.textBoxShow ? (
-                            <View style={{flexDirection: "row", height: 80, width: 200, position: "absolute", top: 50,
-                                left: 50}}>
-                                <TextInput
-                                    style={{height: 40}}
-                                    placeholder={"Type your story here"}
-                                    onChangeText={(story) => this.setState({text: story})}
-                                    defaultValue={""}
-                                    editable={true}
-                                    onSubmitEditing={() => this.toggleTextBox()}
-                                    autoFocus={true}
-                                />
-                            </View>
-                        ) : null}
                     </ViewShot>
                 </View>
             )
-        } else {
+        } else if (this.state.role === "Background" || this.state.role === "illustrator") {
             return (
                 <View style={canvas.container}>
                     <View style={{backgroundColor: '#fbf3dc', width: 100, height: 400,
@@ -362,7 +349,7 @@ export default class Draw extends Component {
                             style={canvas.button}
                             onPress={() => this.toggleBrushWindow()}>
                             <Image
-                                source={require("../assets/top.png")}
+                                source={require("../assets/resizing.png")}
                                 resizeMode="center"
                                 style={canvas.icon}
                             />
@@ -396,6 +383,10 @@ export default class Draw extends Component {
                     </View>
                 </View>
             );
+        } else {
+            return (
+                <View style={{flex: 1, backgroundColor: "white"}}/>
+            )
         }
     }
 
