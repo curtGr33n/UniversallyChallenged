@@ -23,7 +23,7 @@ class Teacher extends Component {
                         style={page.primary}
                     >
                         <Image source={require('../assets/images/edit_yellow.png')} style={page.image}/>
-                        <Text style={buttons.buttonText}>Add Page & Creators</Text>
+                        <Text style={buttons.buttonText}>Manage Books</Text>
                     </TouchableOpacity>
                 </View>
             </View>

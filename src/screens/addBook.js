@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Picker, TextInput, View, Text, TouchableOpacity, ScrollView, ActivityIndicator, Modal} from 'react-native';
 import {Formik} from 'formik';
-import {forms, login} from '../styles/styles.js';
+import {buttons, forms, login} from '../styles/styles.js';
 
 /**
  * Deals with adding a book
@@ -9,6 +9,7 @@ import {forms, login} from '../styles/styles.js';
 class AddBook extends Component {
     state = {
         submitted: <Text/>,
+        bookId: ""
     }
     /**
      * Creates the classId picker options based on logged in teacher
@@ -21,6 +22,7 @@ class AddBook extends Component {
     /**
      * Adds a book to the database based on the values received
      * @param values contains classId to add the book to
+     * @return the added books assigned ID
      */
     addBook = async (values) => {
         try {
@@ -39,16 +41,54 @@ class AddBook extends Component {
                     'https://deco3801-universally-challenged.uqcloud.net/book?bookTitle=' +
                     values.bookTitle + '&bookCoverLink=none&school=' + global.school +
                     '&classID=' + values.classId);
-                this.setState({submitted: <Text style={forms.creatorText}>Book Submitted</Text>});
                 if (!response.ok) {
                     alert("HTTP-Error: " + response.status);
+                }else{
+                    this.setState({submitted: <View style={{flexDirection: 'row', justifyContent : 'center', alignItems:'center'}}><Text style={forms.creatorText}>Book Submitted</Text><TouchableOpacity
+                        style={forms.buttonSecondary}
+                        onPress={() => {
+                            this.deleteBook();
+                        }}
+                    >
+                        <Text style={buttons.buttonTextWhite}>Undo Add</Text>
+                    </TouchableOpacity></View>});
+                    let bookId = await response.text();
+                    this.setState({bookId: bookId});
                 }
             } else{
+                this.setState({submitted: <Text/>});
                 alert("Select a Class Number");
-                this.setState({submitted: <Text></Text>});
             }
         } catch (error) {
-            console.error(error);
+            this.setState({submitted: <Text>{error}</Text>});
+        }
+    };
+
+    /**
+     * Deletes a book from the database
+     */
+    deleteBook = async () => {
+        try {
+            this.setState({submitted: <Modal
+                    animationType="fade"
+                    transparent={true}
+                    visible={this.props.visible}
+                    presentationStyle={"overFullScreen"}
+                >
+                    <View style={forms.modalOverlay}>
+                        <ActivityIndicator size="large" color="#bb904f"/>
+                    </View>
+                </Modal>})
+                let response = await fetch(
+                    'https://deco3801-universally-challenged.uqcloud.net/deleteBook?bookId=' +
+                    this.state.bookId);
+                if (!response.ok) {
+                    alert("HTTP-Error: " + response.status);
+                }else{
+                    this.setState({submitted: <Text style={forms.creatorText}>Book Deleted</Text>});
+                }
+        } catch (error) {
+            this.setState({submitted: <Text>{error}</Text>});
         }
     };
 

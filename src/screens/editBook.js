@@ -94,26 +94,58 @@ class EditBook extends Component {
     };
 
     /**
+     * Deletes a book from the database
+     */
+    deleteBook = async (values) => {
+        try {
+            this.setState({submitted: <Modal
+                    animationType="fade"
+                    transparent={true}
+                    visible={this.props.visible}
+                    presentationStyle={"overFullScreen"}
+                >
+                    <View style={forms.modalOverlay}>
+                        <ActivityIndicator size="large" color="#bb904f"/>
+                    </View>
+                </Modal>})
+            let response = await fetch(
+                'https://deco3801-universally-challenged.uqcloud.net/deleteBook?bookId=' +
+                values.bookId);
+            if (!response.ok) {
+                alert("HTTP-Error: " + response.status);
+            }
+            this.setState({submitted: <Text/>});
+        } catch (error) {
+            this.setState({submitted: <Text>{error}</Text>});
+        }
+    };
+
+    /**
      * Creates the picker for page numbers of the sent book
      * @param values contains the selected bookId
      */
     displayPage = async (values) => {
         if(values.bookId !== -1) {
-            if (values.check) {
-                await this.addPage(values);
+            if (values.deleteBook) {
+                await this.deleteBook(values);
+                await this.displayBook({classId: this.state.classId});
+            } else {
+                if (values.check) {
+                    await this.addPage(values);
+                }
+                let pages = await this.getPages(values);
+                let pageSelection = pages.map(i => (
+                    <Picker.Item label={i.pagenum.toString()} value={i.pagenum.toString()}/>
+                ));
+                this.setState({bookId: values.bookId});
+                let name = await this.getBookName({bookId: values.bookId});
+                this.setState({showPageFormStage2: false});
+                this.setState({bookName: name});
+                this.setState({stageTwoValue: true});
+                this.setState({pageSelectorOptions: pageSelection});
+                this.setState({showPageFormStage3: true});
             }
-            let pages = await this.getPages(values);
-            let pageSelection = pages.map(i => (
-                <Picker.Item label={i.pagenum.toString()} value={i.pagenum.toString()}/>
-            ));
-            this.setState({bookId: values.bookId});
-            this.setState({showPageFormStage2: false});
-            let name = await this.getBookName({bookId: values.bookId});
-            this.setState({bookName: name});
-            this.setState({stageTwoValue: true});
-            this.setState({pageSelectorOptions: pageSelection});
-            this.setState({showPageFormStage3: true});
-        }else{
+        } else {
             alert("Select a Book");
         }
     };
@@ -364,7 +396,7 @@ class EditBook extends Component {
                             <Picker
                                 selectedValue={props.values.classId}
                                 onValueChange={props.handleChange('classId')}>
-                                <Picker.Item label={"Class Number"} value={"-1"}/>
+                                <Picker.Item label={"Select a Class Number..."} value={"-1"}/>
                                 {this.classIds}
                             </Picker>
                         </View>
@@ -387,7 +419,7 @@ class EditBook extends Component {
     showPageFormStageTwo = () => {
         return (
             <Formik
-                initialValues={{ check: false, bookId: -1}}
+                initialValues={{ check: false, bookId: -1, deleteBook: false}}
                 onSubmit={
                     values => this.displayPage(values)
                 }
@@ -398,7 +430,7 @@ class EditBook extends Component {
                             <Picker
                                 selectedValue={props.values.bookId}
                                 onValueChange={props.handleChange('bookId')}>
-                                <Picker.Item label={"Select a Book"} value={"-1"}/>
+                                <Picker.Item label={"Select a Book..."} value={"-1"}/>
                                 {this.state.bookSelectorOptions}
                             </Picker>
                         </View>
@@ -411,12 +443,20 @@ class EditBook extends Component {
                             checked={props.values.check}
                             onPress={() => props.setFieldValue('check', !props.values.check)}
                         />
-                        <TouchableOpacity
-                            style={forms.buttonPrimary}
-                            onPress={props.handleSubmit}
-                        >
-                            <Text style={login.buttonText}>Submit</Text>
-                        </TouchableOpacity>
+                        <View style={{flexDirection: 'row', justifyContent : 'center', alignItems:'center'}}>
+                            <TouchableOpacity
+                                style={forms.buttonPrimary}
+                                onPress={() => {props.setFieldValue('deleteBook', false); props.handleSubmit();}}
+                            >
+                                <Text style={login.buttonText}>Edit Book</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                                style={forms.buttonPrimary}
+                                onPress={() => {props.setFieldValue('deleteBook', true); props.handleSubmit();}}
+                            >
+                                <Text style={login.buttonText}>Delete Book</Text>
+                            </TouchableOpacity>
+                        </View>
                     </View>
                 )}
             </Formik>
@@ -441,7 +481,7 @@ class EditBook extends Component {
                             <Picker
                                 selectedValue={props.values.pagenum}
                                 onValueChange={props.handleChange('pagenum')}>
-                                <Picker.Item label={"Select a Page Number"} value={"-1"}/>
+                                <Picker.Item label={"Select a Page Number..."} value={"-1"}/>
                                 {this.state.pageSelectorOptions}
                             </Picker>
                         </View>
@@ -449,7 +489,7 @@ class EditBook extends Component {
                             style={forms.buttonPrimary}
                             onPress={props.handleSubmit}
                         >
-                            <Text style={login.buttonText}>Submit</Text>
+                            <Text style={login.buttonText}>Assign Roles</Text>
                         </TouchableOpacity>
                     </View>
                 )}
@@ -503,10 +543,45 @@ class EditBook extends Component {
                     alignItems: 'center'}}>
                     <Text style={login.buttonText}>{values.role} </Text>
                     <Text style={forms.creatorText}>{values.name}</Text>
+                    <TouchableOpacity
+                        style={forms.buttonPrimary}
+                        onPress={() => {this.deleteRole({sID: values.sID})}}
+                    >
+                        <Text style={login.buttonText}>Un-Assign</Text>
+                    </TouchableOpacity>
                 </View>
             );
         }
     }
+
+    /**
+     * Deletes a student role from a page
+     */
+    deleteRole = async (values) => {
+        try {
+            this.setState({submitted: <Modal
+                    animationType="fade"
+                    transparent={true}
+                    visible={this.props.visible}
+                    presentationStyle={"overFullScreen"}
+                >
+                    <View style={forms.modalOverlay}>
+                        <ActivityIndicator size="large" color="#bb904f"/>
+                    </View>
+                </Modal>})
+            let response = await fetch(
+                'https://deco3801-universally-challenged.uqcloud.net/deleteCreator?studentId='+ values.sID +
+                '&bookId=' + this.state.bookId + '&pageId=' + this.state.pagenum);
+            if (!response.ok) {
+                alert("HTTP-Error: " + response.status);
+            } else{
+                await this.displayRoles({pagenum: this.state.pagenum});
+            }
+            this.setState({submitted: <Text/>});
+        } catch (error) {
+            this.setState({submitted: <Text>{error}</Text>});
+        }
+    };
 
     /**
      * Shows the submitted form value from stage One and allows editing
@@ -515,7 +590,7 @@ class EditBook extends Component {
     showStageOneValue = () => {
         return (
             <View style={{alignItems: 'center', flexDirection: 'row', justifyContent: 'center'}}>
-                <Text style={buttons.buttonText}>ClassID: {this.state.classId}</Text>
+                <Text style={buttons.buttonText}>Class Number: {this.state.classId}</Text>
                 <TouchableOpacity
                     style={forms.buttonSecondary}
                     onPress={() => {
@@ -542,13 +617,16 @@ class EditBook extends Component {
     showStageTwoValue = (values) => {
         return (
             <View style={{alignItems: 'center', flexDirection: 'row', justifyContent: 'center'}}>
-                <Text style={buttons.buttonText}>{values.name}</Text>
-
+                <Text style={buttons.buttonText}>Book Title: {values.name}</Text>
                 <TouchableOpacity
                     style={forms.buttonSecondary}
                     onPress={() => {
                         this.setState({showPageFormStage2: true});
                         this.setState({stageTwoValue: false});
+                        this.setState({showPageFormStage3: false});
+                        this.setState({illustratorForm: false});
+                        this.setState({drawerForm: false});
+                        this.setState({authorForm: false});
                     }}
                 >
                     <Text style={buttons.buttonTextWhite}>Edit</Text>
