@@ -19,7 +19,7 @@ export default class Draw extends Component {
         setTimeout(() => this.getRole(), 500);
         console.log("bookId: " + this.book + " pageId: " + this.page + " role: " + this.state.role + " user: " + global.id);
     }
-    
+
     state = {
         pColorShow: false,
         sColorShow: false,
