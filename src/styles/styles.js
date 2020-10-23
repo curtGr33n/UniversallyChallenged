@@ -392,7 +392,7 @@ const canvas= StyleSheet.create({
         flex: 1,
         flexDirection: 'row',
         justifyContent: 'center',
-        alignItems: 'center',
+        // alignItems: 'center',
         backgroundColor: 'white',
     },
     strokeColorButton: {
@@ -425,22 +425,22 @@ const canvas= StyleSheet.create({
     button: {
         width: 65,
         height: 65,
-        backgroundColor: "white"
+        backgroundColor: "white",
+        borderRadius: 20
     },
     colorPalette: {
         position: "absolute",
-        left: 100,
-        top: 50,
+        width: 400,
+        height: 400,
         flexDirection: "column",
         justifyContent: "space-around",
-        alignItems: "center"
+        alignItems: "center",
+        backgroundColor: "#f8ebc4"
     },
     sideBar: {
-        position: "absolute",
-        left: 0,
         height: 400,
         width:  100,
-        borderRadius: 5,
+        borderRadius: 10,
         backgroundColor: '#f8ebc4',
         flexDirection: 'column',
         justifyContent: "space-around",

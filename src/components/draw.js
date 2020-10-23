@@ -22,10 +22,8 @@ export default class Draw extends Component {
 
 
     state = {
-        pColorShow: false,
-        sColorShow: false,
         colorShow: false,
-        color: "red",
+        color: "black",
         brushSizeShow: false,
         brushSize: 10,
         image: null,
@@ -45,7 +43,7 @@ export default class Draw extends Component {
             if (response.ok) {
                 console.log("successful response");
                 let role = await response.text();
-                console.log(role)
+                console.log("received role: " + role);
                 this.setState({
                     role: role
                 });
@@ -90,46 +88,17 @@ export default class Draw extends Component {
         }
     };
 
-    toggleColorPalette() {
+    toggleColorPalette(color) {
+        if (color !== null) {
+            console.log("Changing pen color to " + color);
+            this.setState({color: color})
+        }
         console.log("toggleColorPalette");
         this.setState({
             colorShow: !this.state.colorShow,
             touch: !this.state.touch
-        })
-    }
-
-    /*
-    Changes colors of the brush and shows the primary/secondary palette based on what screen is show
-     */
-    chooseColor (color) {
-        this.setState({
-            colorShow: !this.state.colorShow,
-            touch: !this.state.touch
-
-        })
-        // if (!this.state.pColorShow && !this.state.sColorShow) {
-        //     // if no color palettes are showing, show primary palette
-        //     console.log("Showing primary")
-        //     this.setState({
-        //         pColorShow: true
-        //     });
-        // } else if (this.state.pColorShow && !this.state.sColorShow) {
-        //     // if primary palette is already showing, hide primary and show secondary palette
-        //     console.log("Showing secondary")
-        //
-        //     this.setState({
-        //         pColorShow: false,
-        //         sColorShow: true,
-        //         color: color
-        //     })
-        // } else if (!this.state.pColorShow && this.state.sColorShow) {
-        //     // if color chosen is from secondary palette change color of brush
-        //     console.log("Selecting color")
-        //     this.setState({
-        //         color: color,
-        //         sColorShow: false
-        //     })
-        // }
+        });
+        console.log("colorShow: " + this.state.colorShow + " touch: " + this.state.touch);
     }
 
     /*
@@ -158,21 +127,22 @@ export default class Draw extends Component {
         const black = ["black"];
 
         const redComponents= red.map(color =>
-                <TouchableOpacity style={[canvas.button, {backgroundColor:color}]}
-                                    onPress={() => this.setState({color: color})} />)
+                <TouchableOpacity style={[canvas.button, {backgroundColor:color, paddingHorizontal: 10}]}
+                                    onPress={() => this.toggleColorPalette(color)} />)
         const blueComponents= blue.map(color =>
-            <TouchableOpacity style={[canvas.button, {backgroundColor:color}]}
-                              onPress={() => this.setState({color: color})} />)
+            <TouchableOpacity style={[canvas.button, {backgroundColor:color, paddingHorizontal: 10}]}
+                              onPress={() => this.toggleColorPalette(color)} />)
         const greenComponents= green.map(color =>
-            <TouchableOpacity style={[canvas.button, {backgroundColor:color}]}
-                              onPress={() => this.setState({color: color})} />)
+            <TouchableOpacity style={[canvas.button, {backgroundColor:color, paddingHorizontal: 10}]}
+                              onPress={() => this.toggleColorPalette(color)} />)
         const brownComponents= brown.map(color =>
-            <TouchableOpacity style={[canvas.button, {backgroundColor:color}]}
-                              onPress={() => this.setState({color: color})} />)
+            <TouchableOpacity style={[canvas.button, {backgroundColor:color, paddingHorizontal: 10}]}
+                              onPress={() => this.toggleColorPalette(color)} />)
         const blackComponents= black.map(color =>
-            <TouchableOpacity style={[canvas.button, {backgroundColor:color}]}
-                              onPress={() => this.setState({color: color})} />)
+            <TouchableOpacity style={[canvas.button, {backgroundColor:color, paddingHorizontal: 10}]}
+                              onPress={() => this.toggleColorPalette(color)} />)
         return (
+            // <View style={{flex: 1, backgroundColor: "black", position: "absolute", width: 1000, height: 1000, bottom: 1}}/>
             <View style={canvas.colorPalette}>
                 <View style={{flexDirection: "row"}}>
                     <>{redComponents}</>
@@ -191,79 +161,6 @@ export default class Draw extends Component {
                 </View>
             </View>
         );
-    }
-
-    /*
-    The primary color palette
-     */
-    primaryColors () {
-        const colors = ["red", "blue", "green", "brown", "black"];
-        const colorComponents = colors.map(color =>
-            <TouchableOpacity style={[canvas.button, {backgroundColor: color}]}
-                              onPress={() => this.chooseColor(color)}/>)
-        return(
-            <View style={canvas.sideBar}>
-                <>{colorComponents}</>
-            </View>
-        )
-    }
-
-    /*
-    The secondary color palette is shown based on the given primary color
-     */
-    secondaryColors (color) {
-        const red = ["red", "sandybrown", "crimson", "gold"];
-        const blue = ["steelblue", "blue", "paleturquoise"];
-        const green = ["olivedrab", "lightgreen", "green"];
-        const brown = ["tan", "saddlebrown", "bisque", "brown"];
-        const black = ["black"];
-
-        if (color === "red") {
-            const colorComponents = red.map(color =>
-                <TouchableOpacity style={[canvas.button, {backgroundColor: color}]}
-                                  onPress={() => this.chooseColor(color)}/>)
-            return (
-                <View style={canvas.sideBar}>
-                    <>{colorComponents}</>
-                </View>
-            )
-        } else if (color === "blue") {
-            const colorComponents = blue.map(color =>
-                <TouchableOpacity style={[canvas.button, {backgroundColor: color}]}
-                                  onPress={() => this.chooseColor(color)}/>)
-            return (
-                <View style={canvas.sideBar}>
-                    <>{colorComponents}</>
-                </View>
-            )
-        } else if (color === "green") {
-            const colorComponents = green.map(color =>
-                <TouchableOpacity style={[canvas.button, {backgroundColor: color}]}
-                                  onPress={() => this.chooseColor(color)}/>)
-            return (
-                <View style={canvas.sideBar}>
-                    <>{colorComponents}</>
-                </View>
-            )
-        } else if (color === "brown") {
-            const colorComponents = brown.map(color =>
-                <TouchableOpacity style={[canvas.button, {backgroundColor: color}]}
-                                  onPress={() => this.chooseColor(color)}/>)
-            return (
-                <View style={canvas.sideBar}>
-                    <>{colorComponents}</>
-                </View>
-            )
-        } else if (color === "black") {
-            const colorComponents = black.map(color =>
-                <TouchableOpacity style={[canvas.button, {backgroundColor: color}]}
-                                  onPress={() => this.chooseColor(color)}/>)
-            return (
-                <View style={canvas.sideBar}>
-                    <>{colorComponents}</>
-                </View>
-            )
-        }
     }
 
     /*
@@ -371,10 +268,11 @@ export default class Draw extends Component {
                     </ViewShot>
                 </View>
             )
-        } else if (this.role === "background" || this.role === "illustrator") {
+        } else {
+            console.log("got role background or illustrator");
             return (
                 <View style={canvas.container}>
-                    <View style={canvas.sideBarOverlay}>
+                    <View style={canvas.sideBar}>
                         <TouchableOpacity
                             style={canvas.button}
                             onPress={() => this.toggleColorPalette()}>
@@ -427,26 +325,26 @@ export default class Draw extends Component {
                             />
                         </TouchableOpacity>
                     </View>
-                    {this.state.colorShow ? (this.colorPalette()) : null}
-                    {this.state.pColorShow ? (this.primaryColors()) : null}
-                    {this.state.sColorShow ? (this.secondaryColors(this.state.color)) : null}
-                    {this.state.brushSizeShow ? (this.brushAdjuster()) : null}
                     <View style={{flex: 1, flexDirection: 'column'}}>
-                        <SketchCanvas
-                            ref={this.myRef}
-                            touchEnabled={this.state.touch}
-                            style={{flex: 1, backgroundColor: 'white'}}
-                            strokeColor={this.state.color}
-                            strokeWidth={this.state.brushSize}
-                        />
+                        {this.state.colorShow ? (this.colorPalette()) : null}
+                        {this.state.brushSizeShow ? (this.brushAdjuster()) : null}
+                        {/*<SketchCanvas*/}
+                        {/*    ref={this.myRef}*/}
+                        {/*    touchEnabled={this.state.touch}*/}
+                        {/*    style={{flex: 1, backgroundColor: 'white'}}*/}
+                        {/*    strokeColor={this.state.color}*/}
+                        {/*    strokeWidth={this.state.brushSize}*/}
+                        {/*/>*/}
                     </View>
                 </View>
             );
-        } else {
-            return (
-                <View style={{flex: 1, backgroundColor: "white"}}/>
-            )
         }
+        // else {
+        //     console.log("no role found");
+        //     return (
+        //         <View style={{flex: 1, backgroundColor: "white"}}/>
+        //     )
+        // }
     }
 
     toggleTextBox() {
