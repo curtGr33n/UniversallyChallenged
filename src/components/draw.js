@@ -10,7 +10,6 @@ import ViewShot, {captureRef} from "react-native-view-shot";
 
 export default class Draw extends Component {
     constructor(props) {
-        global.id = 4;
         super(props);
         this.myRef = createRef();
         this.brushMaxVal = 90;
@@ -32,6 +31,9 @@ export default class Draw extends Component {
         touch: true
     };
 
+    /**
+     * Gets the role of the user. Role can be either illustrator/background/writer
+     */
     getRole = async () => {
         console.log("get the role of the user");
         try {
@@ -42,7 +44,7 @@ export default class Draw extends Component {
             if (response.ok) {
                 console.log("successful response");
                 let role = await response.text();
-                console.log("received role: " + role);
+                console.log(role)
                 this.setState({
                     role: role
                 });
@@ -55,6 +57,9 @@ export default class Draw extends Component {
         }
     }
 
+    /**
+     * Saves the base64 canvas image to the server with the current bookId, pageId and userId
+     */
     saveCanvas = async () => {
         if (this.state.image != null) {
             console.log("saving image")
@@ -87,20 +92,40 @@ export default class Draw extends Component {
         }
     };
 
-    toggleColorPalette(color) {
-        if (color !== null) {
-            console.log("Changing pen color to " + color);
-            this.setState({color: color})
+    /**
+    Changes colors of the brush and shows the colour palette
+     */
+    chooseColor (color) {
+        if (color != null) {
+            this.setState({
+                colorShow: false,
+                color: color,
+                touch: true
+            })
+        } else {
+            this.setState({
+                colorShow: true,
+                touch: false
+            })
         }
-        console.log("toggleColorPalette");
-        this.setState({
-            colorShow: !this.state.colorShow,
-            touch: !this.state.touch
-        });
-        console.log("colorShow: " + this.state.colorShow + " touch: " + this.state.touch);
     }
 
-    /*
+    /**
+     The primary color palette
+     */
+    primaryColors () {
+        const colors = ["red", "blue", "green", "brown", "black"];
+        const colorComponents = colors.map(color =>
+            <TouchableOpacity style={[canvas.button, {backgroundColor: color}]}
+                              onPress={() => this.chooseColor(color)}/>)
+        return(
+            <View style={canvas.sideBarOverlay}>
+                <>{colorComponents}</>
+            </View>
+        )
+    }
+
+    /**
     Toggles the brush window (eg, show or don't show)
      */
     toggleBrushWindow () {
@@ -109,7 +134,7 @@ export default class Draw extends Component {
         });
     }
 
-    /*
+    /**
     Changes brush size based off the given value
      */
     changeBrushSize (value) {
@@ -118,52 +143,7 @@ export default class Draw extends Component {
         });
     }
 
-    colorPalette () {
-        const red = ["red", "sandybrown", "crimson", "gold"];
-        const blue = ["blue", "steelblue", "paleturquoise"];
-        const green = ["green", "olivedrab", "lightgreen"];
-        const brown = ["brown", "tan", "saddlebrown", "bisque"];
-        const black = ["black"];
-
-        const redComponents= red.map(color =>
-            <TouchableOpacity style={[canvas.button, {backgroundColor:color, marginHorizontal: 10, justifyContent: "flex-start"}]}
-                                    onPress={() => this.toggleColorPalette(color)} />)
-        const blueComponents= blue.map(color =>
-            <TouchableOpacity style={[canvas.button, {backgroundColor:color, marginHorizontal: 10, justifyContent: "flex-start"}]}
-                              onPress={() => this.toggleColorPalette(color)} />)
-        const greenComponents= green.map(color =>
-            <TouchableOpacity style={[canvas.button, {backgroundColor:color, marginHorizontal: 10, justifyContent: "flex-start"}]}
-                              onPress={() => this.toggleColorPalette(color)} />)
-        const brownComponents= brown.map(color =>
-            <TouchableOpacity style={[canvas.button, {backgroundColor:color, marginHorizontal: 10, justifyContent: "flex-start"}]}
-                              onPress={() => this.toggleColorPalette(color)} />)
-        const blackComponents= black.map(color =>
-            <TouchableOpacity style={[canvas.button, {backgroundColor:color, marginHorizontal: 10, justifyContent: "flex-start"}]}
-                              onPress={() => this.toggleColorPalette(color)} />)
-        return (
-            // <View style={{flex: 1, backgroundColor: "black", position: "absolute",
-            //     width: 1000, height: 1000, top: 50}}/>
-            <View style={canvas.colorPalette}>
-                <View style={{flexDirection: "row"}}>
-                    <>{redComponents}</>
-                </View>
-                <View style={{flexDirection: "row"}}>
-                    <>{blueComponents}</>
-                </View>
-                <View style={{flexDirection: "row"}}>
-                    <>{greenComponents}</>
-                </View>
-                <View style={{flexDirection: "row"}}>
-                    <>{brownComponents}</>
-                </View>
-                <View style={{flexDirection: "row"}}>
-                    <>{blackComponents}</>
-                </View>
-            </View>
-        );
-    }
-
-    /*
+    /**
     View that shows the brush adjuster
      */
     brushAdjuster () {
@@ -204,12 +184,21 @@ export default class Draw extends Component {
         );
     }
 
+    /**
+     * Toggles whether to show/noShow the text box
+     */
+    toggleTextBox() {
+        this.setState({textBoxShow: !this.state.textBoxShow})
+    }
+
+    /**
+     * Gets the canvas layout based on the users role on the page
+     */
     getCanvas() {
         if (this.state.role === "writer") {
             return (
                 <View style={canvas.container}>
-                    <View style={{backgroundColor: '#fbf3dc', width: 100, height: 400,
-                        flexDirection: 'column', justifyContent: "space-around", alignItems: "center"}}>
+                    <View style={canvas.textSideBar}>
                         <TouchableOpacity
                             style={canvas.button}
                             onPress={() => this.toggleTextBox()}>
@@ -226,8 +215,7 @@ export default class Draw extends Component {
                             }).then(uri => this.setState({image: uri})).then(
                                 () => setTimeout(() => this.saveCanvas(), 100)
                             )}
-
-                            >
+                        >
                             <Image
                                 source={require("../assets/save.jpeg")}
                                 resizeMode="center"
@@ -238,6 +226,20 @@ export default class Draw extends Component {
                     <ViewShot
                         ref={this.myRef}
                         style={{flex: 1, flexDirection: "column"}}>
+                        {this.state.textBoxShow ? (
+                            <View style={{flexDirection: "row", height: 80, width: 200, position: "absolute", top: 50,
+                                left: 50}}>
+                                <TextInput
+                                    style={{height: 40}}
+                                    placeholder={"Type your story here"}
+                                    onChangeText={(story) => this.setState({text: story})}
+                                    defaultValue={""}
+                                    editable={true}
+                                    onSubmitEditing={() => this.toggleTextBox()}
+                                    autoFocus={true}
+                                />
+                            </View>
+                        ) : null}
                         <SketchCanvas
                             touchEnabled={false}
                             style={{flex: 1, backgroundColor: 'white'}}
@@ -251,32 +253,16 @@ export default class Draw extends Component {
                                 imageType: 'jpg'
                             }]}
                         />
-                        {this.state.textBoxShow ? (
-                            <View style={{flexDirection: "row", height: 80, width: 200, position: "absolute", top: 50,
-                            left: 20}}>
-                                <TextInput
-                                    style={{height: 40}}
-                                    placeholder={"Type your story here"}
-                                    onChangeText={(story) => this.setState({text: story})}
-                                    defaultValue={""}
-                                    editable={true}
-                                    onSubmitEditing={() => this.toggleTextBox()}
-                                    autoFocus={true}
-                                />
-                            </View>
-                        ) : null}
                     </ViewShot>
                 </View>
             )
-        } else {
-            console.log("got role background or illustrator");
+        } else if (this.state.role === "illustrator" || this.state.role === "background") {
             return (
                 <View style={canvas.container}>
-                    {this.state.colorShow ? (this.colorPalette()) : null}
                     <View style={canvas.sideBar}>
                         <TouchableOpacity
                             style={canvas.button}
-                            onPress={() => this.toggleColorPalette()}>
+                            onPress={() => this.chooseColor()}>
                             <Image
                                 source={require("../assets/pencil.png")}
                                 resizeMode="center"
@@ -314,6 +300,7 @@ export default class Draw extends Component {
                             style={canvas.button}
                             onPress={() => {
                                 this.myRef.current.getBase64('jpg', false, false, false, false, (err, result) => {
+                                    // console.log(result);
                                     this.setState({image: result});
                                 })
                                 setTimeout(() => this.saveCanvas(), 100);
@@ -325,33 +312,30 @@ export default class Draw extends Component {
                             />
                         </TouchableOpacity>
                     </View>
+                    {this.state.colorShow ? (this.primaryColors()) : null}
+                    {this.state.brushSizeShow ? (this.brushAdjuster()) : null}
                     <View style={{flex: 1, flexDirection: 'column'}}>
-                        {this.state.brushSizeShow ? (this.brushAdjuster()) : null}
                         <SketchCanvas
                             ref={this.myRef}
-                            touchEnabled={this.state.touch}
                             style={{flex: 1, backgroundColor: 'white'}}
                             strokeColor={this.state.color}
                             strokeWidth={this.state.brushSize}
+                            touchEnabled={this.state.touch}
                         />
                     </View>
                 </View>
             );
+        } else {
+            return (
+                <View style={{flex: 1, backgroundColor: "white"}}/>
+            )
         }
-    }
-
-    toggleTextBox() {
-        this.setState({textBoxShow: !this.state.textBoxShow})
     }
 
     render() {
         return (
             this.getCanvas()
-            // <View style={{flex: 1}}>
-            //     {(this.state.role == null) ? (<View style={{flex: 1, backgroundColor: "white"}}/>):
-            //         this.getCanvas()}
-            // </View>
-        )
+        );
     }
 }
 

@@ -81,7 +81,7 @@ const page = StyleSheet.create({
         marginTop: 50,
     },
     offsetData: {
-       marginBottom: '20%'
+        marginBottom: '20%'
     },
     dropDown: {
         width: '20%',
@@ -375,12 +375,25 @@ const canvas= StyleSheet.create({
         left: 7,
         top: 7
     },
+    roleWindow: {
+        position: "absolute",
+        width: 300,
+        height: 300,
+        left: 200,
+        top: 300,
+        flexDirection: "row",
+        backgroundColor: "black"
+    },
+    roleOption: {
+        height: 40,
+        width: 100
+    },
     container: {
         flex: 1,
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'black',
+        backgroundColor: 'white',
     },
     strokeColorButton: {
         marginHorizontal: 2.5,
@@ -415,18 +428,9 @@ const canvas= StyleSheet.create({
         backgroundColor: "white",
         borderRadius: 20
     },
-    colorPalette: {
+    sideBarOverlay: {
         position: "absolute",
-        width: 340,
-        height: 400,
-        top: 100,
-        left: 200,
-        flexDirection: "column",
-        justifyContent: "space-around",
-        alignItems: "center",
-        backgroundColor: "#f8ebc4"
-    },
-    sideBar: {
+        left: 0,
         height: 400,
         width:  100,
         borderRadius: 10,
@@ -435,16 +439,27 @@ const canvas= StyleSheet.create({
         justifyContent: "space-around",
         alignItems: "center"
     },
-    sideBarOverlay: {
+    sideBar: {
         height: 400,
         width:  100,
         borderRadius: 5,
-        position: "absolute",
-        top: 50,
         backgroundColor: '#f8ebc4',
         flexDirection: 'column',
         justifyContent: "space-around",
-        alignItems: "center"
+        alignItems: "center",
+        borderTopRightRadius: 10,
+        borderBottomRightRadius: 10
+    },
+    textSideBar: {
+        height: 200,
+        width:  100,
+        borderRadius: 5,
+        backgroundColor: '#f8ebc4',
+        flexDirection: 'column',
+        justifyContent: "space-around",
+        alignItems: "center",
+        borderTopRightRadius: 10,
+        borderBottomRightRadius: 10
     },
     layout: {
         backgroundColor: "white",
