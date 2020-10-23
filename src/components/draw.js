@@ -10,7 +10,7 @@ import ViewShot, {captureRef} from "react-native-view-shot";
 
 export default class Draw extends Component {
     constructor(props) {
-        global.id = 4;
+        global.id = 5;
         super(props);
         this.myRef = createRef();
         this.brushMaxVal = 90;
@@ -263,7 +263,8 @@ export default class Draw extends Component {
         if (this.state.role === "writer") {
             return (
                 <View style={canvas.container}>
-                    <View style={canvas.sideBar}>
+                    <View style={{backgroundColor: '#fbf3dc', width: 100, height: 400,
+                        flexDirection: 'column', justifyContent: "space-around", alignItems: "center"}}>
                         <TouchableOpacity
                             style={canvas.button}
                             onPress={() => this.toggleTextBox()}>
