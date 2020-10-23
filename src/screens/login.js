@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, ScrollView, KeyboardAvoidingView, TextInput } from 'react-native';
 import { Formik } from 'formik';
-
 import {login} from '../styles/styles.js'
 import {TouchableOpacity, Image}  from "react-native";
 
@@ -85,6 +84,7 @@ class Login extends Component {
                                 <Text style={login.buttonText}>Password:</Text>
                                 <TextInput
                                     style={login.input}
+                                    secureTextEntry={true}
                                     onChangeText={handleChange('password')}
                                     onBlur={handleBlur('password')}
                                     value={values.password}
