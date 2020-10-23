@@ -20,7 +20,6 @@ export default class Draw extends Component {
         console.log("bookId: " + this.book + " pageId: " + this.page + " role: " + this.state.role + " user: " + global.id);
     }
 
-
     state = {
         colorShow: false,
         color: "black",
@@ -121,28 +120,29 @@ export default class Draw extends Component {
 
     colorPalette () {
         const red = ["red", "sandybrown", "crimson", "gold"];
-        const blue = ["steelblue", "blue", "paleturquoise"];
-        const green = ["olivedrab", "lightgreen", "green"];
-        const brown = ["tan", "saddlebrown", "bisque", "brown"];
+        const blue = ["blue", "steelblue", "paleturquoise"];
+        const green = ["green", "olivedrab", "lightgreen"];
+        const brown = ["brown", "tan", "saddlebrown", "bisque"];
         const black = ["black"];
 
         const redComponents= red.map(color =>
-                <TouchableOpacity style={[canvas.button, {backgroundColor:color, paddingHorizontal: 10}]}
+            <TouchableOpacity style={[canvas.button, {backgroundColor:color, marginHorizontal: 10, justifyContent: "flex-start"}]}
                                     onPress={() => this.toggleColorPalette(color)} />)
         const blueComponents= blue.map(color =>
-            <TouchableOpacity style={[canvas.button, {backgroundColor:color, paddingHorizontal: 10}]}
+            <TouchableOpacity style={[canvas.button, {backgroundColor:color, marginHorizontal: 10, justifyContent: "flex-start"}]}
                               onPress={() => this.toggleColorPalette(color)} />)
         const greenComponents= green.map(color =>
-            <TouchableOpacity style={[canvas.button, {backgroundColor:color, paddingHorizontal: 10}]}
+            <TouchableOpacity style={[canvas.button, {backgroundColor:color, marginHorizontal: 10, justifyContent: "flex-start"}]}
                               onPress={() => this.toggleColorPalette(color)} />)
         const brownComponents= brown.map(color =>
-            <TouchableOpacity style={[canvas.button, {backgroundColor:color, paddingHorizontal: 10}]}
+            <TouchableOpacity style={[canvas.button, {backgroundColor:color, marginHorizontal: 10, justifyContent: "flex-start"}]}
                               onPress={() => this.toggleColorPalette(color)} />)
         const blackComponents= black.map(color =>
-            <TouchableOpacity style={[canvas.button, {backgroundColor:color, paddingHorizontal: 10}]}
+            <TouchableOpacity style={[canvas.button, {backgroundColor:color, marginHorizontal: 10, justifyContent: "flex-start"}]}
                               onPress={() => this.toggleColorPalette(color)} />)
         return (
-            // <View style={{flex: 1, backgroundColor: "black", position: "absolute", width: 1000, height: 1000, bottom: 1}}/>
+            // <View style={{flex: 1, backgroundColor: "black", position: "absolute",
+            //     width: 1000, height: 1000, top: 50}}/>
             <View style={canvas.colorPalette}>
                 <View style={{flexDirection: "row"}}>
                     <>{redComponents}</>
@@ -168,7 +168,7 @@ export default class Draw extends Component {
      */
     brushAdjuster () {
         return (
-            <View style={canvas.sideBar}>
+            <View style={canvas.sideBarOverlay}>
                 <View style={{
                     borderRadius: this.brushMaxVal/2,
                     width: this.brushMaxVal,
@@ -253,7 +253,7 @@ export default class Draw extends Component {
                         />
                         {this.state.textBoxShow ? (
                             <View style={{flexDirection: "row", height: 80, width: 200, position: "absolute", top: 50,
-                                left: 50}}>
+                            left: 20}}>
                                 <TextInput
                                     style={{height: 40}}
                                     placeholder={"Type your story here"}
@@ -272,6 +272,7 @@ export default class Draw extends Component {
             console.log("got role background or illustrator");
             return (
                 <View style={canvas.container}>
+                    {this.state.colorShow ? (this.colorPalette()) : null}
                     <View style={canvas.sideBar}>
                         <TouchableOpacity
                             style={canvas.button}
@@ -313,7 +314,6 @@ export default class Draw extends Component {
                             style={canvas.button}
                             onPress={() => {
                                 this.myRef.current.getBase64('jpg', false, false, false, false, (err, result) => {
-                                    // console.log(result);
                                     this.setState({image: result});
                                 })
                                 setTimeout(() => this.saveCanvas(), 100);
@@ -326,25 +326,18 @@ export default class Draw extends Component {
                         </TouchableOpacity>
                     </View>
                     <View style={{flex: 1, flexDirection: 'column'}}>
-                        {this.state.colorShow ? (this.colorPalette()) : null}
                         {this.state.brushSizeShow ? (this.brushAdjuster()) : null}
-                        {/*<SketchCanvas*/}
-                        {/*    ref={this.myRef}*/}
-                        {/*    touchEnabled={this.state.touch}*/}
-                        {/*    style={{flex: 1, backgroundColor: 'white'}}*/}
-                        {/*    strokeColor={this.state.color}*/}
-                        {/*    strokeWidth={this.state.brushSize}*/}
-                        {/*/>*/}
+                        <SketchCanvas
+                            ref={this.myRef}
+                            touchEnabled={this.state.touch}
+                            style={{flex: 1, backgroundColor: 'white'}}
+                            strokeColor={this.state.color}
+                            strokeWidth={this.state.brushSize}
+                        />
                     </View>
                 </View>
             );
         }
-        // else {
-        //     console.log("no role found");
-        //     return (
-        //         <View style={{flex: 1, backgroundColor: "white"}}/>
-        //     )
-        // }
     }
 
     toggleTextBox() {
@@ -354,7 +347,11 @@ export default class Draw extends Component {
     render() {
         return (
             this.getCanvas()
-        );
+            // <View style={{flex: 1}}>
+            //     {(this.state.role == null) ? (<View style={{flex: 1, backgroundColor: "white"}}/>):
+            //         this.getCanvas()}
+            // </View>
+        )
     }
 }
 
