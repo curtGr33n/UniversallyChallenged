@@ -20,6 +20,32 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         padding: 10,
         height: 150,
+    },
+    logoText:{
+        width: 400,
+        height: 50,
+        position: "absolute",
+        top: 420
+    },
+    storyTitleText: {
+        textAlign: 'center',
+        padding: 20,
+        color: '#333333',
+        fontWeight: "600",
+        fontSize: 30,
+        fontFamily: 'typewriter'
+    },
+    title: {
+        backgroundColor: '#f8ebc4',
+        alignItems: 'center',
+        textTransform: 'uppercase',
+        textAlign: 'center',
+        fontSize: 40,
+        padding: 20,
+        width: '100%',
+        color:'black',
+        fontFamily: 'Typewriter2-Bold',
+        lineHeight: 30
     }
 })
 
