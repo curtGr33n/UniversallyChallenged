@@ -4,7 +4,7 @@ import {canvas} from "../styles/styles";
 import RNImageTools from "react-native-image-tools-wm";
 
 function MergeImages(bookId, pageId) {
-    const [images, setImages] = useState(["", "", ""])
+    const [images, setImages] = useState([])
     const [count, setCount] = useState(0);
 
     const getImages = async () => {
@@ -18,18 +18,17 @@ function MergeImages(bookId, pageId) {
                 let data = await response.json();
                 console.log(data.length);
 
-                // const roles = ["background, illustrator, writer"];
-                // while (count < 3) {
-                //     console.log("here");
-                //     for (let i = 0; i < data.length; i ++) {
-                //         if (data[i].role === roles[count]) {
-                //             console.log(data[i].role + " " + data[i].final);
-                //             images[count] = data[i].final;
-                //             setCount(count + 1);
-                //         }
-                //     }
-                // }
-                console.log(images);
+                const roles = ["background", "illustrator", "writer"];
+                let temp = ["", "", ""];
+                for (let i = 0; i < data.length; i++) {
+                    for (let r = 0; r < roles.length; r++) {
+                        if (data[i].role === roles[r]) {
+                            temp[r] = data[i].canvas;
+                        }
+                    }
+                }
+                console.log(temp);
+                setImages(temp);
             } else {
                 console.log("response not ok");
             }
