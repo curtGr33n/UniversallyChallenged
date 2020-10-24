@@ -47,17 +47,17 @@ class EditBook extends Component {
      */
     getClassBooks = async (values) => {
         this.setState({submitted:
+            /* Loading Modal */
                 <Modal
                     animationType="fade"
                     transparent={true}
                     visible={this.props.visible}
                     presentationStyle={"overFullScreen"}
-                    >
+                >
                     <View style={forms.modalOverlay}>
                         <ActivityIndicator size="large" color="#bb904f"/>
                     </View>
-                </Modal>
-               })
+                </Modal>})
         try {
             let response = await fetch(
                 'https://deco3801-universally-challenged.uqcloud.net/getClassBooks?classId=' +
@@ -99,16 +99,18 @@ class EditBook extends Component {
      */
     deleteBook = async (values) => {
         try {
-            this.setState({submitted: <Modal
-                    animationType="fade"
-                    transparent={true}
-                    visible={this.props.visible}
-                    presentationStyle={"overFullScreen"}
-                >
-                    <View style={forms.modalOverlay}>
-                        <ActivityIndicator size="large" color="#bb904f"/>
-                    </View>
-                </Modal>})
+            this.setState({submitted:
+                /* Loading Modal */
+                    <Modal
+                        animationType="fade"
+                        transparent={true}
+                        visible={this.props.visible}
+                        presentationStyle={"overFullScreen"}
+                    >
+                        <View style={forms.modalOverlay}>
+                            <ActivityIndicator size="large" color="#bb904f"/>
+                        </View>
+                    </Modal>})
             let response = await fetch(
                 'https://deco3801-universally-challenged.uqcloud.net/deleteBook?bookId=' +
                 values.bookId);

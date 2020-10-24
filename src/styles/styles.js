@@ -188,9 +188,9 @@ const login = StyleSheet.create({
     buttonText: {
         textAlign: 'center',
         color: 'black',
-        fontSize: 30,
+        fontSize: 25,
         fontFamily: 'typewriter-Bold',
-        lineHeight: 30,
+        lineHeight: 30
     },
     emailText: {
         textAlign: 'center',
