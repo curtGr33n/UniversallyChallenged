@@ -1,6 +1,6 @@
 import {buttons, styles, page, login, forms} from '../styles/styles'
 import React, {Component} from "react";
-import {View, Text, TouchableOpacity, Image, Picker} from 'react-native';
+import {View, Text, TouchableOpacity, Image, Picker, ScrollView, KeyboardAvoidingView} from 'react-native';
 
 class Settings extends Component {
     state={
@@ -40,34 +40,54 @@ class Settings extends Component {
     }
     render() {
         return (
-            <View style={styles.container}>
+            <View style={page.basicLayout}>
+
                 {/* Page Title */}
-                <Text style={page.title}>Settings</Text>
-                <Text style={login.buttonText}>Logged in User</Text>
-                <Text style={forms.creatorText}>Name: {global.name}</Text>
-                <Text style={forms.creatorText}>Role: {global.type}</Text>
-                <Text style={forms.creatorText}>School: {global.school}</Text>
-                <Text style={forms.creatorText}>Class: {this.classIds}</Text>
-                <View style={{flexDirection: 'row', justifyContent : 'center'}}>
-                    <TouchableOpacity
-                        onPress={() => this.needToMute()}
-                        style={page.primary}
-                    >
-                        {this.state.muteState ?
-                            <View><Image source={require('../assets/images/soundOn.png')} style={page.image}/>
-                                <Text style={buttons.buttonText}>Mute</Text></View>
-                            :
-                            <View><Image source={require('../assets/images/soundOff.png')} style={page.image}/>
-                                <Text style={buttons.buttonText}>un-Mute</Text></View>}
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        onPress={() => {this.logout(); this.props.navigation.navigate('Login');}}
-                        style={page.primary}
-                    >
-                        <Image source={require('../assets/images/logout_grey.png')} style={page.image}/>
-                        <Text style={buttons.buttonText}>Log-out</Text>
-                    </TouchableOpacity>
-                </View>
+                <Text style={forms.title}>Settings</Text>
+
+                <ScrollView style={forms.container}>
+
+                    <View style={page.centerLayout}>
+
+                        <View style={page.rowLayout}>
+                            <Text style={forms.input}>Name: {global.name}</Text>
+                            <Text style={forms.input}>Role: {global.type}</Text>
+                        </View>
+
+                        <View style={page.rowLayout}>
+                            <Text style={forms.input}>School: {global.school}</Text>
+                            <Text style={forms.input}>Classes: {this.classIds}</Text>
+                        </View>
+
+                        <View style={page.rowLayout}>
+                            <TouchableOpacity
+                                onPress={() => this.needToMute()}
+                                style={page.primary}
+                            >
+                                {this.state.muteState ?
+                                    <View>
+                                        <Image source={require('../assets/images/soundOn.png')}
+                                               style={page.settingImage}/>
+                                        <Text style={buttons.buttonText}>Mute</Text>
+                                    </View>
+                                    :
+                                    <View>
+                                        <Image source={require('../assets/images/soundOff.png')}
+                                               style={page.settingImage}/>
+                                        <Text style={buttons.buttonText}>Unmute</Text>
+                                    </View>}
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                                onPress={() => {this.logout(); this.props.navigation.navigate('Login');}}
+                                style={page.primary}
+                            >
+                                <Image source={require('../assets/images/logout_grey.png')}
+                                       style={page.settingImage}/>
+                                <Text style={buttons.buttonText}>Logout</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                </ScrollView>
             </View>
         );
     }

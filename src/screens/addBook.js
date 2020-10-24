@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Picker, TextInput, View, Text, TouchableOpacity, ScrollView, ActivityIndicator, Modal} from 'react-native';
 import {Formik} from 'formik';
 import {buttons, forms, login} from '../styles/styles.js';
+import {page} from "../styles/styles";
 
 /**
  * Deals with adding a book
@@ -98,7 +99,7 @@ class AddBook extends Component {
      */
     showBookForm = () => {
         return (
-            <View style={{flex: 1, justifyContent : 'center'}}>
+            <View style={page.basicLayout}>
 
                 {/* Page Title */}
                 <Text style={forms.title}>Add Book</Text>

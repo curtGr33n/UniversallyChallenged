@@ -80,7 +80,7 @@ const page = StyleSheet.create({
         alignItems: 'center',
         flex: 1,
         height: 300,
-        margin: 50,
+        margin: 40,
         width: 300
     },
     image: {
@@ -141,12 +141,13 @@ const page = StyleSheet.create({
     },
     basicLayout: {
         flex: 1,
-        justifyContent : 'center'
+        justifyContent : 'center',
     },
     rowLayout: {
+        display: 'flex',
         alignItems: 'center',
         flexDirection: 'row',
-        justifyContent: 'center'
+        justifyContent: 'center',
     },
     libraryLayout: {
         flex: 0.1,
@@ -154,7 +155,13 @@ const page = StyleSheet.create({
         justifyContent: "space-around",
         padding: 10,
         margin: 10,
-    }
+    },
+    settingImage: {
+        width: '40%',
+        height: undefined,
+        aspectRatio: 1,
+        resizeMode: 'contain'
+    },
 })
 
 /**
@@ -277,11 +284,21 @@ const forms = StyleSheet.create({
         color: 'black',
         fontFamily: 'typewriter-Bold',
     },
+    input: {
+        width: 400,
+        margin: 10,
+        backgroundColor: 'white',
+        borderRadius: 30,
+        padding: 20,
+        fontSize: 30,
+        color: 'black',
+        fontFamily: 'typewriter-Bold',
+    },
     container: {
         backgroundColor: '#feecb1',
         flex: 1,
         position: 'relative',
-        width: '100%',
+        width: '100%'
     },
     dropDown: {
         width: '30%',

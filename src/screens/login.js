@@ -131,8 +131,8 @@ class Login extends Component {
             >
                 <Image
                     style={login.logo}
-                        source={require('../assets/images/logo.png')}
-                    />
+                    source={require('../assets/images/logo.png')}
+                />
                 <ScrollView>
                     <this.MyReactNativeForm/>
                 </ScrollView>
