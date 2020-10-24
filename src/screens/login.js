@@ -1,14 +1,8 @@
 import React, { Component } from 'react';
-import { View, Text, ScrollView, KeyboardAvoidingView  } from 'react-native';
-
-//im really scared loool
-import { Button, TextInput } from 'react-native';
+import { View, Text, ScrollView, KeyboardAvoidingView, TextInput } from 'react-native';
 import { Formik } from 'formik';
-
-//This is how you import the style sheet
-import {buttons, login, page} from '../styles/styles.js'
+import {login} from '../styles/styles.js'
 import {TouchableOpacity, Image}  from "react-native";
-import { Header } from '@react-navigation/stack';
 
 class Login extends Component {
 
@@ -35,14 +29,14 @@ class Login extends Component {
                 juice = JSON.parse(juice);
                 console.log(juice);
                 console.log(typeof(juice));
-                if(juice.length != 0){
+                if(juice.length !== 0){
                     //console.log(juice.id);
                     global.id = juice.id;
                     global.name = juice.name;
                     global.classid = juice.class;
                     global.school = juice.school;
                     global.type = juice.type;
-
+                    global.mute = false;
                     this.props.navigation.navigate('Main');
                 }
 
@@ -57,6 +51,8 @@ class Login extends Component {
     };
 
     MyReactNativeForm = props => (
+
+        /* Form Layout */
         <Formik
             // initialValues={{ email: '', password: '' }}
             initialValues={{email: 'eee@live.com.au', password: '1111'}}
@@ -69,15 +65,9 @@ class Login extends Component {
                   handleSubmit,
                   values }) => (
                         <View style={login.container}>
-                            <View style={{
-                                flexDirection: 'row',
-                                width: '70%',
-                                justifyContent: 'center',
-                                alignSelf: 'center',
-                                alignItems: 'center',
-                                alignContent: 'center',
-                                flex: 0.5,
-                            }}>
+
+                            {/* Text Input */}
+                            <View style={login.inputContainer}>
                                 <Text style={login.emailText}>Email:</Text>
                                 <TextInput
                                     style={login.input}
@@ -88,18 +78,13 @@ class Login extends Component {
                                     placeholder="eee@live.com.au"
                                 />
                             </View>
-                            <View style={{
-                                flexDirection: 'row',
-                                width: '70%',
-                                justifyContent: 'center',
-                                alignSelf: 'center',
-                                alignItems: 'center',
-                                alignContent: 'center',
-                                flex: 0.5,
-                            }}>
+
+                            {/* Text Input */}
+                            <View style={login.inputContainer}>
                                 <Text style={login.buttonText}>Password:</Text>
                                 <TextInput
                                     style={login.input}
+                                    secureTextEntry={true}
                                     onChangeText={handleChange('password')}
                                     onBlur={handleBlur('password')}
                                     value={values.password}
@@ -108,23 +93,26 @@ class Login extends Component {
                                 />
                             </View>
 
-                        <View style={{flexDirection: 'row', width: '60%', justifyContent: 'center'}}>
-                            <TouchableOpacity
-                                style={login.buttonPrimary}
-                                onPress={handleSubmit}
-                            >
-                                <Text style={login.buttonText}>Login</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity
-                                style={login.buttonPrimary}
-                                onPress={() => this.props.navigation.navigate('Register')}
-                            >
-                                <Text style={login.buttonText}>Sign Up</Text>
-                            </TouchableOpacity>
-                        </View>
+                            {/* Button (Signup/Login) */}
+                            <View style={login.buttonContainer}>
+                                <TouchableOpacity
+                                    style={login.buttonPrimary}
+                                    onPress={handleSubmit}
+                                >
+                                    <Text style={login.buttonText}>Login</Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity
+                                    style={login.buttonPrimary}
+                                    onPress={() => this.props.navigation.navigate('Register')}
+                                >
+                                    <Text style={login.buttonText}>Sign Up</Text>
+                                </TouchableOpacity>
+                            </View>
+
+                            {/* Forgot Password Button */}
                             <TouchableOpacity
                                 style={login.buttonBottom}
-                                onPress={() => this.props.navigation.navigate('Main')}
+                                //onPress={() => this.props.navigation.navigate('Main')}
                             >
                                 <Text style={login.buttonBottom}>forgot your login?</Text>
                             </TouchableOpacity>
@@ -142,13 +130,7 @@ class Login extends Component {
                 keyboardVerticalOffset={-1000}
             >
                 <Image
-                    style={{
-                        width: 800,
-                        height: undefined,
-                        resizeMode: 'contain',
-                        flex: 1,
-                        marginTop: '5%'
-                    }}
+                    style={login.logo}
                         source={require('../assets/images/logo.png')}
                     />
                 <ScrollView>

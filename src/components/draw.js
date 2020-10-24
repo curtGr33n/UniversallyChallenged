@@ -1,10 +1,12 @@
 import React, {Component, createRef} from 'react';
-import {View, TouchableOpacity, Image, AppRegistry} from 'react-native';
+import {View, TouchableOpacity, Image, AppRegistry, TextInput, Text, Alert} from 'react-native';
 
 import {SketchCanvas} from '@terrylinla/react-native-sketch-canvas';
 
 import {canvas} from '../styles/styles'
 import Slider from "@react-native-community/slider";
+import ViewShot, {captureRef} from "react-native-view-shot";
+
 
 export default class Draw extends Component {
     constructor(props) {
@@ -13,18 +15,25 @@ export default class Draw extends Component {
         this.brushMaxVal = 90;
         this.book = props.bookId;
         this.page = props.pageId;
+        setTimeout(() => this.getRole(), 500);
+        console.log("bookId: " + this.book + " pageId: " + this.page + " role: " + this.state.role + " user: " + global.id);
     }
 
     state = {
-        pColorShow: false,
-        sColorShow: false,
-        color: "red",
+        colorShow: false,
+        color: "black",
         brushSizeShow: false,
         brushSize: 10,
         image: null,
-        role: ""
+        role: "",
+        text: "",
+        textBoxShow: false,
+        touch: true
     };
 
+    /**
+     * Gets the role of the user. Role can be either illustrator/background/writer
+     */
     getRole = async () => {
         console.log("get the role of the user");
         try {
@@ -35,22 +44,26 @@ export default class Draw extends Component {
             if (response.ok) {
                 console.log("successful response");
                 let role = await response.text();
-                console.log(role);
-                this.setState({role: role});
-
+                console.log(role)
+                this.setState({
+                    role: role
+                });
+                console.log("role: " + this.state.role);
             } else {
                 console.log("response not ok");
             }
         } catch (error) {
             console.error(error);
         }
-        console.log("StudentId: " + global.id + " BookId: " + this.book + " PageId: " + this.page +
-            " Role: " + this.state.role);
     }
-    saveCanvas = async () => {
 
+    /**
+     * Saves the base64 canvas image to the server with the current bookId, pageId and userId
+     */
+    saveCanvas = async () => {
         if (this.state.image != null) {
             console.log("saving image")
+            console.log(this.state.image)
             try {
                 const url = 'https://deco3801-universally-challenged.uqcloud.net/addImageToCreator';
                 let response = await fetch(url, {
@@ -67,6 +80,7 @@ export default class Draw extends Component {
                     }).replace(/\\n/g, "")
                 });
                 if (response.ok) {
+                    Alert.alert("Saved")
                     console.log("image sent to server successfully");
                 } else {
                     console.log("response not received");
@@ -78,55 +92,26 @@ export default class Draw extends Component {
         }
     };
 
-    /*
-    Changes colors of the brush and shows the primary/secondary palette based on what screen is show
+    /**
+     Changes colors of the brush and shows the colour palette
      */
     chooseColor (color) {
-        if (!this.state.pColorShow && !this.state.sColorShow) {
-            // if no color palettes are showing, show primary palette
-            console.log("Showing primary")
+        if (color != null) {
             this.setState({
-                pColorShow: true
-            });
-        } else if (this.state.pColorShow && !this.state.sColorShow) {
-            // if primary palette is already showing, hide primary and show secondary palette
-            console.log("Showing secondary")
-
-            this.setState({
-                pColorShow: false,
-                sColorShow: true,
-                color: color
-            })
-        } else if (!this.state.pColorShow && this.state.sColorShow) {
-            // if color chosen is from secondary palette change color of brush
-            console.log("Selecting color")
-            this.setState({
+                colorShow: false,
                 color: color,
-                sColorShow: false
+                touch: true
+            })
+        } else {
+            this.setState({
+                colorShow: true,
+                touch: false
             })
         }
     }
 
-    /*
-    Toggles the brush window (eg, show or don't show)
-     */
-    toggleBrushWindow () {
-        this.setState({
-            brushSizeShow: !this.state.brushSizeShow
-        });
-    }
-
-    /*
-    Changes brush size based off the given value
-     */
-    changeBrushSize (value) {
-        this.setState({
-            brushSize: value
-        });
-    }
-
-    /*
-    The primary color palette
+    /**
+     The primary color palette
      */
     primaryColors () {
         const colors = ["red", "blue", "green", "brown", "black"];
@@ -134,76 +119,36 @@ export default class Draw extends Component {
             <TouchableOpacity style={[canvas.button, {backgroundColor: color}]}
                               onPress={() => this.chooseColor(color)}/>)
         return(
-            <View style={canvas.sideBar}>
+            <View style={canvas.sideBarOverlay}>
                 <>{colorComponents}</>
             </View>
         )
     }
 
-    /*
-    The secondary color palette is shown based on the given primary color
+    /**
+     Toggles the brush window (eg, show or don't show)
      */
-    secondaryColors (color) {
-        const red = ["red", "sandybrown", "crimson", "gold"];
-        const blue = ["steelblue", "blue", "paleturquoise"];
-        const green = ["olivedrab", "lightgreen", "green"];
-        const brown = ["tan", "saddlebrown", "bisque", "brown"];
-        const black = ["black"];
-
-        if (color === "red") {
-            const colorComponents = red.map(color =>
-                <TouchableOpacity style={[canvas.button, {backgroundColor: color}]}
-                                  onPress={() => this.chooseColor(color)}/>)
-            return (
-                <View style={canvas.sideBar}>
-                    <>{colorComponents}</>
-                </View>
-            )
-        } else if (color === "blue") {
-            const colorComponents = blue.map(color =>
-                <TouchableOpacity style={[canvas.button, {backgroundColor: color}]}
-                                  onPress={() => this.chooseColor(color)}/>)
-            return (
-                <View style={canvas.sideBar}>
-                    <>{colorComponents}</>
-                </View>
-            )
-        } else if (color === "green") {
-            const colorComponents = green.map(color =>
-                <TouchableOpacity style={[canvas.button, {backgroundColor: color}]}
-                                  onPress={() => this.chooseColor(color)}/>)
-            return (
-                <View style={canvas.sideBar}>
-                    <>{colorComponents}</>
-                </View>
-            )
-        } else if (color === "brown") {
-            const colorComponents = brown.map(color =>
-                <TouchableOpacity style={[canvas.button, {backgroundColor: color}]}
-                                  onPress={() => this.chooseColor(color)}/>)
-            return (
-                <View style={canvas.sideBar}>
-                    <>{colorComponents}</>
-                </View>
-            )
-        } else if (color === "black") {
-            const colorComponents = black.map(color =>
-                <TouchableOpacity style={[canvas.button, {backgroundColor: color}]}
-                                  onPress={() => this.chooseColor(color)}/>)
-            return (
-                <View style={canvas.sideBar}>
-                    <>{colorComponents}</>
-                </View>
-            )
-        }
+    toggleBrushWindow () {
+        this.setState({
+            brushSizeShow: !this.state.brushSizeShow
+        });
     }
 
-    /*
-    View that shows the brush adjuster
+    /**
+     Changes brush size based off the given value
+     */
+    changeBrushSize (value) {
+        this.setState({
+            brushSize: value
+        });
+    }
+
+    /**
+     View that shows the brush adjuster
      */
     brushAdjuster () {
         return (
-            <View style={canvas.sideBar}>
+            <View style={canvas.sideBarOverlay}>
                 <View style={{
                     borderRadius: this.brushMaxVal/2,
                     width: this.brushMaxVal,
@@ -239,162 +184,157 @@ export default class Draw extends Component {
         );
     }
 
-    // getTools(role) {
-    //     if (role === "author") {
-    //         return (
-    //             <View style={{backgroundColor: '#fbf3dc', width: 100, height: 400,
-    //                 flexDirection: 'column', justifyContent: "space-around", alignItems: "center"}}>
-    //                 <TouchableOpacity
-    //                     style={canvas.button}
-    //                     onPress={() => {
-    //                         this.myRef.current.getBase64('jpg', false, false, false, false, (err, result) => {
-    //                             // console.log(result);
-    //                             this.setState({image: result});
-    //                         })
-    //                         setTimeout(() => this.saveCanvas(), 100);
-    //                     }}>
-    //                     <Image
-    //                         source={require("../assets/save.jpeg")}
-    //                         resizeMode="center"
-    //                         style={canvas.icon}
-    //                     />
-    //                 </TouchableOpacity>
-    //             </View>
-    //         )
-    //     } else if (role === "illustrator") {
-    //         return (
-    //             <View style={{backgroundColor: '#fbf3dc', width: 100, height: 400,
-    //                 flexDirection: 'column', justifyContent: "space-around", alignItems: "center"}}>
-    //                 <TouchableOpacity
-    //                     style={canvas.button}
-    //                     onPress={() => this.chooseColor()}>
-    //                     <Image
-    //                         source={require("../assets/pencil.png")}
-    //                         resizeMode="center"
-    //                         style={canvas.icon}
-    //                     />
-    //                 </TouchableOpacity>
-    //                 <TouchableOpacity
-    //                     style={canvas.button}
-    //                     onPress={() => this.setState({color: "white"})}>
-    //                     <Image
-    //                         source={require("../assets/rubber.png")}
-    //                         resizeMode="center"
-    //                         style={canvas.icon}
-    //                     />
-    //                 </TouchableOpacity>
-    //
-    //                 <TouchableOpacity
-    //                     style={canvas.button}
-    //                     onPress={() => this.myRef.current.undo()}>
-    //                     <Image
-    //                         source={require("../assets/undo.png")}
-    //                         resizeMode="center"
-    //                         style={canvas.icon}
-    //                     />
-    //                 </TouchableOpacity>
-    //                 <TouchableOpacity
-    //                     style={canvas.button}
-    //                     onPress={() => this.toggleBrushWindow()}>
-    //                     <Image
-    //                         source={require("../assets/top.png")}
-    //                         resizeMode="center"
-    //                         style={canvas.icon}
-    //                     />
-    //                 </TouchableOpacity>
-    //                 <TouchableOpacity
-    //                     style={canvas.button}
-    //                     onPress={() => {
-    //                         this.myRef.current.getBase64('jpg', false, false, false, false, (err, result) => {
-    //                             // console.log(result);
-    //                             this.setState({image: result});
-    //                         })
-    //                         setTimeout(() => this.saveCanvas(), 100);
-    //                     }}>
-    //                     <Image
-    //                         source={require("../assets/save.jpeg")}
-    //                         resizeMode="center"
-    //                         style={canvas.icon}
-    //                     />
-    //                 </TouchableOpacity>
-    //             </View>
-    //         )
-    //     } else {
-    //         // role === "background"
-    //         return(null)
-    //     }
-    // }
+    /**
+     * Toggles whether to show/noShow the text box
+     */
+    toggleTextBox() {
+        this.setState({textBoxShow: !this.state.textBoxShow})
+    }
+
+    /**
+     * Gets the canvas layout based on the users role on the page
+     */
+    getCanvas() {
+        if (this.state.role === "writer") {
+            return (
+                <View style={canvas.container}>
+                    <View style={canvas.textSideBar}>
+                        <TouchableOpacity
+                            style={canvas.button}
+                            onPress={() => this.toggleTextBox()}>
+                            <Image
+                                source={require("../assets/images/text.png")}
+                                resizeMode="center"
+                                style={canvas.icon}
+                            />
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={canvas.button}
+                            onPress={() => captureRef(this.myRef, {
+                                result: "base64"
+                            }).then(uri => this.setState({image: uri})).then(
+                                () => setTimeout(() => this.saveCanvas(), 100)
+                            )}
+                        >
+                            <Image
+                                source={require("../assets/save.jpeg")}
+                                resizeMode="center"
+                                style={canvas.icon}
+                            />
+                        </TouchableOpacity>
+                    </View>
+                    <ViewShot
+                        ref={this.myRef}
+                        style={{flex: 1, flexDirection: "column"}}>
+                        {this.state.textBoxShow ? (
+                            <View style={{flexDirection: "row", height: 80, width: 200, position: "absolute", top: 50,
+                                left: 50}}>
+                                <TextInput
+                                    style={{height: 40}}
+                                    placeholder={"Type your story here"}
+                                    onChangeText={(story) => this.setState({text: story})}
+                                    defaultValue={""}
+                                    editable={true}
+                                    onSubmitEditing={() => this.toggleTextBox()}
+                                    autoFocus={true}
+                                />
+                            </View>
+                        ) : null}
+                        <SketchCanvas
+                            touchEnabled={false}
+                            style={{flex: 1, backgroundColor: 'white'}}
+                            text={[{text: this.state.text,
+                                fontSize: 40,
+                                position: { x: 0.5, y: 0.01 },
+                                anchor: { x: 0.5, y: 0 },
+                                coordinate: 'Ratio',
+                                overlay: 'TextOnSketch',
+                                fontColor: 'black',
+                                imageType: 'jpg'
+                            }]}
+                        />
+                    </ViewShot>
+                </View>
+            )
+        } else if (this.state.role === "illustrator" || this.state.role === "background") {
+            return (
+                <View style={canvas.container}>
+                    <View style={canvas.sideBar}>
+                        <TouchableOpacity
+                            style={canvas.button}
+                            onPress={() => this.chooseColor()}>
+                            <Image
+                                source={require("../assets/pencil.png")}
+                                resizeMode="center"
+                                style={canvas.icon}
+                            />
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={canvas.button}
+                            onPress={() => this.setState({color: "white"})}>
+                            <Image
+                                source={require("../assets/rubber.png")}
+                                resizeMode="center"
+                                style={canvas.icon}
+                            />
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={canvas.button}
+                            onPress={() => this.myRef.current.undo()}>
+                            <Image
+                                source={require("../assets/undo.png")}
+                                resizeMode="center"
+                                style={canvas.icon}
+                            />
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={canvas.button}
+                            onPress={() => this.toggleBrushWindow()}>
+                            <Image
+                                source={require("../assets/images/resizing.png")}
+                                resizeMode="center"
+                                style={canvas.icon}
+                            />
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={canvas.button}
+                            onPress={() => {
+                                this.myRef.current.getBase64('jpg', false, false, false, false, (err, result) => {
+                                    // console.log(result);
+                                    this.setState({image: result});
+                                })
+                                setTimeout(() => this.saveCanvas(), 100);
+                            }}>
+                            <Image
+                                source={require("../assets/save.jpeg")}
+                                resizeMode="center"
+                                style={canvas.icon}
+                            />
+                        </TouchableOpacity>
+                    </View>
+                    {this.state.colorShow ? (this.primaryColors()) : null}
+                    {this.state.brushSizeShow ? (this.brushAdjuster()) : null}
+                    <View style={{flex: 1, flexDirection: 'column'}}>
+                        <SketchCanvas
+                            ref={this.myRef}
+                            style={{flex: 1, backgroundColor: 'white'}}
+                            strokeColor={this.state.color}
+                            strokeWidth={this.state.brushSize}
+                            touchEnabled={this.state.touch}
+                        />
+                    </View>
+                </View>
+            );
+        } else {
+            return (
+                <View style={{flex: 1, backgroundColor: "white"}}/>
+            )
+        }
+    }
 
     render() {
         return (
-            <View style={canvas.container}>
-                <View style={{backgroundColor: '#fbf3dc', width: 100, height: 400,
-                    flexDirection: 'column', justifyContent: "space-around", alignItems: "center"}}>
-                    <TouchableOpacity
-                        style={canvas.button}
-                        onPress={() => this.chooseColor()}>
-                        <Image
-                            source={require("../assets/pencil.png")}
-                            resizeMode="center"
-                            style={canvas.icon}
-                        />
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        style={canvas.button}
-                        onPress={() => this.setState({color: "white"})}>
-                        <Image
-                            source={require("../assets/rubber.png")}
-                            resizeMode="center"
-                            style={canvas.icon}
-                        />
-                    </TouchableOpacity>
-
-                    <TouchableOpacity
-                        style={canvas.button}
-                        onPress={() => this.myRef.current.undo()}>
-                        <Image
-                            source={require("../assets/undo.png")}
-                            resizeMode="center"
-                            style={canvas.icon}
-                        />
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        style={canvas.button}
-                        onPress={() => this.toggleBrushWindow()}>
-                        <Image
-                            source={require("../assets/top.png")}
-                            resizeMode="center"
-                            style={canvas.icon}
-                        />
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        style={canvas.button}
-                        onPress={() => {
-                            this.myRef.current.getBase64('jpg', false, false, false, false, (err, result) => {
-                                // console.log(result);
-                                this.setState({image: result});
-                            })
-                            setTimeout(() => this.saveCanvas(), 100);
-                        }}>
-                        <Image
-                            source={require("../assets/save.jpeg")}
-                            resizeMode="center"
-                            style={canvas.icon}
-                        />
-                    </TouchableOpacity>
-                </View>
-                {this.state.pColorShow ? (this.primaryColors()) : null}
-                {this.state.sColorShow ? (this.secondaryColors(this.state.color)) : null}
-                {this.state.brushSizeShow ? (this.brushAdjuster()) : null}
-                <View style={{flex: 1, flexDirection: 'column'}}>
-                    <SketchCanvas
-                        ref={this.myRef}
-                        style={{flex: 1, backgroundColor: 'white'}}
-                        strokeColor={this.state.color}
-                        strokeWidth={this.state.brushSize}
-                    />
-                </View>
-            </View>
+            this.getCanvas()
         );
     }
 }

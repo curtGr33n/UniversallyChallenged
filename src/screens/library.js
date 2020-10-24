@@ -9,15 +9,17 @@ const Library = (props) => {
     const [books, setBooks] = useState([])
     const [classId, setClassId] = useState(0)
     const [userClasses, setUserClasses] = useState(global.classid)
+    const [schoolId, getSchoolId] = useState(global.school)
 
-    /** Gets the list of books based on the classId chosen
-     *  sets books to this list
-     *  return: null
+    /**
+     * Gets the list of books based on the classId chosen
+     * sets books to this list
+     * @returns {Promise<void>}
      */
     const getData = async () => {
         try {
             console.log(classId);
-            let response = await fetch('https://deco3801-universally-challenged.uqcloud.net/getClassBooks?classId=' + classId);
+            let response = await fetch('https://deco3801-universally-challenged.uqcloud.net/getClassBooks?classId=' + classId + '&school=' + schoolId);
             if (response.ok) {
                 let juice = await response.text();
                 let data = JSON.parse(juice)
@@ -32,19 +34,21 @@ const Library = (props) => {
         }
     };
 
-    /* Helper function to create a list of <Picker> objects to display in
+    /**
+     * Helper function to create a list of <Picker> objects to display in
      * picker list
-    */
-    function getPickerItems()
-    {
+     * @returns {*}
+     */
+    function getPickerItems() {
         return userClasses.map((user, index) => (
             <Picker.Item label={user.toString()} value={user} key={index}/>
         ))
     }
 
-    /** Returns the path to the image file of a bookCover or the path of the
+    /**
+     * Returns the path to the image file of a bookCover or the path of the
      * generic bookCover image if bookCoverLink = null
-     * Returns: image path
+     * @returns image path
     */
     const getImage = (bookCoverLink) => {
         if (bookCoverLink == null || bookCoverLink === "none") {
@@ -57,20 +61,14 @@ const Library = (props) => {
 
     return (
         <View style={{flex: 1}}>
-            <View>
-                <Text style={page.title}>Library</Text>
-            </View>
-            <View style={{
-                backgroundColor: "white",
-                flex: 7
-            }}>
-                <View style={{
-                    flex: 0.1,
-                    flexDirection: 'row',
-                    justifyContent: "space-around",
-                    padding: 10
-                }}>
-                    {/*This is where the drop down menus are going*/}
+
+            {/* Page Title */}
+            <Text style={page.title}>Library</Text>
+
+            <View style={{ backgroundColor: "white", flex: 7}}>
+                <View style={page.libraryLayout}>
+
+                    {/* DropDown Selection */}
                     <View style={page.dropDown}>
                         <Picker
                             selectedValue={classId}
@@ -80,6 +78,8 @@ const Library = (props) => {
                             {getPickerItems()}
                         </Picker>
                     </View>
+
+                    {/* Submit/Load Button */}
                     <TouchableOpacity onPress={() => getData()}
                                       style={buttons.buttonPages}
                                       title={"Load Books"}>
@@ -87,6 +87,7 @@ const Library = (props) => {
                     </TouchableOpacity>
                 </View>
 
+                {/* Library Layout */}
                 <FlatGrid
                     itemDimension={300}
                     data={books}
@@ -97,11 +98,11 @@ const Library = (props) => {
                                 <TouchableOpacity style={styles.bookText}
                                       onPress={() => props.navigation.navigate('Pages', item)}>
                                     <ImageBackground source={require('../assets/place-holder-open-book.png')}
-                                                     style={{width: '100%', height: '100%', alignItems:"center", justifyContent:"center"}}
+                                                     style={page.bookImage}
                                                      resizeMode={'contain'}
                                     >
                                     </ImageBackground>
-                                    <Text style={{alignItems: "center", justifyContent:'center'}}>{item.bookTitle}</Text>
+                                    <Text style={page.bookText}>{item.bookTitle}</Text>
                                 </TouchableOpacity>
                         </View>
                     )}

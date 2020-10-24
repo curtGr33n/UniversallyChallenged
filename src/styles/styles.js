@@ -1,18 +1,9 @@
 import {StyleSheet} from "react-native";
 
+/**
+ * Main layout styling
+ */
 const styles = StyleSheet.create({
-    bookTest: {
-        flex: 1,
-        backgroundColor: 'yellow',
-        alignItems: 'center',
-        justifyContent: 'center',
-        overflow: 'hidden',
-        fontFamily: 'typewriter'
-    },
-    bookText: {
-        color: 'orange',
-        fontFamily: 'typewriter'
-    },
     container: {
         flex: 1,
         backgroundColor: '#ffff',
@@ -24,46 +15,17 @@ const styles = StyleSheet.create({
         marginTop: 10,
         flex: 1,
     },
-    image: {
-        flex: 1,
-        width: 200,
-        height: 200,
-        resizeMode: 'contain'
-    },
     itemContainer: {
         justifyContent: 'flex-end',
         borderRadius: 5,
         padding: 10,
         height: 150,
-    },
-    logo:{
-        width: 287,
-        height: 250,
-        position: "absolute",
-        top: 150,
-    },
-    logoText:{
-        width: 400,
-        height: 50,
-        position: "absolute",
-        top: 420
-    },
-    storyTitleText: {
-        textAlign: 'center',
-        padding: 20,
-        color: '#333333',
-        fontWeight: "600",
-        fontSize: 30,
-        fontFamily: 'typewriter'
-    },
-    title: {
-        fontSize: 36,
-        marginBottom: 16,
-        //color: 'orange'
-        fontFamily: 'typewriter'
     }
 })
 
+/**
+ * Page styling
+ */
 const page = StyleSheet.create({
     title: {
         backgroundColor: '#f8ebc4',
@@ -119,22 +81,59 @@ const page = StyleSheet.create({
         marginTop: 50,
     },
     offsetData: {
-       marginBottom: '20%'
+        marginBottom: '20%'
     },
     dropDown: {
         width: '20%',
         height: 60,
-        margin: 10,
         backgroundColor: '#f8ebc4',
         borderRadius: 30,
         padding: 20,
         fontSize: 30,
         color: 'black',
         fontFamily: 'typewriter-Bold',
+        justifyContent: 'center',
+    },
+    bookImage: {
+        width: '100%',
+        height: '100%',
+        alignItems:"center",
+        justifyContent:"center",
+    },
+    bookText: {
+        textAlign: 'center',
+        color: 'black',
+        fontSize: 15,
+        fontFamily: 'typewriter-Bold',
+        lineHeight: 20,
+    },
+    centerLayout: {
+        flexDirection: 'column',
+        alignContent: 'center',
+        alignSelf: 'center',
+        alignItems: 'center'
+    },
+    basicLayout: {
+        flex: 1,
+        justifyContent : 'center'
+    },
+    rowLayout: {
+        alignItems: 'center',
+        flexDirection: 'row',
         justifyContent: 'center'
     },
+    libraryLayout: {
+        flex: 0.1,
+        flexDirection: 'row',
+        justifyContent: "space-around",
+        padding: 10,
+        margin: 10,
+    }
 })
 
+/**
+ * Login page styling
+ */
 const login = StyleSheet.create({
     container: {
         flex: 1,
@@ -201,9 +200,34 @@ const login = StyleSheet.create({
         alignItems: 'center',
         overflow: 'hidden',
         marginBottom: -100
+    },
+    inputContainer: {
+        flexDirection: 'row',
+        width: '70%',
+        justifyContent: 'center',
+        alignSelf: 'center',
+        alignItems: 'center',
+        alignContent: 'center',
+        flex: 0.5
+    },
+    buttonContainer: {
+        flexDirection: 'row',
+        width: '60%',
+        justifyContent: 'center'
+    },
+    logo: {
+        width: 800,
+        height: undefined,
+        resizeMode: 'contain',
+        flex: 1,
+        marginTop: '5%'
     }
 })
 
+
+/**
+ * Form styling
+ */
 const forms = StyleSheet.create({
     title: {
         backgroundColor: '#bb904f',
@@ -265,22 +289,46 @@ const forms = StyleSheet.create({
         color: 'white',
         fontFamily: 'typewriter-Bold',
     },
+    creatorText: {
+        textAlign: 'center',
+        color: '#bb904f',
+        fontSize: 30,
+        fontFamily: 'typewriter',
+        lineHeight: 30,
+    },
+    load: {
+        position: 'absolute',
+        alignItems: 'center',
+        justifyContent: 'center',
+        top : 100,
+        left: '25%',
+        zIndex: 1,
+        width: '50%',
+        height: 150,
+    },
+    modalOverlay: {
+        flex : 1,
+        justifyContent: 'center',
+        backgroundColor: 'rgba(0,0,0,0.5)'
+    },
+    dropDownHorizontal: {
+        width: '95%',
+        height: 60,
+        margin: 10,
+        backgroundColor: 'white',
+        borderRadius: 30,
+        padding: 20,
+        fontSize: 30,
+        color: 'black',
+        fontFamily: 'typewriter-Bold',
+        justifyContent: 'center'
+    },
 })
 
+/**
+ * Button styling
+ */
 const buttons = StyleSheet.create({
-    primary: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        borderWidth: .5,
-        borderColor: '#fff',
-        height: 40,
-        borderRadius: 5 ,
-    },
-    secondary: {
-        height: 70,
-        width: '100%',
-        backgroundColor: '#fdda64',
-    },
     buttonText: {
         textAlign: 'center',
         color: 'black',
@@ -306,21 +354,6 @@ const buttons = StyleSheet.create({
         borderRadius: 10,
         padding: 20,
     },
-    smallButton: {
-        height: 30,
-        width: 30,
-        backgroundColor: '#bc904f'
-    },
-    largeButton: {
-        height: 100,
-        width: 100,
-        backgroundColor: 'rgba(143, 0, 0, 0.5)',
-        // position: 'absolute',
-        // left: 100,
-        // top: 300,
-        // margin: 20
-
-    },
     textWhite: {
         textAlign: 'center',
         color: 'white',
@@ -330,7 +363,31 @@ const buttons = StyleSheet.create({
     },
 })
 
+/**
+ * Canvas styling
+ */
 const canvas= StyleSheet.create({
+    icon: {
+        height: 50,
+        width: 50,
+        alignItems: 'center',
+        justifyContent: 'center',
+        left: 7,
+        top: 7
+    },
+    roleWindow: {
+        position: "absolute",
+        width: 300,
+        height: 300,
+        left: 200,
+        top: 300,
+        flexDirection: "row",
+        backgroundColor: "black"
+    },
+    roleOption: {
+        height: 40,
+        width: 100
+    },
     container: {
         flex: 1,
         flexDirection: 'row',
@@ -368,19 +425,54 @@ const canvas= StyleSheet.create({
     button: {
         width: 65,
         height: 65,
-        backgroundColor: "white"
+        backgroundColor: "white",
+        borderRadius: 20
+    },
+    sideBarOverlay: {
+        position: "absolute",
+        left: 0,
+        height: 400,
+        width:  100,
+        borderRadius: 10,
+        backgroundColor: '#f8ebc4',
+        flexDirection: 'column',
+        justifyContent: "space-around",
+        alignItems: "center"
     },
     sideBar: {
-        position: "absolute",
-        top: 44.5,
-        left: 0,
         height: 400,
         width:  100,
         borderRadius: 5,
         backgroundColor: '#f8ebc4',
         flexDirection: 'column',
         justifyContent: "space-around",
-        alignItems: "center"
+        alignItems: "center",
+        borderTopRightRadius: 10,
+        borderBottomRightRadius: 10
+    },
+    textSideBar: {
+        height: 200,
+        width:  100,
+        borderRadius: 5,
+        backgroundColor: '#f8ebc4',
+        flexDirection: 'column',
+        justifyContent: "space-around",
+        alignItems: "center",
+        borderTopRightRadius: 10,
+        borderBottomRightRadius: 10
+    },
+    layout: {
+        backgroundColor: "white",
+        flex: 7,
+        justifyContent:'center',
+        alignItems: 'center'
+    },
+    pageNav: {
+        backgroundColor:"#fdda64",
+        flex: 0.8,
+        flexDirection: 'row',
+        justifyContent: "space-around",
+        padding: 15
     },
     red: {
         backgroundColor: '#8f0000'
@@ -396,71 +488,7 @@ const canvas= StyleSheet.create({
     },
     black: {
         backgroundColor: '#051032'
-    },
-    icon: {
-        height: 50,
-        width: 50,
-        alignItems: 'center',
-        justifyContent: 'center',
-        left: 7,
-        top: 7
-    },
-    roleWindow: {
-        position: "absolute",
-        width: 300,
-        height: 300,
-        left: 200,
-        top: 300,
-        flexDirection: "row",
-        backgroundColor: "black"
-    },
-    roleOption: {
-        height: 40,
-        width: 100
     }
 })
 
-const colours = StyleSheet.create({
-    colourBar: {
-        flexDirection: 'column',
-        backgroundColor: 'orange',
-        width: 200
-    },
-    screenOnTop: {
-        flexDirection: 'column',
-        backgroundColor: 'red',
-
-    },
-    screen: {
-        flexDirection: 'row'
-    },
-    sketch: {
-        flex: 1,
-        height: 500,
-        width: 700
-    },
-    button: {
-        height: 110,
-        width: 110,
-        marginHorizontal: 20,
-        marginVertical: 20
-    },
-    red: {
-        backgroundColor: '#fc0703'
-    },
-    blue: {
-        backgroundColor: '#0422e0'
-    },
-    green: {
-        backgroundColor: '#1a8000'
-    },
-    pink: {
-        backgroundColor: '#d103ff'
-    },
-    yellow: {
-        backgroundColor: '#f3cd3c'
-    }
-})
-
-// if a new stylesheet is created please export it here.
 export {styles, buttons, page, canvas, login, forms}
