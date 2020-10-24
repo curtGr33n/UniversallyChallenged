@@ -211,6 +211,7 @@ const login = StyleSheet.create({
         padding: 15,
         color: 'black',
         fontFamily: 'typewriter-Bold',
+        elevation: 2
     },
     buttonBottom: {
         flexDirection: 'row',
@@ -224,7 +225,7 @@ const login = StyleSheet.create({
         fontSize: 25,
         fontFamily: 'typewriter-Bold',
         lineHeight: 30,
-        alignSelf: 'center',
+        alignSelf: 'center'
     },
     layout: {
         flex: 1,
@@ -321,6 +322,7 @@ const forms = StyleSheet.create({
         padding: 15,
         color: 'black',
         fontFamily: 'typewriter-Bold',
+        elevation: 2
     },
     buttonSecondary: {
         height: 60,
@@ -331,6 +333,7 @@ const forms = StyleSheet.create({
         padding: 15,
         color: 'white',
         fontFamily: 'typewriter-Bold',
+        elevation: 2
     },
     creatorText: {
         textAlign: 'center',
@@ -396,6 +399,7 @@ const buttons = StyleSheet.create({
         fontFamily: 'typewriter-Bold',
         borderRadius: 10,
         padding: 20,
+        elevation: 2
     },
     textWhite: {
         textAlign: 'center',
@@ -469,7 +473,8 @@ const canvas= StyleSheet.create({
         width: 65,
         height: 65,
         backgroundColor: "white",
-        borderRadius: 20
+        borderRadius: 20,
+        elevation: 2
     },
     sideBarOverlay: {
         position: "absolute",
@@ -534,4 +539,32 @@ const canvas= StyleSheet.create({
     }
 })
 
-export {styles, buttons, page, canvas, login, forms}
+const modalStyle = StyleSheet.create({
+    centeredView: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        marginTop: 22
+    },
+    modalView: {
+        margin: 20,
+        backgroundColor: "white",
+        borderRadius: 20,
+        padding: 35,
+        alignItems: "center",
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5
+    },
+    modalText: {
+        marginBottom: 15,
+        textAlign: "center"
+    }
+});
+
+export {styles, buttons, page, canvas, login, forms, modalStyle}
