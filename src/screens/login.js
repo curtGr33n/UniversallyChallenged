@@ -81,7 +81,7 @@ class Login extends Component {
 
                             {/* Text Input */}
                             <View style={login.inputContainer}>
-                                <Text style={login.buttonText}>Password:</Text>
+                                <Text style={login.passwordText}>Password:</Text>
                                 <TextInput
                                     style={login.input}
                                     secureTextEntry={true}

@@ -201,6 +201,14 @@ const login = StyleSheet.create({
         lineHeight: 30,
         marginRight: 55,
     },
+    passwordText: {
+        textAlign: 'center',
+        color: 'black',
+        fontSize: 30,
+        alignItems: 'center',
+        fontFamily: 'typewriter-Bold',
+        lineHeight: 30,
+    },
     buttonPrimary: {
         height: 60,
         width: 300,
