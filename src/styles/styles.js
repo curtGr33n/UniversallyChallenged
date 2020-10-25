@@ -6,6 +6,7 @@ import {StyleSheet} from "react-native";
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        width: "100%",
         backgroundColor: '#ffff',
         alignItems: 'center',
         justifyContent: 'flex-end',
@@ -65,7 +66,19 @@ const page = StyleSheet.create({
         fontFamily: 'Typewriter2-Bold',
         lineHeight: 30
     },
+    teacherButtons: {
+        width: '80%',
+        display: "flex",
+        flexDirection: 'row',
+        backgroundColor: '#ffff',
+        alignItems: 'center',
+        justifyContent: 'center',
+        flex: 1,
+        paddingLeft: 50,
+        paddingRight: 50
+    },
     homeButtons: {
+        width: '100%',
         display: "flex",
         flexDirection: 'row',
         backgroundColor: '#ffff',
@@ -98,7 +111,7 @@ const page = StyleSheet.create({
     },
     buzz: {
         alignSelf: 'flex-end',
-        width: '15%',
+        width: '10%',
         height: undefined,
         aspectRatio: 1,
         resizeMode: 'contain',
@@ -107,7 +120,7 @@ const page = StyleSheet.create({
         marginTop: 50,
     },
     offsetData: {
-        marginBottom: '20%'
+        marginBottom: '10%'
     },
     dropDown: {
         width: '20%',

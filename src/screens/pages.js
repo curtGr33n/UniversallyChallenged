@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {View, Text, KeyboardAvoidingView} from 'react-native';
-import {styles, buttons} from '../styles/styles.js';
+import {styles, buttons, page} from '../styles/styles.js';
 import {TouchableOpacity}  from "react-native";
 import Draw from '../components/draw.js'
 import ShowBooks from '../components/showBook.js'
@@ -146,8 +146,10 @@ const Pages = (book) => {
     return (
         <KeyboardAvoidingView behavior={'height'} style={{flex: 1}}>
 
-            {/* Page title */}
-            <Text style={styles.title}>{storyTitle}</Text>
+            {/* Page Title */}
+            <View style={{width:'100%'}}>
+                <Text style={styles.title}>{storyTitle}</Text>
+            </View>
 
             {/* Canvas Layout */}
             <View style={canvas.layout}>
