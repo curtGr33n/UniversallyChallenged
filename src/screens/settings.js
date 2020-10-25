@@ -67,13 +67,6 @@ class Settings extends Component {
                         <Image source={require('../assets/images/logout_grey.png')} style={page.image}/>
                         <Text style={buttons.buttonText}>Log-out</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity
-                        onPress={() => {this.props.navigation.navigate('MergeImages');}}
-                        style={page.primary}
-                    >
-                        <Image source={require('../assets/images/logout_grey.png')} style={page.image}/>
-                        <Text style={buttons.buttonText}>MergeImages</Text>
-                    </TouchableOpacity>
                 </View>
             </View>
         );

@@ -13,7 +13,6 @@ import addBook from "./src/screens/addBook";
 import editBook from "./src/screens/editBook";
 //Screen const
 import Draw from "./src/components/draw";
-import MergeImages from "./src/components/mergeImages";
 // Navigation types
 import {NavigationContainer} from '@react-navigation/native';
 import {createDrawerNavigator} from '@react-navigation/drawer';
@@ -131,12 +130,6 @@ export default class App extends Component {
             <Stack.Screen
                 name={"editBook"}
                 component={editBook}
-                options={{
-                    headerTitle: this.setLogo
-                }}/>
-            <Stack.Screen
-                name={"MergeImages"}
-                component={MergeImages}
                 options={{
                     headerTitle: this.setLogo
                 }}/>

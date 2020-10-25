@@ -10,6 +10,7 @@ import ViewShot, {captureRef} from "react-native-view-shot";
 
 export default class Draw extends Component {
     constructor(props) {
+        global.id = 3;
         super(props);
         this.myRef = createRef();
         this.brushMaxVal = 90;
@@ -299,7 +300,7 @@ export default class Draw extends Component {
                         <TouchableOpacity
                             style={canvas.button}
                             onPress={() => {
-                                this.myRef.current.getBase64('jpg', false, false, false, false, (err, result) => {
+                                this.myRef.current.getBase64('png', true, false, false, false, (err, result) => {
                                     // console.log(result);
                                     this.setState({image: result});
                                 })
@@ -317,7 +318,7 @@ export default class Draw extends Component {
                     <View style={{flex: 1, flexDirection: 'column'}}>
                         <SketchCanvas
                             ref={this.myRef}
-                            style={{flex: 1, backgroundColor: 'white'}}
+                            style={{flex: 1}}
                             strokeColor={this.state.color}
                             strokeWidth={this.state.brushSize}
                             touchEnabled={this.state.touch}
