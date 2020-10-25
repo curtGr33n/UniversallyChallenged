@@ -16,12 +16,17 @@ import {canvas} from "../styles/styles";
  */
 const Pages = (book) => {
     const bookId = book.route.params.bookId;
+    console.log("bookId = " + bookId);
     //console.log("BookId: " + bookId);
     const [pageNumber, setPageNumber] = useState(0);
+    console.log("Page number = " + pageNumber);
     const [pages, setPages] = useState(book.route.params.pages);
+    console.log("Pages = " + pages);
     const [page, setPage] = useState(pages[pageNumber])
+    console.log("Page = " + page);
     const [storyTitle, setStoryTitle] = useState(book.route.params.bookTitle);
     const [key, setKey] = useState(1000)
+    console.log("Key = " + key);
     const [creatorFinal, setCreatorFinal] = useState(false)
     const [imageString, setImageString] = useState("")
 
@@ -85,30 +90,57 @@ const Pages = (book) => {
         }
     }
 
+    async function increment() {
+        setPage(pages[pageNumber + 1])
+        setPageNumber((prevState) => prevState + 1)
+        setKey((prevState) => prevState + 1)
+    }
+
+    async function decrement() {
+        setPage(pages[pageNumber - 1])
+        setPageNumber((prevState) => prevState - 1)
+        setKey((prevState) => prevState + 1)
+    }
+
     /*This will change the page and update pageNumber */
-    function changePage(value) {
+    async function changePage(value) {
         if (value === 'increment' && pageNumber < pages.length - 1) {
-            setPage(pages[pageNumber + 1])
-            setPageNumber((prevState) => prevState + 1)
-            setKey((prevState) => prevState + 1)
-            checkCreatorFinal()
-            setFinalImageString()
+            console.log("INCREMENTING")
+            let oldString = imageString
+            console.log("Current page = " + page.page + " page number we think it is = " + pageNumber)
+            await increment()
+            console.log("New page = " + page + " page number we think it is = " + pageNumber)
+            await checkCreatorFinal()
+            await setFinalImageString()
+            console.log("Strings same = " + checkStringSame(oldString, imageString))
         }
         else if (value === 'increment' && pageNumber == pages.length - 1) {
             setPage(pages[pages.length - 1])
         }
         else if (value === 'decrement' && pageNumber > 0) {
-            setPage(pages[pageNumber - 1])
-            setPageNumber((prevState) => prevState - 1)
-            setKey((prevState) => prevState - 1)
-            checkCreatorFinal()
-            setFinalImageString()
+            console.log("DECREMENTING")
+            let oldString = imageString
+            console.log("New page = " + page + " page number we think it is = " + pageNumber)
+            await decrement()
+            console.log("New page = " + page + " page number we think it is = " + pageNumber)
+            await checkCreatorFinal()
+            await setFinalImageString()
+            console.log("Strings same = " + checkStringSame(oldString, imageString))
         }
         else if (value === 'decrement' && pageNumber == 0) {
             setPage(pages[0])
         }
         // Play sound effect
+        console.log("Going to play that sound")
         sound.play();
+    }
+
+    function checkStringSame(firstString, secondString) {
+        if (firstString === secondString) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     return (
