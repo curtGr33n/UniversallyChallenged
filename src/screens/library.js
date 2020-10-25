@@ -12,7 +12,7 @@ const Library = (props) => {
     const [schoolId, getSchoolId] = useState(global.school)
 
     /**
-     * Gets the list of books based on the classId  and schoolId of the current logged in user
+     * Gets the list of books based on the classId and schoolId of the current logged in user
      * sets books to this list
      * @returns {Promise<void>}
      */
@@ -33,6 +33,11 @@ const Library = (props) => {
         }
     };
 
+    /**
+     * Gets the list of books based on userId
+     * Sets books to this list
+     * @returns {Promise<void>}
+     */
     const getMyBooks = async () => {
         try {
             console.log(global.id)
