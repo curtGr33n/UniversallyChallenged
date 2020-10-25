@@ -102,7 +102,9 @@ class AddBook extends Component {
             <View style={page.basicLayout}>
 
                 {/* Page Title */}
-                <Text style={forms.title}>Add Book</Text>
+                <View style={{width:'100%'}}>
+                    <Text style={forms.title}>Add Book</Text>
+                </View>
 
                 {/* Form Layout */}
                 <Formik

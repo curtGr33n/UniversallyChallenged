@@ -72,7 +72,9 @@ const Library = (props) => {
         <View style={{flex: 1}}>
 
             {/* Page Title */}
-            <Text style={page.title}>Library</Text>
+            <View style={{width:'100%'}}>
+                <Text style={page.title}>Library</Text>
+            </View>
 
             <View style={{ backgroundColor: "white", flex: 7}}>
                 <View style={page.libraryLayout}>

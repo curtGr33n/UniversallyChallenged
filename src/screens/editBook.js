@@ -676,8 +676,11 @@ class EditBook extends Component {
     render() {
         return (
             <ScrollView style={{backgroundColor:'#feecb1', flex: 1}}>
+
                 {/* Page Title */}
-                <Text style={forms.title}>Edit Book</Text>
+                <View style={{width:'100%'}}>
+                    <Text style={forms.title}>Edit Book</Text>
+                </View>
 
                 {/* Forms */}
                 {this.state.submitted}

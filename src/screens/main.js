@@ -1,5 +1,5 @@
 import React, {Component, useState} from 'react';
-import {View, Text, TouchableOpacity, Image, Modal} from 'react-native';
+import {View, Text, TouchableOpacity, Image, Modal, ScrollView} from 'react-native';
 import {buttons, styles, page, forms, modalStyle, login} from '../styles/styles';
 
 class Main extends Component {
@@ -19,7 +19,9 @@ class Main extends Component {
             <View style={styles.container}>
 
                 {/* Page Title */}
-                <Text style={page.title}>Home Page</Text>
+                <View style={{width:'100%'}}>
+                    <Text style={page.title}>Home Page</Text>
+                </View>
 
                 <Modal
                     animationType="slide"

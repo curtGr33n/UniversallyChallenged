@@ -43,7 +43,9 @@ class Settings extends Component {
             <View style={page.basicLayout}>
 
                 {/* Page Title */}
-                <Text style={forms.title}>Settings</Text>
+                <View style={{width:'100%'}}>
+                    <Text style={forms.title}>Settings</Text>
+                </View>
 
                 <ScrollView style={forms.container}>
 
