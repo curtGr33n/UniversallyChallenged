@@ -81,9 +81,10 @@ class Login extends Component {
                                     onChangeText={handleChange('password')}
                                     onBlur={handleBlur('password')}
                                     value={values.password}
-                                     placeholder="*************"
+                                    placeholder="*************"
                                 />
                             </View>
+
                             {/* Button (Signup/Login) */}
                             <View style={login.buttonContainer}>
                                 <TouchableOpacity

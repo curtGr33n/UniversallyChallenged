@@ -213,7 +213,18 @@ class EditBook extends Component {
      * @returns {Promise<void>}
      */
     displayRoles = async (values) => {
-        this.setState({submitted: <Text>Loading...</Text>});
+        this.setState({submitted:
+            /* Loading Modal */
+                <Modal
+                    animationType="fade"
+                    transparent={true}
+                    visible={this.props.visible}
+                    presentationStyle={"overFullScreen"}
+                >
+                    <View style={forms.modalOverlay}>
+                        <ActivityIndicator size="large" color="#bb904f"/>
+                    </View>
+                </Modal>});
         if(values.pagenum !== -1) {
             let creators = await this.getCreators(values);
             let illustrator = {needInput: true, role: 'illustrator'};
@@ -501,7 +512,7 @@ class EditBook extends Component {
                 }
             >
                 {(props) => (
-                    <View style={{alignItems: 'center'}}>
+                    <View style={page.rowLayout}>
                         <View style={[forms.dropDown]}>
                             <Picker
                                 selectedValue={props.values.pagenum}
@@ -541,7 +552,7 @@ class EditBook extends Component {
                 >
                     {(props) => (
                         <View style={{alignItems: 'center'}}>
-                            <Text style={login.buttonText}>{values.role}</Text>
+                            <Text style={page.roleText}>{values.role}</Text>
                             <View style={[forms.dropDownHorizontal]}>
                                 {/* Dropdown Selection */}
                                 <Picker

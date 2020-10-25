@@ -162,6 +162,15 @@ const page = StyleSheet.create({
         aspectRatio: 1,
         resizeMode: 'contain'
     },
+    roleText: {
+        textAlign: 'center',
+        color: '#bb904f',
+        fontSize: 25,
+        fontFamily: 'typewriter-Bold',
+        lineHeight: 30,
+        textTransform: 'uppercase',
+        marginTop: 30
+    }
 })
 
 /**
