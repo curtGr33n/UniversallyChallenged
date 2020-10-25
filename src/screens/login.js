@@ -5,32 +5,28 @@ import {login} from '../styles/styles.js'
 import {TouchableOpacity, Image}  from "react-native";
 
 class Login extends Component {
-
-    getData = async (values) => {
+    /**
+     * Gets the users details from the database and sets them as global variables
+     * effectively logging them in
+     * @values consists of the users email and password
+     */
+    getUser = async (values) => {
+        if(values.email === ''){
+            alert('Enter an Email');
+            return;
+        } else if( values.password === ''){
+            alert('Enter a Password');
+            return;
+        }
         try {
-            global.user = "";
-            //whatever the url is you want to get
-            //console.log('deco3801-universally-challenged.uqcloud.net/login?email=' + values.email + '&password=' + values.password);
-            let response = await fetch('https://deco3801-universally-challenged.uqcloud.net/login?email=' + values.email + '&password=' + values.password);
+            let response = await fetch('https://deco3801-universally-challenged.uqcloud.net/login?email=' +
+                values.email + '&password=' + values.password);
             if (response.ok) {
-                let juice = await response.text(); //id, name, classid, school
-                /*if(juice.includes("teacher")){
-                    global.user = "teacher";
-                    this.props.navigation.navigate('Main');
-                }
-                else if(juice.includes("students")){
-                    global.user = "student";
-                    this.props.navigation.navigate('Main');
-                }
-                else{
-                    global.user = "undefined";
-                }*/
-                //juice = juice.replace('"', " ");
-                juice = JSON.parse(juice);
-                console.log(juice);
-                console.log(typeof(juice));
-                if(juice.length !== 0){
-                    //console.log(juice.id);
+                let juicePrev = await response.text();
+                if(!juicePrev.includes("{")){
+                    alert(juicePrev);
+                } else {
+                    let juice = JSON.parse(juicePrev);
                     global.id = juice.id;
                     global.name = juice.name;
                     global.classid = juice.class;
@@ -39,25 +35,23 @@ class Login extends Component {
                     global.mute = false;
                     this.props.navigation.navigate('Main');
                 }
-
-                //return juice;
             } else {
-                //alert("HTTP-Error: " + response.status);
-                //server isnt up if it makes it here
+                alert("HTTP-Error: " + response.status)
             }
         } catch (error) {
-            //console.error(error);
+            alert(error);
         }
     };
 
-    MyReactNativeForm = props => (
-
-        /* Form Layout */
+    /**
+     *The login form
+     * Submits to getUser
+     */
+    LoginForm = props => (
         <Formik
-            // initialValues={{ email: '', password: '' }}
-            initialValues={{email: 'eee@live.com.au', password: '1111'}}
+            initialValues={{email: '', password: ''}}
             onSubmit={
-                values => this.getData(values)
+                values => this.getUser(values)
             }
         >
             {({ handleChange,
@@ -74,8 +68,7 @@ class Login extends Component {
                                     onChangeText={handleChange('email')}
                                     onBlur={handleBlur('email')}
                                     value={values.email}
-                                    // placeholder="bumble@uq.net.au"
-                                    placeholder="eee@live.com.au"
+                                    placeholder="bumble@uq.net.au"
                                 />
                             </View>
 
@@ -88,11 +81,9 @@ class Login extends Component {
                                     onChangeText={handleChange('password')}
                                     onBlur={handleBlur('password')}
                                     value={values.password}
-                                    // placeholder="*************"
-                                    placeholder="1111"
+                                     placeholder="*************"
                                 />
                             </View>
-
                             {/* Button (Signup/Login) */}
                             <View style={login.buttonContainer}>
                                 <TouchableOpacity
@@ -116,7 +107,6 @@ class Login extends Component {
                             >
                                 <Text style={login.buttonBottom}>forgot your login?</Text>
                             </TouchableOpacity>
-
                     </View>
             )}
         </Formik>
@@ -134,7 +124,7 @@ class Login extends Component {
                     source={require('../assets/images/logo.png')}
                 />
                 <ScrollView>
-                    <this.MyReactNativeForm/>
+                    <this.LoginForm/>
                 </ScrollView>
             </KeyboardAvoidingView>
         )
