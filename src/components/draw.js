@@ -10,13 +10,12 @@ import ViewShot, {captureRef} from "react-native-view-shot";
 
 export default class Draw extends Component {
     constructor(props) {
-        global.id = 3;
         super(props);
         this.myRef = createRef();
         this.brushMaxVal = 90;
         this.book = props.bookId;
         this.page = props.pageId;
-        setTimeout(() => this.getRole(), 500);
+        this.role = props.role;
         console.log("bookId: " + this.book + " pageId: " + this.page + " role: " + this.state.role + " user: " + global.id);
     }
 
@@ -31,32 +30,6 @@ export default class Draw extends Component {
         textBoxShow: false,
         touch: true
     };
-
-    /**
-     * Gets the role of the user. Role can be either illustrator/background/writer
-     */
-    getRole = async () => {
-        console.log("get the role of the user");
-        try {
-            const url = 'https://deco3801-universally-challenged.uqcloud.net/getRole?';
-            const query = "bookId=" + this.book + "&pageId=" + this.page + "&studentId=" + global.id;
-            console.log(url + query);
-            let response = await fetch(url + query);
-            if (response.ok) {
-                console.log("successful response");
-                let role = await response.text();
-                console.log(role)
-                this.setState({
-                    role: role
-                });
-                console.log("role: " + this.state.role);
-            } else {
-                console.log("response not ok");
-            }
-        } catch (error) {
-            console.error(error);
-        }
-    }
 
     /**
      * Saves the base64 canvas image to the server with the current bookId, pageId and userId
@@ -196,7 +169,7 @@ export default class Draw extends Component {
      * Gets the canvas layout based on the users role on the page
      */
     getCanvas() {
-        if (this.state.role === "writer") {
+        if (this.role === "writer") {
             return (
                 <View style={canvas.container}>
                     <View style={canvas.textSideBar}>
@@ -257,7 +230,7 @@ export default class Draw extends Component {
                     </ViewShot>
                 </View>
             )
-        } else if (this.state.role === "illustrator" || this.state.role === "background") {
+        } else if (this.role === "illustrator" || this.role === "background") {
             return (
                 <View style={canvas.container}>
                     <View style={canvas.sideBar}>

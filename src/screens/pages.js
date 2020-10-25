@@ -8,6 +8,7 @@ import { returnBuzz64String } from "../assets/buzz64";
 import Sound from 'react-native-sound';
 import {canvas} from "../styles/styles";
 
+
 /***
  * A screen to display either the Canvas or the created image of the book
  * @param book - A book object from the JSON wiki
@@ -15,15 +16,18 @@ import {canvas} from "../styles/styles";
  * @constructor
  */
 const Pages = (book) => {
+    global.id = 4;
     const bookId = book.route.params.bookId;
     //console.log("BookId: " + bookId);
     const [pageNumber, setPageNumber] = useState(0);
     const [pages, setPages] = useState(book.route.params.pages);
     const [page, setPage] = useState(pages[pageNumber])
     const [storyTitle, setStoryTitle] = useState(book.route.params.bookTitle);
-    const [key, setKey] = useState(1000)
-    const [creatorFinal, setCreatorFinal] = useState(false)
-    const [imageString, setImageString] = useState("")
+    const [key, setKey] = useState(1000);
+    const [creatorFinal, setCreatorFinal] = useState(false);
+    const [imageString, setImageString] = useState("");
+    const [role, setRole] = useState("");
+    const [initial, setInitial] = useState(true);
 
     /* Create sound effect to be played on page increment/decrement */
     const sound = new Sound('page_turn.mp3', Sound.MAIN_BUNDLE, (error) => {
@@ -41,6 +45,30 @@ const Pages = (book) => {
             }
         });
     });
+
+    /**
+     * Gets the role of the user. Role can be either illustrator/background/writer
+     */
+    const getRole = async () => {
+        console.log("get the role of the user");
+        try {
+            const url = 'https://deco3801-universally-challenged.uqcloud.net/getRole?';
+            const query = "bookId=" + bookId + "&pageId=" + pageNumber + "&studentId=" + global.id;
+            console.log(url + query);
+            let response = await fetch(url + query);
+            if (response.ok) {
+                console.log("successful response");
+                let role = await response.text();
+                console.log("got role " + role);
+                setRole(role);
+                console.log("role: " + role);
+            } else {
+                console.log("response not ok");
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    }
 
     /* Check to see if creator has finished their contribution for that page */
     function checkCreatorFinal() {
@@ -91,6 +119,7 @@ const Pages = (book) => {
             setKey((prevState) => prevState + 1)
             checkCreatorFinal()
             setFinalImageString()
+            getRole();
         }
         else if (value === 'increment' && pageNumber == pages.length - 1) {
             setPage(pages[pages.length - 1])
@@ -101,6 +130,7 @@ const Pages = (book) => {
             setKey((prevState) => prevState - 1)
             checkCreatorFinal()
             setFinalImageString()
+            getRole()
         }
         else if (value === 'decrement' && pageNumber == 0) {
             setPage(pages[0])
@@ -109,52 +139,68 @@ const Pages = (book) => {
         sound.play();
     }
 
-    return (
-        <View style={{flex: 1}}>
+    function display() {
+        return (
+            <View style={{flex: 1}}>
 
-            {/* Page title */}
-            <Text style={styles.title}>{storyTitle}</Text>
+                {/* Page title */}
+                <Text style={styles.title}>{storyTitle}</Text>
 
-            {/* Canvas Layout */}
-            <View style={canvas.layout}>
-                { !creatorFinal && page.active
-                    ? <Draw
-                        bookId={bookId}
-                        pageId={pageNumber}
-                        page={page}
-                        key={key}
-                    />
-                    : <ShowBooks
-                        pageNum={pageNumber}
-                        imageString={imageString}
-                        key={key}/>
-                }
-            </View>
-
-            {/* Page Navigation */}
-            <View style={canvas.pageNav}>
-
-                <TouchableOpacity style={buttons.buttonPages}
-                                  onPress={() => changePage('decrement')}
-                                  title={"Back"}
-                >
-                    <Text style={buttons.buttonTextWhite}>back page</Text>
-                </TouchableOpacity>
-
-                <View style={{backgroundColor: "#fdda64", justifyContent: "center"}}>
-                    <Text style={styles.storyTitleText}>page {pageNumber + 1} of {pages.length}</Text>
+                {/* Canvas Layout */}
+                <View style={canvas.layout}>
+                    { !creatorFinal && page.active && role !== ""
+                        ? <Draw
+                            bookId={bookId}
+                            pageId={pageNumber}
+                            page={page}
+                            key={key}
+                            role={role}
+                        />
+                        : <ShowBooks
+                            pageNum={pageNumber}
+                            imageString={imageString}
+                            key={key}/>
+                    }
                 </View>
 
-                <TouchableOpacity style={buttons.buttonPages}
-                                  onPress={() => changePage('increment')}
-                                  title={"Next Page"}
-                >
-                    <Text style={buttons.buttonTextWhite}>next page</Text>
-                </TouchableOpacity>
+                {/* Page Navigation */}
+                <View style={canvas.pageNav}>
 
+                    <TouchableOpacity style={buttons.buttonPages}
+                                      onPress={() => changePage('decrement')}
+                                      title={"Back"}
+                    >
+                        <Text style={buttons.buttonTextWhite}>back page</Text>
+                    </TouchableOpacity>
+
+                    <View style={{backgroundColor: "#fdda64", justifyContent: "center"}}>
+                        <Text style={styles.storyTitleText}>page {pageNumber + 1} of {pages.length}</Text>
+                    </View>
+
+                    <TouchableOpacity style={buttons.buttonPages}
+                                      onPress={() => changePage('increment')}
+                                      title={"Next Page"}
+                    >
+                        <Text style={buttons.buttonTextWhite}>next page</Text>
+                    </TouchableOpacity>
+
+                </View>
             </View>
-        </View>
-    );
+        )
+    }
+
+    // on inital opening of page.js, getRole of the user for the canvas.
+    // till the role has been changed, show nothing
+    if (role !== "") {
+        return (
+            display()
+        );
+    } else {
+        getRole();
+        return (
+            <View style={{flex: 1}}/>
+        )
+    }
 }
 
 export default Pages;
