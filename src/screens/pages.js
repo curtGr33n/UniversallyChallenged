@@ -59,26 +59,28 @@ const Pages = (book) => {
      */
     function setFinalImageString() {
         if (creatorFinal) {
+            console.log("Creator final = true")
             if (!(page.active)) {
+                console.log("Page active = false")
                 setImageString(page.finalImage)
+                console.log(page.finalImage)
             } else if (imageString === "") {
+                console.log("ImageString = empty")
                 page.creators.map((item) => {
+                    console.log(item)
                     if (item.studentId == global.id) {
                         if (!(item.canvas === "")) {
+                            console.log("Item image string is not empty")
                             setImageString(item.canvas)
                         } else {
                             /*Set default base64 image string because something went
                               wrong above
                              */
+                            console.log("Something went wrong buzz returned instead")
                             setImageString(returnBuzz64String())
                         }
                     }
                 })
-            } else {
-                /*Set default base64 image string because something went
-                  wrong above
-                 */
-                setImageString(returnBuzz64String())
             }
         }
     }
