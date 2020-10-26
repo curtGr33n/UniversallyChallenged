@@ -26,8 +26,6 @@ const Pages = (book) => {
     console.log("Page = " + JSON.stringify(page));
     const [storyTitle, setStoryTitle] = useState(book.route.params.bookTitle);
     const [key, setKey] = useState(1000)
-    //console.log("Key = " + key);
-    const [creatorFinal, setCreatorFinal] = useState(false)
     const [imageString, setImageString] = useState("")
 
     /* Create sound effect to be played on page increment/decrement */
@@ -67,6 +65,8 @@ const Pages = (book) => {
      */
     function setFinalImageString(num) {
         console.log("Set Final image string for page number " + pages[num].pagenum)
+        //console.log("Pages variables = " + pages[num])
+        console.log("Pages final image string = " + pages[num].finalImage)
         if (!(pages[num].active)) {
             console.log("pages final image string = " + pages[num].finalImage)
             if (pages[num].finalImage === "") {
