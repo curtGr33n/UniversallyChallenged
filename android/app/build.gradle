@@ -137,6 +137,11 @@ android {
         versionCode 1
         versionName "1.0"
     }
+
+    dexOptions {
+        javaMaxHeapSize "3g"
+    }
+
     splits {
         abi {
             reset()
@@ -152,6 +157,12 @@ android {
             keyAlias 'androiddebugkey'
             keyPassword 'android'
         }
+        release {
+              storeFile file('your_key_name.keystore')
+              storePassword 'UniversallyChallenged'
+              keyAlias 'your_key_alias'
+              keyPassword 'UniversallyChallenged'
+            }
     }
     buildTypes {
         debug {
@@ -160,7 +171,7 @@ android {
         release {
             // Caution! In production, you need to generate your own keystore file.
             // see https://facebook.github.io/react-native/docs/signed-apk-android.
-            signingConfig signingConfigs.debug
+            signingConfig signingConfigs.release
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
         }

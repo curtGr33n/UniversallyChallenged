@@ -63,3 +63,4 @@ buck-out/
 .expo/packager-info.json
 web-build/
 .expo/packager-info.json
+android/java_pid6188.hprof

@@ -66,6 +66,17 @@ const Library = (props) => {
         ))
     }
 
+    function getRandomBookCover() {
+        let bookCovers =[require('../assets/current-book-covers/books-1.png'),
+            require('../assets/current-book-covers/books-2.png'),
+            require('../assets/current-book-covers/books-3.png'),
+            require('../assets/current-book-covers/books-4.png'),
+            require('../assets/current-book-covers/books-5.png'),
+            require('../assets/current-book-covers/books-6.png')]
+        let random = Math.floor(Math.random() * 6)
+        return bookCovers[random]
+    }
+
     return (
         <View style={{flex: 1}}>
 
@@ -113,7 +124,7 @@ const Library = (props) => {
                         <View style={styles.itemContainer}>
                                 <TouchableOpacity style={styles.bookText}
                                       onPress={() => props.navigation.navigate('Pages', item)}>
-                                    <ImageBackground source={require('../assets/place-holder-open-book.png')}
+                                    <ImageBackground source={getRandomBookCover()}
                                                      style={page.bookImage}
                                                      resizeMode={'contain'}
                                     >
