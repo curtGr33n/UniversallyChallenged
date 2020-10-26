@@ -17,7 +17,9 @@ export default class Draw extends Component {
         this.page = props.pageId;
         setTimeout(() => this.getRole(), 500);
         console.log("bookId: " + this.book + " pageId: " + this.page + " role: " + this.state.role + " user: " + global.id);
+        console.log("Page number (Draw) = " + props.page.pagenum)
     }
+
 
     state = {
         colorShow: false,

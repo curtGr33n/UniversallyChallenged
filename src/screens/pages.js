@@ -19,14 +19,14 @@ const Pages = (book) => {
     console.log("bookId = " + bookId);
     //console.log("BookId: " + bookId);
     const [pageNumber, setPageNumber] = useState(-1);
-    console.log("Page number = " + pageNumber);
+    console.log("Page number (hook) = " + pageNumber);
     const [pages, setPages] = useState(book.route.params.pages);
-    console.log("Pages = " + pages);
+    //console.log("Pages = " + JSON.stringify(pages));
     const [page, setPage] = useState(pages[0])
-    console.log("Page = " + page);
+    console.log("Page = " + JSON.stringify(page));
     const [storyTitle, setStoryTitle] = useState(book.route.params.bookTitle);
     const [key, setKey] = useState(1000)
-    console.log("Key = " + key);
+    //console.log("Key = " + key);
     const [creatorFinal, setCreatorFinal] = useState(false)
     const [imageString, setImageString] = useState("")
 
@@ -36,7 +36,9 @@ const Pages = (book) => {
             console.log('failed to load the sound', error);
             return;
         }
+    });
 
+    function playSound() {
         // Play the sound with an onEnd callback
         sound.play((success) => {
             if (success) {
@@ -45,14 +47,15 @@ const Pages = (book) => {
                 console.log('playback failed due to audio decoding errors');
             }
         });
-    });
+    }
 
     /* Check to see if creator has finished their contribution for that page */
-    function checkCreatorFinal() {
-        page.creators.map((item) => {
+    function checkCreatorFinal(num) {
+        setImageString("")
+        console.log("Checking current Creator canvas " + pages[num].pagenum)
+        pages[num].creators.map((item) => {
             if (item.studentId == global.id) {
                 if (!(item.canvas === "")) {
-                    setCreatorFinal(true)
                     setImageString(item.canvas)
                 }
             }
@@ -62,77 +65,66 @@ const Pages = (book) => {
     /* Sets the imageString to the correct base 64 image string or to a default string
       if image string is non existent
      */
-    function setFinalImageString() {
-        if (creatorFinal) {
-            console.log("Creator final = true")
-            if (!(page.active)) {
+    function setFinalImageString(num) {
+        console.log("Set Final image string for page number " + pages[num].pagenum)
+        if (!(pages[num].active)) {
+            console.log("pages final image string = " + pages[num].finalImage)
+            if (pages[num].finalImage === "") {
+                setImageString(returnBuzz64String())
+            } else {
                 console.log("Page active = false")
-                setImageString(page.finalImage)
-                console.log(page.finalImage)
-            } else if (imageString === "") {
-                console.log("ImageString = empty")
-                page.creators.map((item) => {
-                    console.log(item)
-                    if (item.studentId == global.id) {
-                        if (!(item.canvas === "")) {
-                            console.log("Item image string is not empty")
-                            setImageString(item.canvas)
-                        } else {
-                            /*Set default base64 image string because something went
-                              wrong above
-                             */
-                            console.log("Something went wrong buzz returned instead")
-                            setImageString(returnBuzz64String())
-                        }
-                    }
-                })
+                setImageString(pages[num].finalImage)
+                console.log(pages[num].finalImage)
             }
         }
     }
 
-    async function increment() {
+    /*
+     * Function to increment the values used for a page
+     */
+    function increment() {
         setPage(pages[pageNumber + 1])
         setPageNumber((prevState) => prevState + 1)
         setKey((prevState) => prevState + 1)
+        console.log("Finished await Increment")
     }
 
-    async function decrement() {
+    /*
+     * Function to decrement the values used for a page
+     */
+    function decrement() {
         setPage(pages[pageNumber - 1])
         setPageNumber((prevState) => prevState - 1)
         setKey((prevState) => prevState + 1)
+        console.log("Finished await Decrement")
     }
-
-    /*This will change the page and update pageNumber */
+/*console.log("Set Final image string for page number " + page.pagenum)
+    /*
+     * This will change the page and update pageNumber
+     */
     async function changePage(value) {
         if (value === 'increment' && pageNumber < pages.length - 1) {
             console.log("INCREMENTING")
             let oldString = imageString
-            console.log("Current page = " + page.page + " page number we think it is = " + pageNumber)
+            console.log("Current page number we think it is = " + pageNumber)
             await increment()
-            console.log("New page = " + page + " page number we think it is = " + pageNumber)
-            await checkCreatorFinal()
-            await setFinalImageString()
-            console.log("Strings same = " + checkStringSame(oldString, imageString))
-        }
-        else if (value === 'increment' && pageNumber == pages.length - 1) {
-            setPage(pages[pages.length - 1])
+            await checkCreatorFinal(pageNumber + 1)
+            await setFinalImageString(pageNumber + 1)
+            console.log("New page number we think it is = " + pageNumber)
+            console.log("End of INCREMENT")
+            //console.log("Strings same = " + checkStringSame(oldString, imageString))
         }
         else if (value === 'decrement' && pageNumber > 0) {
             console.log("DECREMENTING")
-            let oldString = imageString
-            console.log("New page = " + page + " page number we think it is = " + pageNumber)
+            //let oldString = imageString
+            console.log("Current page number we think it is = " + pageNumber)
             await decrement()
-            console.log("New page = " + page + " page number we think it is = " + pageNumber)
-            await checkCreatorFinal()
-            await setFinalImageString()
-            console.log("Strings same = " + checkStringSame(oldString, imageString))
+            await checkCreatorFinal(pageNumber - 1)
+            await setFinalImageString(pageNumber - 1)
+            console.log("New page number we think it is = " + pageNumber)
+            console.log("End of DECREMENT")
+            //console.log("Strings same = " + checkStringSame(oldString, imageString))
         }
-        else if (value === 'decrement' && pageNumber == 0) {
-            setPage(pages[0])
-        }
-        // Play sound effect
-        console.log("Going to play that sound")
-        sound.play();
     }
 
     function checkStringSame(firstString, secondString) {
@@ -159,7 +151,7 @@ const Pages = (book) => {
                 ? <Text style={styles.titleBig}>{storyTitle}</Text>
                 :
                 <View style={canvas.layout}>
-                    {!creatorFinal && page.active
+                    {(imageString === "")
                         ? <Draw
                             bookId={bookId}
                             pageId={pageNumber}
