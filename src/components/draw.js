@@ -10,6 +10,7 @@ import ViewShot, {captureRef} from "react-native-view-shot";
 
 export default class Draw extends Component {
     constructor(props) {
+        global.id = 16;
         super(props);
         this.myRef = createRef();
         this.page = props.page;
@@ -179,7 +180,7 @@ export default class Draw extends Component {
      * Gets the canvas layout based on the users role on the page
      */
     getCanvas() {
-        if (this.role === "writer") {
+        if (this.role === "writer" || this.role === "author" ) {
             return (
                 <View style={canvas.container}>
                     <View style={canvas.textSideBar}>
@@ -240,7 +241,7 @@ export default class Draw extends Component {
                     </ViewShot>
                 </View>
             )
-        } else if (this.role === "illustrator" || this.role === "background") {
+        } else if (this.role === "illustrator" || this.role === "background" || this.role === "drawer") {
             return (
                 <View style={canvas.container}>
                     <View style={canvas.sideBar}>
@@ -311,7 +312,9 @@ export default class Draw extends Component {
             );
         } else {
             return (
-                <View style={{flex: 1, backgroundColor: "white"}}/>
+                <View style={{flex: 1, backgroundColor: "white", justifyContent: "center", alignContent: "center"}}>
+                    <Text style={{fontSize: 30}}>Not a valid role: {this.role}</Text>
+                </View>
             )
         }
     }
