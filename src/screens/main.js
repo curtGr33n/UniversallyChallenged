@@ -1,9 +1,9 @@
 import React, {Component, useState} from 'react';
-import {View, Text, TouchableOpacity, Image, Modal} from 'react-native';
-import {buttons, styles, page, forms} from '../styles/styles';
-import {alert} from "react-native-web";
+import {View, Text, TouchableOpacity, Image, Modal, ScrollView} from 'react-native';
+import {buttons, styles, page, forms, modalStyle, login} from '../styles/styles';
 
 class Main extends Component {
+
     state = {
         modalVisible: false
     };
@@ -14,11 +14,36 @@ class Main extends Component {
 
     render() {
         const { modalVisible } = this.state;
+
         return (
             <View style={styles.container}>
 
                 {/* Page Title */}
-                <Text style={page.title}>Home Page</Text>
+                <View style={{width:'100%'}}>
+                    <Text style={page.title}>Home Page</Text>
+                </View>
+
+                <Modal
+                    animationType="slide"
+                    transparent={true}
+                    visible={modalVisible}
+                >
+                    <View style={modalStyle.centeredView}>
+                        <View style={modalStyle.modalView}>
+
+                            {/* Video goes here */}
+
+                            <TouchableOpacity
+                                style={login.buttonPrimary}
+                                onPress={() => {
+                                    this.setModalVisible(!modalVisible);
+                                }}
+                            >
+                                <Text style={login.buttonText}>Close Tutorial</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                </Modal>
 
                 {/* Home Buttons */}
                 <View style={page.homeButtons}>
@@ -55,7 +80,7 @@ class Main extends Component {
                     {/* Video Tutorial Button */}
                     <TouchableOpacity
                         onPress={() => {
-                            this.setModalVisible(modalVisible);
+                            this.setModalVisible(true);
                         }}
                         style={page.primary}
                     >

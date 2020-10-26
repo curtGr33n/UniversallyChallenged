@@ -11,10 +11,12 @@ class Teacher extends Component {
             <View style={styles.container}>
 
                 {/* Page Title */}
-                <Text style={page.title}>Teacher Settings</Text>
+                <View style={{width:'100%'}}>
+                    <Text style={page.title}>Teacher Settings</Text>
+                </View>
 
                 {/* Navigation to Relevant Book/Teacher Controls */}
-                <View style={[page.homeButtons, page.offsetData]}>
+                <View style={[page.teacherButtons, page.offsetData]}>
 
                     {/* Add Book Navigation */}
                     <TouchableOpacity

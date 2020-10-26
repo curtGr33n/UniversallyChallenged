@@ -1,27 +1,15 @@
 import React from 'react';
-import {View, Text, Image } from 'react-native';
+import { Image } from 'react-native';
 
 
-
+/**
+ * Displays the completed image as a JSX.Element
+ * @param input: a page object
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const ShowBooks = (input) => {
-    /*const imageList =
-        [require('../assets/current-book-pages/page0.png'),
-            require('../assets/current-book-pages/page1.png'),
-            require('../assets/current-book-pages/page2.png'),
-            require('../assets/current-book-pages/page3.png'),
-            require('../assets/current-book-pages/page4.png'),
-            require('../assets/current-book-pages/page5.png'),
-            require('../assets/current-book-pages/page6.png'),
-            require('../assets/current-book-pages/page7.png'),
-            require('../assets/current-book-pages/page8.png'),
-            require('../assets/current-book-pages/page9.png'),
-            require('../assets/current-book-pages/page10.png'),
-            require('../assets/current-book-pages/page11.png'),
-            require('../assets/current-book-pages/page12.png'),
-            require('../assets/current-book-pages/page13.png'),
-            require('../assets/current-book-pages/page14.png')];
-    */
-    console.log(input.pageNum)
+    console.log("The pageNum for this page = " + input.pageNum)
     return(
         <Image source={{uri: 'data:image/png;base64,' + input.imageString}}
                resizeMode={'contain'}

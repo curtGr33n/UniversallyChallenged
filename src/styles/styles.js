@@ -6,6 +6,7 @@ import {StyleSheet} from "react-native";
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        width: "100%",
         backgroundColor: '#ffff',
         alignItems: 'center',
         justifyContent: 'flex-end',
@@ -20,6 +21,46 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         padding: 10,
         height: 150,
+    },
+    logoText:{
+        width: 400,
+        height: 50,
+        position: "absolute",
+        top: 420
+    },
+    storyTitleText: {
+        textAlign: 'center',
+        padding: 20,
+        color: '#333333',
+        fontWeight: "600",
+        fontSize: 30,
+        fontFamily: 'typewriter'
+    },
+    title: {
+        backgroundColor: '#f8ebc4',
+        alignItems: 'center',
+        textTransform: 'uppercase',
+        textAlign: 'center',
+        fontSize: 40,
+        padding: 20,
+        width: '100%',
+        color:'black',
+        fontFamily: 'Typewriter2-Bold',
+        lineHeight: 30
+    },
+    titleBig: {
+        backgroundColor: "white",
+        flex: 7,
+        justifyContent:'center',
+        alignItems: 'center',
+        textTransform: 'uppercase',
+        textAlign: 'center',
+        fontSize: 60,
+        padding: 60,
+        width: '100%',
+        color:'black',
+        fontFamily: 'Typewriter2-Bold',
+        lineHeight: 40
     }
 })
 
@@ -39,7 +80,19 @@ const page = StyleSheet.create({
         fontFamily: 'Typewriter2-Bold',
         lineHeight: 30
     },
+    teacherButtons: {
+        width: '80%',
+        display: "flex",
+        flexDirection: 'row',
+        backgroundColor: '#ffff',
+        alignItems: 'center',
+        justifyContent: 'center',
+        flex: 1,
+        paddingLeft: 50,
+        paddingRight: 50
+    },
     homeButtons: {
+        width: '100%',
         display: "flex",
         flexDirection: 'row',
         backgroundColor: '#ffff',
@@ -54,7 +107,7 @@ const page = StyleSheet.create({
         alignItems: 'center',
         flex: 1,
         height: 300,
-        margin: 50,
+        margin: 40,
         width: 300
     },
     image: {
@@ -72,7 +125,7 @@ const page = StyleSheet.create({
     },
     buzz: {
         alignSelf: 'flex-end',
-        width: '15%',
+        width: '10%',
         height: undefined,
         aspectRatio: 1,
         resizeMode: 'contain',
@@ -81,7 +134,7 @@ const page = StyleSheet.create({
         marginTop: 50,
     },
     offsetData: {
-        marginBottom: '20%'
+        marginBottom: '10%'
     },
     dropDown: {
         width: '20%',
@@ -115,12 +168,13 @@ const page = StyleSheet.create({
     },
     basicLayout: {
         flex: 1,
-        justifyContent : 'center'
+        justifyContent : 'center',
     },
     rowLayout: {
+        display: 'flex',
         alignItems: 'center',
         flexDirection: 'row',
-        justifyContent: 'center'
+        justifyContent: 'center',
     },
     libraryLayout: {
         flex: 0.1,
@@ -128,6 +182,21 @@ const page = StyleSheet.create({
         justifyContent: "space-around",
         padding: 10,
         margin: 10,
+    },
+    settingImage: {
+        width: '40%',
+        height: undefined,
+        aspectRatio: 1,
+        resizeMode: 'contain'
+    },
+    roleText: {
+        textAlign: 'center',
+        color: '#bb904f',
+        fontSize: 25,
+        fontFamily: 'typewriter-Bold',
+        lineHeight: 30,
+        textTransform: 'uppercase',
+        marginTop: 30
     }
 })
 
@@ -155,9 +224,9 @@ const login = StyleSheet.create({
     buttonText: {
         textAlign: 'center',
         color: 'black',
-        fontSize: 30,
+        fontSize: 25,
         fontFamily: 'typewriter-Bold',
-        lineHeight: 30,
+        lineHeight: 30
     },
     emailText: {
         textAlign: 'center',
@@ -167,6 +236,14 @@ const login = StyleSheet.create({
         fontFamily: 'typewriter-Bold',
         lineHeight: 30,
         marginRight: 55,
+    },
+    passwordText: {
+        textAlign: 'center',
+        color: 'black',
+        fontSize: 30,
+        alignItems: 'center',
+        fontFamily: 'typewriter-Bold',
+        lineHeight: 30,
     },
     buttonPrimary: {
         height: 60,
@@ -178,6 +255,7 @@ const login = StyleSheet.create({
         padding: 15,
         color: 'black',
         fontFamily: 'typewriter-Bold',
+        elevation: 2
     },
     buttonBottom: {
         flexDirection: 'row',
@@ -191,7 +269,7 @@ const login = StyleSheet.create({
         fontSize: 25,
         fontFamily: 'typewriter-Bold',
         lineHeight: 30,
-        alignSelf: 'center',
+        alignSelf: 'center'
     },
     layout: {
         flex: 1,
@@ -251,11 +329,21 @@ const forms = StyleSheet.create({
         color: 'black',
         fontFamily: 'typewriter-Bold',
     },
+    input: {
+        width: 400,
+        margin: 10,
+        backgroundColor: 'white',
+        borderRadius: 30,
+        padding: 20,
+        fontSize: 30,
+        color: 'black',
+        fontFamily: 'typewriter-Bold',
+    },
     container: {
         backgroundColor: '#feecb1',
         flex: 1,
         position: 'relative',
-        width: '100%',
+        width: '100%'
     },
     dropDown: {
         width: '30%',
@@ -278,6 +366,7 @@ const forms = StyleSheet.create({
         padding: 15,
         color: 'black',
         fontFamily: 'typewriter-Bold',
+        elevation: 2
     },
     buttonSecondary: {
         height: 60,
@@ -288,6 +377,7 @@ const forms = StyleSheet.create({
         padding: 15,
         color: 'white',
         fontFamily: 'typewriter-Bold',
+        elevation: 2
     },
     creatorText: {
         textAlign: 'center',
@@ -353,6 +443,7 @@ const buttons = StyleSheet.create({
         fontFamily: 'typewriter-Bold',
         borderRadius: 10,
         padding: 20,
+        elevation: 2
     },
     textWhite: {
         textAlign: 'center',
@@ -426,7 +517,8 @@ const canvas= StyleSheet.create({
         width: 65,
         height: 65,
         backgroundColor: "white",
-        borderRadius: 20
+        borderRadius: 20,
+        elevation: 2
     },
     sideBarOverlay: {
         position: "absolute",
@@ -491,4 +583,32 @@ const canvas= StyleSheet.create({
     }
 })
 
-export {styles, buttons, page, canvas, login, forms}
+const modalStyle = StyleSheet.create({
+    centeredView: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        marginTop: 22
+    },
+    modalView: {
+        margin: 20,
+        backgroundColor: "white",
+        borderRadius: 20,
+        padding: 35,
+        alignItems: "center",
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5
+    },
+    modalText: {
+        marginBottom: 15,
+        textAlign: "center"
+    }
+});
+
+export {styles, buttons, page, canvas, login, forms, modalStyle}

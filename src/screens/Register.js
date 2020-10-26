@@ -167,8 +167,10 @@ class Register extends Component {
     render() {
         return (
             <View style={page.basicLayout}>
-                {/* Title */}
-                <Text style={forms.title}>Sign Up</Text>
+                {/* Page Title */}
+                <View style={{width:'100%'}}>
+                    <Text style={forms.title}>Sign Up</Text>
+                </View>
 
                 {/* Form Content */}
                 <this.registerForm />

@@ -12,7 +12,7 @@ const Library = (props) => {
     const [schoolId, getSchoolId] = useState(global.school)
 
     /**
-     * Gets the list of books based on the classId chosen
+     * Gets the list of books based on the classId and schoolId of the current logged in user
      * sets books to this list
      * @returns {Promise<void>}
      */
@@ -24,8 +24,7 @@ const Library = (props) => {
                 let juice = await response.text();
                 let data = JSON.parse(juice)
                 console.log(data)
-                setBooks(data
-                )
+                setBooks(data)
             } else {
                 alert("HTTP-Error: " + response.status);
             }
@@ -35,6 +34,28 @@ const Library = (props) => {
     };
 
     /**
+     * Gets the list of books based on userId
+     * Sets books to this list
+     * @returns {Promise<void>}
+     */
+    const getMyBooks = async () => {
+        try {
+            console.log(global.id)
+            let response = await fetch('https://deco3801-universally-challenged.uqcloud.net/getMyBooks?studentId=' + global.id);
+            if (response.ok) {
+                let juice = await response.text();
+                let data = JSON.parse(juice);
+                console.log(data)
+                setBooks(data)
+            } else {
+                alert("HTTP-Error: " + response.status);
+            }
+        }  catch (error) {
+            console.error(error);
+        }
+    }
+
+    /*
      * Helper function to create a list of <Picker> objects to display in
      * picker list
      * @returns {*}
@@ -45,25 +66,14 @@ const Library = (props) => {
         ))
     }
 
-    /**
-     * Returns the path to the image file of a bookCover or the path of the
-     * generic bookCover image if bookCoverLink = null
-     * @returns image path
-    */
-    const getImage = (bookCoverLink) => {
-        if (bookCoverLink == null || bookCoverLink === "none") {
-            return (background);
-        } else {
-            let path = bookCoverLink;
-            return path;
-        }
-    }
 
     return (
         <View style={{flex: 1}}>
 
             {/* Page Title */}
-            <Text style={page.title}>Library</Text>
+            <View style={{width:'100%'}}>
+                <Text style={page.title}>Library</Text>
+            </View>
 
             <View style={{ backgroundColor: "white", flex: 7}}>
                 <View style={page.libraryLayout}>
@@ -74,7 +84,7 @@ const Library = (props) => {
                             selectedValue={classId}
                             prompt={"Choose class books list"}
                             onValueChange={((itemValue, itemIndex) => setClassId(itemValue))}>
-                            <Picker.Item label={"Select a library..."} value={''}/>
+                            <Picker.Item label={"Select a class library..."} value={''}/>
                             {getPickerItems()}
                         </Picker>
                     </View>
@@ -83,7 +93,14 @@ const Library = (props) => {
                     <TouchableOpacity onPress={() => getData()}
                                       style={buttons.buttonPages}
                                       title={"Load Books"}>
-                        <Text style={buttons.textWhite}>Load Books</Text>
+                        <Text style={buttons.textWhite}>Load Class Books</Text>
+                    </TouchableOpacity>
+
+                    {/* Get my books button */}
+                    <TouchableOpacity onPress={() => getMyBooks()}
+                                      style={buttons.buttonPages}
+                                      title={"Get My Books"}>
+                        <Text style={buttons.textWhite}>My Books</Text>
                     </TouchableOpacity>
                 </View>
 

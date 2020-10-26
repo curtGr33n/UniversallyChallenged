@@ -15,13 +15,14 @@ class EditBook extends Component {
         showPageFormStage2 : false,
         stageTwoValue: false,
         showPageFormStage3 : false,
+        stageThreeValue: false,
         showPageFormStage4: false,
         showIllustrator: false,
-        showDrawer: false,
-        showAuthor: false,
+        showBackground: false,
+        showWriter: false,
         illustratorForm:'',
-        drawerForm:'',
-        authorForm:'',
+        backgroundForm:'',
+        writerForm:'',
         bookSelectorOptions: [],
         pageSelectorOptions: [],
         sIDSelectorOptions: [],
@@ -47,17 +48,17 @@ class EditBook extends Component {
      */
     getClassBooks = async (values) => {
         this.setState({submitted:
+            /* Loading Modal */
                 <Modal
                     animationType="fade"
                     transparent={true}
                     visible={this.props.visible}
                     presentationStyle={"overFullScreen"}
-                    >
+                >
                     <View style={forms.modalOverlay}>
                         <ActivityIndicator size="large" color="#bb904f"/>
                     </View>
-                </Modal>
-               })
+                </Modal>})
         try {
             let response = await fetch(
                 'https://deco3801-universally-challenged.uqcloud.net/getClassBooks?classId=' +
@@ -99,16 +100,18 @@ class EditBook extends Component {
      */
     deleteBook = async (values) => {
         try {
-            this.setState({submitted: <Modal
-                    animationType="fade"
-                    transparent={true}
-                    visible={this.props.visible}
-                    presentationStyle={"overFullScreen"}
-                >
-                    <View style={forms.modalOverlay}>
-                        <ActivityIndicator size="large" color="#bb904f"/>
-                    </View>
-                </Modal>})
+            this.setState({submitted:
+                /* Loading Modal */
+                    <Modal
+                        animationType="fade"
+                        transparent={true}
+                        visible={this.props.visible}
+                        presentationStyle={"overFullScreen"}
+                    >
+                        <View style={forms.modalOverlay}>
+                            <ActivityIndicator size="large" color="#bb904f"/>
+                        </View>
+                    </Modal>})
             let response = await fetch(
                 'https://deco3801-universally-challenged.uqcloud.net/deleteBook?bookId=' +
                 values.bookId);
@@ -210,24 +213,35 @@ class EditBook extends Component {
      * @returns {Promise<void>}
      */
     displayRoles = async (values) => {
-        this.setState({submitted: <Text>Loading...</Text>});
+        this.setState({submitted:
+            /* Loading Modal */
+                <Modal
+                    animationType="fade"
+                    transparent={true}
+                    visible={this.props.visible}
+                    presentationStyle={"overFullScreen"}
+                >
+                    <View style={forms.modalOverlay}>
+                        <ActivityIndicator size="large" color="#bb904f"/>
+                    </View>
+                </Modal>});
         if(values.pagenum !== -1) {
             let creators = await this.getCreators(values);
             let illustrator = {needInput: true, role: 'illustrator'};
-            let drawer = {needInput: true, role: 'drawer'};
-            let author = {needInput: true, role: 'author'};
+            let background = {needInput: true, role: 'background'};
+            let writer = {needInput: true, role: 'writer'};
              creators.map(async (item) => {
                     if (item.role === "illustrator") {
                         let name = await this.getName({sId:item.studentId});
                         illustrator = {needInput: false, sID: item.studentId, role: item.role, name:name};
                     }
-                    if (item.role === "drawer") {
+                    if (item.role === "background") {
                         let name = await this.getName({sId:item.studentId});
-                        drawer = {needInput: false, sID: item.studentId, role: item.role, name:name};
+                        background = {needInput: false, sID: item.studentId, role: item.role, name:name};
                     }
-                    if (item.role === "author") {
+                    if (item.role === "writer") {
                         let name = await this.getName({sId:item.studentId});
-                        author = {needInput: false, sID: item.studentId, role: item.role, name:name};
+                        writer = {needInput: false, sID: item.studentId, role: item.role, name:name};
                     }
                 }
             );
@@ -237,12 +251,13 @@ class EditBook extends Component {
             ));
             this.setState({sIDSelectorOptions: studentsSelection});
             this.setState({pagenum: values.pagenum});
+            this.setState({stageThreeValue: true});
             this.setState({illustratorForm: this.showPageFormStageFour(illustrator)});
             this.setState({showIllustrator: true});
-            this.setState({drawerForm: this.showPageFormStageFour(drawer)});
-            this.setState({showDrawer: true});
-            this.setState({authorForm: this.showPageFormStageFour(author)});
-            this.setState({showAuthor: true});
+            this.setState({backgroundForm: this.showPageFormStageFour(background)});
+            this.setState({showBackground: true});
+            this.setState({writerForm: this.showPageFormStageFour(writer)});
+            this.setState({showWriter: true});
             this.setState({submitted: <Text/>});
         }else{
             alert("Please select a page number")
@@ -345,6 +360,10 @@ class EditBook extends Component {
             if (response.ok) {
                 await this.displayRoles({pagenum: this.state.pagenum});
                 this.setState({submitted: <Text/>});
+                let returnText = await response.text();
+                if(returnText === "student is already a creator"){
+                    alert(returnText);
+                }
             } else {
                 alert("HTTP-Error: " + response.status);
             }
@@ -493,7 +512,7 @@ class EditBook extends Component {
                 }
             >
                 {(props) => (
-                    <View style={{alignItems: 'center'}}>
+                    <View style={page.rowLayout}>
                         <View style={[forms.dropDown]}>
                             <Picker
                                 selectedValue={props.values.pagenum}
@@ -533,7 +552,7 @@ class EditBook extends Component {
                 >
                     {(props) => (
                         <View style={{alignItems: 'center'}}>
-                            <Text style={login.buttonText}>{values.role}</Text>
+                            <Text style={page.roleText}>{values.role}</Text>
                             <View style={[forms.dropDownHorizontal]}>
                                 {/* Dropdown Selection */}
                                 <Picker
@@ -616,9 +635,10 @@ class EditBook extends Component {
                         this.setState({showPageFormStage2: false});
                         this.setState({stageTwoValue: false});
                         this.setState({showPageFormStage3: false});
+                        this.setState({stageThreeValue: false});
                         this.setState({illustratorForm: false});
-                        this.setState({drawerForm: false});
-                        this.setState({authorForm: false});
+                        this.setState({backgroundForm: false});
+                        this.setState({writerForm: false});
                     }}
                     >
                     <Text style={buttons.buttonTextWhite}>Edit</Text>
@@ -641,9 +661,10 @@ class EditBook extends Component {
                         this.setState({showPageFormStage2: true});
                         this.setState({stageTwoValue: false});
                         this.setState({showPageFormStage3: false});
+                        this.setState({stageThreeValue: false});
                         this.setState({illustratorForm: false});
-                        this.setState({drawerForm: false});
-                        this.setState({authorForm: false});
+                        this.setState({backgroundForm: false});
+                        this.setState({writerForm: false});
                     }}
                 >
                     <Text style={buttons.buttonTextWhite}>Edit</Text>
@@ -655,8 +676,11 @@ class EditBook extends Component {
     render() {
         return (
             <ScrollView style={{backgroundColor:'#feecb1', flex: 1}}>
+
                 {/* Page Title */}
-                <Text style={forms.title}>Edit Book</Text>
+                <View style={{width:'100%'}}>
+                    <Text style={forms.title}>Edit Book</Text>
+                </View>
 
                 {/* Forms */}
                 {this.state.submitted}
@@ -665,12 +689,12 @@ class EditBook extends Component {
                 {this.state.showPageFormStage2 ? this.showPageFormStageTwo() : null}
                 {this.state.stageTwoValue ? this.showStageTwoValue({name: this.state.bookName}) : null}
                 {this.state.showPageFormStage3 ? this.showPageFormStageThree() : null}
-
+                {this.state.stageThreeValue ? <Text style={login.buttonText}>Page Number: {this.state.pagenum}</Text> : null}
                 {/* Display Roles as Row */}
                 <View style={{flexDirection: 'row', justifyContent : 'center'}}>
                     {this.state.showIllustrator ? this.state.illustratorForm : null}
-                    {this.state.showDrawer ? this.state.drawerForm : null}
-                    {this.state.showAuthor ? this.state.authorForm : null}
+                    {this.state.showBackground ? this.state.backgroundForm : null}
+                    {this.state.showWriter ? this.state.writerForm : null}
                 </View>
             </ScrollView>
         )

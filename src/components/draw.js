@@ -21,6 +21,7 @@ export default class Draw extends Component {
         console.log("bookId: " + this.book + " pageId: " + this.pageId + " role: " + this.role + " user: " + global.id);
     }
 
+
     state = {
         colorShow: false,
         color: "black",
