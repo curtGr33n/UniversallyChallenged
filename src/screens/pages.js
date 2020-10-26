@@ -26,8 +26,6 @@ const Pages = (book) => {
     const [key, setKey] = useState(1000);
     const [creatorFinal, setCreatorFinal] = useState(false);
     const [imageString, setImageString] = useState("");
-    const [role, setRole] = useState("");
-    const [loading, setLoading] = useState(true);
 
     /* Create sound effect to be played on page increment/decrement */
     const sound = new Sound('page_turn.mp3', Sound.MAIN_BUNDLE, (error) => {
@@ -95,7 +93,6 @@ const Pages = (book) => {
             setKey((prevState) => prevState + 1)
             checkCreatorFinal()
             setFinalImageString()
-            getRole();
         }
         else if (value === 'increment' && pageNumber == pages.length - 1) {
             setPage(pages[pages.length - 1])
@@ -106,7 +103,6 @@ const Pages = (book) => {
             setKey((prevState) => prevState - 1)
             checkCreatorFinal()
             setFinalImageString()
-            getRole()
         }
         else if (value === 'decrement' && pageNumber == 0) {
             setPage(pages[0])
@@ -126,10 +122,8 @@ const Pages = (book) => {
                 { !creatorFinal && page.active
                     ? <Draw
                         bookId={bookId}
-                        pageId={pageNumber}
                         page={page}
                         key={key}
-                        role={role}
                     />
                     : <ShowBooks
                         pageNum={pageNumber}
