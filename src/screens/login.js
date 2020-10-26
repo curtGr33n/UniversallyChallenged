@@ -32,7 +32,7 @@ class Login extends Component {
                     global.classid = juice.class;
                     global.school = juice.school;
                     global.type = juice.type;
-                    global.mute = false;
+                    global.mute = true;
                     this.props.navigation.navigate('Main');
                 }
             } else {
