@@ -47,6 +47,20 @@ const styles = StyleSheet.create({
         color:'black',
         fontFamily: 'Typewriter2-Bold',
         lineHeight: 30
+    },
+    titleBig: {
+        backgroundColor: "white",
+        flex: 7,
+        justifyContent:'center',
+        alignItems: 'center',
+        textTransform: 'uppercase',
+        textAlign: 'center',
+        fontSize: 60,
+        padding: 60,
+        width: '100%',
+        color:'black',
+        fontFamily: 'Typewriter2-Bold',
+        lineHeight: 40
     }
 })
 

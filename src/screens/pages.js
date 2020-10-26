@@ -18,11 +18,11 @@ const Pages = (book) => {
     const bookId = book.route.params.bookId;
     console.log("bookId = " + bookId);
     //console.log("BookId: " + bookId);
-    const [pageNumber, setPageNumber] = useState(0);
+    const [pageNumber, setPageNumber] = useState(-1);
     console.log("Page number = " + pageNumber);
     const [pages, setPages] = useState(book.route.params.pages);
     console.log("Pages = " + pages);
-    const [page, setPage] = useState(pages[pageNumber])
+    const [page, setPage] = useState(pages[0])
     console.log("Page = " + page);
     const [storyTitle, setStoryTitle] = useState(book.route.params.bookTitle);
     const [key, setKey] = useState(1000)
@@ -148,25 +148,31 @@ const Pages = (book) => {
 
             {/* Page Title */}
             <View style={{width:'100%'}}>
-                <Text style={styles.title}>{storyTitle}</Text>
-            </View>
-
-            {/* Canvas Layout */}
-            <View style={canvas.layout}>
-                { !creatorFinal && page.active
-                    ? <Draw
-                        bookId={bookId}
-                        pageId={pageNumber}
-                        page={page}
-                        key={key}
-                    />
-                    : <ShowBooks
-                        pageNum={pageNumber}
-                        imageString={imageString}
-                        key={key}/>
+                {(pageNumber < 0)
+                    ? <Text style={styles.title}></Text>
+                    :
+                    <Text style={styles.title}>{storyTitle}</Text>
                 }
             </View>
-
+            {/* Canvas Layout */}
+            {(pageNumber < 0)
+                ? <Text style={styles.titleBig}>{storyTitle}</Text>
+                :
+                <View style={canvas.layout}>
+                    {!creatorFinal && page.active
+                        ? <Draw
+                            bookId={bookId}
+                            pageId={pageNumber}
+                            page={page}
+                            key={key}
+                        />
+                        : <ShowBooks
+                            pageNum={pageNumber}
+                            imageString={imageString}
+                            key={key}/>
+                    }
+                </View>
+            }
             {/* Page Navigation */}
             <View style={canvas.pageNav}>
 
@@ -178,7 +184,9 @@ const Pages = (book) => {
                 </TouchableOpacity>
 
                 <View style={{backgroundColor: "#fdda64", justifyContent: "center"}}>
-                    <Text style={styles.storyTitleText}>page {pageNumber + 1} of {pages.length}</Text>
+                    {(pageNumber < 0)
+                        ? <Text style={styles.storyTitleText}>Title Screen</Text>
+                        : <Text style={styles.storyTitleText}>page {pageNumber + 1} of {pages.length}</Text>}
                 </View>
 
                 <TouchableOpacity style={buttons.buttonPages}

@@ -55,7 +55,6 @@ const Library = (props) => {
         }
     }
 
-
     /*
      * Helper function to create a list of <Picker> objects to display in
      * picker list
