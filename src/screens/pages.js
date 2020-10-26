@@ -16,14 +16,13 @@ import {canvas} from "../styles/styles";
  */
 const Pages = (book) => {
     const bookId = book.route.params.bookId;
-    console.log("bookId = " + bookId);
     //console.log("BookId: " + bookId);
     const [pageNumber, setPageNumber] = useState(-1);
-    console.log("Page number (hook) = " + pageNumber);
+    //console.log("Page number (hook) = " + pageNumber);
     const [pages, setPages] = useState(book.route.params.pages);
     //console.log("Pages = " + JSON.stringify(pages));
     const [page, setPage] = useState(pages[0])
-    console.log("Page = " + JSON.stringify(page));
+    //console.log("Page = " + JSON.stringify(page));
     const [storyTitle, setStoryTitle] = useState(book.route.params.bookTitle);
     const [key, setKey] = useState(1000)
     const [imageString, setImageString] = useState("")
@@ -50,7 +49,8 @@ const Pages = (book) => {
     /* Check to see if creator has finished their contribution for that page */
     function checkCreatorFinal(num) {
         setImageString("")
-        console.log("Checking current Creator canvas " + pages[num].pagenum)
+        //console.log("Checking current Creator canvas " + pages[num].pagenum)
+        //console.log(JSON.stringify(pages[num]))
         pages[num].creators.map((item) => {
             if (item.studentId == global.id) {
                 if (!(item.canvas === "")) {
@@ -64,11 +64,10 @@ const Pages = (book) => {
       if image string is non existent
      */
     function setFinalImageString(num) {
-        console.log("Set Final image string for page number " + pages[num].pagenum)
-        //console.log("Pages variables = " + pages[num])
-        console.log("Pages final image string = " + pages[num].finalImage)
+        console.log("Pages final image string = .........................................................................................................................................................................." + pages[num].finalImage)
+        console.log("Page is active = " + pages[num].active)
         if (!(pages[num].active)) {
-            console.log("pages final image string = " + pages[num].finalImage)
+            //console.log("pages final image string = " + pages[num].finalImage)
             if (pages[num].finalImage === "") {
                 setImageString(returnBuzz64String())
             } else {
@@ -86,7 +85,7 @@ const Pages = (book) => {
         setPage(pages[pageNumber + 1])
         setPageNumber((prevState) => prevState + 1)
         setKey((prevState) => prevState + 1)
-        console.log("Finished await Increment")
+        //console.log("Finished await Increment")
     }
 
     /*
@@ -96,42 +95,22 @@ const Pages = (book) => {
         setPage(pages[pageNumber - 1])
         setPageNumber((prevState) => prevState - 1)
         setKey((prevState) => prevState + 1)
-        console.log("Finished await Decrement")
+        //console.log("Finished await Decrement")
     }
-/*console.log("Set Final image string for page number " + page.pagenum)
+
     /*
      * This will change the page and update pageNumber
      */
     async function changePage(value) {
         if (value === 'increment' && pageNumber < pages.length - 1) {
-            console.log("INCREMENTING")
-            let oldString = imageString
-            console.log("Current page number we think it is = " + pageNumber)
             await increment()
             await checkCreatorFinal(pageNumber + 1)
             await setFinalImageString(pageNumber + 1)
-            console.log("New page number we think it is = " + pageNumber)
-            console.log("End of INCREMENT")
-            //console.log("Strings same = " + checkStringSame(oldString, imageString))
         }
         else if (value === 'decrement' && pageNumber > 0) {
-            console.log("DECREMENTING")
-            //let oldString = imageString
-            console.log("Current page number we think it is = " + pageNumber)
             await decrement()
             await checkCreatorFinal(pageNumber - 1)
             await setFinalImageString(pageNumber - 1)
-            console.log("New page number we think it is = " + pageNumber)
-            console.log("End of DECREMENT")
-            //console.log("Strings same = " + checkStringSame(oldString, imageString))
-        }
-    }
-
-    function checkStringSame(firstString, secondString) {
-        if (firstString === secondString) {
-            return true;
-        } else {
-            return false;
         }
     }
 
