@@ -12,11 +12,12 @@ export default class Draw extends Component {
     constructor(props) {
         super(props);
         this.myRef = createRef();
+        this.page = props.page;
         this.brushMaxVal = 90;
+        this.role = this.getRole(props);
         this.book = props.bookId;
-        this.page = props.pageId;
-        this.role = props.role;
-        console.log("bookId: " + this.book + " pageId: " + this.page + " role: " + this.state.role + " user: " + global.id);
+        this.pageId = this.page.pagenum;
+        console.log("bookId: " + this.book + " pageId: " + this.pageId + " role: " + this.role + " user: " + global.id);
     }
 
     state = {
@@ -28,8 +29,17 @@ export default class Draw extends Component {
         role: "",
         text: "",
         textBoxShow: false,
-        touch: true
+        touch: true,
     };
+
+    getRole (props) {
+        for (let cr = 0; cr < props.page.creators.length; cr++) {
+            if (props.page.creators[cr].studentId === global.id) {
+                return props.page.creators[cr].role;
+            }
+        }
+        return "invalid";
+    }
 
     /**
      * Saves the base64 canvas image to the server with the current bookId, pageId and userId
@@ -48,7 +58,7 @@ export default class Draw extends Component {
                     },
                     body: JSON.stringify({
                         bookId: this.book,
-                        pageId: this.page,
+                        pageId: this.pageId,
                         studentId: global.id,
                         image: this.state.image
                     }).replace(/\\n/g, "")

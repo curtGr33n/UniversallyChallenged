@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, Text } from 'react-native';
+import {View, Text, Modal} from 'react-native';
 import {styles, buttons} from '../styles/styles.js';
 import {TouchableOpacity}  from "react-native";
 import Draw from '../components/draw.js'
@@ -27,7 +27,7 @@ const Pages = (book) => {
     const [creatorFinal, setCreatorFinal] = useState(false);
     const [imageString, setImageString] = useState("");
     const [role, setRole] = useState("");
-    const [initial, setInitial] = useState(true);
+    const [loading, setLoading] = useState(true);
 
     /* Create sound effect to be played on page increment/decrement */
     const sound = new Sound('page_turn.mp3', Sound.MAIN_BUNDLE, (error) => {
@@ -45,30 +45,6 @@ const Pages = (book) => {
             }
         });
     });
-
-    /**
-     * Gets the role of the user. Role can be either illustrator/background/writer
-     */
-    const getRole = async () => {
-        console.log("get the role of the user");
-        try {
-            const url = 'https://deco3801-universally-challenged.uqcloud.net/getRole?';
-            const query = "bookId=" + bookId + "&pageId=" + pageNumber + "&studentId=" + global.id;
-            console.log(url + query);
-            let response = await fetch(url + query);
-            if (response.ok) {
-                console.log("successful response");
-                let role = await response.text();
-                console.log("got role " + role);
-                setRole(role);
-                console.log("role: " + role);
-            } else {
-                console.log("response not ok");
-            }
-        } catch (error) {
-            console.error(error);
-        }
-    }
 
     /* Check to see if creator has finished their contribution for that page */
     function checkCreatorFinal() {
@@ -139,68 +115,53 @@ const Pages = (book) => {
         sound.play();
     }
 
-    function display() {
-        return (
-            <View style={{flex: 1}}>
+    return (
+        <View style={{flex: 1}}>
 
-                {/* Page title */}
-                <Text style={styles.title}>{storyTitle}</Text>
+            {/* Page title */}
+            <Text style={styles.title}>{storyTitle}</Text>
 
-                {/* Canvas Layout */}
-                <View style={canvas.layout}>
-                    { !creatorFinal && page.active && role !== ""
-                        ? <Draw
-                            bookId={bookId}
-                            pageId={pageNumber}
-                            page={page}
-                            key={key}
-                            role={role}
-                        />
-                        : <ShowBooks
-                            pageNum={pageNumber}
-                            imageString={imageString}
-                            key={key}/>
-                    }
-                </View>
-
-                {/* Page Navigation */}
-                <View style={canvas.pageNav}>
-
-                    <TouchableOpacity style={buttons.buttonPages}
-                                      onPress={() => changePage('decrement')}
-                                      title={"Back"}
-                    >
-                        <Text style={buttons.buttonTextWhite}>back page</Text>
-                    </TouchableOpacity>
-
-                    <View style={{backgroundColor: "#fdda64", justifyContent: "center"}}>
-                        <Text style={styles.storyTitleText}>page {pageNumber + 1} of {pages.length}</Text>
-                    </View>
-
-                    <TouchableOpacity style={buttons.buttonPages}
-                                      onPress={() => changePage('increment')}
-                                      title={"Next Page"}
-                    >
-                        <Text style={buttons.buttonTextWhite}>next page</Text>
-                    </TouchableOpacity>
-
-                </View>
+            {/* Canvas Layout */}
+            <View style={canvas.layout}>
+                { !creatorFinal && page.active
+                    ? <Draw
+                        bookId={bookId}
+                        pageId={pageNumber}
+                        page={page}
+                        key={key}
+                        role={role}
+                    />
+                    : <ShowBooks
+                        pageNum={pageNumber}
+                        imageString={imageString}
+                        key={key}/>
+                }
             </View>
-        )
-    }
 
-    // on inital opening of page.js, getRole of the user for the canvas.
-    // till the role has been changed, show nothing
-    if (role !== "") {
-        return (
-            display()
-        );
-    } else {
-        getRole();
-        return (
-            <View style={{flex: 1}}/>
-        )
-    }
+            {/* Page Navigation */}
+            <View style={canvas.pageNav}>
+
+                <TouchableOpacity style={buttons.buttonPages}
+                                  onPress={() => changePage('decrement')}
+                                  title={"Back"}
+                >
+                    <Text style={buttons.buttonTextWhite}>back page</Text>
+                </TouchableOpacity>
+
+                <View style={{backgroundColor: "#fdda64", justifyContent: "center"}}>
+                    <Text style={styles.storyTitleText}>page {pageNumber + 1} of {pages.length}</Text>
+                </View>
+
+                <TouchableOpacity style={buttons.buttonPages}
+                                  onPress={() => changePage('increment')}
+                                  title={"Next Page"}
+                >
+                    <Text style={buttons.buttonTextWhite}>next page</Text>
+                </TouchableOpacity>
+
+            </View>
+        </View>
+    )
 }
 
 export default Pages;
