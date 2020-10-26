@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, Text, KeyboardAvoidingView} from 'react-native';
+import {View, Text, KeyboardAvoidingView, TouchableOpacity} from 'react-native';
 import {styles, buttons, page} from '../styles/styles.js';
 import Draw from '../components/draw.js'
 import ShowBooks from '../components/showBook.js'
@@ -15,7 +15,7 @@ import {canvas} from "../styles/styles";
  * @constructor
  */
 const Pages = (book) => {
-    global.id = 4;
+    global.id = 200;
     const bookId = book.route.params.bookId;
     console.log("bookId = " + bookId);
     //console.log("BookId: " + bookId);
@@ -100,7 +100,8 @@ const Pages = (book) => {
         setKey((prevState) => prevState + 1)
         console.log("Finished await Decrement")
     }
-/*console.log("Set Final image string for page number " + page.pagenum)
+
+    /*console.log("Set Final image string for page number " + page.pagenum)
     /*
      * This will change the page and update pageNumber
      */
@@ -129,6 +130,16 @@ const Pages = (book) => {
         }
     }
 
+    function isUserACreator() {
+        let creators = page.creators;
+        for (let cr = 0; cr < creators.length; cr++) {
+            if (global.id === creators[cr].studentId) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     function checkStringSame(firstString, secondString) {
         if (firstString === secondString) {
             return true;
@@ -152,7 +163,7 @@ const Pages = (book) => {
                 ? <Text style={styles.titleBig}>{storyTitle}</Text>
                 :
                 <View style={canvas.layout}>
-                    {(imageString === "")
+                    {(imageString === "" && isUserACreator())
                         ? <Draw
                             bookId={bookId}
                             pageId={pageNumber}

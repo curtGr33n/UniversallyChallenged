@@ -7,10 +7,8 @@ import {canvas} from '../styles/styles'
 import Slider from "@react-native-community/slider";
 import ViewShot, {captureRef} from "react-native-view-shot";
 
-
 export default class Draw extends Component {
     constructor(props) {
-        global.id = 16;
         super(props);
         this.myRef = createRef();
         this.page = props.page;
@@ -34,6 +32,11 @@ export default class Draw extends Component {
         touch: true,
     };
 
+    /**
+     * Gets the role of the users based on the current global.id (id of the user)
+     * @param props properties passed into Draw
+     * @returns the role of the user for the page or invalid if the user has not been assigned
+     */
     getRole (props) {
         for (let cr = 0; cr < props.page.creators.length; cr++) {
             if (props.page.creators[cr].studentId === global.id) {
