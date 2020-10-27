@@ -11,12 +11,11 @@ export default class Draw extends Component {
     constructor(props) {
         super(props);
         this.myRef = createRef();
-        // this.page = props.page;
+        this.page = props.page;
         this.brushMaxVal = 90;
-        // this.role = this.getRole(props);
-        // this.book = props.bookId;
-        // this.pageId = this.page.pagenum;
-        this.role = "writer";
+        this.role = this.getRole(props);
+        this.book = props.bookId;
+        this.pageId = this.page.pagenum;
         console.log("bookId: " + this.book + " pageId: " + this.pageId + " role: " + this.role + " user: " + global.id);
     }
 
@@ -143,7 +142,6 @@ export default class Draw extends Component {
                     height: this.brushMaxVal,
                     backgroundColor: "white",
                     position: "absolute",
-                    // left: 5,
                     top: 10,
                     marginHorizontal: 5,
 
@@ -190,11 +188,19 @@ export default class Draw extends Component {
                         <TouchableOpacity
                             style={canvas.button}
                             onPress={() => this.toggleTextBox()}>
-                            <Image
-                                source={require("../assets/images/text.png")}
-                                resizeMode="center"
-                                style={canvas.icon}
-                            />
+                            {!this.state.textBoxShow ? (
+                                <Image
+                                    source={require("../assets/images/text.png")}
+                                    resizeMode="center"
+                                    style={canvas.icon}
+                                />
+                            ) : (
+                                <Image
+                                    source={require("../assets/images/tick.png")}
+                                    resizeMode="center"
+                                    style={canvas.icon}
+                                />
+                            )}
                         </TouchableOpacity>
                         <TouchableOpacity
                             style={canvas.button}
@@ -214,7 +220,6 @@ export default class Draw extends Component {
                     <ViewShot
                         ref={this.myRef}
                         style={{flex: 1, flexDirection: "column"}}>
-                        <View
                         {this.state.textBoxShow ? (
                             <View style={{flexDirection: "row", height: 80, width: 200, position: "absolute", top: 50,
                                 left: 50}}>
@@ -233,6 +238,22 @@ export default class Draw extends Component {
                                 </TextInput>
                             </View>
                         ) : null}
+                        <SketchCanvas
+                            touchEnabled={false}
+                            style={{flex: 1, backgroundColor: 'white', margin: 20}}
+                            text={[{
+                                text: this.state.text,
+                                fontSize: 60,
+                                position: { x: 0.5, y: 0.01 },
+                                anchor: { x: 0.5, y: 0 },
+                                coordinate: 'Ratio',
+                                overlay: 'TextOnSketch',
+                                fontColor: 'black',
+                                font: 'fonts/typewriter-Bold.ttf',
+                                imageType: 'png',
+                                alignment: 'Center',
+                            }]}
+                        />
                     </ViewShot>
                 </View>
             )

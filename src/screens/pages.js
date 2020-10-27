@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
-import {View, Text, KeyboardAvoidingView, TouchableOpacity} from 'react-native';
-import {styles, buttons, page} from '../styles/styles.js';
+import {View, Text, KeyboardAvoidingView, TouchableOpacity, Image} from 'react-native';
+import {styles, buttons, page, login} from '../styles/styles.js';
 import Draw from '../components/draw.js'
 import ShowBooks from '../components/showBook.js'
 import { returnBuzz64String } from "../assets/buzz64";
@@ -125,14 +125,22 @@ const Pages = (book) => {
             {/* Page Title */}
             <View style={{width:'100%'}}>
                 {(pageNumber < 0)
-                    ? <Text style={styles.title}></Text>
+                    ? <Text style={styles.title}>{storyTitle}</Text>
                     :
                     <Text style={styles.title}>{storyTitle}</Text>
                 }
             </View>
             {/* Canvas Layout */}
             {(pageNumber < 0)
-                ? <Text style={styles.titleBig}>{storyTitle}</Text>
+                ? <View style={canvas.layout}>
+                    <Image
+                    style={{
+                        width: '100%',
+                        height: undefined,
+                        aspectRatio: 1}}
+                    source={require('../assets/images/cover.png')}
+                  />
+                </View>
                 :
                 <View style={canvas.layout}>
                     {(imageString === "" && isUserACreator())
