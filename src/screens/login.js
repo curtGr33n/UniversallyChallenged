@@ -49,7 +49,7 @@ class Login extends Component {
      */
     LoginForm = props => (
         <Formik
-            initialValues={{email: 'flinn@test.com', password: 'flinn'}}
+            initialValues={{email: 'Johnny', password: '1111'}}
             onSubmit={
                 values => this.getUser(values)
             }

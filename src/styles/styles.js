@@ -595,7 +595,8 @@ const canvas= StyleSheet.create({
         padding: 20,
         color:'black',
         fontFamily: 'Typewriter2-Bold',
-        lineHeight: 30
+        lineHeight: 30,
+        position: "absolute"
     },
 })
 

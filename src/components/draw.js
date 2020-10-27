@@ -34,24 +34,6 @@ export default class Draw extends Component {
         touch: true
     };
 
-    addNewLine() {
-        this.setState({
-            text: this.state.text + "\n",
-            line: this.state.line + 1
-        })
-    }
-
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        if (prevState.text !== this.state.text) {
-            // if (this.state.text.length > (10 * (this.state.text.length % 10))) {
-            //     this.addNewLine();
-            // }
-            if (this.state.text.length > (10 * this.state.line)) {
-                this.addNewLine();
-            }
-        }
-    }
-
     /**
      * Gets the role of the users based on the current global.id (id of the user)
      * @param props properties passed into Draw
@@ -232,7 +214,7 @@ export default class Draw extends Component {
                     <ViewShot
                         ref={this.myRef}
                         style={{flex: 1, flexDirection: "column"}}>
-                        <Text style={{fontSize: 40}}>{this.state.text}</Text>
+                        <View
                         {this.state.textBoxShow ? (
                             <View style={{flexDirection: "row", height: 80, width: 200, position: "absolute", top: 50,
                                 left: 50}}>
