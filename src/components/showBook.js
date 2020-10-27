@@ -1,7 +1,6 @@
 import React from 'react';
 import { Image } from 'react-native';
 
-
 /**
  * Displays the completed image as a JSX.Element
  * @param input: a page object
