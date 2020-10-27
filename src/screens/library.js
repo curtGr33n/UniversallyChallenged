@@ -5,6 +5,12 @@ import {styles, buttons, page, forms} from '../styles/styles.js';
 import {FlatGrid} from "react-native-super-grid";
 import Pages from "./pages";
 
+/**
+ * A screen that displays the list of books depending on Student ID
+ * @param props
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const Library = (props) => {
     const [books, setBooks] = useState([])
     const [classId, setClassId] = useState(0)
@@ -18,12 +24,10 @@ const Library = (props) => {
      */
     const getData = async () => {
         try {
-            console.log(classId);
             let response = await fetch('https://deco3801-universally-challenged.uqcloud.net/getClassBooks?classId=' + classId + '&school=' + schoolId);
             if (response.ok) {
                 let juice = await response.text();
                 let data = JSON.parse(juice)
-                console.log(data)
                 setBooks(data)
             } else {
                 alert("HTTP-Error: " + response.status);
@@ -40,12 +44,10 @@ const Library = (props) => {
      */
     const getMyBooks = async () => {
         try {
-            console.log(global.id)
             let response = await fetch('https://deco3801-universally-challenged.uqcloud.net/getMyBooks?studentId=' + global.id);
             if (response.ok) {
                 let juice = await response.text();
                 let data = JSON.parse(juice);
-                console.log(data)
                 setBooks(data)
             } else {
                 alert("HTTP-Error: " + response.status);
@@ -66,6 +68,9 @@ const Library = (props) => {
         ))
     }
 
+    /*
+     * Returns a random book cover image
+     */
     function getRandomBookCover() {
         let bookCovers =[require('../assets/current-book-covers/books-1.png'),
             require('../assets/current-book-covers/books-2.png'),
@@ -84,10 +89,8 @@ const Library = (props) => {
             <View style={{width:'100%'}}>
                 <Text style={page.title}>Library</Text>
             </View>
-
             <View style={{ backgroundColor: "white", flex: 7}}>
                 <View style={page.libraryLayout}>
-
                     {/* DropDown Selection */}
                     <View style={page.dropDown}>
                         <Picker
@@ -98,14 +101,12 @@ const Library = (props) => {
                             {getPickerItems()}
                         </Picker>
                     </View>
-
                     {/* Submit/Load Button */}
                     <TouchableOpacity onPress={() => getData()}
                                       style={buttons.buttonPages}
                                       title={"Load Books"}>
                         <Text style={buttons.textWhite}>Load Class Books</Text>
                     </TouchableOpacity>
-
                     {/* Get my books button */}
                     <TouchableOpacity onPress={() => getMyBooks()}
                                       style={buttons.buttonPages}
@@ -113,7 +114,6 @@ const Library = (props) => {
                         <Text style={buttons.textWhite}>My Books</Text>
                     </TouchableOpacity>
                 </View>
-
                 {/* Library Layout */}
                 <FlatGrid
                     itemDimension={300}
@@ -123,7 +123,7 @@ const Library = (props) => {
                     renderItem={({item}) => (
                         <View style={styles.itemContainer}>
                                 <TouchableOpacity style={styles.bookText}
-                                      onPress={() => props.navigation.navigate('Pages', item)}>
+                                      onPress={() => { props.navigation.navigate('Pages', item); setBooks([])}}>
                                     <ImageBackground source={getRandomBookCover()}
                                                      style={page.bookImage}
                                                      resizeMode={'contain'}
