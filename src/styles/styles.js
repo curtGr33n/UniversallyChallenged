@@ -48,20 +48,29 @@ const styles = StyleSheet.create({
         fontFamily: 'Typewriter2-Bold',
         lineHeight: 30
     },
-    titleBig: {
-        backgroundColor: "white",
-        flex: 7,
-        justifyContent:'center',
+    titleSmall: {
+        backgroundColor: '#f8ebc4',
         alignItems: 'center',
         textTransform: 'uppercase',
         textAlign: 'center',
-        fontSize: 60,
-        padding: 60,
+        fontSize: 30,
+        padding: 20,
         width: '100%',
         color:'black',
         fontFamily: 'Typewriter2-Bold',
-        lineHeight: 40,
-        flexWrap: 'wrap'
+        lineHeight: 35
+    },
+    pageTheme: {
+        backgroundColor: '#f8ebc4',
+        alignItems: 'center',
+        textTransform: 'uppercase',
+        textAlign: 'center',
+        fontSize: 20,
+        padding: 20,
+        width: '100%',
+        color:'black',
+        fontFamily: 'Typewriter2-Bold',
+        lineHeight: 25
     }
 })
 
@@ -337,6 +346,7 @@ const forms = StyleSheet.create({
         borderRadius: 30,
         padding: 20,
         fontSize: 30,
+        lineHeight: 40,
         color: 'black',
         fontFamily: 'typewriter-Bold',
     },

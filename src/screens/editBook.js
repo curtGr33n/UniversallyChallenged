@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {ActivityIndicator, Modal, Picker, ScrollView, Text, TouchableOpacity, View} from 'react-native';
+import {ActivityIndicator, Modal, Picker, ScrollView, Text, TextInput, TouchableOpacity, View} from 'react-native';
 import {Formik} from 'formik';
 import {CheckBox} from "react-native-elements";
 import {buttons, forms, login} from '../styles/styles.js';
@@ -16,6 +16,7 @@ class EditBook extends Component {
         stageTwoValue: false,
         showPageFormStage3 : false,
         stageThreeValue: false,
+        showPageFormStageTheme: false,
         showPageFormStage4: false,
         showIllustrator: false,
         showBackground: false,
@@ -207,6 +208,37 @@ class EditBook extends Component {
     };
 
     /**
+     * Adds a theme to a page
+     * @param values contains the pageId
+     */
+    addTheme = async (values) => {
+        this.setState({submitted:
+            /* Loading Modal */
+                <Modal
+                    animationType="fade"
+                    transparent={true}
+                    visible={this.props.visible}
+                    presentationStyle={"overFullScreen"}
+                >
+                    <View style={forms.modalOverlay}>
+                        <ActivityIndicator size="large" color="#bb904f"/>
+                    </View>
+                </Modal>})
+        try {
+            let response = await fetch(
+                'https://deco3801-universally-challenged.uqcloud.net/addTheme?bookId='
+                + this.state.bookId + '&pageId=' + this.state.pagenum + '&theme=' + values.theme);
+            if (!response.ok) {
+                alert("HTTP-Error: " + response.status);
+            }
+            this.setState({submitted: <Text/>});
+        } catch (error) {
+            this.setState({submitted: <Text/>});
+            alert(error);
+        }
+    };
+
+    /**
      * Deals with the roles and assigns the data to them
      * Also builds the picker for student ids
      * @param values contains the pagenum
@@ -252,6 +284,7 @@ class EditBook extends Component {
             this.setState({sIDSelectorOptions: studentsSelection});
             this.setState({pagenum: values.pagenum});
             this.setState({stageThreeValue: true});
+            this.setState({showPageFormStageTheme: true});
             this.setState({illustratorForm: this.showPageFormStageFour(illustrator)});
             this.setState({showIllustrator: true});
             this.setState({backgroundForm: this.showPageFormStageFour(background)});
@@ -525,7 +558,7 @@ class EditBook extends Component {
                             style={forms.buttonPrimary}
                             onPress={props.handleSubmit}
                         >
-                            <Text style={login.buttonText}>Assign Roles</Text>
+                            <Text style={login.buttonText}>Submit</Text>
                         </TouchableOpacity>
                     </View>
                 )}
@@ -543,7 +576,8 @@ class EditBook extends Component {
     showPageFormStageFour = (values) => {
         if(values.needInput) {
             return (
-                /* Form Layout */
+                <View>
+                    /* Form Layout */
                 <Formik
                     initialValues={{sID: -1, role: values.role}}
                     onSubmit={
@@ -573,6 +607,7 @@ class EditBook extends Component {
                         </View>
                     )}
                 </Formik>
+                </View>
             );
         } else{
             return (
@@ -588,6 +623,38 @@ class EditBook extends Component {
                 </View>
             );
         }
+    }
+
+    addThemeForm = (values) => {
+            return (
+                /* Form Layout */
+                <Formik
+                    initialValues={{theme:""}}
+                    onSubmit={
+                        values => this.addTheme(values)
+                    }
+                >
+                    {(props) => (
+                        <View style={{alignItems: 'center'}}>
+                            <Text style={page.roleText}>Add Theme</Text>
+                            <TextInput
+                                style={forms.bookInput}
+                                placeholder= 'Add a page Theme'
+                                onChangeText={props.handleChange('theme')}
+                                value={props.values.theme}
+                            />
+
+                            {/* Submit Button */}
+                            <TouchableOpacity
+                                style={forms.buttonPrimary}
+                                onPress={props.handleSubmit}
+                            >
+                                <Text style={login.buttonText}>Add Theme</Text>
+                            </TouchableOpacity>
+                        </View>
+                    )}
+                </Formik>
+            );
     }
 
     /**
@@ -639,6 +706,7 @@ class EditBook extends Component {
                         this.setState({illustratorForm: false});
                         this.setState({backgroundForm: false});
                         this.setState({writerForm: false});
+                        this.setState({showPageFormStageTheme: false});
                     }}
                     >
                     <Text style={buttons.buttonTextWhite}>Edit</Text>
@@ -661,6 +729,7 @@ class EditBook extends Component {
                         this.setState({showPageFormStage2: true});
                         this.setState({stageTwoValue: false});
                         this.setState({showPageFormStage3: false});
+                        this.setState({showPageFormStageTheme: false});
                         this.setState({stageThreeValue: false});
                         this.setState({illustratorForm: false});
                         this.setState({backgroundForm: false});
@@ -690,6 +759,7 @@ class EditBook extends Component {
                 {this.state.stageTwoValue ? this.showStageTwoValue({name: this.state.bookName}) : null}
                 {this.state.showPageFormStage3 ? this.showPageFormStageThree() : null}
                 {this.state.stageThreeValue ? <Text style={login.buttonText}>Page Number: {this.state.pagenum}</Text> : null}
+                {this.state.showPageFormStageTheme ? this.addThemeForm() : null}
                 {/* Display Roles as Row */}
                 <View style={{flexDirection: 'row', justifyContent : 'center'}}>
                     {this.state.showIllustrator ? this.state.illustratorForm : null}
