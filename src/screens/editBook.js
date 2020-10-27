@@ -230,7 +230,7 @@ class EditBook extends Component {
             let illustrator = {needInput: true, role: 'illustrator'};
             let background = {needInput: true, role: 'background'};
             let writer = {needInput: true, role: 'writer'};
-             creators.map(async (item) => {
+             await creators.map(async (item) => {
                     if (item.role === "illustrator") {
                         let name = await this.getName({sId:item.studentId});
                         illustrator = {needInput: false, sID: item.studentId, role: item.role, name:name};
