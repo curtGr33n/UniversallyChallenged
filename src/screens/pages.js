@@ -15,7 +15,6 @@ import {canvas} from "../styles/styles";
  * @constructor
  */
 const Pages = (book) => {
-    global.id = 200;
     const bookId = book.route.params.bookId;
     const [pageNumber, setPageNumber] = useState(-1);
     const [pages, setPages] = useState(book.route.params.pages);
@@ -110,11 +109,14 @@ const Pages = (book) => {
 
     function isUserACreator() {
         let creators = page.creators;
+        console.log("checking if " + global.id + " is a creator");
         for (let cr = 0; cr < creators.length; cr++) {
             if (global.id === creators[cr].studentId) {
+                console.log("true");
                 return true;
             }
         }
+        console.log("false");
         return false;
     }
 
