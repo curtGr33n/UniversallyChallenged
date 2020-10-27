@@ -134,11 +134,12 @@ const Pages = (book) => {
             {(pageNumber < 0)
                 ? <View style={canvas.layout}>
                     <Image
-                    style={{
-                        width: '100%',
-                        height: undefined,
-                        aspectRatio: 1}}
-                    source={require('../assets/images/cover.png')}
+                        resizeMode={'contain'}
+                        style={{
+                            width: '100%',
+                            height: '100%',
+                            }}
+                        source={require('../assets/images/cover.png')}
                   />
                 </View>
                 :
