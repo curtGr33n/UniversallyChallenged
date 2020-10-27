@@ -1,12 +1,11 @@
 import React, {useState} from 'react';
 import {View, Text, KeyboardAvoidingView, TouchableOpacity, Image} from 'react-native';
-import {styles, buttons, page, login} from '../styles/styles.js';
+import {styles, buttons} from '../styles/styles.js';
 import Draw from '../components/draw.js'
 import ShowBooks from '../components/showBook.js'
 import { returnBuzz64String } from "../assets/buzz64";
 import Sound from 'react-native-sound';
 import {canvas} from "../styles/styles";
-
 
 /***
  * A screen to display either the Canvas or the created image of the book
@@ -21,30 +20,8 @@ const Pages = (book) => {
     const [page, setPage] = useState(pages[0])
     const [storyTitle, setStoryTitle] = useState(book.route.params.bookTitle);
     const [key, setKey] = useState(1000);
-    const [creatorFinal, setCreatorFinal] = useState(false);
     const [imageString, setImageString] = useState("");
-
-    /* Create sound effect to be played on page increment/decrement */
-    const sound = new Sound('page_turn.mp3', Sound.MAIN_BUNDLE, (error) => {
-        if (error) {
-            console.log('failed to load the sound', error);
-            return;
-        }
-    });
-
-    /*
-     * A function that plays a sound when called
-     */
-    function playSound() {
-        // Play the sound with an onEnd callback
-        sound.play((success) => {
-            if (success) {
-                console.log('successfully finished playing');
-            } else {
-                console.log('playback failed due to audio decoding errors');
-            }
-        });
-    }
+    const [pageTheme, setPageTheme] = useState(page.theme)
 
     /* Check to see if creator has finished their contribution for that page */
     function checkCreatorFinal(num) {
@@ -73,6 +50,10 @@ const Pages = (book) => {
         }
     }
 
+    function changePageTheme(num) {
+        setPageTheme(pages[num].theme)
+    }
+
     /*
      * Function to increment the values used for a page
      */
@@ -91,19 +72,22 @@ const Pages = (book) => {
         setKey((prevState) => prevState + 1)
     }
 
-    /*
+    /**
      * This will change the page and update pageNumber
+     * @params value: 'increment' or 'decrement'
      */
     async function changePage(value) {
         if (value === 'increment' && pageNumber < pages.length - 1) {
             await increment()
             await checkCreatorFinal(pageNumber + 1)
             await setFinalImageString(pageNumber + 1)
+            await changePageTheme(pageNumber + 1)
         }
         else if (value === 'decrement' && pageNumber > 0) {
             await decrement()
             await checkCreatorFinal(pageNumber - 1)
             await setFinalImageString(pageNumber - 1)
+            await changePageTheme(pageNumber - 1)
         }
     }
 
@@ -127,7 +111,10 @@ const Pages = (book) => {
                 {(pageNumber < 0)
                     ? <Text style={styles.title}>{storyTitle}</Text>
                     :
-                    <Text style={styles.title}>{storyTitle}</Text>
+                    <View style={{width: '100%'}}>
+                        <Text style={styles.title}>{storyTitle}</Text>
+                        <Text style={styles.title}>{pageTheme}</Text>
+                    </View>
                 }
             </View>
             {/* Canvas Layout */}
