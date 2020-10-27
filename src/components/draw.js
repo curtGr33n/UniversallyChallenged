@@ -230,15 +230,18 @@ export default class Draw extends Component {
                         ) : null}
                         <SketchCanvas
                             touchEnabled={false}
-                            style={{flex: 1, backgroundColor: 'white'}}
-                            text={[{text: this.state.text,
-                                fontSize: 40,
+                            style={{flex: 1, backgroundColor: 'white', margin: 20}}
+                            text={[{
+                                text: this.state.text,
+                                fontSize: 60,
                                 position: { x: 0.5, y: 0.01 },
                                 anchor: { x: 0.5, y: 0 },
                                 coordinate: 'Ratio',
                                 overlay: 'TextOnSketch',
                                 fontColor: 'black',
-                                imageType: 'jpg'
+                                font: 'fonts/typewriter-Bold.ttf',
+                                imageType: 'jpg',
+                                alignment: 'Center',
                             }]}
                         />
                     </ViewShot>
