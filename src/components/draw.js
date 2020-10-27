@@ -16,6 +16,7 @@ export default class Draw extends Component {
         this.role = this.getRole(props);
         this.book = props.bookId;
         this.pageId = this.page.pagenum;
+        this.transparent = true;
         console.log("bookId: " + this.book + " pageId: " + this.pageId + " role: " + this.role + " user: " + global.id);
     }
 
@@ -183,7 +184,7 @@ export default class Draw extends Component {
      * Gets the canvas layout based on the users role on the page
      */
     getCanvas() {
-        if (this.role === "writer" || this.role === "author" ) {
+        if (this.role === "writer") {
             return (
                 <View style={canvas.container}>
                     <View style={canvas.textSideBar}>
@@ -244,7 +245,8 @@ export default class Draw extends Component {
                     </ViewShot>
                 </View>
             )
-        } else if (this.role === "illustrator" || this.role === "background" || this.role === "drawer") {
+        } else if (this.role === "illustrator" || this.role === "background") {
+            console.log("I've entered here with role: " + this.role);
             return (
                 <View style={canvas.container}>
                     <View style={canvas.sideBar}>
@@ -287,8 +289,8 @@ export default class Draw extends Component {
                         <TouchableOpacity
                             style={canvas.button}
                             onPress={() => {
-                                this.myRef.current.getBase64('png', true, false, false, false, (err, result) => {
-                                    // console.log(result);
+                                this.myRef.current.getBase64('png', this.transparent, false, false, false, (err, result) => {
+                                    console.log("is transparent " + this.transparent);
                                     this.setState({image: result});
                                 })
                                 setTimeout(() => this.saveCanvas(), 100);
