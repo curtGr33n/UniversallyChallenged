@@ -522,10 +522,10 @@ const canvas= StyleSheet.create({
         elevation: 2
     },
     colorButton: {
-        width: 65,
+        width: 50,
         height: 50,
         backgroundColor: "white",
-        borderRadius: 20,
+        borderRadius: 25,
         elevation: 2,
     },
     sideBarOverlay: {

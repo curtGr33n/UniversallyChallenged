@@ -1,4 +1,4 @@
-import React, {Component, createRef} from 'react';
+import React, {Component, createRef, useEffect} from 'react';
 import {View, TouchableOpacity, Image, AppRegistry, TextInput, Text, Alert} from 'react-native';
 
 import {SketchCanvas} from '@terrylinla/react-native-sketch-canvas';
@@ -16,7 +16,7 @@ export default class Draw extends Component {
         // this.role = this.getRole(props);
         // this.book = props.bookId;
         // this.pageId = this.page.pagenum;
-        this.role = "background";
+        this.role = "writer";
         console.log("bookId: " + this.book + " pageId: " + this.pageId + " role: " + this.role + " user: " + global.id);
     }
 
@@ -27,10 +27,30 @@ export default class Draw extends Component {
         brushSize: 10,
         image: null,
         role: "",
+        prevText: "",
         text: "",
+        line: 1,
         textBoxShow: false,
-        touch: true,
+        touch: true
     };
+
+    addNewLine() {
+        this.setState({
+            text: this.state.text + "\n",
+            line: this.state.line + 1
+        })
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (prevState.text !== this.state.text) {
+            // if (this.state.text.length > (10 * (this.state.text.length % 10))) {
+            //     this.addNewLine();
+            // }
+            if (this.state.text.length > (10 * this.state.line)) {
+                this.addNewLine();
+            }
+        }
+    }
 
     /**
      * Gets the role of the users based on the current global.id (id of the user)
@@ -189,7 +209,7 @@ export default class Draw extends Component {
                             style={canvas.button}
                             onPress={() => this.toggleTextBox()}>
                             <Image
-                                source={require("../assets/images/pencil-Invert.png")}
+                                source={require("../assets/images/text.png")}
                                 resizeMode="center"
                                 style={canvas.icon}
                             />
@@ -212,6 +232,7 @@ export default class Draw extends Component {
                     <ViewShot
                         ref={this.myRef}
                         style={{flex: 1, flexDirection: "column"}}>
+                        <Text style={{fontSize: 40}}>{this.state.text}</Text>
                         {this.state.textBoxShow ? (
                             <View style={{flexDirection: "row", height: 80, width: 200, position: "absolute", top: 50,
                                 left: 50}}>
@@ -223,22 +244,13 @@ export default class Draw extends Component {
                                     editable={true}
                                     onSubmitEditing={() => this.toggleTextBox()}
                                     autoFocus={true}
-                                />
+                                    autoCapitalize={"sentences"}
+                                    multiline={true}
+                                    value={this.state.text}
+                                >
+                                </TextInput>
                             </View>
                         ) : null}
-                        <SketchCanvas
-                            touchEnabled={false}
-                            style={{flex: 1, backgroundColor: 'white'}}
-                            text={[{text: this.state.text,
-                                fontSize: 40,
-                                position: { x: 0.5, y: 0.01 },
-                                anchor: { x: 0.5, y: 0 },
-                                coordinate: 'Ratio',
-                                overlay: 'TextOnSketch',
-                                fontColor: 'black',
-                                imageType: 'jpg'
-                            }]}
-                        />
                     </ViewShot>
                 </View>
             )
