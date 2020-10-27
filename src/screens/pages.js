@@ -17,13 +17,9 @@ import {canvas} from "../styles/styles";
 const Pages = (book) => {
     global.id = 200;
     const bookId = book.route.params.bookId;
-    //console.log("BookId: " + bookId);
     const [pageNumber, setPageNumber] = useState(-1);
-    //console.log("Page number (hook) = " + pageNumber);
     const [pages, setPages] = useState(book.route.params.pages);
-    //console.log("Pages = " + JSON.stringify(pages));
     const [page, setPage] = useState(pages[0])
-    //console.log("Page = " + JSON.stringify(page));
     const [storyTitle, setStoryTitle] = useState(book.route.params.bookTitle);
     const [key, setKey] = useState(1000);
     const [creatorFinal, setCreatorFinal] = useState(false);
@@ -37,6 +33,9 @@ const Pages = (book) => {
         }
     });
 
+    /*
+     * A function that plays a sound when called
+     */
     function playSound() {
         // Play the sound with an onEnd callback
         sound.play((success) => {
@@ -51,8 +50,7 @@ const Pages = (book) => {
     /* Check to see if creator has finished their contribution for that page */
     function checkCreatorFinal(num) {
         setImageString("")
-        //console.log("Checking current Creator canvas " + pages[num].pagenum)
-        //console.log(JSON.stringify(pages[num]))
+        console.log(pages[num])
         pages[num].creators.map((item) => {
             if (item.studentId == global.id) {
                 if (!(item.canvas === "")) {
@@ -66,16 +64,12 @@ const Pages = (book) => {
       if image string is non existent
      */
     function setFinalImageString(num) {
-        console.log("Pages final image string = .........................................................................................................................................................................." + pages[num].finalImage)
-        console.log("Page is active = " + pages[num].active)
+        console.log("page active = " + pages[num].active)
         if (!(pages[num].active)) {
-            //console.log("pages final image string = " + pages[num].finalImage)
             if (pages[num].finalImage === "") {
                 setImageString(returnBuzz64String())
             } else {
-                console.log("Page active = false")
                 setImageString(pages[num].finalImage)
-                console.log(pages[num].finalImage)
             }
         }
     }
@@ -87,7 +81,6 @@ const Pages = (book) => {
         setPage(pages[pageNumber + 1])
         setPageNumber((prevState) => prevState + 1)
         setKey((prevState) => prevState + 1)
-        //console.log("Finished await Increment")
     }
 
     /*
@@ -97,7 +90,6 @@ const Pages = (book) => {
         setPage(pages[pageNumber - 1])
         setPageNumber((prevState) => prevState - 1)
         setKey((prevState) => prevState + 1)
-        //console.log("Finished await Decrement")
     }
 
     /*
