@@ -67,13 +67,10 @@ export default class Draw extends Component {
                         image: this.state.image
                     }).replace(/\\n/g, "")
                 });
-                if (response.ok) {
-                    Alert.alert("Saved")
-                    console.log("image sent to server successfully");
-                } else {
-                    console.log("response not received");
-                }
+                Alert.alert("Saved")
+                console.log("image sent to server successfully");
             } catch (error) {
+                Alert.alert("Not saved")
                 console.error(error);
                 console.log("caught error");
             }
