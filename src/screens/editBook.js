@@ -82,7 +82,7 @@ class EditBook extends Component {
     displayBook = async (values) => {
         if(values.classId !== -1) {
             let classBooksDigits = await this.getClassBooks(values);
-            let classBookSelection = classBooksDigits.map(i => (
+            let classBookSelection = await classBooksDigits.map(i => (
                 <Picker.Item label={i.bookTitle.toString()} value={i.bookId.toString()}/>
             ));
             this.setState({classId: values.classId});
@@ -138,7 +138,7 @@ class EditBook extends Component {
                     await this.addPage(values);
                 }
                 let pages = await this.getPages(values);
-                let pageSelection = pages.map(i => (
+                let pageSelection = await pages.map(i => (
                     <Picker.Item label={i.pagenum.toString()} value={i.pagenum.toString()}/>
                 ));
                 this.setState({bookId: values.bookId});
@@ -246,7 +246,7 @@ class EditBook extends Component {
                 }
             );
             let students = await this.getStudents();
-            let studentsSelection = students.map(i => (
+            let studentsSelection = await students.map(i => (
                 <Picker.Item label={i[1].toString()} value={i[0].toString()}/>
             ));
             this.setState({sIDSelectorOptions: studentsSelection});
