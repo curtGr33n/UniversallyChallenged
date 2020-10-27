@@ -53,7 +53,6 @@ export default class Draw extends Component {
     saveCanvas = async () => {
         if (this.state.image != null) {
             console.log("saving image")
-            // console.log(this.state.image)
             try {
                 const url = 'https://deco3801-universally-challenged.uqcloud.net/addImageToCreator';
                 let response = await fetch(url, {
@@ -69,8 +68,13 @@ export default class Draw extends Component {
                         image: this.state.image
                     }).replace(/\\n/g, "")
                 });
-                Alert.alert("Saved")
-                console.log("image sent to server successfully");
+                if (response.ok) {
+                    Alert.alert("Saved")
+                    console.log("image sent to server successfully");
+                } else {
+                    Alert.alert("Something not ok");
+                    console.log("Not successful");
+                }
             } catch (error) {
                 Alert.alert("Not saved")
                 console.error(error);
