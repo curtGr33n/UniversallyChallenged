@@ -11,11 +11,12 @@ export default class Draw extends Component {
     constructor(props) {
         super(props);
         this.myRef = createRef();
-        this.page = props.page;
+        // this.page = props.page;
         this.brushMaxVal = 90;
-        this.role = this.getRole(props);
-        this.book = props.bookId;
-        this.pageId = this.page.pagenum;
+        // this.role = this.getRole(props);
+        // this.book = props.bookId;
+        // this.pageId = this.page.pagenum;
+        this.role = "background";
         console.log("bookId: " + this.book + " pageId: " + this.pageId + " role: " + this.role + " user: " + global.id);
     }
 
@@ -99,13 +100,13 @@ export default class Draw extends Component {
      The primary color palette
      */
     primaryColors () {
-        const colors = ["red", "blue", "green", "brown", "black"];
-        const colorComponents = colors.map(color =>
-            <TouchableOpacity style={[canvas.button, {backgroundColor: color}]}
+        const colors1 = ["red", "blue", "green", "beige", "coral", "crimson", "navy"];
+        const colorRow1 = colors1.map(color =>
+            <TouchableOpacity style={[canvas.colorButton, {backgroundColor: color}]}
                               onPress={() => this.chooseColor(color)}/>)
         return(
-            <View style={canvas.sideBarOverlay}>
-                <>{colorComponents}</>
+            <View style={[canvas.sideBarOverlay, {height: 515}]}>
+                <>{colorRow1}</>
             </View>
         )
     }
@@ -246,7 +247,7 @@ export default class Draw extends Component {
                 <View style={canvas.container}>
                     <View style={canvas.sideBar}>
                         <TouchableOpacity
-                            style={canvas.button}
+                            style={[canvas.button, {backgroundColor: this.state.color}]}
                             onPress={() => this.chooseColor()}>
                             <Image
                                 source={require("../assets/pencil.png")}
