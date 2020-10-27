@@ -60,7 +60,8 @@ const styles = StyleSheet.create({
         width: '100%',
         color:'black',
         fontFamily: 'Typewriter2-Bold',
-        lineHeight: 40
+        lineHeight: 40,
+        flexWrap: 'wrap'
     }
 })
 
