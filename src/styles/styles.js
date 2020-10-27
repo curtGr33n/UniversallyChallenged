@@ -523,7 +523,7 @@ const canvas= StyleSheet.create({
     },
     colorButton: {
         width: 65,
-        height: 65,
+        height: 50,
         backgroundColor: "white",
         borderRadius: 20,
         elevation: 2,

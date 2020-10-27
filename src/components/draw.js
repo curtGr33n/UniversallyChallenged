@@ -100,7 +100,7 @@ export default class Draw extends Component {
      The primary color palette
      */
     primaryColors () {
-        const colors1 = ["red", "blue", "green", "beige", "coral", "crimson", "navy"];
+        const colors1 = ["gold", "sandybrown", "crimson", "lightgreen", "olivedrab", "steelblue", "saddlebrown", "black"];
         const colorRow1 = colors1.map(color =>
             <TouchableOpacity style={[canvas.colorButton, {backgroundColor: color}]}
                               onPress={() => this.chooseColor(color)}/>)
@@ -189,7 +189,7 @@ export default class Draw extends Component {
                             style={canvas.button}
                             onPress={() => this.toggleTextBox()}>
                             <Image
-                                source={require("../assets/images/text.png")}
+                                source={require("../assets/images/pencil-Invert.png")}
                                 resizeMode="center"
                                 style={canvas.icon}
                             />
@@ -203,7 +203,7 @@ export default class Draw extends Component {
                             )}
                         >
                             <Image
-                                source={require("../assets/save.jpeg")}
+                                source={require("../assets/images/save.jpeg")}
                                 resizeMode="center"
                                 style={canvas.icon}
                             />
@@ -250,7 +250,7 @@ export default class Draw extends Component {
                             style={[canvas.button, {backgroundColor: this.state.color}]}
                             onPress={() => this.chooseColor()}>
                             <Image
-                                source={require("../assets/pencil.png")}
+                                source={require("../assets/images/pencil-Invert.png")}
                                 resizeMode="center"
                                 style={canvas.icon}
                             />
@@ -259,7 +259,7 @@ export default class Draw extends Component {
                             style={canvas.button}
                             onPress={() => this.setState({color: "white"})}>
                             <Image
-                                source={require("../assets/rubber.png")}
+                                source={require("../assets/images/rubber.png")}
                                 resizeMode="center"
                                 style={canvas.icon}
                             />
@@ -268,7 +268,7 @@ export default class Draw extends Component {
                             style={canvas.button}
                             onPress={() => this.myRef.current.undo()}>
                             <Image
-                                source={require("../assets/undo.png")}
+                                source={require("../assets/images/undo.png")}
                                 resizeMode="center"
                                 style={canvas.icon}
                             />
@@ -291,7 +291,7 @@ export default class Draw extends Component {
                                 setTimeout(() => this.saveCanvas(), 100);
                             }}>
                             <Image
-                                source={require("../assets/save.jpeg")}
+                                source={require("../assets/images/save.jpeg")}
                                 resizeMode="center"
                                 style={canvas.icon}
                             />
