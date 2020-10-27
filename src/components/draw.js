@@ -16,7 +16,6 @@ export default class Draw extends Component {
         this.role = this.getRole(props);
         this.book = props.bookId;
         this.pageId = this.page.pagenum;
-        this.transparent = true;
         console.log("bookId: " + this.book + " pageId: " + this.pageId + " role: " + this.role + " user: " + global.id);
     }
 
@@ -52,7 +51,7 @@ export default class Draw extends Component {
     saveCanvas = async () => {
         if (this.state.image != null) {
             console.log("saving image")
-            console.log(this.state.image)
+            // console.log(this.state.image)
             try {
                 const url = 'https://deco3801-universally-challenged.uqcloud.net/addImageToCreator';
                 let response = await fetch(url, {
@@ -246,7 +245,6 @@ export default class Draw extends Component {
                 </View>
             )
         } else if (this.role === "illustrator" || this.role === "background") {
-            console.log("I've entered here with role: " + this.role);
             return (
                 <View style={canvas.container}>
                     <View style={canvas.sideBar}>
@@ -289,8 +287,7 @@ export default class Draw extends Component {
                         <TouchableOpacity
                             style={canvas.button}
                             onPress={() => {
-                                this.myRef.current.getBase64('png', this.transparent, false, false, false, (err, result) => {
-                                    console.log("is transparent " + this.transparent);
+                                this.myRef.current.getBase64('png', true, false, false, false, (err, result) => {
                                     this.setState({image: result});
                                 })
                                 setTimeout(() => this.saveCanvas(), 100);
