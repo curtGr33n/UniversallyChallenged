@@ -87,14 +87,6 @@ class Settings extends Component {
                                        style={page.settingImage}/>
                                 <Text style={buttons.buttonText}>Logout</Text>
                             </TouchableOpacity>
-                            <TouchableOpacity
-                                onPress={() => {this.props.navigation.navigate("Draw")}}
-                                style={page.primary}
-                            >
-                                <Image source={require('../assets/images/logout_grey.png')}
-                                       style={page.settingImage}/>
-                                <Text style={buttons.buttonText}>Draw</Text>
-                            </TouchableOpacity>
                         </View>
                     </View>
                 </ScrollView>
