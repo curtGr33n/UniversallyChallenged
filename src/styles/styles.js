@@ -581,7 +581,15 @@ const canvas= StyleSheet.create({
     },
     black: {
         backgroundColor: '#051032'
-    }
+    },
+    text: {
+        textAlign: 'center',
+        fontSize: 50,
+        padding: 20,
+        color:'black',
+        fontFamily: 'Typewriter2-Bold',
+        lineHeight: 30
+    },
 })
 
 const modalStyle = StyleSheet.create({
