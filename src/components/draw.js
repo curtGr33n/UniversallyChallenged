@@ -218,7 +218,7 @@ export default class Draw extends Component {
                             <View style={{flexDirection: "row", height: 80, width: 200, position: "absolute", top: 50,
                                 left: 50}}>
                                 <TextInput
-                                    style={{height: 40}}
+                                    style={canvas.text}
                                     placeholder={"Type your story here"}
                                     onChangeText={(story) => this.setState({text: story})}
                                     defaultValue={""}
