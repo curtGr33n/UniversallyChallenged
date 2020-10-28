@@ -48,29 +48,24 @@ const styles = StyleSheet.create({
         fontFamily: 'Typewriter2-Bold',
         lineHeight: 30
     },
+    titleBig: {
+        backgroundColor: '#f8ebc4',
+        alignItems: 'center',
+        textTransform: 'uppercase',
+        textAlign: 'center',
+        fontSize: 25,
+        padding: 5,
+        width: '100%',
+        color:'black',
+        fontFamily: 'Typewriter2-Bold',
+    },
     titleSmall: {
         backgroundColor: '#f8ebc4',
-        alignItems: 'center',
         textTransform: 'uppercase',
-        textAlign: 'center',
-        fontSize: 30,
-        padding: 20,
-        width: '100%',
-        color:'black',
-        fontFamily: 'Typewriter2-Bold',
-        lineHeight: 35
-    },
-    pageTheme: {
-        backgroundColor: '#f8ebc4',
-        alignItems: 'center',
-        textTransform: 'uppercase',
-        textAlign: 'center',
         fontSize: 20,
-        padding: 20,
-        width: '100%',
-        color:'black',
+        paddingBottom: 5,
+        color: '#bb904f',
         fontFamily: 'Typewriter2-Bold',
-        lineHeight: 25
     }
 })
 
@@ -608,6 +603,13 @@ const canvas= StyleSheet.create({
         lineHeight: 30,
         position: "absolute"
     },
+    role: {
+        width: 30,
+        height: 30,
+        marginLeft: 20,
+        alignItems: "center",
+        justifyContent: "center",
+    }
 })
 
 const modalStyle = StyleSheet.create({

@@ -137,9 +137,12 @@ const Pages = (book) => {
                     ? <Text style={styles.title}>{storyTitle}</Text>
                     :
                     <View style={{width: '100%'}}>
-                            <Text style={styles.title}>{storyTitle}</Text>
-                            <Text style={styles.title}>{pageTheme}</Text>
-                            <Image source={roleImage} resizeMode={"contain"}/>
+                            <Text style={styles.titleBig}>{storyTitle}</Text>
+                        <View style={{flexDirection: 'row', justifyContent : 'center',
+                            alignItems:'center', backgroundColor: '#f8ebc4', paddingBottom: 5}}>
+                            <Text style={styles.titleSmall}>{pageTheme}</Text>
+                            <Image source={roleImage} resizeMode={"contain"} style={canvas.role}/>
+                        </View>
                     </View>
                 }
             </View>
