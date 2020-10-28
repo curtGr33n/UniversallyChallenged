@@ -17,7 +17,7 @@ class EditBook extends Component {
         showPageFormStage3 : false,
         stageThreeValue: false,
         showPageFormStageTheme: false,
-        showPageFormStage4: false,
+        showFormValue: false,
         showIllustrator: false,
         showBackground: false,
         showWriter: false,
@@ -31,6 +31,7 @@ class EditBook extends Component {
         bookId: -1,
         bookName: "",
         pagenum: -1,
+        theme: "",
         submitted: <Text/>,
     }
 
@@ -195,7 +196,6 @@ class EditBook extends Component {
      */
     addPage = async (values) => {
         try {
-            console.log(values.bookId);
             let response = await fetch(
                 'https://deco3801-universally-challenged.uqcloud.net/createPage?id='
                 + values.bookId);
@@ -230,6 +230,10 @@ class EditBook extends Component {
                 + this.state.bookId + '&pageId=' + this.state.pagenum + '&theme=' + values.theme);
             if (!response.ok) {
                 alert("HTTP-Error: " + response.status);
+            } else{
+                this.setState({theme: values.theme});
+                this.setState({showPageFormStageTheme: false});
+                this.setState({showFormValue: true});
             }
             this.setState({submitted: <Text/>});
         } catch (error) {
@@ -284,7 +288,15 @@ class EditBook extends Component {
             this.setState({sIDSelectorOptions: studentsSelection});
             this.setState({pagenum: values.pagenum});
             this.setState({stageThreeValue: true});
-            this.setState({showPageFormStageTheme: true});
+            let theme = await this.getPage();
+            if(theme.theme !== ""){
+                this.setState({theme: theme.theme});
+                this.setState({showFormValue: true});
+                this.setState({showPageFormStageTheme: false});
+            }else{
+                this.setState({showPageFormStageTheme: true});
+                this.setState({showFormValue: false});
+            }
             this.setState({illustratorForm: this.showPageFormStageFour(illustrator)});
             this.setState({showIllustrator: true});
             this.setState({backgroundForm: this.showPageFormStageFour(background)});
@@ -294,6 +306,40 @@ class EditBook extends Component {
             this.setState({submitted: <Text/>});
         }else{
             alert("Please select a page number")
+        }
+    };
+
+    /**
+     * Gets a page of a book
+     * @param values contains the bookId
+     * @returns an array of page objects from a book
+     */
+    getPage = async () => {
+        this.setState({submitted:
+            /* Loading Modal */
+                <Modal
+                    animationType="fade"
+                    transparent={true}
+                    visible={this.props.visible}
+                    presentationStyle={"overFullScreen"}
+                >
+                    <View style={forms.modalOverlay}>
+                        <ActivityIndicator size="large" color="#bb904f"/>
+                    </View>
+                </Modal>});
+        try {
+            let response = await fetch(
+                'https://deco3801-universally-challenged.uqcloud.net/getPage?bookId=' +
+                this.state.bookId + '&pageId=' + this.state.pagenum);
+            if (response.ok) {
+                let juice = await response.text();
+                this.setState({submitted: <Text/>})
+                return JSON.parse(juice);
+            } else {
+                alert("HTTP-Error: " + response.status);
+            }
+        } catch (error) {
+            this.setState({submitted: <Text>{error}</Text>});
         }
     };
 
@@ -331,7 +377,7 @@ class EditBook extends Component {
                 alert("HTTP-Error: " + response.status);
             }
         } catch (error) {
-            this.setState({submitted: <Text>{error}</Text>});
+            alert(error);
         }
     };
 
@@ -362,6 +408,7 @@ class EditBook extends Component {
             } else {
                 alert("HTTP-Error: " + response.status);
             }
+            this.setState({submitted: <Text/>});
         } catch (error) {
             this.setState({submitted: <Text>{error}</Text>});
         }
@@ -392,7 +439,6 @@ class EditBook extends Component {
                 '&role=' + values.role);
             if (response.ok) {
                 await this.displayRoles({pagenum: this.state.pagenum});
-                this.setState({submitted: <Text/>});
                 let returnText = await response.text();
                 if(returnText === "student is already a creator"){
                     alert(returnText);
@@ -400,6 +446,7 @@ class EditBook extends Component {
             } else {
                 alert("HTTP-Error: " + response.status);
             }
+            this.setState({submitted: <Text/>});
         } catch (error) {
             this.setState({submitted: <Text>{error}</Text>});
         }
@@ -433,6 +480,7 @@ class EditBook extends Component {
             } else {
                 alert("HTTP-Error: " + response.status);
             }
+            this.setState({submitted: <Text/>});
         } catch (error) {
             this.setState({submitted: <Text>{error}</Text>});
         }
@@ -515,13 +563,15 @@ class EditBook extends Component {
                         <View style={{flexDirection: 'row', justifyContent : 'center', alignItems:'center'}}>
                             <TouchableOpacity
                                 style={forms.buttonPrimary}
-                                onPress={() => {props.setFieldValue('deleteBook', false); props.handleSubmit();}}
+                                onPress={() => {props.setFieldValue('deleteBook', false);
+                                props.handleSubmit();}}
                             >
                                 <Text style={login.buttonText}>Edit Book</Text>
                             </TouchableOpacity>
                             <TouchableOpacity
                                 style={forms.buttonPrimary}
-                                onPress={() => {props.setFieldValue('deleteBook', true); props.handleSubmit();}}
+                                onPress={() => {props.setFieldValue('deleteBook', true);
+                                props.handleSubmit();}}
                             >
                                 <Text style={login.buttonText}>Delete Book</Text>
                             </TouchableOpacity>
@@ -576,7 +626,6 @@ class EditBook extends Component {
     showPageFormStageFour = (values) => {
         if(values.needInput) {
             return (
-                <View>
                     /* Form Layout */
                 <Formik
                     initialValues={{sID: -1, role: values.role}}
@@ -607,7 +656,6 @@ class EditBook extends Component {
                         </View>
                     )}
                 </Formik>
-                </View>
             );
         } else{
             return (
@@ -625,7 +673,11 @@ class EditBook extends Component {
         }
     }
 
-    addThemeForm = (values) => {
+    /**
+     * Displays the form to add a theme to the page
+     * @return {JSX.Element} the form
+     */
+    addThemeForm = () => {
             return (
                 /* Form Layout */
                 <Formik
@@ -639,7 +691,7 @@ class EditBook extends Component {
                             <Text style={page.roleText}>Add Theme</Text>
                             <TextInput
                                 style={forms.bookInput}
-                                placeholder= 'Add a page Theme'
+                                placeholder={"enter page theme here..."}
                                 onChangeText={props.handleChange('theme')}
                                 value={props.values.theme}
                             />
@@ -673,8 +725,8 @@ class EditBook extends Component {
                     </View>
                 </Modal>})
             let response = await fetch(
-                'https://deco3801-universally-challenged.uqcloud.net/deleteCreator?studentId='+ values.sID +
-                '&bookId=' + this.state.bookId + '&pageId=' + this.state.pagenum);
+                'https://deco3801-universally-challenged.uqcloud.net/deleteCreator?studentId='+
+                values.sID + '&bookId=' + this.state.bookId + '&pageId=' + this.state.pagenum);
             if (!response.ok) {
                 alert("HTTP-Error: " + response.status);
             } else{
@@ -707,6 +759,7 @@ class EditBook extends Component {
                         this.setState({backgroundForm: false});
                         this.setState({writerForm: false});
                         this.setState({showPageFormStageTheme: false});
+                        this.setState({showFormValue: false});
                     }}
                     >
                     <Text style={buttons.buttonTextWhite}>Edit</Text>
@@ -734,6 +787,28 @@ class EditBook extends Component {
                         this.setState({illustratorForm: false});
                         this.setState({backgroundForm: false});
                         this.setState({writerForm: false});
+                        this.setState({showFormValue: false});
+                    }}
+                >
+                    <Text style={buttons.buttonTextWhite}>Edit</Text>
+                </TouchableOpacity>
+            </View>
+        );
+    }
+
+    /**
+     * Shows the submitted form value from theme selection and allows editing
+     * @returns {JSX.Element} the element to display information
+     */
+    showFormValue = () => {
+        return (
+            <View style={{alignItems: 'center', flexDirection: 'row', justifyContent: 'center'}}>
+                <Text style={buttons.buttonText}>Page Theme: {this.state.theme}</Text>
+                <TouchableOpacity
+                    style={forms.buttonSecondary}
+                    onPress={() => {
+                        this.setState({showPageFormStageTheme: true});
+                        this.setState({showFormValue: false});
                     }}
                 >
                     <Text style={buttons.buttonTextWhite}>Edit</Text>
@@ -758,8 +833,10 @@ class EditBook extends Component {
                 {this.state.showPageFormStage2 ? this.showPageFormStageTwo() : null}
                 {this.state.stageTwoValue ? this.showStageTwoValue({name: this.state.bookName}) : null}
                 {this.state.showPageFormStage3 ? this.showPageFormStageThree() : null}
-                {this.state.stageThreeValue ? <Text style={login.buttonText}>Page Number: {this.state.pagenum}</Text> : null}
+                {this.state.stageThreeValue ? <Text style={login.buttonText}>Page Number:
+                    {this.state.pagenum}</Text> : null}
                 {this.state.showPageFormStageTheme ? this.addThemeForm() : null}
+                {this.state.showFormValue ? this.showFormValue() : null}
                 {/* Display Roles as Row */}
                 <View style={{flexDirection: 'row', justifyContent : 'center'}}>
                     {this.state.showIllustrator ? this.state.illustratorForm : null}
