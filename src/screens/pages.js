@@ -132,16 +132,20 @@ const Pages = (book) => {
     return (
         <KeyboardAvoidingView behavior={'height'} style={{flex: 1}}>
             {/* Page Title */}
-            <View style={{width:'100%'}}>
+            <View style={{width:'100%', flex: 1}}>
                 {(pageNumber < 0)
                     ? <Text style={styles.title}>{storyTitle}</Text>
                     :
-                    <View style={{width: '100%'}}>
+                    <View style={{width: '100%', flex: 1}}>
                             <Text style={styles.titleBig}>{storyTitle}</Text>
-                        <View style={{flexDirection: 'row', justifyContent : 'center',
-                            alignItems:'center', backgroundColor: '#f8ebc4', paddingBottom: 5}}>
-                            <Text style={styles.titleSmall}>{pageTheme}</Text>
-                            <Image source={roleImage} resizeMode={"contain"} style={canvas.role}/>
+                        <View style={{backgroundColor: '#f8ebc4', paddingBottom: 5, flexDirection: "row",
+                            justifyContent: "space-between"}}>
+                            <View style={{alignItems: "center", flex: 1, marginLeft: 10}}>
+                                <Text style={styles.titleSmall}>{pageTheme}</Text>
+                            </View>
+                            <View style={{alignItems: "center", marginRight: 10}}>
+                                <Image source={roleImage} resizeMode={"contain"} style={canvas.role}/>
+                            </View>
                         </View>
                     </View>
                 }
