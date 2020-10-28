@@ -21,7 +21,8 @@ const Pages = (book) => {
     const [storyTitle, setStoryTitle] = useState(book.route.params.bookTitle);
     const [key, setKey] = useState(1000);
     const [imageString, setImageString] = useState("");
-    const [pageTheme, setPageTheme] = useState(page.theme)
+    const [pageTheme, setPageTheme] = useState(page.theme);
+    const [roleImage, setRoleImage] = useState((require("../assets/images/tick.png")));
 
     /* Check to see if creator has finished their contribution for that page */
     function checkCreatorFinal(num) {
@@ -50,9 +51,23 @@ const Pages = (book) => {
         }
     }
 
-    /*function getCreatorIcon(num) {
-
-    }*/
+    function getCreatorIcon(num) {
+        let userRole = ""
+        pages[num].creators.map((item) => {
+            if (item.studentId == global.id) {
+                userRole = item.role
+            }
+        })
+        if (userRole === "background") {
+            setRoleImage(require("../assets/images/roles_background.png"));
+        } else if (userRole === "illustrator") {
+            setRoleImage(require("../assets/images/roles_illustrator.png"));
+        } else if (userRole === "writer") {
+            setRoleImage(require("../assets/images/roles_writer.png"));
+        } else {
+            setRoleImage(require("../assets/images/tick.png"));
+        }
+    }
 
     function changePageTheme(num) {
         setPageTheme(pages[num].theme)
@@ -80,18 +95,20 @@ const Pages = (book) => {
      * This will change the page and update pageNumber
      * @params value: 'increment' or 'decrement'
      */
-    async function changePage(value) {
+     function changePage(value) {
         if (value === 'increment' && pageNumber < pages.length - 1) {
-            await increment()
-            await checkCreatorFinal(pageNumber + 1)
-            await setFinalImageString(pageNumber + 1)
-            await changePageTheme(pageNumber + 1)
+            increment()
+            checkCreatorFinal(pageNumber + 1)
+            setFinalImageString(pageNumber + 1)
+            changePageTheme(pageNumber + 1)
+            getCreatorIcon(pageNumber + 1)
         }
         else if (value === 'decrement' && pageNumber > 0) {
-            await decrement()
-            await checkCreatorFinal(pageNumber - 1)
-            await setFinalImageString(pageNumber - 1)
-            await changePageTheme(pageNumber - 1)
+            decrement()
+            checkCreatorFinal(pageNumber - 1)
+            setFinalImageString(pageNumber - 1)
+            changePageTheme(pageNumber - 1)
+            getCreatorIcon(pageNumber - 1)
         }
     }
 
@@ -120,8 +137,9 @@ const Pages = (book) => {
                     ? <Text style={styles.title}>{storyTitle}</Text>
                     :
                     <View style={{width: '100%'}}>
-                        <Text style={styles.title}>{storyTitle}</Text>
-                        <Text style={styles.title}>{pageTheme}</Text>
+                            <Text style={styles.title}>{storyTitle}</Text>
+                            <Text style={styles.title}>{pageTheme}</Text>
+                            <Image source={roleImage} resizeMode={"contain"}/>
                     </View>
                 }
             </View>
