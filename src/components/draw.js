@@ -134,6 +134,16 @@ export default class Draw extends Component {
         });
     }
 
+    getCreatorIndex() {
+        let creators = this.page.creators;
+        for (let cr = 0; cr < creators.length; cr++) {
+            if (creators[cr].studentId === global.id) {
+                return cr;
+            }
+        }
+        return -1;
+    }
+
     /**
      View that shows the brush adjuster
      */
@@ -306,6 +316,10 @@ export default class Draw extends Component {
                             onPress={() => {
                                 this.myRef.current.getBase64('png', true, false, false, false, (err, result) => {
                                     this.setState({image: result});
+                                    let cr = this.getCreatorIndex();
+                                    if (cr > 0) {
+                                        this.page.creators[cr].canvas = result;
+                                    }
                                 })
                                 setTimeout(() => this.saveCanvas(), 100);
                             }}>

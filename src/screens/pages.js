@@ -104,6 +104,10 @@ const Pages = (book) => {
         return false;
     }
 
+    function saveImage() {
+        console.log("parent to child");
+    }
+
     return (
         <KeyboardAvoidingView behavior={'height'} style={{flex: 1}}>
             {/* Page Title */}
@@ -137,6 +141,7 @@ const Pages = (book) => {
                             pageId={pageNumber}
                             page={page}
                             key={key}
+                            save={() => saveImage()}
                         />
                         : <ShowBooks
                             pageNum={pageNumber}
