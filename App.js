@@ -8,7 +8,7 @@ import Library from "./src/screens/library";
 import Pages from "./src/screens/pages";
 import Teacher from "./src/screens/teacher";
 import Settings from "./src/screens/settings";
-import Register from "./src/screens/Register";
+import Register from "./src/screens/register";
 import SplashScreen from "./src/screens/splashScreen";
 import addBook from "./src/screens/addBook";
 import editBook from "./src/screens/editBook";
