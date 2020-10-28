@@ -606,9 +606,7 @@ const canvas= StyleSheet.create({
     role: {
         width: 30,
         height: 30,
-        marginLeft: 20,
-        alignItems: "center",
-        justifyContent: "center",
+        alignSelf: 'flex-end'
     }
 })
 
