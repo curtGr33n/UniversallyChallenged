@@ -345,6 +345,14 @@ const forms = StyleSheet.create({
         color: 'black',
         fontFamily: 'typewriter-Bold',
     },
+    smallText: {
+        fontSize: 30,
+        lineHeight: 40,
+        color: 'black',
+        textTransform: 'uppercase',
+        fontFamily: 'typewriter-Bold',
+        textAlign: 'center',
+    },
     container: {
         backgroundColor: '#feecb1',
         flex: 1,
@@ -361,6 +369,17 @@ const forms = StyleSheet.create({
         fontSize: 30,
         color: 'black',
         fontFamily: 'typewriter-Bold',
+        justifyContent: 'center'
+    },
+    dropDownSmall: {
+        width: '30%',
+        height: 60,
+        margin: 10,
+        backgroundColor: 'white',
+        borderRadius: 30,
+        padding: 20,
+        fontSize: 20,
+        color: 'black',
         justifyContent: 'center'
     },
     buttonPrimary: {

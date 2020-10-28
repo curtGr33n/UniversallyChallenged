@@ -165,7 +165,8 @@ const Pages = (book) => {
                 :
                 <View style={canvas.layout}>
                     {(imageString === "" && isUserACreator())
-                        ? <Draw
+                        ?
+                        <Draw
                             bookId={bookId}
                             pageId={pageNumber}
                             page={page}

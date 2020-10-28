@@ -141,7 +141,7 @@ class EditBook extends Component {
                 }
                 let pages = await this.getPages(values);
                 let pageSelection = await pages.map(i => (
-                    <Picker.Item label={i.pagenum.toString()} value={i.pagenum.toString()}/>
+                    <Picker.Item label={"Page " + i.pagenum.toString()} value={i.pagenum.toString()}/>
                 ));
                 this.setState({bookId: values.bookId});
                 let name = await this.getBookName({bookId: values.bookId});
@@ -687,11 +687,10 @@ class EditBook extends Component {
                     }
                 >
                     {(props) => (
-                        <View style={{alignItems: 'center'}}>
-                            <Text style={page.roleText}>Add Theme</Text>
+                        <View style={{alignItems: 'center', flexDirection: 'row', justifyContent: 'center'}}>
                             <TextInput
-                                style={forms.bookInput}
-                                placeholder={"enter page theme here..."}
+                                style={forms.dropDownSmall}
+                                placeholder={"Enter page theme here..."}
                                 onChangeText={props.handleChange('theme')}
                                 value={props.values.theme}
                             />
@@ -833,12 +832,11 @@ class EditBook extends Component {
                 {this.state.showPageFormStage2 ? this.showPageFormStageTwo() : null}
                 {this.state.stageTwoValue ? this.showStageTwoValue({name: this.state.bookName}) : null}
                 {this.state.showPageFormStage3 ? this.showPageFormStageThree() : null}
-                {this.state.stageThreeValue ? <Text style={login.buttonText}>Page Number:
-                    {this.state.pagenum}</Text> : null}
+                {this.state.stageThreeValue}
                 {this.state.showPageFormStageTheme ? this.addThemeForm() : null}
                 {this.state.showFormValue ? this.showFormValue() : null}
                 {/* Display Roles as Row */}
-                <View style={{flexDirection: 'row', justifyContent : 'center'}}>
+                <View style={{flexDirection: 'row', justifyContent : 'center', margin: 40}}>
                     {this.state.showIllustrator ? this.state.illustratorForm : null}
                     {this.state.showBackground ? this.state.backgroundForm : null}
                     {this.state.showWriter ? this.state.writerForm : null}
