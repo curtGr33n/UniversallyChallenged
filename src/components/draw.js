@@ -13,7 +13,8 @@ export default class Draw extends Component {
         this.myRef = createRef();
         this.page = props.page;
         this.brushMaxVal = 90;
-        this.role = this.getRole(props);
+        // this.role = this.getRole(props);
+        this.role = "writer";
         this.book = props.bookId;
         this.pageId = this.page.pagenum;
         console.log("bookId: " + this.book + " pageId: " + this.pageId + " role: " + this.role + " user: " + global.id);
@@ -27,10 +28,11 @@ export default class Draw extends Component {
         image: null,
         role: "",
         prevText: "",
-        text: "",
+        text: "This is where text will go...",
         line: 1,
         textBoxShow: false,
-        touch: true
+        touch: true,
+        initial: true
     };
 
     /**
@@ -188,6 +190,12 @@ export default class Draw extends Component {
      * Toggles whether to show/noShow the text box
      */
     toggleTextBox() {
+        if (this.state.initial) {
+            this.setState({
+                initial: false,
+                text: ""
+            })
+        }
         this.setState({textBoxShow: !this.state.textBoxShow})
     }
 
@@ -314,6 +322,7 @@ export default class Draw extends Component {
                         <TouchableOpacity
                             style={canvas.button}
                             onPress={() => {
+                                this.setState({text: ""});
                                 this.myRef.current.getBase64('png', true, false, false, false, (err, result) => {
                                     this.setState({image: result});
                                     let cr = this.getCreatorIndex();
@@ -322,6 +331,7 @@ export default class Draw extends Component {
                                     }
                                 })
                                 setTimeout(() => this.saveCanvas(), 100);
+                                this.setState({text: "This is where text will go..."})
                             }}>
                             <Image
                                 source={require("../assets/images/save.jpeg")}
@@ -339,6 +349,18 @@ export default class Draw extends Component {
                             strokeColor={this.state.color}
                             strokeWidth={this.state.brushSize}
                             touchEnabled={this.state.touch}
+                            text={[{
+                                text: this.state.text,
+                                fontSize: 60,
+                                position: { x: 0.5, y: 0.01 },
+                                anchor: { x: 0.5, y: 0 },
+                                coordinate: 'Ratio',
+                                overlay: 'TextOnSketch',
+                                fontColor: 'black',
+                                font: 'fonts/typewriter-Bold.ttf',
+                                imageType: 'png',
+                                alignment: 'Center',
+                            }]}
                         />
                     </View>
                 </View>

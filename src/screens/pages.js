@@ -50,6 +50,10 @@ const Pages = (book) => {
         }
     }
 
+    /*function getCreatorIcon(num) {
+
+    }*/
+
     function changePageTheme(num) {
         setPageTheme(pages[num].theme)
     }
