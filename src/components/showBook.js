@@ -25,7 +25,7 @@ const ShowBooks = (input) => {
         console.log("showing final image")
         return(
             <Image source={{uri: 'data:image/png;base64,' + input.imageString}}
-                   resizeMode={'contain'}
+                   resizeMode={'stretch'}
                    style={{width: '100%',
                        height: '100%',
                        alignItems:"center",
