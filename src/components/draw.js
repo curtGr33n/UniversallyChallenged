@@ -13,8 +13,7 @@ export default class Draw extends Component {
         this.myRef = createRef();
         this.page = props.page;
         this.brushMaxVal = 90;
-        // this.role = this.getRole(props);
-        this.role = "writer";
+        this.role = this.getRole(props);
         this.book = props.bookId;
         this.pageId = this.page.pagenum;
         console.log("bookId: " + this.book + " pageId: " + this.pageId + " role: " + this.role + " user: " + global.id);
