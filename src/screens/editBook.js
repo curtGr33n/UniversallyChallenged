@@ -136,8 +136,14 @@ class EditBook extends Component {
                 await this.deleteBook(values);
                 await this.displayBook({classId: this.state.classId});
             } else {
-                if (values.check) {
-                    await this.addPage(values);
+                if(values.numPages !== '') {
+                    let numbers = /^[0-9]+$/;
+                    if (values.numPages.match(numbers)) {
+                        await this.addPages(values);
+                    } else {
+                        alert("Only enter numbers for adding pages")
+                        return;
+                    }
                 }
                 let pages = await this.getPages(values);
                 let pageSelection = await pages.map(i => (
@@ -194,16 +200,16 @@ class EditBook extends Component {
      * Adds a blank page to a book
      * @param values contains the bookId
      */
-    addPage = async (values) => {
+    addPages = async (values) => {
         try {
             let response = await fetch(
-                'https://deco3801-universally-challenged.uqcloud.net/createPage?id='
-                + values.bookId);
+                'https://deco3801-universally-challenged.uqcloud.net/addPages?bookId='
+                + values.bookId + '&number=' + values.numPages);
             if (!response.ok) {
                 alert("HTTP-Error: " + response.status);
             }
         } catch (error) {
-            this.setState({submitted: <Text>{error}</Text>});
+            alert(error);
         }
     };
 
@@ -533,7 +539,7 @@ class EditBook extends Component {
         return (
             /* Form Layout */
             <Formik
-                initialValues={{ check: false, bookId: -1, deleteBook: false}}
+                initialValues={{ numPages: '', bookId: -1, deleteBook: false}}
                 onSubmit={
                     values => this.displayPage(values)
                 }
@@ -549,16 +555,12 @@ class EditBook extends Component {
                                 {this.state.bookSelectorOptions}
                             </Picker>
                         </View>
-
-                        {/* Checkbox Selection */}
-                        <CheckBox
-                            checkedIcon='check-box'
-                            iconType='material'
-                            uncheckedIcon='check-box-outline-blank'
-                            title='Add a page'
-                            checkedTitle='You are adding a page'
-                            checked={props.values.check}
-                            onPress={() => props.setFieldValue('check', !props.values.check)}
+                        {/* Page add Text Input */}
+                        <TextInput
+                            style={forms.bookInput}
+                            keyboardType = 'numeric'
+                            onChangeText={props.handleChange('numPages')}
+                            value={props.values.numPages}
                         />
                         <View style={{flexDirection: 'row', justifyContent : 'center', alignItems:'center'}}>
                             <TouchableOpacity
