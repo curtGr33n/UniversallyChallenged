@@ -16,7 +16,7 @@ export default class Draw extends Component {
         this.role = this.getRole(props);
         this.book = props.bookId;
         this.pageId = this.page.pagenum;
-        console.log("bookId: " + this.book + " pageId: " + this.pageId + " role: " + this.role + " user: " + global.id);
+        // console.log("bookId: " + this.book + " pageId: " + this.pageId + " role: " + this.role + " user: " + global.id);
     }
 
     state = {
@@ -53,7 +53,7 @@ export default class Draw extends Component {
      */
     saveCanvas = async () => {
         if (this.state.image != null) {
-            console.log("saving image")
+            // console.log("saving image")
             try {
                 const url = 'https://deco3801-universally-challenged.uqcloud.net/addImageToCreator';
                 let response = await fetch(url, {
@@ -71,15 +71,15 @@ export default class Draw extends Component {
                 });
                 if (response.ok) {
                     Alert.alert("Saved")
-                    console.log("image sent to server successfully");
+                    // console.log("image sent to server successfully");
                 } else {
                     Alert.alert("Something not ok");
-                    console.log("Not successful");
+                    // console.log("Not successful");
                 }
             } catch (error) {
                 Alert.alert("Not saved")
                 console.error(error);
-                console.log("caught error");
+                // console.log("caught error");
             }
         }
     };
