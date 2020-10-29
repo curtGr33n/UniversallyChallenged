@@ -449,6 +449,16 @@ const forms = StyleSheet.create({
         color: 'black',
         fontFamily: 'typewriter-Bold',
         justifyContent: 'center'
+    }, buttonPopUp: {
+        height: 100,
+        width: 200,
+        margin: 10,
+        backgroundColor: '#fdda64',
+        borderRadius: 30,
+        padding: 15,
+        color: 'black',
+        fontFamily: 'typewriter-Bold',
+        elevation: 2
     },
 })
 
@@ -650,7 +660,9 @@ const modalStyle = StyleSheet.create({
         marginTop: 22
     },
     modalView: {
-        margin: 20,
+        margin: 10,
+        width: '80%',
+        height: '80%',
         backgroundColor: "white",
         borderRadius: 20,
         padding: 35,
