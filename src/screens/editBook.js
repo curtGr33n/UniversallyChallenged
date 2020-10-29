@@ -556,13 +556,16 @@ class EditBook extends Component {
                             </Picker>
                         </View>
                         {/* Page add Text Input */}
-                        <TextInput
-                            style={forms.numberInput}
-                            keyboardType = 'numeric'
-                            placeholder = {"# Pages"}
-                            onChangeText={props.handleChange('numPages')}
-                            value={props.values.numPages}
-                        />
+                        <View style={{flexDirection: 'row', justifyContent : 'center', alignItems:'center'}}>
+                            <Text style={login.buttonText}>Add Pages</Text>
+                            <TextInput
+                                style={forms.numberInput}
+                                keyboardType = 'numeric'
+                                placeholder = {"# Pages"}
+                                onChangeText={props.handleChange('numPages')}
+                                value={props.values.numPages}
+                            />
+                        </View>
                         <View style={{flexDirection: 'row', justifyContent : 'center', alignItems:'center'}}>
                             <TouchableOpacity
                                 style={forms.buttonPrimary}
