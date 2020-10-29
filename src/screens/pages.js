@@ -27,7 +27,7 @@ const Pages = (book) => {
     /* Check to see if creator has finished their contribution for that page */
     function checkCreatorFinal(num) {
         setImageString("")
-        console.log(pages[num])
+        // console.log(pages[num])
         pages[num].creators.map((item) => {
             if (item.studentId == global.id) {
                 if (!(item.canvas === "")) {
@@ -41,7 +41,7 @@ const Pages = (book) => {
       if image string is non existent
      */
     function setFinalImageString(num) {
-        console.log("page active = " + pages[num].active)
+        // console.log("page active = " + pages[num].active)
         if (!(pages[num].active)) {
             if (pages[num].finalImage === "") {
                 setImageString(returnBuzz64String())
@@ -114,19 +114,15 @@ const Pages = (book) => {
 
     function isUserACreator() {
         let creators = page.creators;
-        console.log("checking if " + global.id + " is a creator");
+        // console.log("checking if " + global.id + " is a creator");
         for (let cr = 0; cr < creators.length; cr++) {
             if (global.id === creators[cr].studentId) {
-                console.log("true");
+                // console.log("true");
                 return true;
             }
         }
-        console.log("false");
+        // console.log("false");
         return false;
-    }
-
-    function saveImage() {
-        console.log("parent to child");
     }
 
     return (
