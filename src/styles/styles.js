@@ -382,6 +382,18 @@ const forms = StyleSheet.create({
         color: 'black',
         justifyContent: 'center'
     },
+    numberInput: {
+        width: 150,
+        height: 60,
+        margin: 10,
+        backgroundColor: 'white',
+        borderRadius: 30,
+        padding: 20,
+        fontSize: 20,
+        color: 'black',
+        justifyContent: 'center',
+        textAlign: 'center'
+    },
     buttonPrimary: {
         height: 60,
         width: 200,
