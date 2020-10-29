@@ -242,44 +242,38 @@ export default class Draw extends Component {
                             />
                         </TouchableOpacity>
                     </View>
-                    <ViewShot
-                        ref={this.myRef}
-                        style={{flex: 1, flexDirection: "column"}}>
-                        {this.state.textBoxShow ? (
-                            <View style={{flexDirection: "row", height: 80, width: 200, position: "absolute", top: 50,
-                                left: 50}}>
-                                <TextInput
+                    <View style={{flex: 1, backgroundColor: "white", alignContent: "center", alignSelf: "flex-start"}}>
+                        <ViewShot
+                            ref={this.myRef}
+                            style={{height: 80, flexDirection: "column", alignContent: "flex-start"}}>
+                            <View style={{flex: 1, alignItems: "center"}}>
+                                <Text
                                     style={canvas.text}
-                                    placeholder={"Type your story here"}
-                                    onChangeText={(story) => this.setState({text: story})}
-                                    defaultValue={""}
-                                    editable={true}
-                                    onSubmitEditing={() => this.toggleTextBox()}
-                                    autoFocus={true}
-                                    autoCapitalize={"sentences"}
-                                    multiline={true}
-                                    value={this.state.text}
-                                >
-                                </TextInput>
+                                    adjustsFontSizeToFit={true}
+
+                                >{this.state.text}</Text>
                             </View>
+                        </ViewShot>
+                        <View style={{flexGrow: 8, backgroundColor: "transparent"}}/>
+                    </View>
+
+                    {this.state.textBoxShow ? (
+                        <View style={{flexDirection: "row", height: 80, width: 200, position: "absolute", elevation: -2}}>
+                            <TextInput
+                                style={canvas.text}
+                                placeholder={"Type your story here"}
+                                onChangeText={(story) => this.setState({text: story})}
+                                defaultValue={""}
+                                editable={true}
+                                onSubmitEditing={() => this.toggleTextBox()}
+                                autoFocus={true}
+                                autoCapitalize={"sentences"}
+                                multiline={true}
+                                value={this.state.text}
+                            >
+                            </TextInput>
+                        </View>
                         ) : null}
-                        <SketchCanvas
-                            touchEnabled={false}
-                            style={{flex: 1, backgroundColor: 'white', margin: 20}}
-                            text={[{
-                                text: this.state.text,
-                                fontSize: 60,
-                                position: { x: 0.5, y: 0.01 },
-                                anchor: { x: 0.5, y: 0 },
-                                coordinate: 'Ratio',
-                                overlay: 'TextOnSketch',
-                                fontColor: 'black',
-                                font: 'fonts/typewriter-Bold.ttf',
-                                imageType: 'png',
-                                alignment: 'Center',
-                            }]}
-                        />
-                    </ViewShot>
                 </View>
             )
         } else if (this.role === "illustrator" || this.role === "background") {
@@ -362,7 +356,7 @@ export default class Draw extends Component {
                                 fontColor: 'black',
                                 font: 'fonts/typewriter-Bold.ttf',
                                 imageType: 'png',
-                                alignment: 'Center',
+                                alignment: 'Center'
                             }]}
                         />
                     </View>
