@@ -1,6 +1,7 @@
 import React, {Component, useState} from 'react';
-import {View, Text, TouchableOpacity, Image, Modal, ScrollView} from 'react-native';
-import {buttons, styles, page, forms, modalStyle, login} from '../styles/styles';
+import {View, Text, TouchableOpacity, Image, Modal} from 'react-native';
+import {buttons, styles, page, modalStyle, login, forms} from '../styles/styles';
+import WebView from "react-native-webview";
 
 class Main extends Component {
 
@@ -32,9 +33,14 @@ class Main extends Component {
                         <View style={modalStyle.modalView}>
 
                             {/* Video goes here */}
+                            <WebView
+                                style={{width: 700, height: 500, flex: 1}}
+                                javaScriptEnabled={true}
+                                source={{uri: 'https://www.youtube.com/watch?v=dBX-tfF3e2Y&feature=youtu.be'}}
+                            />
 
                             <TouchableOpacity
-                                style={login.buttonPrimary}
+                                style={forms.buttonPopUp}
                                 onPress={() => {
                                     this.setModalVisible(!modalVisible);
                                 }}
