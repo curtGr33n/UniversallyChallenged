@@ -143,6 +143,7 @@ export default class Draw extends Component {
         let creators = this.page.creators;
         for (let cr = 0; cr < creators.length; cr++) {
             if (creators[cr].studentId === global.id) {
+                console.log("Creator index = " + cr)
                 return cr;
             }
         }
