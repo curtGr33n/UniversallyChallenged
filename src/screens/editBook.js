@@ -557,8 +557,9 @@ class EditBook extends Component {
                         </View>
                         {/* Page add Text Input */}
                         <TextInput
-                            style={forms.bookInput}
+                            style={forms.numberInput}
                             keyboardType = 'numeric'
+                            placeholder = {"# Pages"}
                             onChangeText={props.handleChange('numPages')}
                             value={props.values.numPages}
                         />
