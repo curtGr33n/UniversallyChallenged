@@ -8,10 +8,10 @@ import { Image } from 'react-native';
  * @constructor
  */
 const ShowBooks = (input) => {
-    console.log("The pageNum for this page = " + input.pageNum)
-    console.log("input.imageString: " + input.imageString);
+    // console.log("The pageNum for this page = " + input.pageNum)
+    // console.log("input.imageString: " + input.imageString);
     if (input.imageString === "") {
-        console.log("showing in construction");
+        // console.log("showing in construction");
         return (
             <Image source={require("../assets/images/construction.png")}
                    resizeMode={'contain'}
@@ -22,7 +22,7 @@ const ShowBooks = (input) => {
                    }/>
         );
     } else {
-        console.log("showing final image")
+        // console.log("showing final image")
         return(
             <Image source={{uri: 'data:image/png;base64,' + input.imageString}}
                    resizeMode={'stretch'}
