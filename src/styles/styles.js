@@ -551,6 +551,7 @@ const canvas= StyleSheet.create({
         backgroundColor: "white",
         borderRadius: 25,
         elevation: 2,
+        marginVertical: 10
     },
     sideBarOverlay: {
         position: "absolute",

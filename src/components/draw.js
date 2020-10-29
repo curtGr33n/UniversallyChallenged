@@ -1,5 +1,5 @@
 import React, {Component, createRef, useEffect} from 'react';
-import {View, TouchableOpacity, Image, AppRegistry, TextInput, Text, Alert} from 'react-native';
+import {View, TouchableOpacity, Image, AppRegistry, TextInput, Text, Alert, ScrollView} from 'react-native';
 
 import {SketchCanvas} from '@terrylinla/react-native-sketch-canvas';
 
@@ -106,14 +106,18 @@ export default class Draw extends Component {
      The primary color palette
      */
     primaryColors () {
-        const colors1 = ["gold", "sandybrown", "crimson", "lightgreen", "olivedrab", "steelblue", "saddlebrown", "black"];
+        const colors1 = ["gold", "sandybrown", "crimson", "lightpink", "mediumpurple", "lightgreen", "olivedrab",
+            "paleturquoise", "steelblue", "tan", "saddlebrown", "bisque", "black"];
         const colorRow1 = colors1.map(color =>
             <TouchableOpacity style={[canvas.colorButton, {backgroundColor: color}]}
                               onPress={() => this.chooseColor(color)}/>)
         return(
             <View style={[canvas.sideBarOverlay, {height: 515}]}>
-                <>{colorRow1}</>
+                <ScrollView style={{flex: 1}}>
+                    <>{colorRow1}</>
+                </ScrollView>
             </View>
+
         )
     }
 
