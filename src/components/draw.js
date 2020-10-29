@@ -10,8 +10,10 @@ import ViewShot, {captureRef} from "react-native-view-shot";
 export default class Draw extends Component {
     constructor(props) {
         super(props);
-        this.myRef = createRef();
-        this.page = props.page;
+        global.id = 1;
+        this.myRef = createRef();       // reference used to capture the component to be sent to be saved
+        this.textRef = createRef();     // reference used to save image of text canvas as it would appear in the
+        this.page = props.page;         // final merged image
         this.brushMaxVal = 90;
         this.role = this.getRole(props);
         this.book = props.bookId;
@@ -103,9 +105,9 @@ export default class Draw extends Component {
     }
 
     /**
-     The primary color palette
+     The displayed color palette
      */
-    primaryColors () {
+    colorPalette () {
         const colors1 = ["gold", "sandybrown", "crimson", "lightpink", "mediumpurple", "lightgreen", "olivedrab",
             "paleturquoise", "steelblue", "tan", "saddlebrown", "bisque", "black"];
         const colorRow1 = colors1.map(color =>
@@ -139,6 +141,10 @@ export default class Draw extends Component {
         });
     }
 
+    /**
+     * Gets the index of the creator in the array of creators
+     * @returns The index where the role of the user is located
+     */
     getCreatorIndex() {
         let creators = this.page.creators;
         for (let cr = 0; cr < creators.length; cr++) {
@@ -232,7 +238,20 @@ export default class Draw extends Component {
                             onPress={() => captureRef(this.myRef, {
                                 result: "base64"
                             }).then(uri => this.setState({image: uri})).then(
-                                () => setTimeout(() => this.saveCanvas(), 100)
+                                () => {
+                                    // send canvas to database (this like a crop of the canvas)
+                                    setTimeout(() => this.saveCanvas(), 100);
+                                    // then save what the canvas would look like to creator.canvas locally to be
+                                    // displayed
+                                    captureRef(this.textRef, {
+                                        result: "base64"
+                                    }).then(result => {
+                                        let cr = this.getCreatorIndex();
+                                        if (cr > 0) {
+                                            this.page.creators[cr].canvas = result;
+                                        }
+                                    })
+                                }
                             )}
                         >
                             <Image
@@ -242,7 +261,10 @@ export default class Draw extends Component {
                             />
                         </TouchableOpacity>
                     </View>
-                    <View style={{flex: 1, backgroundColor: "white", alignContent: "center", alignSelf: "flex-start"}}>
+                    {/*TextBox component*/}
+                    <ViewShot
+                        ref={this.textRef}
+                        style={{flex: 1, backgroundColor: "white", alignContent: "center", alignSelf: "flex-start"}}>
                         <ViewShot
                             ref={this.myRef}
                             style={{height: 80, flexDirection: "column", alignContent: "flex-start"}}>
@@ -255,8 +277,8 @@ export default class Draw extends Component {
                             </View>
                         </ViewShot>
                         <View style={{flexGrow: 8, backgroundColor: "transparent"}}/>
-                    </View>
-
+                    </ViewShot>
+                    {/*Hidden TextBox Component*/}
                     {this.state.textBoxShow ? (
                         <View style={{flexDirection: "row", height: 80, width: 200, position: "absolute", elevation: -2}}>
                             <TextInput
@@ -323,6 +345,7 @@ export default class Draw extends Component {
                                 this.myRef.current.getBase64('png', true, false, false, false, (err, result) => {
                                     this.setState({image: result});
                                     let cr = this.getCreatorIndex();
+                                    console.log("cr is" + cr);
                                     if (cr > 0) {
                                         this.page.creators[cr].canvas = result;
                                     }
@@ -337,7 +360,7 @@ export default class Draw extends Component {
                             />
                         </TouchableOpacity>
                     </View>
-                    {this.state.colorShow ? (this.primaryColors()) : null}
+                    {this.state.colorShow ? (this.colorPalette()) : null}
                     {this.state.brushSizeShow ? (this.brushAdjuster()) : null}
                     <View style={{flex: 1, flexDirection: 'column'}}>
                         <SketchCanvas

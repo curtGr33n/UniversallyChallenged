@@ -112,6 +112,9 @@ const Pages = (book) => {
         }
     }
 
+    /**
+     * Returns true if the user logged in is registered as a creator for this page
+     */
     function isUserACreator() {
         let creators = page.creators;
         // console.log("checking if " + global.id + " is a creator");
