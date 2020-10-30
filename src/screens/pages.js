@@ -171,7 +171,7 @@ const Pages = (book) => {
                   />
                 </View>
                 :
-                <View style={[canvas.layout, {backgroundColor: "red"}]}>
+                <View style={canvas.layout}>
                     {(imageString === "" && isUserACreator())
                         ?
                         <Draw

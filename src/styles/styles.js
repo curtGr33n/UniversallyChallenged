@@ -611,21 +611,6 @@ const canvas= StyleSheet.create({
         justifyContent: "space-around",
         padding: 15
     },
-    red: {
-        backgroundColor: '#8f0000'
-    },
-    yellow: {
-        backgroundColor: '#ffc30a'
-    },
-    green: {
-        backgroundColor: '#0eb891'
-    },
-    brown: {
-        backgroundColor: '#4a35ff'
-    },
-    black: {
-        backgroundColor: '#051032'
-    },
     text: {
         textAlign: 'center',
         fontSize: 50,

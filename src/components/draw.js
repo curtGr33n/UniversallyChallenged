@@ -10,7 +10,6 @@ import ViewShot, {captureRef} from "react-native-view-shot";
 export default class Draw extends Component {
     constructor(props) {
         super(props);
-        global.id = 6;
         this.myRef = createRef();       // reference used to capture the component to be sent to be saved
         this.textRef = createRef();     // reference used to save image of text canvas as it would appear in the
         this.page = props.page;         // final merged image
