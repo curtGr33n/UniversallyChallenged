@@ -22,16 +22,31 @@ const ShowBooks = (input) => {
                    }/>
         );
     } else {
-        // console.log("showing final image")
-        return(
-            <Image source={{uri: 'data:image/png;base64,' + input.imageString}}
-                   resizeMode={'stretch'}
-                   style={{width: '100%',
-                       height: '100%',
-                       alignItems:"center",
-                       justifyContent:"center"}
-                   }/>
-        );
+        if (input.role === "writer") {
+            console.log("in here");
+            // position text at top, otherwise the cropped image from the database looks stretched
+            return (
+                <Image source={{uri: 'data:image/png;base64,' + input.imageString}}
+                       resizeMode={'contain'}
+                       style={{width: '100%',
+                           height: '100%',
+                           alignItems:"center",
+                           justifyContent:"flex-start",
+                           borderColor: "black"
+                       }
+                       }/>
+            )
+        } else {
+            return (
+                <Image source={{uri: 'data:image/png;base64,' + input.imageString}}
+                       resizeMode={'contain'}
+                       style={{width: '100%',
+                           height: '100%',
+                           alignItems:"center",
+                           justifyContent:"center"}
+                       }/>
+           )
+        }
     }
 }
 

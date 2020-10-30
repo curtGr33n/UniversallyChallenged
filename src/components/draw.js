@@ -10,7 +10,7 @@ import ViewShot, {captureRef} from "react-native-view-shot";
 export default class Draw extends Component {
     constructor(props) {
         super(props);
-        global.id = 1;
+        global.id = 6;
         this.myRef = createRef();       // reference used to capture the component to be sent to be saved
         this.textRef = createRef();     // reference used to save image of text canvas as it would appear in the
         this.page = props.page;         // final merged image
@@ -18,7 +18,7 @@ export default class Draw extends Component {
         this.role = this.getRole(props);
         this.book = props.bookId;
         this.pageId = this.page.pagenum;
-        // console.log("bookId: " + this.book + " pageId: " + this.pageId + " role: " + this.role + " user: " + global.id);
+        console.log("bookId: " + this.book + " pageId: " + this.pageId + " role: " + this.role + " user: " + global.id);
     }
 
     state = {
@@ -345,9 +345,10 @@ export default class Draw extends Component {
                                 this.myRef.current.getBase64('png', true, false, false, false, (err, result) => {
                                     this.setState({image: result});
                                     let cr = this.getCreatorIndex();
-                                    console.log("cr is" + cr);
-                                    if (cr > 0) {
+                                    console.log("cr is " + cr);
+                                    if (cr >= 0) {
                                         this.page.creators[cr].canvas = result;
+
                                     }
                                 })
                                 setTimeout(() => this.saveCanvas(), 100);

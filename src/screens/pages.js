@@ -52,10 +52,10 @@ const Pages = (book) => {
     }
 
     function getCreatorIcon(num) {
-        let userRole = ""
+        let userRole = "";
         pages[num].creators.map((item) => {
             if (item.studentId == global.id) {
-                userRole = item.role
+                userRole = item.role;
             }
         })
         if (userRole === "background") {
@@ -128,6 +128,15 @@ const Pages = (book) => {
         return false;
     }
 
+    function getRole() {
+        let creators = page.creators;
+        for (let cr = 0; cr < creators.length; cr++) {
+            if (global.id === creators[cr].studentId) {
+                return creators[cr].role;
+            }
+        }
+    }
+
     return (
         <KeyboardAvoidingView behavior={'height'} style={{flex: 1}}>
             {/* Page Title */}
@@ -162,7 +171,7 @@ const Pages = (book) => {
                   />
                 </View>
                 :
-                <View style={canvas.layout}>
+                <View style={[canvas.layout, {backgroundColor: "red"}]}>
                     {(imageString === "" && isUserACreator())
                         ?
                         <Draw
@@ -175,6 +184,7 @@ const Pages = (book) => {
                         : <ShowBooks
                             pageNum={pageNumber}
                             imageString={imageString}
+                            role={getRole()}
                             key={key}/>
                     }
                 </View>
