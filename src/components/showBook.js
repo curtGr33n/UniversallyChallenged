@@ -23,7 +23,6 @@ const ShowBooks = (input) => {
                    }/>
         );
     } else if (input.role === "writer") {
-        console.log("render in here");
         // position text at top, otherwise the cropped image from the database looks stretched
         return (
             <View
