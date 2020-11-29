@@ -1,0 +1,622 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="0c34a71f-c0a3-477b-bf43-46e032c8380b" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/LearningHive/.buckconfig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LearningHive/.eslintrc.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LearningHive/.flowconfig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LearningHive/.gitattributes" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LearningHive/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LearningHive/.prettierrc.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LearningHive/.watchmanconfig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LearningHive/App.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LearningHive/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LearningHive/__tests__/App-test.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LearningHive/android/app/_BUCK" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LearningHive/android/app/build.gradle" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LearningHive/android/app/build_defs.bzl" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LearningHive/android/app/debug.keystore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LearningHive/android/app/proguard-rules.pro" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LearningHive/android/app/src/debug/AndroidManifest.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LearningHive/android/app/src/debug/java/com/learninghive/ReactNativeFlipper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LearningHive/android/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LearningHive/android/app/src/main/java/com/learninghive/MainActivity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LearningHive/android/app/src/main/java/com/learninghive/MainApplication.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LearningHive/android/app/src/main/res/mipmap-hdpi/ic_launcher.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LearningHive/android/app/src/main/res/mipmap-hdpi/ic_launcher_round.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LearningHive/android/app/src/main/res/mipmap-mdpi/ic_launcher.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LearningHive/android/app/src/main/res/mipmap-mdpi/ic_launcher_round.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LearningHive/android/app/src/main/res/mipmap-xhdpi/ic_launcher.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LearningHive/android/app/src/main/res/mipmap-xhdpi/ic_launcher_round.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LearningHive/android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LearningHive/android/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LearningHive/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LearningHive/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LearningHive/android/app/src/main/res/values/strings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LearningHive/android/app/src/main/res/values/styles.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LearningHive/android/build.gradle" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LearningHive/android/gradle.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LearningHive/android/gradle/wrapper/gradle-wrapper.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LearningHive/android/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LearningHive/android/gradlew" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LearningHive/android/gradlew.bat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LearningHive/android/settings.gradle" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LearningHive/app.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LearningHive/babel.config.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LearningHive/backend/app.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LearningHive/backend/info.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LearningHive/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LearningHive/ios/Podfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LearningHive/ios/learningHive-tvOS/Info.plist" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LearningHive/ios/learningHive-tvOSTests/Info.plist" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LearningHive/ios/learningHive.xcodeproj/project.pbxproj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LearningHive/ios/learningHive.xcodeproj/xcshareddata/xcschemes/learningHive-tvOS.xcscheme" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LearningHive/ios/learningHive.xcodeproj/xcshareddata/xcschemes/learningHive.xcscheme" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LearningHive/ios/learningHive/AppDelegate.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LearningHive/ios/learningHive/AppDelegate.m" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LearningHive/ios/learningHive/Images.xcassets/AppIcon.appiconset/Contents.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LearningHive/ios/learningHive/Images.xcassets/Contents.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LearningHive/ios/learningHive/Info.plist" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LearningHive/ios/learningHive/LaunchScreen.storyboard" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LearningHive/ios/learningHive/main.m" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LearningHive/ios/learningHiveTests/Info.plist" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LearningHive/ios/learningHiveTests/learningHiveTests.m" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LearningHive/metro.config.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LearningHive/package-lock.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LearningHive/package.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LearningHive/react-native.config.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LearningHive/src/assets/buzz64.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LearningHive/src/assets/current-book-covers/books-1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LearningHive/src/assets/current-book-covers/books-2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LearningHive/src/assets/current-book-covers/books-3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LearningHive/src/assets/current-book-covers/books-4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LearningHive/src/assets/current-book-covers/books-5.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LearningHive/src/assets/current-book-covers/books-6.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LearningHive/src/assets/fonts/Typewriter2-Bold.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LearningHive/src/assets/fonts/Typewriter2.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LearningHive/src/assets/fonts/typewriter-Bold.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LearningHive/src/assets/fonts/typewriter.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LearningHive/src/assets/images/achievements.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LearningHive/src/assets/images/add_yellow.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LearningHive/src/assets/images/buzz.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LearningHive/src/assets/images/buzz_words.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LearningHive/src/assets/images/construction.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LearningHive/src/assets/images/cover.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LearningHive/src/assets/images/edit_yellow.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LearningHive/src/assets/images/home.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LearningHive/src/assets/images/library.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LearningHive/src/assets/images/logo.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LearningHive/src/assets/images/logout_grey.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LearningHive/src/assets/images/pencil-Invert.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LearningHive/src/assets/images/pencil.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LearningHive/src/assets/images/redo.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LearningHive/src/assets/images/resizing.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LearningHive/src/assets/images/roles_background.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LearningHive/src/assets/images/roles_illustrator.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LearningHive/src/assets/images/roles_writer.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LearningHive/src/assets/images/rubber.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LearningHive/src/assets/images/save.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LearningHive/src/assets/images/settings.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LearningHive/src/assets/images/soundOff.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LearningHive/src/assets/images/soundOn.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LearningHive/src/assets/images/teacher_yellow.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LearningHive/src/assets/images/tempImage.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LearningHive/src/assets/images/text.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LearningHive/src/assets/images/tick.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LearningHive/src/assets/images/undo.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LearningHive/src/assets/images/video.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LearningHive/src/assets/sounds/page_turn.wav" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LearningHive/src/components/draw.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LearningHive/src/components/showBook.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LearningHive/src/screens/addBook.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LearningHive/src/screens/editBook.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LearningHive/src/screens/library.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LearningHive/src/screens/login.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LearningHive/src/screens/main.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LearningHive/src/screens/pages.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LearningHive/src/screens/register.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LearningHive/src/screens/settings.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LearningHive/src/screens/splashScreen.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LearningHive/src/screens/teacher.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LearningHive/src/styles/styles.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LearningHive/yarn.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.buckconfig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.expo/packager-info.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.expo/settings.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitattributes" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/App.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/__tests__/App.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/BUCK" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/build.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/build_defs.bzl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/debug.keystore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/proguard-rules.pro" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/debug/AndroidManifest.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/debug/java/com/universallychallenged/ReactNativeFlipper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/AndroidManifest.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/assets/fonts/AntDesign.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/assets/fonts/Entypo.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/assets/fonts/EvilIcons.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/assets/fonts/Feather.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/assets/fonts/FontAwesome.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/assets/fonts/FontAwesome5_Brands.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/assets/fonts/FontAwesome5_Regular.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/assets/fonts/FontAwesome5_Solid.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/assets/fonts/Fontisto.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/assets/fonts/Foundation.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/assets/fonts/Ionicons.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/assets/fonts/MaterialCommunityIcons.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/assets/fonts/MaterialIcons.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/assets/fonts/Octicons.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/assets/fonts/SimpleLineIcons.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/assets/fonts/Typewriter-LAYy.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/assets/fonts/Typewriter2-Bold.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/assets/fonts/Typewriter2.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/assets/fonts/TypewriterBold-PZ2P.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/assets/fonts/Zocial.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/assets/fonts/typewriter-Bold.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/assets/fonts/typewriter.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/assets/index.android.bundle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/java/com/universallychallenged/MainActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/java/com/universallychallenged/MainApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/java/com/universallychallenged/generated/BasePackageList.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/drawable/splashscreen.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/drawable/splashscreen_image.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/mipmap-hdpi/ic_launcher.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/mipmap-hdpi/ic_launcher_round.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/mipmap-mdpi/ic_launcher.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/mipmap-mdpi/ic_launcher_round.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/mipmap-xhdpi/ic_launcher.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/mipmap-xhdpi/ic_launcher_round.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/raw/happy.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/raw/page_turn.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/values/colors.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/values/strings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/values/styles.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/build.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/gradle.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/gradlew" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/gradlew.bat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/settings.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/babel.config.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/app.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/info.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Podfile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/UniversallyChallenged.xcodeproj/project.pbxproj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/UniversallyChallenged.xcodeproj/xcshareddata/xcschemes/UniversallyChallenged.xcscheme" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/UniversallyChallenged/AppDelegate.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/UniversallyChallenged/AppDelegate.m" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/UniversallyChallenged/Base.lproj/LaunchScreen.xib" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/UniversallyChallenged/Images.xcassets/AppIcon.appiconset/Contents.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/UniversallyChallenged/Images.xcassets/Contents.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/UniversallyChallenged/Images.xcassets/SplashScreen.imageset/Contents.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/UniversallyChallenged/Images.xcassets/SplashScreen.imageset/splashscreen.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/UniversallyChallenged/Images.xcassets/SplashScreenBackground.imageset/Contents.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/UniversallyChallenged/Images.xcassets/SplashScreenBackground.imageset/background.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/UniversallyChallenged/Info.plist" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/UniversallyChallenged/SplashScreen.storyboard" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/UniversallyChallenged/Supporting/Expo.plist" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/UniversallyChallenged/main.m" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/metro.config.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/react-native.config.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/buzz64.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/current-book-covers/books-1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/current-book-covers/books-2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/current-book-covers/books-3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/current-book-covers/books-4.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/current-book-covers/books-5.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/current-book-covers/books-6.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/fonts/Typewriter2-Bold.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/fonts/Typewriter2.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/fonts/typewriter-Bold.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/fonts/typewriter.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/images/achievements.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/images/add_yellow.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/images/buzz.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/images/buzz_words.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/images/construction.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/images/cover.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/images/edit_yellow.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/images/home.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/images/library.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/images/logo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/images/logout_grey.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/images/pencil-Invert.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/images/pencil.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/images/redo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/images/resizing.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/images/roles_background.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/images/roles_illustrator.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/images/roles_writer.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/images/rubber.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/images/save.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/images/settings.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/images/soundOff.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/images/soundOn.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/images/teacher_yellow.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/images/tempImage.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/images/text.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/images/tick.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/images/undo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/images/video.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/sounds/page_turn.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/draw.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/showBook.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/screens/addBook.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/screens/editBook.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/screens/library.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/screens/login.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/screens/main.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/screens/pages.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/screens/register.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/screens/settings.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/screens/splashScreen.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/screens/teacher.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/styles/styles.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DefaultGradleProjectSettings">
+    <option name="testRunner" value="GRADLE" />
+    <option name="delegatedBuild" value="true" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectId" id="1hd06meRFZdWTa46t0qAJcfEqkc" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="AnalyzeApkAction.lastApkPath" value="$PROJECT_DIR$/android" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/LearningHive" />
+    <property name="nodejs_package_manager_path" value="yarn" />
+    <property name="project.structure.last.edited" value="Problems" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
+    <property name="settings.editor.selected.configurable" value="preferences.externalDependencies" />
+    <property name="show.migrate.to.gradle.popup" value="false" />
+    <property name="ts.external.directory.path" value="C:\Program Files\JetBrains\WebStorm 2020.2\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
+    <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Jeremy\Documents\GitHub\UniversallyChallenged\src\assets" />
+      <recent name="C:\Users\Jeremy\Documents\GitHub\UniversallyChallenged\src\components" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="AndroidRunConfigurationType" factoryName="Android App" editBeforeRun="true">
+      <option name="DEPLOY" value="true" />
+      <option name="DEPLOY_APK_FROM_BUNDLE" value="false" />
+      <option name="DEPLOY_AS_INSTANT" value="false" />
+      <option name="ARTIFACT_NAME" value="" />
+      <option name="PM_INSTALL_OPTIONS" value="" />
+      <option name="DYNAMIC_FEATURES_DISABLED_LIST" value="" />
+      <option name="ACTIVITY_EXTRA_FLAGS" value="" />
+      <option name="MODE" value="default_activity" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="false" />
+      <option name="SKIP_NOOP_APK_INSTALLATIONS" value="true" />
+      <option name="FORCE_STOP_RUNNING_APP" value="true" />
+      <option name="TARGET_SELECTION_MODE" value="SHOW_DIALOG" />
+      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
+      <option name="PREFERRED_AVD" value="" />
+      <option name="SELECTED_CLOUD_MATRIX_CONFIGURATION_ID" value="-1" />
+      <option name="SELECTED_CLOUD_MATRIX_PROJECT_ID" value="" />
+      <option name="DEBUGGER_TYPE" value="Auto" />
+      <Auto>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Auto>
+      <Hybrid>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Hybrid>
+      <Java />
+      <Native>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Native>
+      <Profilers>
+        <option name="ADVANCED_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_CONFIGURATION_NAME" value="Sample Java Methods" />
+      </Profilers>
+      <option name="DEEP_LINK" value="" />
+      <option name="ACTIVITY_CLASS" value="" />
+      <method v="2">
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Unnamed" type="AndroidJUnit" factoryName="Android JUnit" nameIsGenerated="true">
+      <module name="UniversallyChallenged" />
+      <option name="MAIN_CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="PARAMETERS" value="" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="0c34a71f-c0a3-477b-bf43-46e032c8380b" name="Default Changelist" comment="" />
+      <created>1600325489595</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1600325489595</updated>
+      <workItem from="1600325491285" duration="1375000" />
+      <workItem from="1600553280391" duration="60000" />
+      <workItem from="1600553368640" duration="436000" />
+      <workItem from="1600558002930" duration="603000" />
+      <workItem from="1600565440237" duration="4779000" />
+      <workItem from="1600775946056" duration="525000" />
+      <workItem from="1600812987280" duration="3530000" />
+      <workItem from="1600850723904" duration="921000" />
+      <workItem from="1600904019559" duration="5145000" />
+      <workItem from="1601346297964" duration="19825000" />
+      <workItem from="1601506563542" duration="26488000" />
+      <workItem from="1601687268246" duration="1354000" />
+      <workItem from="1601871300130" duration="1175000" />
+      <workItem from="1602022081880" duration="118000" />
+      <workItem from="1602022253060" duration="7776000" />
+      <workItem from="1602045709719" duration="630000" />
+      <workItem from="1602114958404" duration="17132000" />
+      <workItem from="1602376088229" duration="20600000" />
+      <workItem from="1602456316333" duration="1091000" />
+      <workItem from="1602627088857" duration="4969000" />
+      <workItem from="1602633445777" duration="2274000" />
+      <workItem from="1602722542947" duration="3706000" />
+      <workItem from="1603149627681" duration="2116000" />
+      <workItem from="1603152874976" duration="16385000" />
+      <workItem from="1603231486075" duration="6079000" />
+      <workItem from="1603238105545" duration="5939000" />
+      <workItem from="1603246738866" duration="1270000" />
+      <workItem from="1603324569708" duration="1145000" />
+      <workItem from="1603417394771" duration="766000" />
+      <workItem from="1603594729042" duration="37947000" />
+      <workItem from="1603757161470" duration="1182000" />
+      <workItem from="1603762269741" duration="5108000" />
+      <workItem from="1603778236758" duration="9376000" />
+      <workItem from="1603836307495" duration="9020000" />
+      <workItem from="1603849711189" duration="5436000" />
+      <workItem from="1603875787712" duration="316000" />
+      <workItem from="1603885919980" duration="676000" />
+      <workItem from="1603929404358" duration="3136000" />
+      <workItem from="1604015600461" duration="509000" />
+      <workItem from="1604036890398" duration="20000" />
+      <workItem from="1604037428962" duration="876000" />
+      <workItem from="1604708714487" duration="639000" />
+      <workItem from="1604710097131" duration="1108000" />
+      <workItem from="1604794521468" duration="609000" />
+      <workItem from="1604796003813" duration="1546000" />
+      <workItem from="1604798477951" duration="426000" />
+      <workItem from="1606616561610" duration="5741000" />
+      <workItem from="1606624859776" duration="47000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="Branch">
+          <value>
+            <list />
+          </value>
+        </entry>
+        <entry key="User">
+          <value>
+            <list />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="0" y="176" width="1086" height="712" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1603789170012">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="0" y="176" width="1086" height="712" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1603789170012" />
+    <state x="235" y="370" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1" timestamp="1602136559311">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="235" y="370" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1920.1040@0.0.1920.1040" timestamp="1602136559311" />
+    <state x="325" y="288" key="FileChooserDialogImpl" timestamp="1606624905158">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="325" y="288" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1606624905158" />
+    <state width="1886" height="280" key="GridCell.Tab.0.bottom" timestamp="1606623939365">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1886" height="280" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1606623939365" />
+    <state width="1886" height="280" key="GridCell.Tab.0.center" timestamp="1606623939364">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1886" height="280" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1606623939364" />
+    <state width="1886" height="280" key="GridCell.Tab.0.left" timestamp="1606623939364">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1886" height="280" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1606623939364" />
+    <state width="1886" height="280" key="GridCell.Tab.0.right" timestamp="1606623939364">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1886" height="280" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1606623939364" />
+    <state x="0" y="166" key="SettingsEditor" timestamp="1603789453493">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="0" y="166" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1603789453493" />
+    <state x="127" y="243" key="run.anything.popup" timestamp="1604796182779">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="127" y="243" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1604796182779" />
+    <state x="148" y="229" width="672" height="678" key="search.everywhere.popup" timestamp="1601438569233">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="148" y="229" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1601438569233" />
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ArtifactsStructureConfigurable.UI">
+        <settings>
+          <artifact-editor />
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="FacetStructureConfigurable.UI">
+        <settings>
+          <last-edited>No facets are configured</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="GlobalLibrariesConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="JdkListConfigurable.UI">
+        <settings>
+          <last-edited>JDK</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ModuleStructureConfigurable.UI">
+        <settings>
+          <last-edited>UniversallyChallenged</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+                <option value="0.6" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectLibrariesConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
+  </component>
+</project>
